@@ -1,0 +1,22 @@
+# أسرار ومفاتيح — ممنوع ترفع أبدًا
+.token_cache
+*.token
+*.key
+.env
+.env.*
+secrets/
+
+# مخرجات مؤقتة (الفيديوهات بتخزن في الخزّان/الإصدارات، مش في git)
+work/
+out/
+*.mp4
+*.m4a
+*.wav
+*.mp3
+*.png.tmp
+
+# كاش
+__pycache__/
+*.pyc
+.cache/
+.pytest_cache/
