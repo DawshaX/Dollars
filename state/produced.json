@@ -329,19 +329,49 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 207.4,
       "at": "2026-09-25T20:03:57.899100+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 21,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "sand_table",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_21/ambience_short_244483_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 256.4,
+      "at": "2026-09-25T22:54:35.613920+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 22,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "sand_table",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_22/satisfying_short_774688_15s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 34.1,
+      "at": "2026-09-25T22:55:09.761227+00:00"
     }
   ],
   "stats": {
-    "total": 22,
+    "total": 24,
     "published": 0,
-    "staged": 22,
+    "staged": 24,
     "by_pillar": {
       "focus": 5,
-      "satisfying": 12,
-      "sleep": 4,
+      "satisfying": 13,
+      "sleep": 5,
       "story": 1
     }
   },
   "created": null,
-  "updated": "2026-09-25T20:03:57.901015+00:00"
+  "updated": "2026-09-25T22:55:09.762632+00:00"
 }
