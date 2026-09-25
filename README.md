@@ -28,6 +28,10 @@ state/    الذاكرة (كل فيديو · كل مصدر ميديا · كل ن
 ## 🎬 الاستوديو بقى شغال — حركة حقيقية، مش صور
 كل مشهد بيتولّد **كود + فيزيا** (جزيئات · موج · لهب · كور بتتحرك) — مفيش صورة ثابتة بتتحرك.
 
+| وادي وبحيرة (3D) | غابة ثلجية (3D) | كوكب بحلقات (3D) |
+|---|---|---|
+| ![وادي](samples/gifs/valley_lake.gif) | ![ثلج](samples/gifs/snow_pines.gif) | ![كوكب](samples/gifs/planet_rings.gif) |
+
 | مطر على الزجاج | طاولة الرمل | موجة النواسير |
 |---|---|---|
 | ![مطر](samples/gifs/rain_glass.gif) | ![رمل](samples/gifs/sand_table.gif) | ![نواسير](samples/gifs/pendulum_wave.gif) |
