@@ -411,6 +411,41 @@
       "pillar": "satisfying",
       "duration": "15s",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T10:36:40.303871+00:00",
+      "slot": {
+        "hour": 12,
+        "at": "2026-09-25T12:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=30s|hook=حركة كاميرا سريعة|hour=19|kind=short|pillar=satisfying|scene=stinger_glitch|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "30s",
+          "scene": "stinger_glitch",
+          "structure": "مقارنة سرعات",
+          "hook": "حركة كاميرا سريعة",
+          "thumb": "مشهد طبيعي + رقم مدة",
+          "hour": 19,
+          "character": "lazo_auto",
+          "predicted": 1.758,
+          "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 257562,
+      "kind": "ambience_short",
+      "title": "Rain Sounds for Sleeping | 30 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "pillar": "sleep",
+      "duration": "30s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }
