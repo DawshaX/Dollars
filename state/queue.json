@@ -823,6 +823,41 @@
       "pillar": "satisfying",
       "duration": "15s",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T23:18:56.326450+00:00",
+      "slot": {
+        "hour": 23,
+        "at": "2026-09-25T23:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=4m|hook=همسة|hour=19|kind=short|pillar=story|scene=planet_rings|structure=لقى كنز ← خسره ← لقى أحسن|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "story",
+          "kind": "short",
+          "duration": "4m",
+          "scene": "planet_rings",
+          "structure": "لقى كنز ← خسره ← لقى أحسن",
+          "hook": "همسة",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 19,
+          "character": "riva_auto",
+          "predicted": 1.642,
+          "why": "لأن story و4m وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 491646,
+      "kind": "story_short",
+      "title": "Koko and the little star that fell — a wordless story #shorts",
+      "pillar": "story",
+      "duration": "4m",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }

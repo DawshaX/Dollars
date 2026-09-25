@@ -359,19 +359,34 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 34.1,
       "at": "2026-09-25T22:55:09.761227+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 23,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_23/koko_star_full.mp4",
+      "title": "Koko and the little star that fell — a wordless story #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 150.8,
+      "at": "2026-09-25T23:18:56.325870+00:00"
     }
   ],
   "stats": {
-    "total": 24,
+    "total": 25,
     "published": 0,
-    "staged": 24,
+    "staged": 25,
     "by_pillar": {
       "focus": 5,
       "satisfying": 13,
       "sleep": 5,
-      "story": 1
+      "story": 2
     }
   },
   "created": null,
-  "updated": "2026-09-25T22:55:09.762632+00:00"
+  "updated": "2026-09-25T23:18:56.327486+00:00"
 }
