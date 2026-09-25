@@ -141,8 +141,9 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         rec = ed.make("story_short", seconds=float(str(dur).replace("m", "") or 2) * 60)
         rec.update(pillar="story", duration=dur)
     elif pillar in ("focus", "sleep") or (slot.get("kind") == "short" and random.Random(seed).random() < 0.25):
-        rec = ed.make("ambience_short", seconds=float(str(dur).replace("s", "") or 45), **style_kw)
-        rec.update(pillar="focus", duration=dur)
+        rec = ed.make("ambience_short", seconds=float(str(dur).replace("s", "") or 45),
+                      meta_pillar=("focus" if pillar == "focus" else "sleep"), **style_kw)
+        rec.update(pillar=("focus" if pillar == "focus" else "sleep"), duration=dur)
     else:
         secs = float(str(dur).replace("s", "") or 30)
         rec = ed.make("satisfying_short", seconds=secs if 15 <= secs <= 60 else 30, **style_kw)

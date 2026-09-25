@@ -474,7 +474,10 @@ class Editor:
                      out_w=sp["ow"], out_h=sp["oh"], crf=21)
         ambient_name = kw.get("audio") if pillar == "ambience" else None
         if pillar == "ambience" and not ambient_name:
-            ambient_name = random.Random(seed).choice(["sleep_rain", "calm_night", "ocean", "fireplace"])
+            want = (kw.get("meta_pillar") or "sleep")
+            ambient_name = random.Random(seed).choice(
+                ["focus", "brown_sleep", "room_tone"] if want == "focus"
+                else ["sleep_rain", "calm_night", "ocean", "fireplace"])
         style = kw.get("music")
         if style is None:                                  # اختيار تلقائي حسب النوع
             style = (random.Random(seed + 11).choice(["warm_pad", "dream_pulse", "night_drone"])
@@ -491,7 +494,8 @@ class Editor:
         wav.unlink(missing_ok=True)
         # بيانات + غلاف
         scene0 = shots[0]["scene"]
-        spec = dict(pillar=pillar if pillar != "ambience" else "sleep", seconds=int(seconds),
+        spec = dict(pillar=kw.get("meta_pillar") or (pillar if pillar != "ambience" else "sleep"),
+                    seconds=int(seconds),
                     kind="short", scene=scene0, duration_bucket=f"{int(seconds)}s")
         md = meta.build(spec)
         md["shot_list"] = [{"scene": s["scene"], "dur": s["dur"], "move": s["move"],
