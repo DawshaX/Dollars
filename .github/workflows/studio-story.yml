@@ -23,7 +23,8 @@ jobs:
       - name: تشغيل الاختبارات أولًا (مفيش رندر على كود مكسور)
         run: python -m pytest tests/ -q
       - name: رندر القصة/القصص + بيانات يوتيوب
-        run: python - <<'PY'
+        run: |
+          python - <<'PY'
           import pathlib, sys
           sys.path.insert(0, ".")
           from engine import story
@@ -33,8 +34,8 @@ jobs:
               st = story.load(sid)
               problems = st.validate()
               if problems:
-                  raise SystemExit(f"❌ {sid}: " + " | ".join(problems))
-              p = st.render(pathlib.Path("samples/stories") / f"{sid}.mp4")
+                  raise SystemExit("❌ " + sid + ": " + " | ".join(problems))
+              p = st.render(pathlib.Path("samples/stories") / (sid + ".mp4"), verbose=True)
               print("✅", sid, p.stat().st_size // 1024, "كيلوبايت")
               print(st.write_package("samples/stories"))
           PY
