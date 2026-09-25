@@ -1,0 +1,46 @@
+name: 📤 نشر الطابور (بعد ربط القناة)
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "أقصى عدد (سيبه فاضي = الكل)"
+        required: false
+        default: ""
+permissions:
+  contents: write
+concurrency:
+  group: factory-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet numpy pillow imageio-ffmpeg
+      - name: إعادة إنتاج كل حاجة في الطابور بنفس الوصفة ونشرها
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "${{ github.event.inputs.limit }}" ]; then
+            python engine/factory.py --render-queue --limit ${{ github.event.inputs.limit }}
+          else
+            python engine/factory.py --render-queue
+          fi
+      - name: حفظ الذاكرة
+        run: |
+          git config user.name "Dollars Factory"
+          git config user.email "factory@dawshax.local"
+          git add state 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "📤 نشر الطابور"
+          git pull --rebase --autostash origin main || true
+          git push origin main || true

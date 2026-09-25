@@ -34,6 +34,8 @@ def _load(rel: str, default=None):
 def check_engine() -> list:
     rows = []
     from engine import ambient, sfx, visuals, grade, meta, agent  # noqa: F401
+    from engine import editor, factory, publish, story  # noqa: F401
+    rows.append((OK, "المصنع كامل: مونتاج · نشر · طابور · سجل", "editor · factory · publish"))
     rows.append((OK, "المحركات الخمسة موجودة", "visuals · render3d · ambient · sfx · grade · meta · agent"))
     n2d = len([k for k in visuals.SCENES if k not in ("valley_lake", "dunes_moon", "snow_pines", "planet_rings")])
     from engine import render3d
@@ -96,6 +98,24 @@ def check_brain() -> list:
              "بيتعلّم وبيضبط نفسه لوحده"),
             (OK, f"أفكار محفوظة: {len(_load('state/ideas.json', {}).get('ideas', []))}",
              "state/ideas.json")]
+
+
+def check_factory() -> list:
+    from engine import factory, publish
+    st = factory.status()
+    rows = [
+        (OK, f"خطة اليوم: {st['planned_slots']} دور · اتعمل: {st['done_total']} · في الطابور: {st['queue']}",
+         f"منهم منشور: {st['published_total']}"),
+        (OK if publish.available()["ok"] else WARN, f"النشر: {publish.available()['reason']}",
+         "المصنع بيكمّل ويحفظ في الطابور لو مفيش توكن"),
+    ]
+    brand = _load("assets/brand/index.json", {})
+    rows.append((OK if brand else WARN, f"هوية القناة: {brand.get('name', '—')}",
+                 "أفاتار · بانر · علامة مائية · شاشة نهاية" if brand else "شغّل tools/make_branding.py"))
+    srs = [s for s in ("hour", "daily", "publish-queue") if (ROOT / f".github/workflows/factory-{s}.yml").exists()]
+    rows.append((OK if len(srs) == 3 else WARN, f"سير المصنع: {', '.join(srs) or '—'}",
+                 "كل ساعة · يومي · نشر الطابور"))
+    return rows
 
 
 def check_numbers() -> list:

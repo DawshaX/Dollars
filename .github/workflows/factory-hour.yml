@@ -1,0 +1,56 @@
+name: 🏭 المصنع — كل ساعة
+on:
+  schedule:
+    - cron: '7 * * * *'          # شورت كل ساعة (بلا حد)
+  workflow_dispatch:
+    inputs:
+      count:
+        description: "كام فيديو؟"
+        required: false
+        default: "1"
+permissions:
+  contents: write
+concurrency:
+  group: factory-hour
+  cancel-in-progress: false
+jobs:
+  hour:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: الأدوات
+        run: python -m pip install --quiet numpy pillow imageio-ffmpeg
+      - name: إنتاج شورت (مونتاج كامل + غلاف + بيانات) ونشره لو القناة مربوطة
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python engine/factory.py --hourly --count ${{ github.event.inputs.count || 1 }}
+      - name: حفظ الفيديوهات كأرشيف (٣ أيام)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dollars-hour
+          path: |
+            work/**/*.mp4
+            work/**/*.jpg
+            work/**/*.json
+            work/**/*.txt
+          retention-days: 3
+          if-no-files-found: ignore
+      - name: حفظ ذاكرة المصنع (السجل + الطابور)
+        run: |
+          git config user.name "Dollars Factory"
+          git config user.email "factory@dawshax.local"
+          git add state 2>/dev/null || true
+          if git diff --cached --quiet; then echo "مفيش تغيير"; exit 0; fi
+          git commit -m "🏭 المصنع: شورت الساعة $(date -u +%H:00) — سجل وطابور"
+          git pull --rebase --autostash origin main
+          git push origin main

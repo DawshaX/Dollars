@@ -26,6 +26,7 @@ def build() -> dict:
     stick = _load(ROOT / "assets/stickers/index.json", {})
     memes = _load(ROOT / "assets/memes/index.json", {})
     chars = _load(ROOT / "content/characters.json", {"characters": []})
+    brand = _load(ROOT / "assets/brand/index.json", {})
     lib = {
         "note": "مكتبة Dollars — كل عنصر هنا ملكنا (متولّد بالكود) ⇒ صفر حقوق، صفر سرقة.",
         "license": "owned-generated",
@@ -55,6 +56,22 @@ def build() -> dict:
                         "origin": c.get("origin", "hand")} for c in chars.get("characters", [])],
         "stories": [{"id": s.get("id"), "title": s.get("title"), "beats": len(s.get("beats") or [])}
                     for s in (_load(ROOT / "content/stories.json", {}) or {}).get("stories", [])],
+        "brand": {"name": brand.get("name", "Dollars"), "tagline": brand.get("tagline"),
+                  "colors": brand.get("colors"), "files": brand.get("files")},
+        "engines": {
+            "visuals": "12 مشهد 2D حيّ (مشاهد قابلة للتكرار بلا قطع)",
+            "render3d": "4 مشاهد 3D بمنظور حقيقي + خريطة عمق",
+            "grade": "طقم الجودة السينمائية (6 مظاهر)",
+            "ambient": "أصوات الأجواء (10 أصوات · 8 وصفات)",
+            "sfx": "32 مؤثر صوتي",
+            "cutout": "تحريك الشخصيات (بترقص وتمشي وتتفاعل)",
+            "story": "مُركّب الحِكايات بلا كلام",
+            "editor": "المونتاج: قصّ · كاميرا · صوت ممزوج · غلاف · بيانات",
+            "meta": "يوتيوب من أ ل ي + فحص قبل النشر",
+            "agent": "العقل الذاتي (تعلّم + أفكار + شخصيات + خطة)",
+            "factory": "المصنع (إنتاج + نشر + طابور + سجل)",
+            "publish": "الرفع على يوتيوب (resumable + غلاف + بلايليست)",
+        },
         "rules": {
             "no_copyright": "ممنوع أي مقطع/صورة/أغنية/ميم من حد تاني — ولو مشهور",
             "no_real_people_voices": "ممنوع تقليد صوت أي إنسان حقيقي",

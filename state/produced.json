@@ -1,0 +1,29 @@
+{
+  "done": [
+    {
+      "date": "2026-09-25",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "ocean",
+      "video": "/tmp/factory_test/ambience_short_321626_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 140.8,
+      "at": "2026-09-25T03:09:34.703506+00:00"
+    }
+  ],
+  "stats": {
+    "total": 1,
+    "published": 0,
+    "staged": 1,
+    "by_pillar": {
+      "focus": 1
+    }
+  },
+  "created": null,
+  "updated": "2026-09-25T03:09:34.704253+00:00"
+}

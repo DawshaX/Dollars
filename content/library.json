@@ -314,6 +314,74 @@
       "beats": 4
     }
   ],
+  "brand": {
+    "name": "DOLLARS",
+    "tagline": "SLEEP • STORIES • SATISFYING",
+    "colors": {
+      "night": [
+        10,
+        14,
+        30
+      ],
+      "deep": [
+        16,
+        22,
+        48
+      ],
+      "teal": [
+        78,
+        205,
+        196
+      ],
+      "violet": [
+        155,
+        93,
+        229
+      ],
+      "gold": [
+        255,
+        196,
+        61
+      ],
+      "moon": [
+        238,
+        240,
+        255
+      ],
+      "white": [
+        255,
+        255,
+        255
+      ],
+      "ink": [
+        18,
+        20,
+        34
+      ]
+    },
+    "files": {
+      "avatar": "assets/brand/avatar_800.png",
+      "banner": "assets/brand/banner_2560x1440.png",
+      "watermark": "assets/brand/watermark_150.png",
+      "endcard": "assets/brand/endcard_1280x720.png",
+      "shorts_icon": "assets/brand/shorts_icon_800.png",
+      "thumb_template": "assets/brand/thumb_template_1280x720.png"
+    }
+  },
+  "engines": {
+    "visuals": "12 مشهد 2D حيّ (مشاهد قابلة للتكرار بلا قطع)",
+    "render3d": "4 مشاهد 3D بمنظور حقيقي + خريطة عمق",
+    "grade": "طقم الجودة السينمائية (6 مظاهر)",
+    "ambient": "أصوات الأجواء (10 أصوات · 8 وصفات)",
+    "sfx": "32 مؤثر صوتي",
+    "cutout": "تحريك الشخصيات (بترقص وتمشي وتتفاعل)",
+    "story": "مُركّب الحِكايات بلا كلام",
+    "editor": "المونتاج: قصّ · كاميرا · صوت ممزوج · غلاف · بيانات",
+    "meta": "يوتيوب من أ ل ي + فحص قبل النشر",
+    "agent": "العقل الذاتي (تعلّم + أفكار + شخصيات + خطة)",
+    "factory": "المصنع (إنتاج + نشر + طابور + سجل)",
+    "publish": "الرفع على يوتيوب (resumable + غلاف + بلايليست)"
+  },
   "rules": {
     "no_copyright": "ممنوع أي مقطع/صورة/أغنية/ميم من حد تاني — ولو مشهور",
     "no_real_people_voices": "ممنوع تقليد صوت أي إنسان حقيقي",

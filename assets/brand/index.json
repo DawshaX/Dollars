@@ -1,0 +1,62 @@
+{
+  "note": "هوية Dollars — مرسومة بالكود 100% (ملكنا · بلا أي حقوق).",
+  "name": "DOLLARS",
+  "tagline": "SLEEP • STORIES • SATISFYING",
+  "colors": {
+    "night": [
+      10,
+      14,
+      30
+    ],
+    "deep": [
+      16,
+      22,
+      48
+    ],
+    "teal": [
+      78,
+      205,
+      196
+    ],
+    "violet": [
+      155,
+      93,
+      229
+    ],
+    "gold": [
+      255,
+      196,
+      61
+    ],
+    "moon": [
+      238,
+      240,
+      255
+    ],
+    "white": [
+      255,
+      255,
+      255
+    ],
+    "ink": [
+      18,
+      20,
+      34
+    ]
+  },
+  "files": {
+    "avatar": "assets/brand/avatar_800.png",
+    "banner": "assets/brand/banner_2560x1440.png",
+    "watermark": "assets/brand/watermark_150.png",
+    "endcard": "assets/brand/endcard_1280x720.png",
+    "shorts_icon": "assets/brand/shorts_icon_800.png",
+    "thumb_template": "assets/brand/thumb_template_1280x720.png"
+  },
+  "youtube_sizes": {
+    "avatar": "800×800 (يُعرض دائري)",
+    "banner": "2560×1440 (المنطقة الآمنة 1546×423)",
+    "watermark": "150×150",
+    "endcard": "1280×720",
+    "thumbnail": "1280×720"
+  }
+}
