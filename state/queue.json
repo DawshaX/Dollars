@@ -446,6 +446,111 @@
       "pillar": "sleep",
       "duration": "30s",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T15:14:09.950711+00:00",
+      "slot": {
+        "hour": 13,
+        "at": "2026-09-25T13:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=45s|hook=سؤال في أول ثانية|hour=23|kind=short|pillar=satisfying|scene=stinger_ink|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "45s",
+          "scene": "stinger_ink",
+          "structure": "مقارنة سرعات",
+          "hook": "سؤال في أول ثانية",
+          "thumb": "مشهد طبيعي + رقم مدة",
+          "hour": 23,
+          "character": "riva_auto",
+          "predicted": 1.737,
+          "why": "لأن satisfying و45s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 470141,
+      "kind": "satisfying_short",
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T15:19:31.581424+00:00",
+      "slot": {
+        "hour": 14,
+        "at": "2026-09-25T14:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=60s|hook=حركة عكسية|hour=21|kind=short|pillar=satisfying|scene=sand_table|structure=حركة واحدة كاملة|thumb=مشهد طبيعي + رقم مدة",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "60s",
+          "scene": "sand_table",
+          "structure": "حركة واحدة كاملة",
+          "hook": "حركة عكسية",
+          "thumb": "مشهد طبيعي + رقم مدة",
+          "hour": 21,
+          "character": null,
+          "predicted": 1.78,
+          "why": "لأن satisfying و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 7794,
+      "kind": "satisfying_short",
+      "title": "Kinetic Sand — oddly satisfying (60s) #shorts",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T15:22:40.024545+00:00",
+      "slot": {
+        "hour": 15,
+        "at": "2026-09-25T15:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=1m|hook=ظهور شخصية|hour=21|kind=short|pillar=story|scene=harmonograph|structure=خوف ← شجاعة ← مكافأة|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "story",
+          "kind": "short",
+          "duration": "1m",
+          "scene": "harmonograph",
+          "structure": "خوف ← شجاعة ← مكافأة",
+          "hook": "ظهور شخصية",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 21,
+          "character": "riva_auto",
+          "predicted": 1.663,
+          "why": "لأن story و1m وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 328318,
+      "kind": "story_short",
+      "title": "Nono and a red balloon in the wind — a wordless story #shorts",
+      "pillar": "story",
+      "duration": "1m",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }

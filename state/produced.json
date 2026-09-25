@@ -194,18 +194,64 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 146.2,
       "at": "2026-09-25T10:36:40.303117+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 13,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "scene": "sand_table",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_13/satisfying_short_470141_45s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 207.3,
+      "at": "2026-09-25T15:14:09.949941+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 14,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "zen_garden",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_14/satisfying_short_7794_60s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (60s) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 321.6,
+      "at": "2026-09-25T15:19:31.581061+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 15,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "1m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_15/nono_balloon_full.mp4",
+      "title": "Nono and a red balloon in the wind — a wordless story #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 188.4,
+      "at": "2026-09-25T15:22:40.024179+00:00"
     }
   ],
   "stats": {
-    "total": 13,
+    "total": 16,
     "published": 0,
-    "staged": 13,
+    "staged": 16,
     "by_pillar": {
       "focus": 5,
-      "satisfying": 7,
-      "sleep": 1
+      "satisfying": 9,
+      "sleep": 1,
+      "story": 1
     }
   },
   "created": null,
-  "updated": "2026-09-25T10:36:40.304675+00:00"
+  "updated": "2026-09-25T15:22:40.025534+00:00"
 }
