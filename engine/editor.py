@@ -530,14 +530,31 @@ class Editor:
         full = pathlib.Path(out_name) if out_name else self.out / f"{st.id}_full.mp4"
         full.parent.mkdir(parents=True, exist_ok=True)
         st.render(full, verbose=False, cinema=kw.get("look") or None)
-        md = dict(title=getattr(st, "title", st.id), pillar="story", kind="story",
-                  montage={"beats": len(getattr(st, "beats", [])), "assembled": True,
-                           "music": getattr(st, "music", None), "ambient": getattr(st, "ambient", None),
-                           "look": kw.get("look"),
-                           "fx_layers": sum(len(v) for v in st.fx_summary()),
-                           "fx_by_beat": st.fx_summary(),
-                           "scenes": sorted({b.get("scene") for b in getattr(st, "beats", []) if b.get("scene")})})
+        # بيانات يوتيوب كاملة (عنوان · وصف · وسوم · إفصاح AI) + المونتاج
+        md = meta.build(dict(pillar="story", kind="short", kw=getattr(st, "kw", None),
+                             seconds=round(st.duration), scene=(st.beats[0] or {}).get("scene"),
+                             character=getattr(st, "hero_name", None),
+                             thing=getattr(st, "thing", None),
+                             duration_bucket=f"{int(round(st.duration))}s"))
+        md["title"] = getattr(st, "title", st.id)
+        md["video_desc"] = getattr(st, "video_desc", None)
+        md["story_id"] = st.id
+        md["montage"] = {"beats": len(getattr(st, "beats", [])), "assembled": True,
+                         "music": getattr(st, "music", None), "ambient": getattr(st, "ambient", None),
+                         "look": kw.get("look"),
+                         "fx_layers": sum(len(v) for v in st.fx_summary()),
+                         "fx_by_beat": st.fx_summary(),
+                         "scenes": sorted({b.get("scene") for b in getattr(st, "beats", []) if b.get("scene")})}
+        first_scene = (st.beats[0] or {}).get("scene") or "starfield"
+        try:
+            thumb = thumbnail(first_scene, (md.get("thumbnail_texts") or ["WORDLESS STORY"])[:2],
+                              self.out / f"{st.id}_thumb.jpg", look=getattr(st, "look", None),
+                              sticker="star")
+        except Exception:
+            thumb = None
+        files = meta.write_package(md, self.out)
         record = dict(kind="story_short", video=str(full), story=st.id, meta=md,
+                      meta_files=files, thumbnail=str(thumb) if thumb else None,
                       seconds=st.duration, montage=md["montage"])
         self.log.append(record)
         return record

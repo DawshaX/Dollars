@@ -106,6 +106,12 @@ class Story:
         self.fps = int(self.d.get("fps", 24))
         self.w, self.h = (self.d.get("size") or [960, 540])[:2]
         self.look = self.d.get("look", "story")
+        # بيانات يوتيوب (للعناوين/الوصف/الغلاف)
+        self.title = self.d.get("title") or self.id
+        self.kw = self.d.get("kw") or f"{self.title} — a wordless story"
+        self.thing = self.d.get("thing") or "something new"
+        self.hero_name = self.d.get("hero_name") or "our little hero"
+        self.video_desc = self.d.get("video_desc") or "a wordless animated story"
         self.ambient = self.d.get("ambient")
         # موسيقى النمط: مضمونة دايمًا (المونتاج أساسي في كل فيديو)
         self.music = self.d.get("music")
