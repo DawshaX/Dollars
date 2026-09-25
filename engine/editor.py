@@ -329,12 +329,27 @@ def _concat(parts: list, out_path) -> pathlib.Path:
     return out_path
 
 
+def long_format(hours: float) -> dict:
+    """
+    مقاس وبتريت الطويلة حسب طولها — عشان 10 ساعات ما يبقوش جيجابايتات تتخنق بيها السيرفر:
+    ≤3 ساعات: 1080p · 1.2 ميجا/ث · 6+ ساعات: 720p ببتريت أقل (نفس الجودة تقريبًا للمشاهد الهادية).
+    """
+    hours = max(0.1, float(hours))
+    cap_mb = 2600.0                                  # سقف الحجم لكل فيديو طويل
+    mbps = min(1.2, (cap_mb * 8.0) / (hours * 3600.0))
+    if hours >= 6:
+        w, h = 1280, 720
+    else:
+        w, h = 1920, 1080
+    return dict(w=w, h=h, maxrate=f"{int(mbps * 1000)}k", cap_mb=cap_mb)
+
+
 def long_intro(out_dir, seconds: float = 12.0, seed: int = 5, moves=None, scenes=None,
-               look: str = "cinema_cool") -> pathlib.Path:
+               look: str = "cinema_cool", out_w: int = 1920, out_h: int = 1080) -> pathlib.Path:
     """مقدمة مونتاج للطويلة: 3 مقاطع سريعة + كاميرا + إضافات + مؤثرات + موسيقى."""
     shots = plan_shots("ambience", seconds, seed=seed, moves=moves, scenes=scenes)
     silent = pathlib.Path(out_dir) / "_intro_silent.mp4"
-    render_shots(shots, silent, 480, 270, 30, look, out_w=1920, out_h=1080, crf=23)
+    render_shots(shots, silent, 480, 270, 30, look, out_w=out_w, out_h=out_h, crf=23)
     audio = mix_audio(sum(s["dur"] for s in shots), shots, ambient_name="calm_night",
                       music_style="warm_pad", music_gain=0.5)
     wav = pathlib.Path(out_dir) / "_intro.wav"
@@ -349,7 +364,8 @@ def long_intro(out_dir, seconds: float = 12.0, seed: int = 5, moves=None, scenes
     return out
 
 
-def long_outro(out_dir, seconds: float = 10.0, seed: int = 9) -> pathlib.Path:
+def long_outro(out_dir, seconds: float = 10.0, seed: int = 9,
+               out_w: int = 1920, out_h: int = 1080) -> pathlib.Path:
     """شاشة نهاية القناة: كارتنا بهوية القناة + موسيقى بتاعتنا (بحركة ناعمة)."""
     card = ROOT / "assets" / "brand" / "endcard_1280x720.png"
     music_wav = pathlib.Path(out_dir) / "_outro.wav"
@@ -362,11 +378,12 @@ def long_outro(out_dir, seconds: float = 10.0, seed: int = 9) -> pathlib.Path:
     cmd = [proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error"]
     if card.exists():
         cmd += ["-loop", "1", "-i", str(card)]
-        vf = ("scale=1920:1080:flags=lanczos,"
-              "zoompan=z='min(zoom+0.00035,1.06)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1920x1080,"
+        vf = (f"scale={out_w}:{out_h}:flags=lanczos,"
+              "zoompan=z='min(zoom+0.00035,1.06)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
+              f"s={out_w}x{out_h},"
               "fade=t=in:st=0:d=0.9,fade=t=out:st=%.1f:d=0.9" % max(0.0, seconds - 1.0))
     else:
-        cmd += ["-f", "lavfi", "-i", f"color=c=0x0a0e1e:s=1920x1080:r=30"]
+        cmd += ["-f", "lavfi", "-i", f"color=c=0x0a0e1e:s={out_w}x{out_h}:r=30"]
         vf = "fade=t=in:st=0:d=0.9"
     if music_wav:
         cmd += ["-i", str(music_wav)]
@@ -538,9 +555,10 @@ class Editor:
         is3d = bool(getattr(visuals.SCENES.get(scene), "is_3d", False))
         rw, rh = (480, 270) if is3d else (960, 540)
         loop = self.out / f"{scene}_loop.mp4"
+        fmt = long_format(hours)
         sc = visuals.make_scene(scene, w=rw, h=rh, fps=30)
-        visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=1920, out_h=1080,
-                       crf=23, maxrate="1200k", cinema=look)   # سقف حجم: الطويلة تفضل قابلة للرفع
+        visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=fmt["w"], out_h=fmt["h"],
+                       crf=23, maxrate=fmt["maxrate"], cinema=look)   # سقف حجم: الطويلة تفضل قابلة للرفع
         wav = ambient.make(audio, min(loop_seconds, sc.loop_seconds), self.out / f"{audio}.wav")
         name = out_name or f"{scene}_{int(hours)}h"
         video = self.out / f"{name}.mp4"
@@ -553,8 +571,9 @@ class Editor:
         assembled = False
         md_parts: dict = {}
         try:                                      # المونتاج أساسي: مقدمة + شاشة نهاية
-            intro = long_intro(self.out, seed=self.seed + 3, moves=moves)
-            outro = long_outro(self.out, seed=self.seed + 9)
+            intro = long_intro(self.out, seed=self.seed + 3, moves=moves,
+                              out_w=fmt["w"], out_h=fmt["h"])
+            outro = long_outro(self.out, seed=self.seed + 9, out_w=fmt["w"], out_h=fmt["h"])
             intro_dur = round(proc.duration(intro) or 12.0, 2)
             outro_dur = round(proc.duration(outro) or 10.0, 2)
             assembled = True
@@ -581,7 +600,8 @@ class Editor:
         if intro_dur and md.get("chapters"):       # الفصول تتزحّ للوقت الحقيقي بعد المقدمة
             md["chapters"] = ["0:00 ابتداء"] + [f"{_cc_shift(c.split(' ', 1)[0], intro_dur)} {c.split(' ', 1)[1]}"
                                                if " " in c else c for c in md["chapters"]]
-        md["montage"] = {"assembled": assembled, **md_parts,
+        md["montage"] = {"assembled": assembled, "out_size": [fmt["w"], fmt["h"]],
+                         "maxrate": fmt["maxrate"], "size_cap_mb": fmt["cap_mb"], **md_parts,
                          "look": look, "music": "warm_pad", "body_loop_seconds": loop_seconds,
                          "body_reencoded": False, "scene": scene, "audio": audio,
                          "camera_moves": MOVES if not moves else list(moves)}

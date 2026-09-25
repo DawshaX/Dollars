@@ -45,3 +45,30 @@ def test_short_is_assembled_with_montage_layers(tmp_path):
     assert rec["meta"]["shot_list"][0]["fx"]       # الإضافات مسجّلة لكل مقطع
     out = subprocess.run([proc.FFMPEG, "-hide_banner", "-i", str(v)], capture_output=True).stderr.decode()
     assert "Audio: aac" in out                     # الفيديو بصوت من أول لآخر لحظة
+
+
+def test_long_format_caps_size_for_long_videos():
+    """10 ساعات ما تبقاش جيجابايتات: المقاس والبتريت بيتظبطوا حسب الطول."""
+    small = editor.long_format(3)
+    big = editor.long_format(10)
+    assert small["w"] == 1920 and small["maxrate"] == "1200k"
+    assert big["w"] == 1280 and big["h"] == 720
+    est_mb = float(big["maxrate"][:-1]) * 10 * 3600 / 8 / 1000
+    assert est_mb <= big["cap_mb"] * 1.05, f"الحجم المتوقع {est_mb:.0f} ميجا أكبر من السقف"
+
+
+def test_montage_assembles_at_720p_without_reencode(tmp_path):
+    """مسارات المونتاج لازم تتلزق بنفس المقاس والبتريت (بلا إعادة ترميز) وبمدة صح."""
+    from engine import ambient, proc, visuals
+    sc = visuals.make_scene("starfield", w=480, h=270, fps=30)
+    loop = tmp_path / "loop.mp4"
+    visuals.encode(sc, 2.0, loop, out_w=1280, out_h=720, crf=23, maxrate="700k", cinema="cinema_night")
+    body = tmp_path / "body.mp4"
+    visuals.long_video(loop, body, 4.0)
+    intro = editor.long_intro(tmp_path, 3.0, seed=3, out_w=1280, out_h=720)
+    outro = editor.long_outro(tmp_path, 3.0, seed=9, out_w=1280, out_h=720)
+    joined = editor._concat([intro, body, outro], tmp_path / "joined.mp4")
+    d = proc.duration(joined)
+    assert d is not None and abs(d - 10.0) < 1.0, f"الملزوق طلع {d} ث"
+    info = subprocess.run([proc.FFMPEG, "-hide_banner", "-i", str(joined)], capture_output=True).stderr.decode()
+    assert "1280x720" in info, "المقاس اتغيّر في اللزق"

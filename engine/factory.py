@@ -253,7 +253,7 @@ def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=
     if catchup:
         miss = missed_slots(kind)
         # الشورتس: نعوّض لحد 4 في التشغيل الواحد · الطويلة: واحدة بالكتير (ثقيلة أوي)
-        count = max(count, min(max_catchup, miss)) if kind == "short" else max(count, min(1, miss))
+        count = max(count, min(max_catchup, miss)) if kind == "short" else max(count, min(2, miss))
     slots = next_slots(kind, count)
     lines, results = [], []
     if catchup and count > 1:
