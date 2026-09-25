@@ -358,6 +358,218 @@ def zoom(dur: float = 0.35) -> np.ndarray:
     return _norm(_fade_edges(_band(x, 150.0, 8000.0)))
 
 
+# ═══════════════ الجيل الثاني: مخزون محلي إضافي (كلهم من توليفنا) ═══════════════
+
+def shimmer(dur: float = 1.4, base: float = 880.0) -> np.ndarray:
+    """لمعة معدنية صاعدة — للكشف والمفاجآت الحلوة."""
+    t = _t(dur); x = np.zeros_like(t)
+    for k in range(1, 9):
+        x += np.sin(2 * np.pi * base * k * (1 + 0.04 * t) * t) / (k ** 1.25)
+    return _norm(x * _ad(t, 0.01, dur * 0.9, 1.6))
+
+
+def swell(dur: float = 2.2, base: float = 220.0) -> np.ndarray:
+    """موجة صاعدة ناعمة (بناء توتر قبل اللحظة)."""
+    t = _t(dur); e = np.clip(t / dur, 0, 1) ** 2.2
+    x = np.sin(2 * np.pi * base * (1 + 0.9 * e) * t) * e
+    return _norm(x + 0.3 * _band(_noise(t.size, 4), 200, 5000) * e)
+
+
+def downlifter(dur: float = 1.0, base: float = 420.0) -> np.ndarray:
+    """هبوط ناعم (نهاية المشهد/الانتقال للي بعده)."""
+    t = _t(dur); e = (1 - np.clip(t / dur, 0, 1)) ** 1.4
+    x = np.sin(2 * np.pi * base * (1 - 0.7 * np.clip(t / dur, 0, 1)) * t) * e
+    return _norm(x)
+
+
+def reverse_swell(dur: float = 1.3) -> np.ndarray:
+    """زفير معاكس (بياخدك للّي جاي)."""
+    n = int(dur * SR); e = np.linspace(0, 1, n) ** 2.0
+    x = _band(_noise(n, 11), 300, 7000) * e + np.sin(2 * np.pi * 180 * np.arange(n) / SR) * e * 0.35
+    return _fade_edges(_norm(x, 0.85))
+
+
+def tape_stop(dur: float = 0.6) -> np.ndarray:
+    """توقّف شريط — وقفة مضحكة مفاجئة."""
+    t = _t(dur); k = np.clip(t / dur, 0, 1)
+    x = np.sin(2 * np.pi * 780 * (1 - 0.92 * k) * t) * (1 - k) ** 1.5
+    x += 0.25 * _band(_noise(t.size, 13), 200, 3000) * (1 - k) ** 3
+    return _norm(x)
+
+
+def sub_hit(dur: float = 0.85) -> np.ndarray:
+    """دفعة باص عميقة (لحظة قوية)."""
+    t = _t(dur); t = np.arange(int(dur * SR)) / SR
+    x = np.sin(2 * np.pi * (58 * np.exp(-4.0 * t) + 30) * t) * np.exp(-5.0 * t)
+    return _norm(x, 0.95)
+
+
+def soft_impact(dur: float = 0.5) -> np.ndarray:
+    """وقع ناعم (مش بيزعّق)."""
+    t = np.arange(int(dur * SR)) / SR
+    x = np.sin(2 * np.pi * 74 * t) * np.exp(-11 * t) + 0.25 * _band(_noise(t.size, 17), 90, 420) * np.exp(-9 * t)
+    return _norm(x)
+
+
+def chime_soft(dur: float = 1.6, base: float = 1046.5) -> np.ndarray:
+    """جرس هادئ — للانتقالات الناعمة."""
+    t = _t(dur)
+    x = np.sin(2 * np.pi * base * t) * np.exp(-1.9 * t) \
+        + 0.42 * np.sin(2 * np.pi * base * 2.756 * t) * np.exp(-3.4 * t) \
+        + 0.2 * np.sin(2 * np.pi * base * 5.4 * t) * np.exp(-5.2 * t)
+    return _norm(x)
+
+
+def glass_tap(dur: float = 0.35) -> np.ndarray:
+    """نقرة زجاج (لمس ناعم)."""
+    t = _t(dur)
+    x = np.sin(2 * np.pi * 1380 * t) * np.exp(-24 * t) + 0.5 * np.sin(2 * np.pi * 2620 * t) * np.exp(-30 * t)
+    return _norm(x, 0.8)
+
+
+def wood_tap(dur: float = 0.3, base: float = 320.0) -> np.ndarray:
+    """نقرة خشب (ملصق بيظهر)."""
+    t = _t(dur)
+    x = np.sin(2 * np.pi * base * t) * np.exp(-26 * t) + 0.3 * _band(_noise(t.size, 19), 400, 2600) * np.exp(-35 * t)
+    return _norm(x, 0.85)
+
+
+def vinyl(dur: float = 2.0) -> np.ndarray:
+    """طقطقة أسطوانة قديمة (دفء/حنين)."""
+    x = _noise(int(dur * SR), 23) * 0.35
+    clicks = np.zeros_like(x)
+    rng = np.random.default_rng(23)
+    idx = rng.integers(0, x.size, max(1, int(dur * 26)))
+    clicks[idx] = rng.uniform(0.3, 1.0, idx.size)
+    return _norm(_band(x + clicks, 400, 6000), 0.55)
+
+
+def fire_crackle(dur: float = 2.4) -> np.ndarray:
+    """طقطقة نار (دفء المدفأة)."""
+    rng = np.random.default_rng(29); n = int(dur * SR)
+    x = _band(_noise(n, 29), 60, 900) * 0.55
+    pops = np.zeros(n)
+    idx = rng.integers(0, n, max(1, int(dur * 18)))
+    pops[idx] = rng.uniform(0.4, 1.0, idx.size)
+    return _norm(x + _band(pops, 300, 7000) * 0.9, 0.7)
+
+
+def wind_gust(dur: float = 2.6) -> np.ndarray:
+    """هبّة هوا (مشهد طبيعة)."""
+    n = int(dur * SR); e = np.sin(np.linspace(0, np.pi, n)) ** 1.5
+    x = _band(_noise(n, 31), 80, 1400) * e
+    return _norm(x, 0.75)
+
+
+def page_turn(dur: float = 0.45) -> np.ndarray:
+    """تقليب صفحة (قِصص)."""
+    n = int(dur * SR); e = np.sin(np.linspace(0, np.pi, n)) ** 1.2
+    x = _band(_noise(n, 37), 900, 9000) * e * (1 + np.sign(np.linspace(-1, 1, n)) * 0.4)
+    return _norm(x, 0.8)
+
+
+def match_strike(dur: float = 0.5) -> np.ndarray:
+    """ولاعة/عود كبريت (لحظة ضوء)."""
+    n = int(dur * SR); x = _band(_noise(n, 41), 1500, 9000) * np.exp(-np.linspace(0, 9, n))
+    x[: int(0.05 * SR)] *= np.linspace(0.2, 1.0, int(0.05 * SR))
+    return _norm(x, 0.85)
+
+
+def coin_drop(dur: float = 0.7) -> np.ndarray:
+    """عملة بتقع (مكافأة)."""
+    t = _t(dur)
+    x = (np.sin(2 * np.pi * 1850 * t) * np.exp(-18 * t) + np.sin(2 * np.pi * 2450 * t) * np.exp(-22 * t)
+         + np.sin(2 * np.pi * 3100 * t) * np.exp(-26 * t) * 0.6)
+    return _norm(x, 0.85)
+
+
+def ui_open(dur: float = 0.35) -> np.ndarray:
+    t = _t(dur); k = np.clip(t / dur, 0, 1)
+    x = np.sin(2 * np.pi * (500 + 900 * k) * t) * (1 - k) ** 1.2
+    return _norm(x, 0.7)
+
+
+def ui_close(dur: float = 0.35) -> np.ndarray:
+    t = _t(dur); k = np.clip(t / dur, 0, 1)
+    x = np.sin(2 * np.pi * (1400 - 900 * k) * t) * (1 - k) ** 1.2
+    return _norm(x, 0.7)
+
+
+def ui_tick(dur: float = 0.09) -> np.ndarray:
+    t = _t(dur)
+    return _norm(np.sin(2 * np.pi * 2100 * t) * np.exp(-40 * t), 0.6)
+
+
+def whoosh_soft(dur: float = 0.9) -> np.ndarray:
+    """هوّاء ناعم (انتقال بلا إزعاج)."""
+    n = int(dur * SR); e = np.sin(np.linspace(0, np.pi, n)) ** 0.8
+    x = _band(_noise(n, 43), 200, 3200) * e
+    return _norm(x, 0.7)
+
+
+def beam(dur: float = 1.1, base: float = 523.25) -> np.ndarray:
+    """شعاع ضوء/سحر صاعد."""
+    t = _t(dur); e = np.clip(t / dur, 0, 1)
+    x = np.sin(2 * np.pi * base * (1 + 1.6 * e) * t) * (1 - e) ** 0.8
+    return _norm(x)
+
+
+def lullaby_note(dur: float = 1.8, base: float = 659.25) -> np.ndarray:
+    """نغمة تهويدة واحدة (قِصص النوم)."""
+    t = _t(dur)
+    x = np.sin(2 * np.pi * base * t) * np.exp(-2.1 * t) + 0.3 * np.sin(2 * np.pi * base * 2 * t) * np.exp(-3.4 * t)
+    return _norm(x, 0.75)
+
+
+def magic_up(dur: float = 1.2, base: float = 392.0) -> np.ndarray:
+    """صعود سحري (تحوّل/اكتشاف)."""
+    t = _t(dur); k = np.clip(t / dur, 0, 1)
+    x = sum(np.sin(2 * np.pi * base * (1.5 ** j) * (1 + 0.5 * k) * t) / (j + 2) for j in range(5)) * (1 - k * 0.6)
+    return _norm(x)
+
+
+def warm_hum(dur: float = 2.5, base: float = 110.0) -> np.ndarray:
+    """طنين دافئ (خلفية قِصة)."""
+    t = _t(dur)
+    x = np.sin(2 * np.pi * base * t) + 0.5 * np.sin(2 * np.pi * base * 2 * t) + 0.25 * np.sin(2 * np.pi * base * 3 * t)
+    x *= 0.6 + 0.4 * np.sin(2 * np.pi * 0.35 * t)
+    return _fade_edges(x) / (np.abs(_fade_edges(x)).max() + 1e-9) * 0.75
+
+
+def thunder_far(dur: float = 3.2) -> np.ndarray:
+    """رعد بعيد (بلا خضّة)."""
+    n = int(dur * SR); t = np.arange(n) / SR
+    e = np.exp(-np.linspace(0, 3.4, n))
+    x = _band(_noise(n, 47), 25, 260) * e + 0.4 * np.sin(2 * np.pi * 42 * t) * e
+    return _norm(_fade_edges(x), 0.7)
+
+
+def rain_drop(dur: float = 0.28) -> np.ndarray:
+    """قطرة مطر واحدة على سطح."""
+    t = _t(dur)
+    x = np.sin(2 * np.pi * (900 + 1400 * np.clip(t / dur, 0, 1)) * t) * np.exp(-30 * t)
+    return _norm(x, 0.7)
+
+
+def bubble_pop(dur: float = 0.22) -> np.ndarray:
+    t = _t(dur); k = np.clip(t / dur, 0, 1)
+    x = np.sin(2 * np.pi * (260 + 900 * k * k) * t) * np.exp(-16 * t)
+    return _norm(x, 0.8)
+
+
+def twinkle_run(dur: float = 1.6) -> np.ndarray:
+    """جَرْية لمعات صاعدة (مرح)."""
+    out = np.zeros(int(dur * SR), np.float32)
+    notes = [784, 880, 1046.5, 1174.7, 1318.5, 1568]
+    step = dur / len(notes)
+    for i, f in enumerate(notes):
+        seg = int(step * SR); t = np.arange(seg) / SR
+        y = np.sin(2 * np.pi * f * t) * np.exp(-9 * t) * 0.5
+        j = int(i * step * SR); m = min(seg, out.size - j)
+        out[j:j + m] += y[:m]
+    return _norm(out, 0.8)
+
+
 SFX = {
     # انتقالات
     "whoosh": whoosh, "swipe": swipe, "zoom": zoom, "glitch": glitch,
@@ -371,6 +583,14 @@ SFX = {
     # عالم ومشاهد
     "thud": thud, "drum": drum, "heartbeat": heartbeat, "tick": tick,
     "water": water, "paper": paper, "click": click, "ding": ding, "bell": bell,
+    # الجيل الثاني (مخزون محلي إضافي)
+    "shimmer": shimmer, "swell": swell, "downlifter": downlifter, "reverse_swell": reverse_swell,
+    "tape_stop": tape_stop, "sub_hit": sub_hit, "soft_impact": soft_impact, "chime_soft": chime_soft,
+    "glass_tap": glass_tap, "wood_tap": wood_tap, "vinyl": vinyl, "fire_crackle": fire_crackle,
+    "wind_gust": wind_gust, "page_turn": page_turn, "match_strike": match_strike, "coin_drop": coin_drop,
+    "ui_open": ui_open, "ui_close": ui_close, "ui_tick": ui_tick, "whoosh_soft": whoosh_soft,
+    "beam": beam, "lullaby_note": lullaby_note, "magic_up": magic_up, "warm_hum": warm_hum,
+    "thunder_far": thunder_far, "rain_drop": rain_drop, "bubble_pop": bubble_pop, "twinkle_run": twinkle_run,
 }
 
 USES = {
@@ -378,14 +598,24 @@ USES = {
     "comedy": ["boing", "spring", "slide_whistle", "sad_trombone", "error", "bubble", "pop"],
     "celebration": ["tada", "magic", "sparkle", "coin", "cork", "appear", "cymbal", "success"],
     "world": ["thud", "drum", "heartbeat", "tick", "water", "paper", "click", "ding", "bell"],
+    "atmosphere": ["vinyl", "fire_crackle", "wind_gust", "thunder_far", "rain_drop", "warm_hum"],
+    "magic": ["shimmer", "swell", "beam", "magic_up", "twinkle_run", "reverse_swell", "downlifter"],
+    "ui_soft": ["ui_open", "ui_close", "ui_tick", "glass_tap", "wood_tap", "coin_drop", "page_turn",
+                "match_strike", "bubble_pop", "chime_soft", "lullaby_note", "whoosh_soft", "soft_impact",
+                "sub_hit", "tape_stop"],
 }
 
 # الأنسب لكل نوع فيديو (يستخدمه المجمّع تلقائيًا)
 RECOMMENDED = {
     "sleep": [],
-    "story": ["bell", "appear", "boing", "sparkle", "magic", "slide_whistle", "sad_trombone", "tada"],
-    "satisfying": ["bubble", "pop", "click", "sparkle", "ding", "swipe"],
-    "short_comedy": ["boing", "spring", "record_stop", "error", "slide_whistle", "whoosh", "pop"],
+    "story": ["bell", "appear", "boing", "sparkle", "magic", "slide_whistle", "sad_trombone", "tada",
+              "chime_soft", "lullaby_note", "beam", "page_turn", "magic_up", "twinkle_run", "warm_hum",
+              "glass_tap", "wood_tap", "rain_drop", "match_strike"],
+    "satisfying": ["bubble", "pop", "click", "sparkle", "ding", "swipe",
+                   "ui_tick", "glass_tap", "wood_tap", "coin_drop", "bubble_pop", "shimmer", "whoosh_soft",
+                   "soft_impact", "ui_open", "ui_close"],
+    "short_comedy": ["boing", "spring", "record_stop", "error", "slide_whistle", "whoosh", "pop",
+                     "tape_stop", "sub_hit", "downlifter", "vinyl", "swell", "reverse_swell"],
 }
 
 

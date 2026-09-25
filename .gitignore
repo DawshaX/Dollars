@@ -18,6 +18,9 @@ out/
 # استثناءات مقصودة: مكتبة المؤثرات (ملكنا) + عيّنات العرض + صور الحركة
 !assets/sfx/*.wav
 !assets/sfx/index.json
+!assets/music/*.wav
+!assets/music/index.json
+!assets/stock.json
 !samples/showcase/*.mp4
 !samples/gifs/*.gif
 

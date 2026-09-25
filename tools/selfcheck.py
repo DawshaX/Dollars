@@ -118,6 +118,25 @@ def check_factory() -> list:
     return rows
 
 
+def check_stock() -> list:
+    try:
+        from engine import refs, stock
+        r = stock.report()
+        rows = [
+            (OK, f"المخزون المحلي: {r['total_assets']} ملف — مؤثرات {r['sfx']} · موسيقى {r['music_styles']} نمط · "
+                 f"ملصقات {r['stickers']} · إضافات {r['visual_fx']}", "docs/STOCK.md"),
+            (OK, f"المشاهد الحيّة: {r['scenes']} (منهم 3D)", "كلها حركة حقيقية مش صور"),
+        ]
+        bo = _load("state/refs.json", {})
+        tr = _load("state/trends.json", {})
+        rows.append((OK if bo else WARN, f"لوحات المراجع البصرية: {len(bo.get('boards', []))}", "Pinterest + Openverse/Pixabay/Pexels"))
+        rows.append((OK if tr else WARN, f"أرقام السوق الحقيقية: {len(tr.get('queries', {}))} مجال"
+                     + (f" · الطلب: {tr.get('demand')}" if tr else ""), "engine/refs.py --trends"))
+        return rows
+    except Exception as e:
+        return [(BAD, "فشل فحص المخزون", f"{type(e).__name__}: {e}")]
+
+
 def check_numbers() -> list:
     r = _load("state/analytics.json", {})
     if not r:

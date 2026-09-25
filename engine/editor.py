@@ -29,7 +29,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
-from engine import ambient, grade, meta, proc, sfx, visuals  # noqa: E402
+from engine import ambient, fx, grade, meta, music, proc, sfx, visuals  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 STICKERS = ROOT / "assets" / "stickers"
@@ -151,12 +151,17 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7) -> list:
                           look=rng.choice(["satisfying", "dream"])))
         t += dur
         first = False
+    pillar_key = "ambience" if pillar == "ambience" else "satisfying"
+    plans = fx.plan(random.Random(seed + 77), pillar_key, len(shots))     # إضافات بصرية لكل مقطع
+    for sh, pl in zip(shots, plans):
+        sh["fx"] = pl
     return shots
 
 
 def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
-              sr: int = 44100) -> np.ndarray:
-    """يمزج الأجواء + المؤثرات في مسار ستيريو واحد في التوقيت الصح."""
+              sr: int = 44100, music_style: str | None = None,
+              music_gain: float = 0.55) -> np.ndarray:
+    """يمزج الأجواء + الموسيقى (بتاعتنا) + المؤثرات في مسار ستيريو واحد في التوقيت الصح."""
     n = int(seconds * sr)
     left = np.zeros(n, np.float32)
     right = np.zeros(n, np.float32)
@@ -188,6 +193,14 @@ def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
             left[j:j + m] += x[:m]
             right[j:j + m] += x[:m] * 0.98
         at += float(sh["dur"])
+    if music_style:                                    # أرضية موسيقية مولّدة بالكود
+        try:
+            bed = music.bed(music_style, max(3.0, seconds))
+            m = min(bed.shape[0], n)
+            left[:m] += bed[:m, 0] * music_gain
+            right[:m] += bed[:m, 1] * music_gain
+        except Exception:
+            pass
     peak = max(float(np.abs(left).max()), float(np.abs(right).max()), 1e-6)
     k = min(1.0, 0.92 / peak)
     return np.stack([np.clip(left * k, -1, 1), np.clip(right * k, -1, 1)], axis=1)
@@ -238,6 +251,8 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                              sun_xy=getattr(sc, "sun_xy", (0.7, 0.25)), seed=si * 100 + i,
                              focus=0.8, aperture=0.5, max_blur=2.2)
             fr = camera((np.clip(fr, 0, 1) * 255).astype(np.uint8), sh["move"], k, seed=si)
+            if sh.get("fx"):                       # إضافات بصرية (ضوء · هالة · غبار · لمعات …)
+                fr = fx.apply_all(fr, sh["fx"], i / fps, seed=si * 31 + i)
             # ملصقات متحركة: بتظهر بحركة «pop» وتطير لفوق بنعومة
             for st in sh.get("stickers", []):
                 at, dur = float(st.get("at", 0.0)), float(st.get("dur", 1.2))
@@ -263,6 +278,92 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
     if p.wait() != 0:
         raise RuntimeError(f"ffmpeg فشل: {err[:300]}")
     return out_path
+
+
+
+# ───────────────────── مونتاج الطويلة: مقدمة + شاشة نهاية ─────────────────────
+
+def _cc_shift(stamp: str, add: float) -> str:
+    """يبدّل توقيت الفصل بعد المقدمة (بلا كسر صيغة يوتيوب)."""
+    try:
+        parts = [int(x) for x in str(stamp).split(":")]
+        secs = 0
+        for p in parts:
+            secs = secs * 60 + p
+        secs += int(add)
+        h, rem = divmod(secs, 3600)
+        m, s = divmod(rem, 60)
+        return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
+    except Exception:
+        return stamp
+
+
+def _concat(parts: list, out_path) -> pathlib.Path:
+    """يلزّق الأجزاء **بلا إعادة ترميز** (نفس الترميز ⇒ سريع جدًا)."""
+    out_path = pathlib.Path(out_path)
+    lst = out_path.with_suffix(".txt")
+    lst.write_text("".join(f"file '{pathlib.Path(p).resolve()}'\n" for p in parts), encoding="utf-8")
+    cmd = [proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0",
+           "-i", str(lst), "-c", "copy", "-movflags", "+faststart", str(out_path)]
+    r = subprocess.run(cmd, capture_output=True)
+    lst.unlink(missing_ok=True)
+    if r.returncode != 0:                      # خطة بديلة: ترميز خفيف لو التركيب المباشر رفض
+        lst.write_text("".join(f"file '{pathlib.Path(p).resolve()}'\n" for p in parts), encoding="utf-8")
+        cmd = [proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-f", "concat", "-safe", "0",
+               "-i", str(lst), "-c:v", "libx264", "-preset", "veryfast", "-crf", "23",
+               "-maxrate", "1200k", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k",
+               str(out_path)]
+        subprocess.run(cmd, check=True, capture_output=True)
+        lst.unlink(missing_ok=True)
+    return out_path
+
+
+def long_intro(out_dir, seconds: float = 12.0, seed: int = 5) -> pathlib.Path:
+    """مقدمة مونتاج للطويلة: 3 مقاطع سريعة + كاميرا + إضافات + مؤثرات + موسيقى."""
+    shots = plan_shots("ambience", seconds, seed=seed)
+    silent = pathlib.Path(out_dir) / "_intro_silent.mp4"
+    render_shots(shots, silent, 480, 270, 30, "cinema_cool", out_w=1920, out_h=1080, crf=23)
+    audio = mix_audio(sum(s["dur"] for s in shots), shots, ambient_name="calm_night",
+                      music_style="warm_pad", music_gain=0.5)
+    wav = pathlib.Path(out_dir) / "_intro.wav"
+    _write_wav(wav, audio)
+    out = pathlib.Path(out_dir) / "_intro.mp4"
+    subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-i", str(silent),
+                    "-i", str(wav), "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "44100",
+                    "-ac", "2", "-shortest", "-movflags", "+faststart", str(out)], check=True)
+    silent.unlink(missing_ok=True); wav.unlink(missing_ok=True)
+    return out
+
+
+def long_outro(out_dir, seconds: float = 10.0, seed: int = 9) -> pathlib.Path:
+    """شاشة نهاية القناة: كارتنا بهوية القناة + موسيقى بتاعتنا (بحركة ناعمة)."""
+    card = ROOT / "assets" / "brand" / "endcard_1280x720.png"
+    music_wav = pathlib.Path(out_dir) / "_outro.wav"
+    try:
+        bed = music.bed("warm_pad", seconds, seed=seed)
+        _write_wav(music_wav, bed * 0.8)
+    except Exception:
+        music_wav = None
+    out = pathlib.Path(out_dir) / "_outro.mp4"
+    cmd = [proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error"]
+    if card.exists():
+        cmd += ["-loop", "1", "-i", str(card)]
+        vf = ("scale=1920:1080:flags=lanczos,"
+              "zoompan=z='min(zoom+0.00035,1.06)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s=1920x1080,"
+              "fade=t=in:st=0:d=0.9,fade=t=out:st=%.1f:d=0.9" % max(0.0, seconds - 1.0))
+    else:
+        cmd += ["-f", "lavfi", "-i", f"color=c=0x0a0e1e:s=1920x1080:r=30"]
+        vf = "fade=t=in:st=0:d=0.9"
+    if music_wav:
+        cmd += ["-i", str(music_wav)]
+    cmd += ["-vf", vf, "-r", "30", "-t", str(seconds)]
+    if music_wav:
+        cmd += ["-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2", "-shortest"]
+    cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-maxrate", "1200k",
+            "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)]
+    subprocess.run(cmd, check=True, capture_output=True)
+    music_wav and music_wav.unlink(missing_ok=True)
+    return out
 
 
 # ───────────────────────────── الأغلفة ─────────────────────────────
@@ -341,7 +442,13 @@ class Editor:
         ambient_name = kw.get("audio") if pillar == "ambience" else None
         if pillar == "ambience" and not ambient_name:
             ambient_name = random.Random(seed).choice(["sleep_rain", "calm_night", "ocean", "fireplace"])
-        audio = mix_audio(seconds, shots, ambient_name=ambient_name)
+        style = kw.get("music")
+        if style is None:                                  # اختيار تلقائي حسب النوع
+            style = (random.Random(seed + 11).choice(["warm_pad", "dream_pulse", "night_drone"])
+                     if pillar == "ambience" else
+                     random.Random(seed + 11).choice(["music_box", "lofi_keys", "dream_pulse", "warm_pad"]))
+        audio = mix_audio(seconds, shots, ambient_name=ambient_name, music_style=style,
+                          music_gain=0.5 if pillar == "ambience" else 0.62)
         wav = self.out / f"{name}.wav"
         _write_wav(wav, audio)
         subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
@@ -355,7 +462,12 @@ class Editor:
                     kind="short", scene=scene0, duration_bucket=f"{int(seconds)}s")
         md = meta.build(spec)
         md["shot_list"] = [{"scene": s["scene"], "dur": s["dur"], "move": s["move"],
-                            "sfx": [c["name"] for c in s["cues"]]} for s in shots]
+                            "sfx": [c["name"] for c in s["cues"]],
+                            "fx": [x["kind"] for x in s.get("fx", [])],
+                            "stickers": [x["name"] for x in s.get("stickers", [])]} for s in shots]
+        md["montage"] = {"shots": len(shots), "music": style, "camera_moves": sorted({s["move"] for s in shots}),
+                         "fx_layers": sum(len(s.get("fx", [])) for s in shots),
+                         "sfx_cues": sum(len(s["cues"]) for s in shots)}
         thumb = thumbnail(scene0, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg",
                           look=look, sticker=random.Random(seed).choice(["star", "sparkle", "burst"]))
         files = meta.write_package(md, self.out)
@@ -391,9 +503,21 @@ class Editor:
         wav = ambient.make(audio, min(loop_seconds, sc.loop_seconds), self.out / f"{audio}.wav")
         name = out_name or f"{scene}_{int(hours)}h"
         video = self.out / f"{name}.mp4"
-        visuals.long_video(loop, video, hours * 3600, audio_wav=wav)
+        body = self.out / f"{name}_body.mp4"
+        visuals.long_video(loop, body, hours * 3600, audio_wav=wav)
         loop.unlink(missing_ok=True)
         wav.unlink(missing_ok=True)
+        intro_dur = 0.0
+        try:                                      # المونتاج أساسي: مقدمة + شاشة نهاية
+            intro = long_intro(self.out, seed=self.seed + 3)
+            outro = long_outro(self.out, seed=self.seed + 9)
+            intro_dur = 12.0
+            _concat([intro, body, outro], video)
+            for p in (intro, body, outro):
+                p.unlink(missing_ok=True)
+        except Exception as e:                    # لو حصل أي عارض: الفيديو الأساسي يكفي
+            print(f"⚠️ مونتاج الطويلة اتعذّر ({type(e).__name__}) — الفيديو الأساسي اتنشر", flush=True)
+            body.replace(video)
         md = meta.build(dict(pillar="sleep" if scene in visuals.SLEEP_SCENES else "focus",
                              hours=int(hours), kind="long", scene=scene,
                              kw={"valley_lake": "Night Lake Ambience", "snow_pines": "Snow Forest Sounds",
@@ -402,6 +526,9 @@ class Editor:
                                  "fireplace": "Fireplace Crackling", "starfield": "Deep Space Sleep",
                                  "aurora": "Aurora Night Sky", "black_screen": "Black Screen Sleep"
                                  }.get(scene, "Sleep Sounds")))
+        if intro_dur and md.get("chapters"):       # الفصول تتزحّ للوقت الحقيقي بعد المقدمة
+            md["chapters"] = ["0:00 ابتداء"] + [f"{_cc_shift(c.split(' ', 1)[0], intro_dur)} {c.split(' ', 1)[1]}"
+                                               if " " in c else c for c in md["chapters"]]
         thumb = thumbnail(scene, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg", look=look)
         files = meta.write_package(md, self.out)
         record = dict(kind="sleep_long", video=str(video), thumbnail=str(thumb), meta=md,

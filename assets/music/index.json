@@ -1,0 +1,20 @@
+{
+  "note": "عيّنات من الموسيقى اللي بنعملها بالكود — كل نمط حلقة مقفولة بتتكرر بلا قطع.",
+  "styles": {
+    "music_box": "صندوق موسيقى — ألحان زجاجية ناعمة (حكايات)",
+    "lullaby_bell": "تهويدة أجراس — للأطفال والنوم الخفيف",
+    "warm_pad": "طبقات دافئة — تركيز وتأمل",
+    "lofi_keys": "بيانو بطيء + نبض خفيف (ستادي ريلاكس)",
+    "dream_pulse": "نبض حالم هادئ",
+    "night_drone": "دْرون ليلي عميق (خلفية طويلة جدًا)"
+  },
+  "files": {
+    "music_box": "assets/music/music_box.wav",
+    "lullaby_bell": "assets/music/lullaby_bell.wav",
+    "warm_pad": "assets/music/warm_pad.wav",
+    "lofi_keys": "assets/music/lofi_keys.wav",
+    "dream_pulse": "assets/music/dream_pulse.wav",
+    "night_drone": "assets/music/night_drone.wav"
+  },
+  "sample_seconds": 6.0
+}

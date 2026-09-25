@@ -60,7 +60,7 @@
     "storm"
   ],
   "sfx": {
-    "count": 32,
+    "count": 60,
     "uses": {
       "transition": [
         "whoosh",
@@ -101,6 +101,40 @@
         "click",
         "ding",
         "bell"
+      ],
+      "atmosphere": [
+        "vinyl",
+        "fire_crackle",
+        "wind_gust",
+        "thunder_far",
+        "rain_drop",
+        "warm_hum"
+      ],
+      "magic": [
+        "shimmer",
+        "swell",
+        "beam",
+        "magic_up",
+        "twinkle_run",
+        "reverse_swell",
+        "downlifter"
+      ],
+      "ui_soft": [
+        "ui_open",
+        "ui_close",
+        "ui_tick",
+        "glass_tap",
+        "wood_tap",
+        "coin_drop",
+        "page_turn",
+        "match_strike",
+        "bubble_pop",
+        "chime_soft",
+        "lullaby_note",
+        "whoosh_soft",
+        "soft_impact",
+        "sub_hit",
+        "tape_stop"
       ]
     },
     "recommended": {
@@ -113,7 +147,18 @@
         "magic",
         "slide_whistle",
         "sad_trombone",
-        "tada"
+        "tada",
+        "chime_soft",
+        "lullaby_note",
+        "beam",
+        "page_turn",
+        "magic_up",
+        "twinkle_run",
+        "warm_hum",
+        "glass_tap",
+        "wood_tap",
+        "rain_drop",
+        "match_strike"
       ],
       "satisfying": [
         "bubble",
@@ -121,7 +166,17 @@
         "click",
         "sparkle",
         "ding",
-        "swipe"
+        "swipe",
+        "ui_tick",
+        "glass_tap",
+        "wood_tap",
+        "coin_drop",
+        "bubble_pop",
+        "shimmer",
+        "whoosh_soft",
+        "soft_impact",
+        "ui_open",
+        "ui_close"
       ],
       "short_comedy": [
         "boing",
@@ -130,7 +185,13 @@
         "error",
         "slide_whistle",
         "whoosh",
-        "pop"
+        "pop",
+        "tape_stop",
+        "sub_hit",
+        "downlifter",
+        "vinyl",
+        "swell",
+        "reverse_swell"
       ]
     }
   },
@@ -381,6 +442,23 @@
     "agent": "العقل الذاتي (تعلّم + أفكار + شخصيات + خطة)",
     "factory": "المصنع (إنتاج + نشر + طابور + سجل)",
     "publish": "الرفع على يوتيوب (resumable + غلاف + بلايليست)"
+  },
+  "stock": {
+    "note": "المخزون المحلي — كله ملكنا (مولّد بالكود)",
+    "sfx_files": 60,
+    "music_styles": [
+      "music_box",
+      "lullaby_bell",
+      "warm_pad",
+      "lofi_keys",
+      "dream_pulse",
+      "night_drone"
+    ],
+    "music_previews": 6,
+    "fx_kinds": 10,
+    "stickers": 36,
+    "memes": 6,
+    "brand": 6
   },
   "rules": {
     "no_copyright": "ممنوع أي مقطع/صورة/أغنية/ميم من حد تاني — ولو مشهور",

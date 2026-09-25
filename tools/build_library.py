@@ -11,7 +11,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from engine import ambient, render3d, sfx, visuals  # noqa: E402
+from engine import ambient, fx, music, render3d, sfx, visuals  # noqa: E402
 
 
 def _load(p, default=None):
@@ -71,6 +71,16 @@ def build() -> dict:
             "agent": "العقل الذاتي (تعلّم + أفكار + شخصيات + خطة)",
             "factory": "المصنع (إنتاج + نشر + طابور + سجل)",
             "publish": "الرفع على يوتيوب (resumable + غلاف + بلايليست)",
+        },
+        "stock": {
+            "note": "المخزون المحلي — كله ملكنا (مولّد بالكود)",
+            "sfx_files": len(list((ROOT / "assets" / "sfx").glob("*.wav"))),
+            "music_styles": list(music.STYLES().keys()),
+            "music_previews": len(list((ROOT / "assets" / "music").glob("*.wav"))),
+            "fx_kinds": len(fx.KINDS),
+            "stickers": len(list((ROOT / "assets" / "stickers").glob("*.png"))),
+            "memes": len(list((ROOT / "assets" / "memes").glob("*.png"))),
+            "brand": len(list((ROOT / "assets" / "brand").glob("*.png"))),
         },
         "rules": {
             "no_copyright": "ممنوع أي مقطع/صورة/أغنية/ميم من حد تاني — ولو مشهور",

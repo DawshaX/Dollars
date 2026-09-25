@@ -1,0 +1,33 @@
+# 📦 مخزون المكتبة المحلي (ملكنا 100%)
+> **القاعدة:** كل ملف هنا **مولّد بكودنا** ⇒ صفر حقوق · صفر سرقة · شغّال بلا إنترنت للابد.
+> واللي **مش محتاج نخزّنه** (موسيقى · إضافات · مشاهد) بيتولّد **وقت الطلب** ⇒ مخزون لا نهائي، وصفر حجم على المستودع.
+
+| الحاجة | المخزون المحفوظ | اللي بيتولّد وقت الطلب | الملف |
+|---|---|---|---|
+| مؤثرات صوتية | **60 ملف WAV** (توليف رقمي · 44.1kHz) | 🌀 أي مؤثر جديد بسطر كود | `assets/sfx/` + `engine/sfx.py` |
+| موسيقى | 6 عيّنات خفيفة (22kHz) تسمعها | **6 أنماط كاملة** أي طول — حلقات مقفولة بلا قطع | `assets/music/` + `engine/music.py` |
+| إضافات بصرية (FX) | 0 ملف (معادلات) | **10 أنواع**: ضوء · هالة · غبار · بوكيه · بلوم · لمعات · مسح · حبيبات · حجاب · شعاع | `engine/fx.py` |
+| ملصقات | **36 ملصق PNG** | أشكال جديدة تُرسم بالكود | `assets/stickers/` + `tools/make_stickers.py` |
+| ميمز | **6 قوالب** | قوالب جديدة | `assets/memes/` |
+| هوية القناة | **6 صور** (أفاتار · بانر · مائية · نهاية · شورتس · غلاف) | — | `assets/brand/` |
+| مشاهد حيّة | 0 (كود) | **12 مشهد 2D حيّ + 4 مشاهد 3D** بمنظور حقيقي | `engine/visuals.py` · `engine/render3d.py` |
+
+## أوامر
+```bash
+python engine/stock.py --report     # تقرير المخزون
+python engine/stock.py --all        # إعادة بناء المخزون + تحديث الفهرس
+python engine/music.py              # يطلّع عيّنات من كل نمط موسيقى
+python engine/sfx.py                # يبني كل المؤثرات
+python engine/factory.py --status   # حالة المصنع (بيقيس المخزون في الخطة)
+```
+
+## اللي زاد في الجيل الثاني (60 مؤثر بدل 32)
+انتقالات ناعمة: `shimmer` · `swell` · `downlifter` · `reverse_swell` · `whoosh_soft` · `beam`
+دفء ومكان: `vinyl` · `fire_crackle` · `wind_gust` · `thunder_far` · `rain_drop` · `warm_hum`
+تفاصيل ناعمة: `glass_tap` · `wood_tap` · `ui_open` · `ui_close` · `ui_tick` · `coin_drop` · `page_turn`
+لحظات: `sub_hit` · `soft_impact` · `match_strike` · `chime_soft` · `lullaby_note` · `magic_up` · `twinkle_run` · `bubble_pop` · `tape_stop`
+
+## قواعد الاستخدام الخارجي
+1. أي حاجة مش من كودنا لازم تكون **CC0 / ملكية عامة / ترخيص تجاري مسموح** وتتسجّل في `content/library.json` بمصدرها.
+2. **ممنوع** أي مقطع/صورة/أغنية/ميم من حد — ولو «مشهور ومش مهم».
+3. ممنوع MusicGen (CC BY-NC) — مسجّل في `docs/FREE_STACK.md`.

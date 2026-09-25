@@ -23,7 +23,7 @@ import sys
 
 import numpy as np
 
-from . import ambient, cutout, grade, meta, proc, sfx, visuals
+from . import ambient, cutout, fx as fx_mod, grade, meta, music as music_mod, proc, sfx, visuals
 from . import render3d  # noqa: F401  (تسجيل مشاهد 3D في سجل المحرّك)
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -35,7 +35,8 @@ TRANSITIONS = ("none", "ink", "glitch", "confetti", "zoom", "fade")
 # ───────────────────────────── تشغيل الصوت ─────────────────────────────
 
 def build_audio(beats: list, ambient_name: str | None = None, sr: int = 44100,
-                ambient_gain: float = 0.55) -> np.ndarray:
+                ambient_gain: float = 0.55, music_style: str | None = None,
+                music_gain: float = 0.45) -> np.ndarray:
     """خريطة صوتية كاملة: أرضية أجواء هادئة + المؤثرات في توقيتاتها بالظبط."""
     total = sum(float(b.get("dur", 2.0)) for b in beats)
     n = int(total * sr) + sr // 2
@@ -51,6 +52,13 @@ def build_audio(beats: list, ambient_name: str | None = None, sr: int = 44100,
                 [("wind", 0.7), ("brown_sleep", 0.4)],
                 total + 0.5)
             track[:bed.size] += bed[:n] * ambient_gain
+        except Exception:
+            pass
+    if music_style:                                   # موسيقى من صنعنا تحت الحكاية
+        try:
+            bed = music_mod.bed(music_style, total + 0.5)
+            m = min(bed.shape[0], n)
+            track[:m] += (bed[:m, 0] + bed[:m, 1]) * 0.5 * music_gain
         except Exception:
             pass
     t0 = 0.0
@@ -99,6 +107,7 @@ class Story:
         self.w, self.h = (self.d.get("size") or [960, 540])[:2]
         self.look = self.d.get("look", "story")
         self.ambient = self.d.get("ambient")
+        self.music = self.d.get("music")              # نمط الموسيقى (من مكتبتنا)
         self.title = self.d.get("title") or self.id
         self.characters = self.d.get("characters") or "دولارز"
 
@@ -146,7 +155,7 @@ class Story:
             raise ValueError("القصة فيها مشاكل:\n- " + "\n- ".join(problems))
         out_path = pathlib.Path(out_path)
         out_path.parent.mkdir(parents=True, exist_ok=True)
-        audio = build_audio(self.beats, self.ambient) * float(audio_gain)
+        audio = build_audio(self.beats, self.ambient, music_style=self.music) * float(audio_gain)
         wav = out_path.with_suffix(".wav")
         _write_wav(wav, audio)
         silent = out_path.with_name(out_path.stem + "_silent.mp4")
@@ -177,6 +186,7 @@ class Story:
             acc += float(b.get("dur", 2.0))
         # مشاهد وكاميرات (تُبنى مرّة لكل بيت)
         cache = {}
+        fx_cache: dict = {}
         for i in range(frames):
             t = i / fps
             bi = max(0, min(len(self.beats) - 1, np.searchsorted(beat_at, t, side="right") - 1))
@@ -193,6 +203,14 @@ class Story:
             bg = scene.raw(local)
             depth = scene.depth(local) if hasattr(scene, "depth") else None
             look = cinema or beat.get("look") or self.look
+            if bi not in fx_cache:                     # إضافات بصرية للبيت (تركيب جوه المونتاج)
+                plan_b = beat.get("fx")
+                if plan_b is None:
+                    import random as _r
+                    import zlib
+                    base = zlib.crc32(self.id.encode("utf-8")) % 99991     # ثابت في كل تشغيل
+                    plan_b = fx_mod.plan(_r.Random(int(base) + int(bi) * 17), "story", 1)[0]
+                fx_cache[bi] = plan_b
             frame = grade.apply(bg, preset=look, depth=depth,
                                 sun_xy=getattr(scene, "sun_xy", (0.7, 0.25)), seed=i,
                                 focus=float(beat.get("focus", 0.90)),
@@ -220,6 +238,10 @@ class Story:
                         loop=dur * float(c.get("cycles", 2.0)), tilt=float(c.get("tilt", 0.0)),
                         enter=c.get("enter"), exit=c.get("exit"), blink=bool(c.get("blink", True))))
                 frame = layer.compose(frame, local, ambient_color=_ambient_color(frame))
+            # إضافات بصرية (ضوء · غبار · لمعات · بلوم) — طبقة تركيب فوق الكادر
+            if fx_cache.get(bi):
+                frame = fx_mod.apply_all((np.clip(frame, 0, 1) * 255).astype(np.uint8),
+                                         fx_cache[bi], local, seed=i) / 255.0
             # انتقال للخروج
             tr = beat.get("transition", "none")
             if tr != "none" and local > dur - 0.45:

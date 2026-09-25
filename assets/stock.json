@@ -1,0 +1,26 @@
+{
+  "note": "المخزون المحلي الأساسي — كل ملف هنا ملكنا (مولّد بالكود) ⇒ صفر حقوق، صفر سرقة.",
+  "generated": "2026-09-25T03:52:29Z",
+  "sfx": 60,
+  "sfx_mb": 4.55,
+  "music_previews": [
+    "music_box",
+    "lullaby_bell",
+    "warm_pad",
+    "lofi_keys",
+    "dream_pulse",
+    "night_drone"
+  ],
+  "fx_kinds": [
+    "light_leak",
+    "flare",
+    "dust",
+    "bokeh",
+    "bloom",
+    "scanlines",
+    "grain_soft",
+    "vignette_soft",
+    "sparkle_dust",
+    "sweep"
+  ]
+}
