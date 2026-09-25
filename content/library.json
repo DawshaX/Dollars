@@ -442,6 +442,18 @@
       "name": "Bomi",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "luta_auto",
+      "name": "Luta",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "riva_auto",
+      "name": "Riva",
+      "type": "قطة صحراوية",
+      "origin": "auto"
     }
   ],
   "stories": [

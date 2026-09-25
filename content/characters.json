@@ -100,6 +100,46 @@
       "origin": "auto",
       "created": "2026-09-25T00:49:43.756480",
       "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "luta_auto",
+      "name": "Luta",
+      "type": "كائن طيني صغير",
+      "look": "طين ناعم + عينين كبيرتين — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "خجول بس شجاع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "desert",
+        "rain"
+      ],
+      "formats": [
+        "silent_gag",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-25T09:43:59.544907+00:00",
+      "image_prompt": "cute original 2D animation character, a small clay creature, طين ناعم + عينين كبيرتين, desert background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "riva_auto",
+      "name": "Riva",
+      "type": "قطة صحراوية",
+      "look": "فرو رملي + عيون ذهبية — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "desert",
+        "kitchen"
+      ],
+      "formats": [
+        "silent_gag",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-25T09:43:59.545094+00:00",
+      "image_prompt": "cute original 2D animation character, a desert kitten, فرو رملي + عيون ذهبية, desert background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -109,5 +149,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 2
+  "_auto_count": 4
 }
