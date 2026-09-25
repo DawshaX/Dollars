@@ -83,4 +83,4 @@ def test_long_video_is_built_without_reencode(tmp_path):
     secs = int(d.group(1)) * 3600 + int(d.group(2)) * 60 + float(d.group(3))
     assert 30 <= secs <= 36, f"مدة الطويلة غلط: {secs}"
     assert rec["meta"]["chapters"]           # الطويلة لازم يكون ليها فصول
-    assert rec["meta"]["chapters"][0][0] == "0:00"      # أول فصل عند المقدمة
+    assert rec["meta"]["chapters"][0].startswith("0:00")  # أول فصل عند المقدمة
