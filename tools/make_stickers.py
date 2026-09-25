@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import json
+import math
 import pathlib
 
 from PIL import Image, ImageDraw, ImageFont
@@ -475,6 +476,119 @@ def st_bubble():
     return img
 
 
+def st_leaf():
+    """ورقة شجر — خضرة وطبيعة (نستخدمها في قصص الغابة)."""
+    img, d = canvas(); c = SIZE * SS / 2
+    L, W = SIZE * SS * 0.78, SIZE * SS * 0.40
+    right, left = [], []
+    N = 40
+    for i in range(N + 1):
+        u = i / N
+        wdt = (math.sin(math.pi * u) ** 0.72) * W * 0.5
+        y = c - L / 2 + L * u
+        right.append((c + wdt, y)); left.append((c - wdt, y))
+    pts = right + left[::-1]
+    d.polygon(pts, fill=(96, 205, 130, 255), outline=(28, 90, 55, 255), width=6 * SS)
+    d.line([c, c - L * 0.5 + 6, c, c + L * 0.5 - 4], fill=(40, 120, 70, 255), width=6 * SS)
+    for k in range(5):
+        u = 0.18 + k * 0.16
+        wdt = (math.sin(math.pi * u) ** 0.72) * W * 0.5
+        y = c - L / 2 + L * u
+        d.line([c, y, c + wdt * 0.9, y + L * 0.07], fill=(40, 120, 70, 220), width=4 * SS)
+        d.line([c, y, c - wdt * 0.9, y + L * 0.07], fill=(40, 120, 70, 220), width=4 * SS)
+    return img.rotate(-22, resample=Image.BICUBIC, expand=False)
+
+
+def st_snowflake():
+    """ندفة ثلج — شتاء وبرودة (ونستخدمها في مشاهد الجليد)."""
+    img, d = canvas(); c = SIZE * SS / 2; R = SIZE * SS * 0.34
+    for i in range(6):
+        a = i * math.pi / 3
+        x2, y2 = c + R * math.cos(a), c + R * math.sin(a)
+        d.line([c, c, x2, y2], fill=BLUE, width=11 * SS)
+        for t, ln in ((0.5, 0.26), (0.74, 0.18)):              # تفريعات
+            bx, by = c + R * t * math.cos(a), c + R * t * math.sin(a)
+            for sgn in (-1, 1):
+                aa = a + sgn * 0.9
+                d.line([bx, by, bx + R * ln * math.cos(aa), by + R * ln * math.sin(aa)],
+                       fill=BLUE, width=7 * SS)
+    d.ellipse([c - 0.06 * SIZE * SS, c - 0.06 * SIZE * SS, c + 0.06 * SIZE * SS, c + 0.06 * SIZE * SS],
+              fill=WHITE, outline=(90, 150, 220, 255), width=5 * SS)
+    return img
+
+
+def st_gem():
+    """جوهرة — مكسب/كنز/لمعة (تركيب أصلية)."""
+    img, d = canvas(); c = SIZE * SS / 2; s = SIZE * SS * 0.32
+    top = [(c - s * 0.85, c - s * 0.35), (c - s * 0.35, c - s * 0.95),
+           (c + s * 0.35, c - s * 0.95), (c + s * 0.85, c - s * 0.35)]
+    d.polygon(top + [(c + s * 0.55, c + s * 0.30), (c, c + s * 1.0), (c - s * 0.55, c + s * 0.30)],
+              fill=MINT, outline=INK, width=5 * SS)
+    d.polygon([(c - s * 0.85, c - s * 0.35), (c - s * 0.35, c - s * 0.95), (c, c - s * 0.30),
+               (c - s * 0.55, c + s * 0.30)], fill=(140, 235, 220, 255), outline=INK, width=4 * SS)
+    d.polygon([(c + s * 0.85, c - s * 0.35), (c + s * 0.35, c - s * 0.95), (c, c - s * 0.30),
+               (c + s * 0.55, c + s * 0.30)], fill=(90, 200, 195, 255), outline=INK, width=4 * SS)
+    d.line([c - s * 0.25, c - s * 0.55, c - s * 0.45, c - s * 0.15], fill=WHITE, width=8 * SS)
+    star(d, c + s * 0.95, c - s * 0.75, s * 0.2, YEL, INK)
+    return img
+
+
+def st_gift():
+    """علبة هدية بشريطة — مفاجآت ومناسبات."""
+    img, d = canvas(); c = SIZE * SS / 2; s = SIZE * SS * 0.34
+    d.rounded_rectangle([c - s, c - s * 0.35, c + s, c + s], radius=10 * SS, fill=CORAL, outline=INK, width=5 * SS)
+    d.rectangle([c - s * 1.05, c - s * 0.62, c + s * 1.05, c - s * 0.28], fill=(255, 140, 140, 255),
+                outline=INK, width=5 * SS)
+    d.rectangle([c - 0.11 * SIZE * SS, c - s * 0.62, c + 0.11 * SIZE * SS, c + s], fill=YEL, outline=INK,
+                width=4 * SS)
+    for sgn in (-1, 1):                                         # عقدة الشريطة
+        d.ellipse([c + sgn * 0.30 * SIZE * SS - 0.20 * SIZE * SS, c - s * 1.05,
+                   c + sgn * 0.30 * SIZE * SS + 0.20 * SIZE * SS, c - s * 0.55],
+                  fill=YEL, outline=INK, width=5 * SS)
+    d.ellipse([c - 0.10 * SIZE * SS, c - s * 0.82, c + 0.10 * SIZE * SS, c - s * 0.55],
+              fill=(255, 236, 170, 255), outline=INK, width=4 * SS)
+    return img
+
+
+def st_smoke():
+    """دخان/بخار — انتقالات و«بوف» الكوميدي (شفاف)."""
+    img, d = canvas(); c = SIZE * SS / 2
+    for (dx, dy, r, a) in ((0.0, 0.22, 0.20, 150), (-0.16, 0.0, 0.16, 130), (0.16, -0.02, 0.15, 130),
+                           (-0.06, -0.22, 0.12, 110), (0.1, -0.3, 0.09, 90)):
+        x, y, rr = c + dx * SIZE * SS, c + dy * SIZE * SS, r * SIZE * SS
+        d.ellipse([x - rr, y - rr, x + rr, y + rr], fill=(235, 235, 245, a), outline=(120, 120, 140, a + 60),
+                  width=4 * SS)
+    return img
+
+
+def st_butterfly():
+    """فراشة — 4 أجنحة بطبقات بتتدوّر (تركيب أصلية بتاعتنا)."""
+    img, d = canvas(); c = SIZE * SS / 2; s = SIZE * SS * 0.34
+
+    def wing(w, h, rot, fill):
+        m = 0.12
+        lay = Image.new("RGBA", (int(w * (1 + 2 * m)), int(h * (1 + 2 * m))), (0, 0, 0, 0))
+        ld = ImageDraw.Draw(lay)
+        ld.ellipse([lay.width * m, lay.height * m, lay.width * (1 - m), lay.height * (1 - m)],
+                   fill=fill, outline=INK, width=5 * SS)
+        return lay.rotate(rot, expand=True, resample=Image.BICUBIC)
+
+    for sgn in (-1, 1):
+        up = wing(s * 1.05, s * 0.78, -28 * sgn, VIOLET)               # الجناح العلوي
+        lo = wing(s * 0.78, s * 0.62, 20 * sgn, (200, 150, 255, 255))  # الجناح السفلي
+        img.alpha_composite(up, (int(c + sgn * s * 0.62 - up.width / 2), int(c - s * 0.52 - up.height / 2)))
+        img.alpha_composite(lo, (int(c + sgn * s * 0.40 - lo.width / 2), int(c + s * 0.62 - lo.height / 2)))
+        d.ellipse([c + sgn * s * 0.66 - s * 0.12, c - s * 0.56 - s * 0.12,
+                   c + sgn * s * 0.66 + s * 0.12, c - s * 0.56 + s * 0.12], fill=(255, 236, 170, 215))
+    d.ellipse([c - s * 0.13, c - s * 0.86, c + s * 0.13, c + s * 0.92], fill=(70, 50, 90, 255),
+              outline=INK, width=4 * SS)
+    d.line([c - s * 0.05, c - s * 0.82, c - s * 0.62, c - s * 1.42], fill=INK, width=5 * SS)
+    d.line([c + s * 0.05, c - s * 0.82, c + s * 0.62, c - s * 1.42], fill=INK, width=5 * SS)
+    d.ellipse([c - s * 0.74, c - s * 1.54, c - s * 0.50, c - s * 1.30], fill=YEL, outline=INK, width=3 * SS)
+    d.ellipse([c + s * 0.50, c - s * 1.54, c + s * 0.74, c - s * 1.30], fill=YEL, outline=INK, width=3 * SS)
+    return img
+
+
 STICKERS = {
     "nono_happy": lambda: st_nono("happy"), "nono_shock": lambda: st_nono("shock"),
     "nono_love": lambda: st_nono("love"), "nono_sad": lambda: st_nono("sad"),
@@ -490,7 +604,8 @@ STICKERS = {
     "laugh": st_laugh, "speech": st_speech, "thought": st_thought,
     "lazo_auto": lambda: st_lazo("happy"), "lazo_sleep": lambda: st_lazo("sleep"),
     "bomi_auto": lambda: st_bomi("happy"), "bomi_sleep": lambda: st_bomi("sleep"),
-    "bubble": st_bubble,
+    "bubble": st_bubble, "leaf": st_leaf, "snowflake": st_snowflake, "gem": st_gem,
+    "gift": st_gift, "smoke": st_smoke, "butterfly": st_butterfly,
 }
 
 # مواضع الاستخدام المقترحة (يستخدمها المجمّع)
@@ -498,9 +613,12 @@ STICKER_USES = {
     "reaction": ["nono_happy", "nono_shock", "nono_love", "nono_sad", "nono_sleepy",
                  "koko_happy", "koko_sleep", "paper_man", "paper_man_facepalm",
                  "laugh", "anger", "zzz"],
-    "emotion": ["heart", "heart_broken", "star", "sparkle", "flame", "droplet", "moon", "sun", "cloud"],
+    "emotion": ["heart", "heart_broken", "star", "sparkle", "flame", "droplet", "moon", "sun", "cloud",
+                "gem", "gift", "leaf", "snowflake", "butterfly"],
+    "nature": ["leaf", "snowflake", "butterfly", "cloud", "rain_cloud", "sun", "moon", "droplet", "smoke"],
     "ui": ["question", "exclaim", "arrow_right", "arrow_curve", "crown", "check", "cross",
-           "badge_new", "ring", "burst", "speed_lines", "speech", "thought", "note", "rain_cloud"],
+           "badge_new", "ring", "burst", "speed_lines", "speech", "thought", "note", "rain_cloud",
+           "smoke", "gift", "gem"],
 }
 
 

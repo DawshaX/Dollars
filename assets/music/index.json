@@ -6,7 +6,10 @@
     "warm_pad": "طبقات دافئة — تركيز وتأمل",
     "lofi_keys": "بيانو بطيء + نبض خفيف (ستادي ريلاكس)",
     "dream_pulse": "نبض حالم هادئ",
-    "night_drone": "دْرون ليلي عميق (خلفية طويلة جدًا)"
+    "night_drone": "دْرون ليلي عميق (خلفية طويلة جدًا)",
+    "city_night": "ليل المدينة — نبض ناعم + أجراس بعيدة (مطر النيون)",
+    "ocean_lullaby": "تهويدة الأمواج — مدّ وجزر بطيء (نوم المحيط)",
+    "glass_garden": "جنينة زجاجية — أربيجيو كاسات ناعم (زن وتركيز)"
   },
   "files": {
     "music_box": "assets/music/music_box.wav",
@@ -14,7 +17,10 @@
     "warm_pad": "assets/music/warm_pad.wav",
     "lofi_keys": "assets/music/lofi_keys.wav",
     "dream_pulse": "assets/music/dream_pulse.wav",
-    "night_drone": "assets/music/night_drone.wav"
+    "night_drone": "assets/music/night_drone.wav",
+    "city_night": "assets/music/city_night.wav",
+    "ocean_lullaby": "assets/music/ocean_lullaby.wav",
+    "glass_garden": "assets/music/glass_garden.wav"
   },
   "sample_seconds": 6.0
 }

@@ -117,7 +117,7 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
     right = np.zeros(n, np.float32)
 
     # ── أرضية الأكوردات ──
-    if style in ("warm_pad", "night_drone", "dream_pulse"):
+    if style in ("warm_pad", "night_drone", "dream_pulse", "city_night", "ocean_lullaby", "glass_garden"):
         for b in range(int(math.ceil(gen / bar))):
             deg = prog[b % len(prog)]
             start = _n(b * bar)
@@ -134,10 +134,11 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
             del mix
 
     # ── لحن علوي (جرس/صندوق موسيقى) ──
-    if style in ("music_box", "lullaby_bell", "dream_pulse", "lofi_keys"):
+    if style in ("music_box", "lullaby_bell", "dream_pulse", "lofi_keys", "city_night", "glass_garden"):
         shape = {"music_box": "pluck", "lullaby_bell": "bell", "dream_pulse": "sine",
-                 "lofi_keys": "tri"}[style]
-        step = bar / 4.0 if style != "dream_pulse" else bar / 3.0
+                 "lofi_keys": "tri", "city_night": "bell", "glass_garden": "pluck"}[style]
+        step = {"dream_pulse": bar / 3.0, "glass_garden": bar / 6.0,
+                "city_night": bar / 2.0}.get(style, bar / 4.0)
         k = 0
         pos = 0.0
         while pos < gen - 0.1:
@@ -163,7 +164,9 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
                 break
 
     # ── نبض ناعم (درام خفيف بالكود) ──
-    if style in ("dream_pulse", "lofi_keys"):
+    if style in ("dream_pulse", "lofi_keys", "city_night"):
+        if style == "city_night":
+            beat = bar / 2.0
         beat = bar / 2.0
         p = 0.0
         while p < gen - 0.05:
@@ -175,6 +178,18 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
                 left[j:j + seg] += kick
                 right[j:j + seg] += kick
             p += beat
+
+    # ── موجات (نمط المحيط/الأمواج الهادية) ──
+    if style == "ocean_lullaby":
+        cycles = max(1, int(round(gen / 14.0)))
+        swell = 0.55 + 0.45 * np.sin(2 * math.pi * cycles * t / gen - math.pi / 2)
+        left *= swell
+        right *= swell
+        surge = np.zeros(n, np.float32)
+        surge[:] = np.convolve(air_src := np.abs(np.sin(2 * math.pi * cycles * t / gen)),
+                               np.ones(64, np.float32) / 64.0, mode="same")
+        left += surge * 0.035
+        right += np.roll(surge, 97) * 0.035
 
     # ── نسيم علوي (هواء) ──
     air = rng.normal(0, 1, n).astype(np.float32)
@@ -217,6 +232,9 @@ def STYLES() -> dict:
         "lofi_keys": "بيانو بطيء + نبض خفيف (ستادي ريلاكس)",
         "dream_pulse": "نبض حالم هادئ",
         "night_drone": "دْرون ليلي عميق (خلفية طويلة جدًا)",
+        "city_night": "ليل المدينة — نبض ناعم + أجراس بعيدة (مطر النيون)",
+        "ocean_lullaby": "تهويدة الأمواج — مدّ وجزر بطيء (نوم المحيط)",
+        "glass_garden": "جنينة زجاجية — أربيجيو كاسات ناعم (زن وتركيز)",
     }
 
 

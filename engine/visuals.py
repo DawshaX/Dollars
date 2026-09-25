@@ -42,6 +42,7 @@ LOOKS = {
     "black_screen": "cinema_night",
     "valley_lake": "cinema_cool", "dunes_moon": "cinema_warm", "snow_pines": "cinema_warm",
     "planet_rings": "cinema_night",
+    "candle_desk": "cinema_warm", "zen_garden": "clean", "neon_rain": "cinema_cool", "bubble_lamp": "cinema_cool",
 }
 
 # ────────────────────────────── القاعدة ──────────────────────────────
@@ -722,6 +723,157 @@ class InkWipe(Scene):
         return img
 
 
+# ────────────────────────────── مشاهد الجيل الرابع (مخزون أساسي) ──────────────────────────────
+
+class CandleDesk(Scene):
+    """شُعلة على مكتب: نور دافي بيرقص · هالة ناعمة · غبار في الضوء — دفء وتركيز."""
+    name = "candle_desk"
+    loop_seconds = 45.0
+
+    def prepare(self):
+        h, w = self.h, self.w
+        self.tex = blur(fbm(h, w, self.seed + 81, scales=(3, 6, 12, 32), gain=0.6), 1.2)
+        self.flame_tex = blur(tiled_fbm2(h, w, self.seed + 82, pick_period(h, h // 4),
+                                         pick_period(w, w // 6), scales=(4, 8, 16), gain=0.6), 1.0)
+        rng = np.random.default_rng(self.seed + 83)
+        n = 70
+        self.dx = rng.random(n, dtype=np.float32) * w
+        self.dy = rng.random(n, dtype=np.float32) * h
+        self.dv = np.maximum(1.0, np.round(rng.uniform(1, 2, n))).astype(np.float32) * h / self.loop_seconds
+        self.dp = rng.random(n, dtype=np.float32) * TAU
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = t / L
+        base = 0.06 + 0.05 * self.tex
+        img = np.zeros((h, w, 3), np.float32)
+        img += base[:, :, None] * np.array([1.0, 0.78, 0.55], np.float32)
+        cx, cy = w * 0.5, h * 0.74
+        flick = 0.85 + 0.09 * math.sin(TAU * 2.0 * u) + 0.06 * math.sin(TAU * 6.0 * u + 1.1)
+        body = np.exp(-(((self.xx - cx) / (w * 0.055)) ** 2 + ((self.yy - cy) / (h * 0.16)) ** 2))
+        img += (body * 0.55 * flick)[:, :, None] * np.array([1.0, 0.66, 0.28], np.float32)
+        flame = np.exp(-(((self.xx - cx) / (w * 0.022)) ** 2 + ((self.yy - (cy - h * 0.06)) / (h * 0.075)) ** 2))
+        tex = np.roll(np.roll(self.flame_tex, int(round(h * u)), 0), int(round(w * u)), 1)
+        img += (flame * (0.7 + 0.6 * tex) * flick)[:, :, None] * np.array([1.0, 0.92, 0.62], np.float32)
+        glow(img, cx, cy - h * 0.10, w * 0.26, (1.0, 0.62, 0.26), 0.26 * flick, 2.1)
+        dy = np.mod(self.dy + self.dv * t, h)
+        tw = 0.4 + 0.6 * np.sin(TAU * u + self.dp)
+        splat_fast(img, self.dx, dy, (0.05 * tw).astype(np.float32), (1.0, 0.86, 0.6))
+        return img
+
+
+class ZenGarden(Scene):
+    """جنينة زن: رمل متشطّب بخطوط دقيقة · حجر · ضوء بيمرّ — سكون مريح للعين."""
+    name = "zen_garden"
+    loop_seconds = 60.0
+    stateful = True
+
+    def prepare(self):
+        h, w = self.h, self.w
+        self.sand = fbm(h, w, self.seed + 84, scales=(6, 12, 24, 64), gain=0.55)
+        rng = np.random.default_rng(self.seed + 85)
+        self.ridges = []
+        ys = np.linspace(h * 0.06, h * 0.94, 13)
+        for k, y in enumerate(ys):
+            amp = h * rng.uniform(0.018, 0.045)
+            freq = rng.uniform(1.2, 2.6)
+            self.ridges.append((y, amp, freq, rng.uniform(0, 1)))
+        self.stones = [(w * 0.30, h * 0.44, min(w, h) * 0.20), (w * 0.66, h * 0.62, min(w, h) * 0.15),
+                       (w * 0.50, h * 0.24, min(w, h) * 0.11)]
+        self.reset()
+
+    def reset(self):
+        self.draw = np.zeros((self.h, self.w), np.float32)
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = (t % L) / L
+        if t < 1.0 / self.fps:
+            self.reset()
+        # شطبة الرمل: خطوط متحركة ببطء (توازي المسار)
+        sand = 0.60 + 0.16 * self.sand
+        phase = u * TAU
+        for (y, amp, freq, ph) in self.ridges:
+            line = amp * np.sin(self.xx / w * freq * TAU + ph + phase * 0.35)
+            d = self.yy - (y + line)
+            sand += 0.05 * np.exp(-(d / (h * 0.012)) ** 2)
+        img = np.zeros((h, w, 3), np.float32)
+        img += sand[:, :, None] * np.array([0.93, 0.90, 0.80], np.float32)
+        # ضوء بيمرّ على السطح (حركة الحياة)
+        sweep = (u * 2.0) % 1.0
+        img += (np.exp(-(((self.xx - w * (-0.2 + 1.4 * sweep)) / (w * 0.22)) ** 2)) * 0.06)[:, :, None]
+        for (sx, sy, r) in self.stones:
+            # ظل ناعم تحت الحجر (يمين-تحت)
+            sh = np.exp(-(((self.xx - (sx + r * 0.22)) / (r * 1.15)) ** 2
+                          + ((self.yy - (sy + r * 0.38)) / (r * 0.5)) ** 2))
+            img *= (1 - sh[:, :, None] * 0.30)
+            # جسم الحجر: قمة أفتح وقاع أغمق ⇒ بيبان حجر مش نقطة
+            d = np.sqrt(((self.xx - sx) / r) ** 2 + ((self.yy - sy) / (r * 0.82)) ** 2)
+            mask = np.clip(1.05 - d, 0, 1) ** 0.55
+            face = np.clip(1.0 - d * 1.35, 0, 1)
+            col = (np.array([0.30, 0.30, 0.34], np.float32)[None, None, :] * (1 - face[:, :, None])
+                   + np.array([0.62, 0.61, 0.62], np.float32)[None, None, :] * face[:, :, None])
+            img = img * (1 - mask[:, :, None] * 0.95) + mask[:, :, None] * col
+            glow(img, sx - r * 0.25, sy - r * 0.35, r * 0.9, (0.85, 0.85, 0.86), 0.20, 2.6)
+            glow(img, sx + r * 0.35, sy + r * 0.45, r * 0.8, (0.0, 0.0, 0.0), 0.22, 2.2)
+        return img
+
+
+class NeonRain(Scene):
+    """مطر على زجاج بالليل مع لافتات نيون — مزاج المدينة."""
+    name = "neon_rain"
+    loop_seconds = 60.0
+
+    def prepare(self):
+        h, w = self.h, self.w
+        self.base = RainGlass(w=w, h=h, seed=self.seed + 91)
+        rng = np.random.default_rng(self.seed + 92)
+        self.signs = [(rng.uniform(0.1, 0.9), rng.uniform(0.1, 0.5), rng.uniform(0.06, 0.16),
+                       rng.choice([[1.0, 0.25, 0.5], [0.3, 0.9, 1.0], [1.0, 0.8, 0.3], [0.7, 0.4, 1.0]]))
+                      for _ in range(7)]
+
+    def render(self, t):
+        img = self.base.render(t)
+        h, w = self.h, self.w
+        img *= 0.55                                    # نخفت المشهد شوية ونضيف نيون
+        for i, (sx, sy, r, col) in enumerate(self.signs):
+            pulse = 0.55 + 0.45 * math.sin(TAU * float(1 + (i % 3)) * (t / self.loop_seconds) + i)
+            glow(img, sx * w, sy * h, r * w * 0.9, tuple(float(c) for c in col), 0.30 * pulse, 1.8)
+            glow(img, sx * w, sy * h, r * w * 0.35, tuple(float(c) for c in col), 0.5 * pulse, 2.6)
+        img += (self.base.render(t) * 0.25)
+        return np.clip(img, 0.0, 1.4)
+
+
+class BubbleLamp(Scene):
+    """لمبة فقاعات: فقاعات بتطلع ببطء في سائل مضيء — إدمان هادي."""
+    name = "bubble_lamp"
+    loop_seconds = 50.0
+
+    def prepare(self):
+        h, w = self.h, self.w
+        rng = np.random.default_rng(self.seed + 93)
+        n = 46
+        self.bx = rng.random(n, dtype=np.float32) * w
+        self.by = rng.random(n, dtype=np.float32) * h
+        self.bv = np.maximum(1.0, np.round(rng.uniform(1, 3, n))).astype(np.float32) * h / self.loop_seconds
+        self.br = rng.uniform(0.006, 0.028, n).astype(np.float32) * min(w, h)
+        self.bp = rng.random(n, dtype=np.float32) * TAU
+        self.wob = np.maximum(1.0, np.round(rng.uniform(1, 3, n))).astype(np.float32)
+
+    def render(self, t):
+        h, w = self.h, self.w
+        img = np.zeros((h, w, 3), np.float32)
+        img += 0.06 + 0.05 * self.vig[:, :, None] * np.array([0.35, 0.55, 0.85], np.float32)
+        glow(img, w * 0.5, h * 0.85, w * 0.45, (0.35, 0.65, 1.0), 0.35, 1.7)
+        for i in range(self.bx.size):
+            y = np.mod(self.by[i] - self.bv[i] * t, h)
+            x = self.bx[i] + 0.02 * w * np.sin(TAU * self.wob[i] * t / self.loop_seconds + self.bp[i])
+            r = float(self.br[i])
+            glow(img, float(x), float(y), r * 2.4, (0.45, 0.78, 1.0), 0.22, 2.2)
+            glow(img, float(x - r * 0.3), float(y - r * 0.35), r * 1.15, (1.0, 1.0, 1.0), 0.45, 3.0)
+        return np.clip(img, 0.0, 1.3)
+
+
 # ────────────────────────────── السجل + الترميز ──────────────────────────────
 
 SCENES = {
@@ -729,11 +881,13 @@ SCENES = {
     "fireplace": Fireplace, "sand_table": SandTable, "pendulum_wave": PendulumWave,
     "harmonograph": Harmonograph, "stinger_confetti": Confetti, "stinger_glitch": Glitch,
     "stinger_zoom": ZoomPunch, "stinger_ink": InkWipe,
+    "candle_desk": CandleDesk, "zen_garden": ZenGarden, "neon_rain": NeonRain, "bubble_lamp": BubbleLamp,
 }
 
-SLEEP_SCENES = ("starfield", "rain_glass", "ocean", "aurora", "fireplace")
-SMILE_SCENES = ("sand_table", "pendulum_wave", "harmonograph", "stinger_confetti",
-                "stinger_glitch", "stinger_zoom", "stinger_ink")
+SLEEP_SCENES = ("starfield", "rain_glass", "ocean", "aurora", "fireplace", "candle_desk",
+                "bubble_lamp", "neon_rain")
+SMILE_SCENES = ("sand_table", "pendulum_wave", "harmonograph", "zen_garden", "bubble_lamp",
+                "stinger_confetti", "stinger_glitch", "stinger_zoom", "stinger_ink")
 
 
 def make_scene(name: str, w: int = 1280, h: int = 720, fps: int = 30, seed: int = 7) -> Scene:
