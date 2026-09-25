@@ -345,6 +345,37 @@
       "pillar": "focus",
       "duration": "60s",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T06:10:56.977745+00:00",
+      "slot": {
+        "hour": 10,
+        "at": "2026-09-25T10:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=60s|hook=لون غريب|hour=12|kind=short|pillar=sleep|scene=rain_glass|structure=مشهد ليلي ← نجوم|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "sleep",
+          "kind": "short",
+          "duration": "60s",
+          "scene": "rain_glass",
+          "structure": "مشهد ليلي ← نجوم",
+          "hook": "لون غريب",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 12,
+          "character": null,
+          "predicted": 1.952,
+          "why": "لأن sleep و60s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 82703,
+      "kind": "ambience_short",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "pillar": "focus",
+      "duration": "60s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }
