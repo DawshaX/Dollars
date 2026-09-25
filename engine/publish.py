@@ -23,6 +23,22 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from datetime import datetime, timezone
+
+
+def _jload(path, default=None):
+    try:
+        return json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+    except Exception:
+        return default
+
+
+def _jdump(path, obj) -> pathlib.Path:
+    path = pathlib.Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+    return path
+
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
 API = "https://www.googleapis.com/youtube/v3"
@@ -214,5 +230,22 @@ def publish(video_path, md: dict, thumb_path=None) -> dict:
         res["thumbnail"] = set_thumbnail(res["id"], thumb_path, token=tok)
     if md.get("playlist"):
         res["playlist"] = add_to_playlist(res["id"], md["playlist"], token=tok)
+    record(res, md)                       # نسجّل الفيديو (وبصمته) عشان العقل يتعلم من أرقامه بعدين
     notify(f"🎬 Dollars · نُشر: {md['titles'][0]}\n{res['url']}")
     return res
+
+
+def record(res: dict, md: dict) -> pathlib.Path:
+    """يحفظ كل فيديو اتنشر + بصمته (نوعه · الساعة · الطول) في state/published.json."""
+    p = pathlib.Path("state/published.json")
+    d = _jload(p, {"videos": []}) or {"videos": []}
+    ts = md.get("slot") or {}
+    d["videos"].append({
+        "video_id": res.get("id"), "url": res.get("url"), "title": md["titles"][0],
+        "published_at": datetime.now(timezone.utc).isoformat(),
+        "features": {"pillar": md.get("pillar"), "kind": md.get("kind"), "kw": md.get("kw"),
+                     "hour": ts.get("hour"), "duration_bucket": md.get("duration_bucket") or ts.get("kind")},
+        "views": 0, "likes": 0, "comments": 0,
+        "thumbnail": bool(md.get("thumbnail_texts")), "playlist": md.get("playlist"),
+    })
+    return _jdump(p, d)

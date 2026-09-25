@@ -21,7 +21,11 @@ jobs:
           python-version: '3.12'
       - name: تجهيز الأدوات
         run: python -m pip install --quiet numpy pillow imageio-ffmpeg
-      - name: تشغيل العقل (تعلّم + أفكار + شخصيات جديدة + خطة اليوم)
+      - name: مزامنة أرقام يوتيوب الحقيقية (الوكيل المراقب)
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: python engine/analytics.py --sync || echo "لسه مفيش أرقام — بنكمّل"
+      - name: تشغيل العقل (تعلّم من الأرقام + أفكار + شخصيات جديدة + خطة اليوم)
         run: python engine/agent.py
       - name: تحديث فهرس المكتبة
         run: python tools/build_library.py
