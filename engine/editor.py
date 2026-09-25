@@ -116,22 +116,33 @@ def overlay(frame_u8: np.ndarray, sprite: Image.Image, cx: float, cy: float, sca
 
 # ───────────────────────────── بناء المونتاج ─────────────────────────────
 
-def plan_shots(pillar: str, seconds: float, seed: int = 7) -> list:
+def plan_shots(pillar: str, seconds: float, seed: int = 7,
+               moves: list | None = None, scenes: list | None = None) -> list:
     """
     خطة القصّ: مقاطع بأطوال مختلفة (3-9 ث) + حركة + مؤثرات + ملصقات.
     القاعدة: أول ثانية لازم تخطف العين (حركة قوية + مؤثر).
     """
     rng = random.Random(seed)
-    scenes = [s for s in visuals.SMILE_SCENES if not s.startswith("stinger")]
-    if pillar == "ambience":
-        scenes = list(visuals.SLEEP_SCENES)
+    if scenes:                                  # مرجع بصري (Pinterest/Openverse) حدّد المشاهد
+        try:
+            from engine import render3d  # noqa: F401  (بيسجّل مشاهد 3D)
+        except Exception:
+            pass
+        pool = [s for s in scenes if s in visuals.SCENES]
+        scenes = pool or None
+    if not scenes:
+        scenes = [s for s in visuals.SMILE_SCENES if not s.startswith("stinger")]
+        if pillar == "ambience":
+            scenes = list(visuals.SLEEP_SCENES)
+    opens = [m for m in (moves or []) if m in MOVES] or ["zoom_in", "pan_left", "pan_right", "drift_up", "shake"]
+    rest = [m for m in (moves or []) if m in MOVES] or list(MOVES)
     shots, t = [], 0.0
     first = True
     while t < seconds - 0.5:
         dur = min(rng.choice([3.0, 4.0, 5.0, 6.0, 7.5]), max(1.5, seconds - t))
-        scene = rng.choice(scenes)
-        move = rng.choice(["zoom_in", "pan_left", "pan_right", "drift_up", "shake"] if first
-                          else list(MOVES))
+        pool = [x for x in scenes if not shots or x != shots[-1]["scene"]] or list(scenes)
+        scene = rng.choice(pool)               # ما نكررش نفس المشهد ورا بعضه
+        move = rng.choice(opens if first else rest)
         cues = []
         if first:
             cues.append(dict(name=rng.choice(["whoosh", "swipe", "riser"]), at=0.0, gain=0.9))
@@ -318,11 +329,12 @@ def _concat(parts: list, out_path) -> pathlib.Path:
     return out_path
 
 
-def long_intro(out_dir, seconds: float = 12.0, seed: int = 5) -> pathlib.Path:
+def long_intro(out_dir, seconds: float = 12.0, seed: int = 5, moves=None, scenes=None,
+               look: str = "cinema_cool") -> pathlib.Path:
     """مقدمة مونتاج للطويلة: 3 مقاطع سريعة + كاميرا + إضافات + مؤثرات + موسيقى."""
-    shots = plan_shots("ambience", seconds, seed=seed)
+    shots = plan_shots("ambience", seconds, seed=seed, moves=moves, scenes=scenes)
     silent = pathlib.Path(out_dir) / "_intro_silent.mp4"
-    render_shots(shots, silent, 480, 270, 30, "cinema_cool", out_w=1920, out_h=1080, crf=23)
+    render_shots(shots, silent, 480, 270, 30, look, out_w=1920, out_h=1080, crf=23)
     audio = mix_audio(sum(s["dur"] for s in shots), shots, ambient_name="calm_night",
                       music_style="warm_pad", music_gain=0.5)
     wav = pathlib.Path(out_dir) / "_intro.wav"
@@ -432,11 +444,11 @@ class Editor:
                seconds: float = 30.0, seed: int | None = None, **kw) -> dict:
         seed = self.seed if seed is None else seed
         sp = dict(SPECS[kind])
-        shots = plan_shots(pillar, seconds, seed=seed)
+        shots = plan_shots(pillar, seconds, seed=seed, moves=kw.get("moves"), scenes=kw.get("scenes"))
         name = out_name or f"{kind}_{seed}_{int(seconds)}s"
         silent = self.out / f"{name}_silent.mp4"
         video = self.out / f"{name}.mp4"
-        look = sp.get("look") or ("cinema_cool" if pillar == "ambience" else "satisfying")
+        look = kw.get("look") or sp.get("look") or ("cinema_cool" if pillar == "ambience" else "satisfying")
         render_shots(shots, silent, sp["w"], sp["h"], sp["fps"], look,
                      out_w=sp["ow"], out_h=sp["oh"], crf=21)
         ambient_name = kw.get("audio") if pillar == "ambience" else None
@@ -465,7 +477,8 @@ class Editor:
                             "sfx": [c["name"] for c in s["cues"]],
                             "fx": [x["kind"] for x in s.get("fx", [])],
                             "stickers": [x["name"] for x in s.get("stickers", [])]} for s in shots]
-        md["montage"] = {"shots": len(shots), "music": style, "camera_moves": sorted({s["move"] for s in shots}),
+        md["montage"] = {"shots": len(shots), "music": style, "look": look,
+                         "camera_moves": sorted({s["move"] for s in shots}),
                          "fx_layers": sum(len(s.get("fx", [])) for s in shots),
                          "sfx_cues": sum(len(s["cues"]) for s in shots)}
         thumb = thumbnail(scene0, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg",
@@ -479,23 +492,40 @@ class Editor:
     # ── قصص ──
     def _story_short(self, out_name: str | None, story_id: str | None = None,
                      seconds: float = 40.0, **kw) -> dict:
+        """قصة بلا كلام: المخرج بيسلّم الفيديو الكامل بالموسيقى والإضافات والتحريك."""
         from engine import story as story_engine
-        stories = story_engine.all_stories()
+        stories = [x if isinstance(x, story_engine.Story) else story_engine.Story(x)
+                   for x in story_engine.all_stories()]
         if not stories:
             raise RuntimeError("مفيش قصص — زوّد content/stories.json")
         if story_id:
-            st = next((s for s in stories if s.id == story_id), None)
+            st = next((x for x in stories if x.id == story_id), None)
+            if st is None:
+                raise KeyError(f"قصة غير معروفة: {story_id} — المتاح: {[x.id for x in stories]}")
         else:
             st = random.Random(self.seed).choice(stories)
-        full = self.out / f"{st.id}_full.mp4"
-        st.make(full, verbose=False) if hasattr(st, "make") else st.render(full)
-        return dict(kind="story_short", video=str(full), story=st.id, meta=None, seconds=st.duration)
+        if kw.get("music") and not getattr(st, "music", None):
+            st.music = kw["music"]                 # موسيقى الوصفة لما القصة مالهاش تعريف
+        full = pathlib.Path(out_name) if out_name else self.out / f"{st.id}_full.mp4"
+        full.parent.mkdir(parents=True, exist_ok=True)
+        st.render(full, verbose=False, cinema=kw.get("look") or None)
+        md = dict(title=getattr(st, "title", st.id), pillar="story", kind="story",
+                  montage={"beats": len(getattr(st, "beats", [])), "assembled": True,
+                           "music": getattr(st, "music", None), "ambient": getattr(st, "ambient", None),
+                           "look": kw.get("look"),
+                           "fx_layers": sum(len(v) for v in st.fx_summary()),
+                           "fx_by_beat": st.fx_summary(),
+                           "scenes": sorted({b.get("scene") for b in getattr(st, "beats", []) if b.get("scene")})})
+        record = dict(kind="story_short", video=str(full), story=st.id, meta=md,
+                      seconds=st.duration, montage=md["montage"])
+        self.log.append(record)
+        return record
 
     # ── الطويلة (نوم) ──
     def _long(self, out_name: str | None, hours: float = 10.0, scene: str = "valley_lake",
               audio: str = "calm_night", look: str | None = None, loop_seconds: float = 40.0,
-              **kw) -> dict:
-        look = look or visuals.LOOKS.get(scene, "cinema_cool")
+              moves: list | None = None, **kw) -> dict:
+        look = visuals.LOOKS.get(scene) or look or "cinema_cool"
         loop = self.out / f"{scene}_loop.mp4"
         sc = visuals.make_scene(scene, w=480, h=270, fps=30)
         visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=1920, out_h=1080,
@@ -508,10 +538,12 @@ class Editor:
         loop.unlink(missing_ok=True)
         wav.unlink(missing_ok=True)
         intro_dur = 0.0
+        outro_dur = 0.0
+        assembled = False
         try:                                      # المونتاج أساسي: مقدمة + شاشة نهاية
-            intro = long_intro(self.out, seed=self.seed + 3)
+            intro = long_intro(self.out, seed=self.seed + 3, moves=moves)
             outro = long_outro(self.out, seed=self.seed + 9)
-            intro_dur = 12.0
+            intro_dur, outro_dur, assembled = 12.0, 10.0, True
             _concat([intro, body, outro], video)
             for p in (intro, body, outro):
                 p.unlink(missing_ok=True)
@@ -529,6 +561,10 @@ class Editor:
         if intro_dur and md.get("chapters"):       # الفصول تتزحّ للوقت الحقيقي بعد المقدمة
             md["chapters"] = ["0:00 ابتداء"] + [f"{_cc_shift(c.split(' ', 1)[0], intro_dur)} {c.split(' ', 1)[1]}"
                                                if " " in c else c for c in md["chapters"]]
+        md["montage"] = {"assembled": assembled, "intro_seconds": intro_dur, "outro_seconds": outro_dur,
+                         "look": look, "music": "warm_pad", "body_loop_seconds": loop_seconds,
+                         "body_reencoded": False, "scene": scene, "audio": audio,
+                         "camera_moves": MOVES if not moves else list(moves)}
         thumb = thumbnail(scene, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg", look=look)
         files = meta.write_package(md, self.out)
         record = dict(kind="sleep_long", video=str(video), thumbnail=str(thumb), meta=md,

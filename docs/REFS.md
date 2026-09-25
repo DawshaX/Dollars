@@ -37,3 +37,18 @@ python engine/refs.py --trends --apply
 - **الأنواع**: يزود وزن النوع اللي السوق عايزه (بدون ما يلغي التوزيع).
 - **العناوين**: كلمات البحث الغالبة تدخل قاعدة العناوين (mtitle/kw pool).
 - **الشكل**: الشرائط المرجعية توجّه `LOOKS` والألوان والتكوين في المشاهد.
+
+
+## من المرجع البصري لإعدادات الفيديو (مش ديكور — شغل حقيقي)
+
+`refs.look_recipe("rain on window night")` بترجّع وصفة مونتاج: **مظهر** (look) · **حركة كاميرا** (moves) ·
+**مشاهد** (scenes) · **موسيقى** (music) · **ألوان** (palette) · **مزاج** (mood) — والمصنع بيمرّرها للمخرج:
+
+    rec = refs.recipe_for("satisfying")        # أو أي تخصص/كلمة
+    ed.make("satisfying_short", seconds=30, look=rec["look"], moves=rec["moves"],
+            scenes=rec["scenes"], music=rec["music"])
+
+- **Pinterest** بيحدّد المزاج/الألوان/التكوين — والمشاهد والأصوات **من عندنا** (مفيش ملف خارجي).
+- `state/refs.json` فيه كل وصفة استُخدمت + اللوحات + روابطها.
+- الطويلة: الحركة تيجي من الوصفة، والمظهر من المشهد نفسه (المشهد أعرف بمظهره).
+- CLI: `python engine/refs.py --recipe "cozy fireplace"`.

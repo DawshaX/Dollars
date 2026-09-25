@@ -210,6 +210,94 @@ def _views_number(txt: str) -> int:
         return 0
 
 
+# ─────────────────── المرجع البصري ⇒ إعدادات المونتاج ───────────────────
+# Pinterest وأمثاله **مرجع بصري بس**: بنقرأ المزاج/الألوان/التكوين/الحركة ونحوّلهم
+# لإعدادات عندنا (مظهر · كاميرا · مشاهد · موسيقى · مؤثرات) — ومفيش أي ملف منهم يدخل الفيديو.
+
+RECIPES = {
+    "rain": dict(look="cinema_cool", moves=["drift_up", "zoom_in", "still"],
+                 scenes=["rain_glass", "ocean", "valley_lake", "snow_pines"],
+                 music="night_drone", palette=["#0b1a2a", "#1d3b53", "#7fa6c4"],
+                 mood="هدوء وسكون · ليل ممطر"),
+    "sleep": dict(look="cinema_night", moves=["still", "drift_up", "zoom_in"],
+                  scenes=["starfield", "ocean", "rain_glass", "aurora"],
+                  music="warm_pad", palette=["#080d1a", "#1b2a4a", "#c8b98a"],
+                  mood="دفء ونوم · إضاءة خفيفة"),
+    "night": dict(look="cinema_night", moves=["still", "drift_up", "pan_right"],
+                  scenes=["starfield", "aurora", "dunes_moon", "rain_glass"],
+                  music="lofi_keys", palette=["#0a0e1e", "#243b6b", "#ffd9a0"],
+                  mood="سحر الليل · عمق"),
+    "fireplace": dict(look="cinema_warm", moves=["zoom_in", "still", "drift_up"],
+                      scenes=["fireplace", "dunes_moon"],
+                      music="warm_pad", palette=["#1a0d06", "#7a3b12", "#ffb347"],
+                      mood="دفء وجود"),
+    "satisfying": dict(look="satisfying", moves=["zoom_in", "pan_left", "pan_right"],
+                       scenes=["sand_table", "pendulum_wave", "harmonograph"],
+                       music="dream_pulse", palette=["#f2f2f2", "#8fd3ff", "#ffd166"],
+                       mood="نظافة وتكرار مريح"),
+    "kinetic": dict(look="satisfying", moves=["pan_left", "zoom_in", "pan_right"],
+                    scenes=["sand_table", "pendulum_wave"],
+                    music="lofi_keys", palette=["#eee6d8", "#7a5c3e", "#3aa6a0"],
+                    mood="رمل سينمائي · تكرار"),
+    "cozy": dict(look="cinema_warm", moves=["drift_up", "still", "zoom_in"],
+                 scenes=["fireplace", "dunes_moon", "rain_glass"],
+                 music="lofi_keys", palette=["#211409", "#a86a3a", "#ffe0b2"],
+                 mood="كوفي دافئ · راحة"),
+    "focus": dict(look="cinema_cool", moves=["still", "drift_up", "pan_left"],
+                  scenes=["starfield", "ocean", "planet_rings", "rain_glass"],
+                  music="night_drone", palette=["#0c1220", "#2b3f63", "#9fb4d8"],
+                  mood="تركيز طويل · بلا تشتيت"),
+    "story": dict(look="story", moves=["zoom_in", "pan_right", "drift_up"],
+                  scenes=["valley_lake", "dunes_moon", "snow_pines", "aurora"],
+                  music="music_box", palette=["#1b1230", "#6a4fb6", "#ffe9a8"],
+                  mood="حكاية بلا كلام · دفء"),
+    "ocean": dict(look="cinema_cool", moves=["pan_left", "zoom_out", "drift_up"],
+                  scenes=["ocean", "valley_lake"], music="night_drone",
+                  palette=["#04121f", "#0d4f6b", "#9fe3ff"], mood="موج وأفق"),
+    "space": dict(look="cinema_night", moves=["zoom_out", "still", "drift_up"],
+                  scenes=["starfield", "planet_rings", "aurora"], music="dream_pulse",
+                  palette=["#05060f", "#3a2a6b", "#cfe0ff"], mood="فَضاء وسكون"),
+}
+
+
+def look_recipe(topic: str, save: bool = True) -> dict:
+    """يحوّل مرجع بصري (كلمة/جملة) لإعدادات مونتاج عندنا — قواعد ثابتة بلا إنترنت."""
+    q = (topic or "").lower()
+    hits = [k for k in RECIPES if k in q]
+    if not hits:                                  # مطابقة حروف أولى لو مفيش تطابق كامل
+        hits = [k for k in RECIPES if any(w[:4] == k[:4] for w in re.split(r"\W+", q) if w)]
+    base = RECIPES[hits[0]] if hits else RECIPES.get("cozy")
+    rec = {
+        "query": topic,
+        "matched": hits or ["cozy"],
+        "look": base["look"], "moves": list(base["moves"]), "scenes": list(base["scenes"]),
+        "music": base["music"], "palette": list(base["palette"]), "mood": base["mood"],
+        "pinterest": pinterest_links(topic)[:3],
+        "note": "مرجع بصري فقط (Pinterest/Openverse) — الملفات المولّدة كلها من عندنا",
+        "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
+    if save:
+        doc = _jload(STATE / "refs.json", {}) or {}
+        recs = doc.setdefault("recipes", {})
+        recs[topic] = rec
+        doc["recipes_updated"] = rec["at"]
+        _jdump(STATE / "refs.json", doc)
+    return rec
+
+
+def recipe_for(pillar: str) -> dict:
+    """أفضل إعداد مونتاج للتخصص: من قواعد المرجع + أقرب لوحة محفوظة (لو فيه)."""
+    rec = look_recipe(pillar, save=False)
+    doc = _jload(STATE / "refs.json", {}) or {}
+    boards = doc.get("boards") or []
+    for b in boards:
+        if pillar.lower() in json.dumps(b, ensure_ascii=False).lower():
+            rec["board"] = b.get("query")
+            rec["refs_saved"] = b.get("saved")
+            break
+    return rec
+
+
 def trends(queries=None, apply_to_brain: bool = False) -> dict:
     """يجيب أعلى الفيديوهات مشاهدة في تخصصاتنا ويكتب `state/trends.json` (+ يغذّي العقل)."""
     queries = queries or NICHES
@@ -276,6 +364,7 @@ if __name__ == "__main__":
     ap.add_argument("--board", metavar="QUERY")
     ap.add_argument("--pinterest", metavar="QUERY")
     ap.add_argument("--trends", action="store_true")
+    ap.add_argument("--recipe", metavar="TOPIC", help="تحويل مرجع بصري لإعدادات مونتاج")
     ap.add_argument("--apply", action="store_true", help="يغذّي العقل بلطف")
     ap.add_argument("--limit", type=int, default=8)
     a = ap.parse_args()
@@ -290,6 +379,10 @@ if __name__ == "__main__":
     if a.pinterest:
         for i in pinterest_links(a.pinterest):
             print("•", i["label"], "→", i["url"])
+    if a.recipe:
+        r = look_recipe(a.recipe)
+        print(f"🎬 وصفة المونتاج «{a.recipe}»: مظهر={r['look']} · موسيقى={r['music']} · "
+              f"كاميرا={r['moves']} · مشاهد={r['scenes']} · مزاج={r['mood']}")
     if a.trends:
         d = trends(apply_to_brain=a.apply)
         print("📈 أعلى مشاهدات في تخصصاتنا:")

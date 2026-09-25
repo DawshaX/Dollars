@@ -107,11 +107,30 @@ class Story:
         self.w, self.h = (self.d.get("size") or [960, 540])[:2]
         self.look = self.d.get("look", "story")
         self.ambient = self.d.get("ambient")
-        self.music = self.d.get("music")              # نمط الموسيقى (من مكتبتنا)
+        # موسيقى النمط: مضمونة دايمًا (المونتاج أساسي في كل فيديو)
+        self.music = self.d.get("music")
+        if not self.music:
+            import random as _r
+            import zlib
+            self.music = _r.Random(zlib.crc32(self.id.encode("utf-8")) % 99991).choice(
+                ["music_box", "lullaby_bell", "warm_pad"])
         self.title = self.d.get("title") or self.id
         self.characters = self.d.get("characters") or "دولارز"
 
     # ── فحص ──
+    def fx_summary(self) -> list:
+        """الإضافات البصرية الفعلية لكل بيت (نفس اللي الرندر بيستخدمه بالظبط)."""
+        import random as _r
+        import zlib
+        base = zlib.crc32(self.id.encode("utf-8")) % 99991
+        out = []
+        for bi, beat in enumerate(self.beats):
+            plan_b = beat.get("fx")
+            if plan_b is None:
+                plan_b = fx_mod.plan(_r.Random(int(base) + int(bi) * 17), "story", 1)[0]
+            out.append([x["kind"] for x in plan_b])
+        return out
+
     def validate(self) -> list:
         problems = []
         if not self.beats:

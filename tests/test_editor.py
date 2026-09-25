@@ -84,3 +84,6 @@ def test_long_video_is_built_without_reencode(tmp_path):
     assert 30 <= secs <= 36, f"مدة الطويلة غلط: {secs}"
     assert rec["meta"]["chapters"]           # الطويلة لازم يكون ليها فصول
     assert rec["meta"]["chapters"][0].startswith("0:00")  # أول فصل عند المقدمة
+    m = rec["meta"]["montage"]                            # المونتاج مسجّل بالكامل
+    assert m["assembled"] and m["intro_seconds"] == 12.0 and m["outro_seconds"] == 10.0
+    assert m["body_reencoded"] is False and m["music"] == "warm_pad"

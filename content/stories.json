@@ -11,26 +11,148 @@
       "ambient": "sleep_rain",
       "look": "cinema_night",
       "fps": 24,
-      "size": [960, 540],
+      "size": [
+        960,
+        540
+      ],
       "video_desc": "a little clay creature meets a storm on a night lake, then finds warmth — hand-animated cutout characters over living 3D scenery",
       "pinned_comment": "Where should Nono go next? Rain, snow or space? 🌙 (Every comment decides the next story.)",
       "beats": [
-        {"scene": "valley_lake", "dur": 3.2, "look": "cinema_cool", "transition": "none",
-         "chars": [{"who": "nono_happy", "x": 0.30, "y": 0.80, "scale": 0.40, "move": "walk_in", "cycles": 1.0}],
-         "sfx": [{"at": 0.25, "name": "appear"}, {"at": 1.6, "name": "water", "gain": 0.5}]},
-        {"scene": "rain_glass", "dur": 3.4, "look": "cinema_night", "transition": "none",
-         "chars": [{"who": "nono_shock", "x": 0.52, "y": 0.74, "scale": 0.50, "move": "hop", "cycles": 3.0},
-                   {"who": "koko_happy", "x": 0.78, "y": 0.70, "scale": 0.42, "move": "idle", "phase": 0.6}],
-         "sfx": [{"at": 0.2, "name": "pop"}, {"at": 1.1, "name": "boing"}, {"at": 2.3, "name": "slide_whistle"}]},
-        {"scene": "fireplace", "dur": 3.0, "look": "cinema_warm", "transition": "none",
-         "chars": [{"who": "nono_love", "x": 0.5, "y": 0.78, "scale": 0.50, "move": "idle"},
-                   {"who": "koko_happy", "x": 0.76, "y": 0.76, "scale": 0.40, "move": "bob", "phase": 1.2}],
-         "sfx": [{"at": 0.3, "name": "sparkle"}, {"at": 1.4, "name": "heartbeat", "gain": 0.5}]},
-        {"scene": "starfield", "dur": 3.4, "look": "cinema_night", "transition": "ink",
-         "chars": [{"who": "nono_happy", "x": 0.36, "y": 0.80, "scale": 0.40, "move": "idle"},
-                   {"who": "koko_happy", "x": 0.68, "y": 0.76, "scale": 0.45, "move": "sway", "phase": 0.3}],
-         "sfx": [{"at": 0.2, "name": "magic"}, {"at": 2.4, "name": "tada", "gain": 0.7}]}
-      ]
+        {
+          "scene": "valley_lake",
+          "dur": 3.2,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_happy",
+              "x": 0.3,
+              "y": 0.8,
+              "scale": 0.4,
+              "move": "walk_in",
+              "cycles": 1.0
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "appear"
+            },
+            {
+              "at": 1.6,
+              "name": "water",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "rain_glass",
+          "dur": 3.4,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_shock",
+              "x": 0.52,
+              "y": 0.74,
+              "scale": 0.5,
+              "move": "hop",
+              "cycles": 3.0
+            },
+            {
+              "who": "koko_happy",
+              "x": 0.78,
+              "y": 0.7,
+              "scale": 0.42,
+              "move": "idle",
+              "phase": 0.6
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "pop"
+            },
+            {
+              "at": 1.1,
+              "name": "boing"
+            },
+            {
+              "at": 2.3,
+              "name": "slide_whistle"
+            }
+          ]
+        },
+        {
+          "scene": "fireplace",
+          "dur": 3.0,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_love",
+              "x": 0.5,
+              "y": 0.78,
+              "scale": 0.5,
+              "move": "idle"
+            },
+            {
+              "who": "koko_happy",
+              "x": 0.76,
+              "y": 0.76,
+              "scale": 0.4,
+              "move": "bob",
+              "phase": 1.2
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "sparkle"
+            },
+            {
+              "at": 1.4,
+              "name": "heartbeat",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "starfield",
+          "dur": 3.4,
+          "look": "cinema_night",
+          "transition": "ink",
+          "chars": [
+            {
+              "who": "nono_happy",
+              "x": 0.36,
+              "y": 0.8,
+              "scale": 0.4,
+              "move": "idle"
+            },
+            {
+              "who": "koko_happy",
+              "x": 0.68,
+              "y": 0.76,
+              "scale": 0.45,
+              "move": "sway",
+              "phase": 0.3
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "magic"
+            },
+            {
+              "at": 2.4,
+              "name": "tada",
+              "gain": 0.7
+            }
+          ]
+        }
+      ],
+      "music": "music_box"
     },
     {
       "id": "koko_star",
@@ -41,26 +163,149 @@
       "ambient": "calm_night",
       "look": "cinema_cool",
       "fps": 24,
-      "size": [960, 540],
+      "size": [
+        960,
+        540
+      ],
       "video_desc": "a cloud cat finds a fallen star and carries it home across desert, space and snow — hand-animated cutout characters over living 3D scenery",
       "pinned_comment": "Koko found the star 🌟 — should we follow it to the moon next?",
       "beats": [
-        {"scene": "dunes_moon", "dur": 3.0, "look": "cinema_warm", "transition": "none",
-         "chars": [{"who": "koko_happy", "x": 0.35, "y": 0.80, "scale": 0.42, "move": "walk_in", "cycles": 1.0}],
-         "sfx": [{"at": 0.3, "name": "appear"}, {"at": 1.8, "name": "sparkle"}]},
-        {"scene": "planet_rings", "dur": 3.4, "look": "cinema_night", "transition": "none",
-         "chars": [{"who": "koko_happy", "x": 0.5, "y": 0.74, "scale": 0.50, "move": "hop", "cycles": 2.0},
-                   {"who": "nono_shock", "x": 0.22, "y": 0.78, "scale": 0.34, "move": "idle", "phase": 0.9}],
-         "sfx": [{"at": 0.2, "name": "riser", "gain": 0.6}, {"at": 1.2, "name": "magic"}, {"at": 2.6, "name": "ding"}]},
-        {"scene": "snow_pines", "dur": 3.2, "look": "cinema_warm", "transition": "none",
-         "chars": [{"who": "koko_sleep", "x": 0.62, "y": 0.80, "scale": 0.45, "move": "idle"},
-                   {"who": "paper_man", "x": 0.30, "y": 0.80, "scale": 0.40, "move": "sway", "phase": 0.5}],
-         "sfx": [{"at": 0.4, "name": "bell"}, {"at": 1.9, "name": "sparkle", "gain": 0.6}]},
-        {"scene": "starfield", "dur": 3.2, "look": "cinema_night", "transition": "glitch",
-         "chars": [{"who": "koko_sleep", "x": 0.5, "y": 0.80, "scale": 0.48, "move": "bob", "cycles": 1.0},
-                   {"who": "nono_sleepy", "x": 0.76, "y": 0.82, "scale": 0.34, "move": "idle", "phase": 0.2}],
-         "sfx": [{"at": 0.3, "name": "sparkle"}, {"at": 2.2, "name": "success", "gain": 0.6}]}
-      ]
+        {
+          "scene": "dunes_moon",
+          "dur": 3.0,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "koko_happy",
+              "x": 0.35,
+              "y": 0.8,
+              "scale": 0.42,
+              "move": "walk_in",
+              "cycles": 1.0
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "appear"
+            },
+            {
+              "at": 1.8,
+              "name": "sparkle"
+            }
+          ]
+        },
+        {
+          "scene": "planet_rings",
+          "dur": 3.4,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "koko_happy",
+              "x": 0.5,
+              "y": 0.74,
+              "scale": 0.5,
+              "move": "hop",
+              "cycles": 2.0
+            },
+            {
+              "who": "nono_shock",
+              "x": 0.22,
+              "y": 0.78,
+              "scale": 0.34,
+              "move": "idle",
+              "phase": 0.9
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "riser",
+              "gain": 0.6
+            },
+            {
+              "at": 1.2,
+              "name": "magic"
+            },
+            {
+              "at": 2.6,
+              "name": "ding"
+            }
+          ]
+        },
+        {
+          "scene": "snow_pines",
+          "dur": 3.2,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "koko_sleep",
+              "x": 0.62,
+              "y": 0.8,
+              "scale": 0.45,
+              "move": "idle"
+            },
+            {
+              "who": "paper_man",
+              "x": 0.3,
+              "y": 0.8,
+              "scale": 0.4,
+              "move": "sway",
+              "phase": 0.5
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.4,
+              "name": "bell"
+            },
+            {
+              "at": 1.9,
+              "name": "sparkle",
+              "gain": 0.6
+            }
+          ]
+        },
+        {
+          "scene": "starfield",
+          "dur": 3.2,
+          "look": "cinema_night",
+          "transition": "glitch",
+          "chars": [
+            {
+              "who": "koko_sleep",
+              "x": 0.5,
+              "y": 0.8,
+              "scale": 0.48,
+              "move": "bob",
+              "cycles": 1.0
+            },
+            {
+              "who": "nono_sleepy",
+              "x": 0.76,
+              "y": 0.82,
+              "scale": 0.34,
+              "move": "idle",
+              "phase": 0.2
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "sparkle"
+            },
+            {
+              "at": 2.2,
+              "name": "success",
+              "gain": 0.6
+            }
+          ]
+        }
+      ],
+      "music": "lullaby_bell"
     }
   ]
 }

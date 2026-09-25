@@ -166,7 +166,8 @@ def main():
     print("# 🔍 الفحص الذاتي — Dollars Studio\n")
     groups = [("المحركات", check_engine()), ("الحلقة المثالية", check_loop()),
               ("القِصص والتحريك", check_stories()),
-              ("المكتبة والشخصيات", check_library()), ("العقل الذاتي", check_brain()),
+              ("المكتبة والشخصيات", check_library()), ("المخزون والمراجع", check_stock()),
+              ("العقل الذاتي", check_brain()),
               ("أرقام القناة", check_numbers()), ("الملفات", check_repo())]
     if not quick:
         groups.append(("الاختبارات", check_tests()))

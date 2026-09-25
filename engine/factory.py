@@ -102,6 +102,15 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
     out_dir = pathlib.Path(out_dir or (WORK / f"{slot.get('date')}_{slot.get('hour'):02d}"))
     out_dir.mkdir(parents=True, exist_ok=True)
     ed = editor.Editor(str(out_dir), seed=seed)
+    # المرجع البصري (Pinterest/Openverse) بيحدّد المظهر والكاميرا والمشاهد — والموسيقى من صنعنا
+    try:
+        from engine import refs as refs_mod
+        recipe = refs_mod.recipe_for(pillar)
+    except Exception:
+        recipe = {}
+    style_kw = {k: recipe[k] for k in ("look", "moves", "scenes", "music") if recipe.get(k)}
+    if slot.get("kind") == "long":         # الطويلة: المشهد هو اللي يحكم المظهر
+        style_kw.pop("look", None); style_kw.pop("scenes", None)
     t0 = time.time()
 
     if slot.get("kind") == "long" and pillar in ("sleep", "focus"):
@@ -109,19 +118,20 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         hours = hours if hours in (3, 8, 10, 2, 4, 6, 12) else 8
         scene = idea.get("scene") or "valley_lake"
         audio = random.Random(seed).choice(["calm_night", "sleep_rain", "ocean", "fireplace", "focus"])
-        rec = ed.make("sleep_long", hours=hours, scene=scene, audio=audio)
+        rec = ed.make("sleep_long", hours=hours, scene=scene, audio=audio, **style_kw)
         rec.update(pillar="sleep", duration=f"{int(hours)}h")
     elif pillar == "story":
         rec = ed.make("story_short", seconds=float(str(dur).replace("m", "") or 2) * 60)
         rec.update(pillar="story", duration=dur)
     elif pillar == "focus" or (slot.get("kind") == "short" and random.Random(seed).random() < 0.25):
-        rec = ed.make("ambience_short", seconds=float(str(dur).replace("s", "") or 45))
+        rec = ed.make("ambience_short", seconds=float(str(dur).replace("s", "") or 45), **style_kw)
         rec.update(pillar="focus", duration=dur)
     else:
         secs = float(str(dur).replace("s", "") or 30)
-        rec = ed.make("satisfying_short", seconds=secs if 15 <= secs <= 60 else 30)
+        rec = ed.make("satisfying_short", seconds=secs if 15 <= secs <= 60 else 30, **style_kw)
         rec.update(pillar="satisfying", duration=dur)
 
+    rec["recipe"] = {k: recipe.get(k) for k in ("look", "moves", "scenes", "music", "mood", "matched")} if recipe else None
     rec["slot"] = slot
     rec["seconds_spent"] = round(time.time() - t0, 1)
     rec["seed"] = seed
