@@ -586,6 +586,37 @@
       "pillar": "satisfying",
       "duration": "60s",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T18:17:43.999802+00:00",
+      "slot": {
+        "hour": 8,
+        "at": "2026-09-25T08:00:00Z",
+        "kind": "long",
+        "idea": {
+          "signature": "duration=10h|hook=همسة|hour=21|kind=long|pillar=sleep|scene=ocean|structure=مشهد ليلي ← نجوم|thumb=شاشة سوداء + نص واضح",
+          "pillar": "sleep",
+          "kind": "long",
+          "duration": "10h",
+          "scene": "ocean",
+          "structure": "مشهد ليلي ← نجوم",
+          "hook": "همسة",
+          "thumb": "شاشة سوداء + نص واضح",
+          "hour": 21,
+          "character": null,
+          "predicted": 2.13,
+          "why": "لأن sleep و10h وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 508021,
+      "kind": "sleep_long",
+      "title": "Ocean Waves for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "pillar": "sleep",
+      "duration": "10h",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }
