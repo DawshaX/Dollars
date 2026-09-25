@@ -77,5 +77,10 @@ def test_long_video_is_built_without_reencode(tmp_path):
     v = pathlib.Path(rec["video"])
     assert v.exists()
     out = subprocess.run([proc.FFMPEG, "-hide_banner", "-i", str(v)], capture_output=True).stderr.decode()
-    assert "Duration: 00:00:10" in out or "Duration: 00:00:1" in out
+    # المونتاج إجباري: 10 ث متن + مقدمة 12 ث + خاتمة 10 ث ≈ 32 ث (بلا إعادة ترميز للمتن)
+    import re
+    d = re.search(r"Duration: (\d+):(\d+):(\d+\.\d+)", out)
+    secs = int(d.group(1)) * 3600 + int(d.group(2)) * 60 + float(d.group(3))
+    assert 30 <= secs <= 36, f"مدة الطويلة غلط: {secs}"
     assert rec["meta"]["chapters"]           # الطويلة لازم يكون ليها فصول
+    assert rec["meta"]["chapters"][0][0] == "0:00"      # أول فصل عند المقدمة
