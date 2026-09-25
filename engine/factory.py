@@ -34,6 +34,7 @@ sys.path.insert(0, str(ROOT))
 
 from engine import agent, editor, meta, publish, visuals  # noqa: E402
 
+QUEUE_CAP = 72                  # أقصى عدد وصفات محفوظة في الطابور
 STATE = ROOT / "state"
 WORK = ROOT / "work"
 
