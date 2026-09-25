@@ -617,6 +617,107 @@
       "pillar": "sleep",
       "duration": "10h",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T19:36:51.466344+00:00",
+      "slot": {
+        "hour": 17,
+        "at": "2026-09-25T17:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=45s|hook=همسة|hour=21|kind=short|pillar=satisfying|scene=stinger_glitch|structure=دورات متكرّرة مريحة|thumb=مشهد طبيعي + رقم مدة",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "45s",
+          "scene": "stinger_glitch",
+          "structure": "دورات متكرّرة مريحة",
+          "hook": "همسة",
+          "thumb": "مشهد طبيعي + رقم مدة",
+          "hour": 21,
+          "character": null,
+          "predicted": 1.737,
+          "why": "لأن satisfying و45s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 201251,
+      "kind": "satisfying_short",
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T19:40:28.663011+00:00",
+      "slot": {
+        "hour": 18,
+        "at": "2026-09-25T18:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=60s|hook=صمت مفاجئ|hour=23|kind=short|pillar=sleep|scene=rain_glass|structure=مشهد ليلي ← نجوم|thumb=شاشة سوداء + نص واضح",
+          "pillar": "sleep",
+          "kind": "short",
+          "duration": "60s",
+          "scene": "rain_glass",
+          "structure": "مشهد ليلي ← نجوم",
+          "hook": "صمت مفاجئ",
+          "thumb": "شاشة سوداء + نص واضح",
+          "hour": 23,
+          "character": null,
+          "predicted": 2.101,
+          "why": "لأن sleep و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 473167,
+      "kind": "ambience_short",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "pillar": "sleep",
+      "duration": "60s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T19:45:00.291807+00:00",
+      "slot": {
+        "hour": 19,
+        "at": "2026-09-25T19:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=60s|hook=حركة عكسية|hour=21|kind=short|pillar=satisfying|scene=sand_table|structure=حركة واحدة كاملة|thumb=مشهد طبيعي + رقم مدة",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "60s",
+          "scene": "sand_table",
+          "structure": "حركة واحدة كاملة",
+          "hook": "حركة عكسية",
+          "thumb": "مشهد طبيعي + رقم مدة",
+          "hour": 21,
+          "character": null,
+          "predicted": 1.78,
+          "why": "لأن satisfying و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 125356,
+      "kind": "ambience_short",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "pillar": "sleep",
+      "duration": "60s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }

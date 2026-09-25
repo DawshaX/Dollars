@@ -269,19 +269,64 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 1150.2,
       "at": "2026-09-25T18:17:43.914312+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 17,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "scene": "harmonograph",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_17/satisfying_short_201251_45s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 234.7,
+      "at": "2026-09-25T19:36:51.465574+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 18,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "rain_glass",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_18/ambience_short_473167_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 217.2,
+      "at": "2026-09-25T19:40:28.662590+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 19,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "sand_table",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_19/ambience_short_125356_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 271.6,
+      "at": "2026-09-25T19:45:00.291400+00:00"
     }
   ],
   "stats": {
-    "total": 18,
+    "total": 21,
     "published": 0,
-    "staged": 18,
+    "staged": 21,
     "by_pillar": {
       "focus": 5,
-      "satisfying": 10,
-      "sleep": 2,
+      "satisfying": 11,
+      "sleep": 4,
       "story": 1
     }
   },
   "created": null,
-  "updated": "2026-09-25T18:17:44.247471+00:00"
+  "updated": "2026-09-25T19:45:00.292908+00:00"
 }
