@@ -2,6 +2,7 @@ name: 🏭 المصنع — كل ساعة
 on:
   schedule:
     - cron: '7 * * * *'          # شورت كل ساعة (بلا حد)
+    - cron: '37 * * * *'         # كرون تاني احتياطي — لو الأول اتأخر/اتلغى، التعويض بيغطّي
   workflow_dispatch:
     inputs:
       count:
@@ -35,7 +36,7 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python engine/factory.py --hourly --count ${{ github.event.inputs.count || 1 }}
+        run: python engine/factory.py --hourly --catchup --count ${{ github.event.inputs.count || 1 }}
       - name: حفظ الفيديوهات كأرشيف (٣ أيام)
         uses: actions/upload-artifact@v4
         with:

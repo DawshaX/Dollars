@@ -2,6 +2,7 @@ name: 🏭 المصنع — الطويلة اليومية
 on:
   schedule:
     - cron: '20 1 * * *'         # فيديو نوم طويل + قصة كل يوم
+    - cron: '20 13 * * *'        # احتياطي — التعويض بيمنع التكرار
   workflow_dispatch:
     inputs:
       count:
@@ -36,7 +37,7 @@ jobs:
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python engine/factory.py --daily --count ${{ github.event.inputs.count || 1 }}
+        run: python engine/factory.py --daily --catchup
       - uses: actions/upload-artifact@v4
         with:
           name: dollars-daily

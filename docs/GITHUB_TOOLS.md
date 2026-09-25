@@ -1,23 +1,21 @@
-# 🧰 أدوات جاهزة لقيناها على النت وجيت هوب (بحث حقيقي · فحص ترخيص)
-> المعيار: **مجاني · ترخيص بيسمح بالاستخدام التجاري · مفيد فعلًا** — ومفيش كود مسروق: لو استخدمنا حاجة،
-> نستخدمها **كمكتبة** بترخيصها المكتوب أو نستلهم الفكرة ونكتبها بأنفسنا.
+# 🧰 أدوات من جيت هوب — اللي نستخدمه واللي لا
 
-| الأداة | الترخيص | بتعمل إيه | القرار عندنا |
+بحثنا في مستودعات مفتوحة للأدوات اللي تخدم المصنع، وكل واحدة ليها **قرار واضح**. القاعدة:
+**مفيش كود منسوخ من حد، ومفيش ترخيص بيمنع الاستخدام التجاري**.
+
+| الأداة | الترخيص | تخدمنا في إيه | قرارنا |
 |---|---|---|---|
-| [audio-dsp](https://github.com/Metallicode/python_audio_dsp) | MIT | توليف وأفكتات (subtractive synth · reverb · delay · sequencer) على numpy | ✅ **مرشّح** لتوسيع `engine/music.py`/`sfx.py` (كله numpy — ينفع على رانر 2 نواة) |
-| [moviepy](https://pypi.org/project/moviepy/) | MIT | مونتاج بايثون (قص · تركيب · مؤثرات) | ⚠️ مرجع — إحنا بنكلّم ffmpeg مباشرة (أسرع وبلا تبعيات ثقيلة) |
-| [ffmpeg-python](https://github.com/kkroening/ffmpeg-python) | Apache-2.0 | تغليف ffmpeg | ⚠️ مرجع — نفس السبب |
-| [MovieLite](https://github.com/francozanardi/movielite) | مفتوح (ألفا) | بديل أسرع من MoviePy بـ Numba | ⏳ نراقبه (ألفا) |
-| [yt-dlp](https://github.com/yt-dlp/yt-dlp) | Unlicense | ميتاداتا كل الفيديوهات بلا مفتاح | ⏳ احتياطي لو `refs.py --trends` اتمنع من IP |
-| [tubescrape](https://github.com/zaidkx37/tubescrape) | MIT | بحث يوتيوب من InnerTube (بلا مفتاح · بلا حصة) | ✅ **مرشّح** كطريقة أوثق لأرقام السوق |
-| [scrapetube](https://github.com/dermasmid/scrapetube) | MIT | قوائم بحث | ⏳ احتياطي |
-| [youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api) | MIT | نصوص الفيديوهات | ⏳ لتحليل العناوين/المواضيع لاحقًا |
-| [NewPipe Extractor](https://github.com/TeamNewPipe/NewPipeExtractor) | GPL-3.0 | سحب بيانات يوتيوب | ❌ **مرفوض** (GPL-3 ما يصلحش لمشروعنا) |
-| [Openverse API](https://api.openverse.org) | CC (بالمصدر) | 800M صورة/صوت مفتوحة | ✅ **مستخدم فعلًا** في `engine/refs.py --board` |
-| [Pixabay API](https://pixabay.com/api/docs/) · [Pexels](https://www.pexels.com/api/) | CC0 | صور/فيديو مجاني | ✅ مدعوم في `refs.py` (لما مفتاحك يتحط) |
-| [public-apis](https://github.com/tools-collection/apis-collection) | قائمة | كتالوج APIs مجانية | 📚 مرجع دايم للتوسيع |
+| [Openverse API](https://api.openverse.org) | CC (بيانات) | لوحات المرجع البصري بلا مفتاح | ✅ مستخدمة فعلاً (`engine/refs.py`) |
+| [tubescrape](https://github.com/zvodd/tubescrape) | MIT | بحث InnerTube بلا مفتاح ولا كوتة | 🟡 بديل جاهز لو حجبوا الطريقة الحالية |
+| [audio-dsp](https://github.com/irmen/audio-dsp) | MIT | تخليق/فلاتر للصوت | 🟡 مصدر أفكار لتوسيع `engine/sfx.py` (كل حاجة عندنا مكتوبة بنفسنا) |
+| [MoviePy](https://github.com/Zulko/moviepy) | MIT | مونتاج بايثون | ⛔ لا — إحنا بننادي ffmpeg مباشرة (أسرع وأخف) |
+| [ffmpeg-python](https://github.com/kkroening/ffmpeg-python) | Apache-2.0 | غلاف ffmpeg | ⛔ لا — نفس السبب |
+| [yt-dlp](https://github.com/yt-dlp/yt-dlp) | Unlicense | بيانات يوتيوب | 🟡 احتياطي للميتاداتا (مش للنشر) |
+| [scrapetube](https://github.com/dermasmid/scrapetube) | MIT | بحث يوتيوب | 🟡 احتياطي |
+| [youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api) | MIT | نصوص الفيديوهات | 🟡 للأبحاث (تحليل المنافسين) |
+| Pixabay / Pexels APIs | CC0 | مراجع إضافية | ✅ مدعومة بمفاتيح (اختياري) |
+| Cloudflare Workers AI | خدمة مجانية | صور AI عند الحاجة | ✅ خيار متاح |
 
-## مفاتيح الاستخدام عندنا
-1. **كودنا أولًا** — أداة خارجية بس لما تكون أحسن فعلًا وخفيفة.
-2. ما تدخلش أي مكتبة في السير إلا لو: ترخيص MIT/Apache/CC0/Unlicense + بتشتغل على 2 نواة و2 جيجا رام.
-3. أي أصل بصري/صوتي يدخل فيديو = **لازم CC0/ترخيص تجاري + تسجيل المصدر** في `content/library.json`.
+## قواعد ثابتة
+- مفيش نسخ كود من أي مستودع بلا قراءة ترخيصه أولاً، ومفيش استخدام تجاري لأي حاجة NC/GPL في منتجنا.
+- الأصل عندنا: كل مشهد/صوت/ملصق/موسيقى **مولّد بالكود** — الأدوات الخارجية للتعلّم/المرجع/الخدمة بس.

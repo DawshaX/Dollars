@@ -19,6 +19,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: أرقام السوق الحقيقية (يوتيوب)
+        run: python engine/refs.py --trends --apply || echo "تعذّر البحث النهاردة"
       - name: تجهيز الأدوات
         run: python -m pip install --quiet numpy pillow imageio-ffmpeg
       - name: مزامنة أرقام يوتيوب الحقيقية (الوكيل المراقب)

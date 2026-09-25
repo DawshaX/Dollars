@@ -14,16 +14,77 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 104.0,
       "at": "2026-09-25T03:38:22.836776+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "scene": "pendulum_wave",
+      "video": "/home/user/Dollars/work/2026-09-25_01/satisfying_short_2716_45s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 161.6,
+      "at": "2026-09-25T04:49:57.469017+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "pendulum_wave",
+      "video": "/home/user/Dollars/work/2026-09-25_02/ambience_short_306489_45s.mp4",
+      "title": "Rain Sounds for Sleeping | 45 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 164.0,
+      "at": "2026-09-25T04:52:41.434281+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "sand_table",
+      "video": "/home/user/Dollars/work/2026-09-25_03/ambience_short_238161_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 206.3,
+      "at": "2026-09-25T04:56:07.699569+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "pendulum_wave",
+      "video": "/home/user/Dollars/work/2026-09-25_04/satisfying_short_498070_60s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (60s) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 281.7,
+      "at": "2026-09-25T05:00:49.390107+00:00"
     }
   ],
   "stats": {
-    "total": 1,
+    "total": 5,
     "published": 0,
-    "staged": 1,
+    "staged": 5,
     "by_pillar": {
-      "focus": 1
+      "focus": 3,
+      "satisfying": 2
     }
   },
   "created": null,
-  "updated": "2026-09-25T03:38:22.837699+00:00"
+  "updated": "2026-09-25T05:00:49.391019+00:00"
 }

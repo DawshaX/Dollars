@@ -118,6 +118,30 @@ def check_factory() -> list:
     return rows
 
 
+def check_montage() -> list:
+    """المونتاج إجباري: كل مسار لازم يطلع مركّب (مقاطع + إضافات + موسيقى + مونتاج الطويلة)."""
+    from engine import editor, fx, music, refs, story
+    rows = []
+    bad = []
+    for pillar, secs in (("satisfying", 30), ("ambience", 30)):
+        shots = editor.plan_shots(pillar, secs, seed=3)
+        if not shots or not all(s.get("fx") for s in shots):
+            bad.append(pillar)
+        if not shots[0]["cues"]:
+            bad.append(pillar + ":opening")
+    rows.append((OK if not bad else BAD,
+                 "كل مقطع بيتولّد بإضافة بصرية + مؤثر خطف" if not bad else f"ناقص: {bad}",
+                 f"أنواع الإضافات: {len(fx.KINDS)} · أنماط الموسيقى: {len(music.STYLES())}"))
+    sbad = [s["id"] for s in story.all_stories() if not story.Story(s).fx_summary() or not story.Story(s).music]
+    rows.append((OK if not sbad else BAD, "القِصص: إضافات + موسيقى لكل بيت", "·".join(sbad) or "تمام"))
+    long_ok = callable(getattr(editor, "long_intro", None)) and callable(getattr(editor, "long_outro", None))
+    rows.append((OK if long_ok else BAD, "الطويلة: مقدمة 12 ث + شاشة نهاية (تلزيق بلا إعادة ترميز)",
+                 "editor.long_intro · editor.long_outro · editor._concat"))
+    recs = [p for p in ("satisfying", "sleep", "story", "fireplace", "ocean", "kinetic", "focus", "cozy", "rain", "night", "space") if refs.RECIPES.get(p)]
+    rows.append((OK if len(recs) >= 8 else WARN, f"وصفات المرجع البصري: {len(recs)} نمط", "look · moves · scenes · music"))
+    return rows
+
+
 def check_stock() -> list:
     try:
         from engine import refs, stock
@@ -167,6 +191,7 @@ def main():
     groups = [("المحركات", check_engine()), ("الحلقة المثالية", check_loop()),
               ("القِصص والتحريك", check_stories()),
               ("المكتبة والشخصيات", check_library()), ("المخزون والمراجع", check_stock()),
+              ("المونتاج الإجباري", check_montage()),
               ("العقل الذاتي", check_brain()),
               ("أرقام القناة", check_numbers()), ("الملفات", check_repo())]
     if not quick:

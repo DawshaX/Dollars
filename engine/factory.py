@@ -91,6 +91,23 @@ def next_slots(kind: str = "short", count: int = 1, date_str: str | None = None)
     return out
 
 
+def missed_slots(kind: str = "short", now=None) -> int:
+    """كام دور فات في خطة النهاردة ولسه ما اتعملش (عشان الساعة لو اتأخرت ما تضيّعش حاجة)."""
+    now = now or datetime.now(timezone.utc)
+    plan = _plan()
+    led = _load_ledger()
+    done = {(d.get("date"), d.get("hour"), d.get("kind")) for d in led.get("done", [])}
+    n = 0
+    for sl in plan.get("slots", []):
+        if sl.get("kind") != kind:
+            continue
+        if (plan["date"], sl["hour"], kind) in done:
+            continue
+        if int(sl.get("hour", 0)) <= now.hour or plan.get("date", "") < now.date().isoformat():
+            n += 1
+    return n
+
+
 def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
     """
     يطلّع الفيديو المطلوب حسب النوع: شورت مريح · أجواء · قصة · نوم طويل.
@@ -231,9 +248,16 @@ def _log(lines: list):
                 encoding="utf-8")
 
 
-def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=None) -> dict:
+def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=None,
+        catchup: bool = False, max_catchup: int = 4) -> dict:
+    if catchup:
+        miss = missed_slots(kind)
+        # الشورتس: نعوّض لحد 4 في التشغيل الواحد · الطويلة: واحدة بالكتير (ثقيلة أوي)
+        count = max(count, min(max_catchup, miss)) if kind == "short" else max(count, min(1, miss))
     slots = next_slots(kind, count)
     lines, results = [], []
+    if catchup and count > 1:
+        lines.append(f"⏱️ تعويض: النهاردة فيه {count} دور مستحق ⇒ بنطلّعهم كلهم")
     if not slots:
         lines.append(f"مفيش أدوار {kind} فاضلة في خطة النهاردة — العقل هيعمل خطة بكرة")
     for slot in slots:
@@ -296,6 +320,8 @@ def main(argv=None):
     ap.add_argument("--daily", action="store_true", help="طويل نوم + قصة")
     ap.add_argument("--kind", choices=["short", "long"], default=None)
     ap.add_argument("--count", type=int, default=1)
+    ap.add_argument("--catchup", action="store_true",
+                    help="يعوّض الأدوار اللي فاتت في خطة النهاردة (لو الساعة اتأخرت)")
     ap.add_argument("--force-stage", action="store_true", help="ما تنشرش حتى لو القناة مربوطة")
     ap.add_argument("--out", default=None)
     ap.add_argument("--status", action="store_true")
@@ -314,6 +340,8 @@ def main(argv=None):
     kinds = []
     if a.daily:
         kinds = [("long", max(1, a.count))]
+        if _jload(STATE / "queue.json") is not None and not a.kind:
+            kinds.append(("story", 1))
     elif a.hourly:
         kinds = [("short", max(1, a.count))]
     elif a.kind:
@@ -322,7 +350,7 @@ def main(argv=None):
         kinds = [("short", 1)]
     total = 0
     for kind, cnt in kinds:
-        out = run(kind, cnt, force_stage=a.force_stage, out_dir=a.out)
+        out = run(kind, cnt, force_stage=a.force_stage, out_dir=a.out, catchup=a.catchup)
         total += out["slots"]
         for line in out["lines"]:
             print("•", line)
