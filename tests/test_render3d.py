@@ -65,6 +65,16 @@ def test_grade_works_on_3d_depth():
     assert out.shape == img.shape and 0 <= out.min() and out.max() <= 1
 
 
+@pytest.mark.parametrize("size", [(200, 120), (480, 270), (641, 361)])
+def test_no_index_errors_at_any_resolution(size):
+    """🐞 الأخطاء العددية كانت بتكسر الراسم عند دقات معيّنة — لازم تشتغل على أي مقاس."""
+    w, h = size
+    sc = render3d.make_3d("valley_lake", w=w, h=h, fps=8)
+    for i in range(3):
+        img = sc.raw(i * 0.7)
+        assert np.isfinite(img).all()
+
+
 def test_unknown_3d_scene_fails_loudly():
     with pytest.raises(KeyError):
         render3d.make_3d("nope_scene")

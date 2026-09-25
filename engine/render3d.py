@@ -272,8 +272,10 @@ class Scene3D(V.Scene):
             px_ = cam2.pos[0] + self._hdir_x * d
             pz_ = cam2.pos[2] + self._hdir_z * d
             gxf = np.mod(px_ / scale, n); gyf = np.mod(pz_ / scale, n)
+            # ⚠️ الأخطاء العددية بتخلي القيمة تساوي n بالظبط ⇒ نلفّها قبل القص
+            gxf = np.where(gxf >= n, 0.0, gxf); gyf = np.where(gyf >= n, 0.0, gyf)
             x0 = gxf.astype(np.int32); y0 = gyf.astype(np.int32)
-            fx = (gxf - x0); fy_ = (gyf - y0)
+            fx = np.clip(gxf - x0, 0.0, 1.0); fy_ = np.clip(gyf - y0, 0.0, 1.0)
             x1 = np.mod(x0 + 1, n); y1 = np.mod(y0 + 1, n)
             hgt = (grid[y0, x0] * (1 - fx) * (1 - fy_) + grid[y0, x1] * fx * (1 - fy_)
                    + grid[y1, x0] * (1 - fx) * fy_ + grid[y1, x1] * fx * fy_) * self.height_scale
