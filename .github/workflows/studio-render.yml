@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       scene:
-        description: "المشهد (rain_glass · ocean · fireplace · starfield · aurora · sand_table · pendulum_wave · harmonograph)"
+        description: "المشهد (2D: rain_glass · ocean · fireplace · starfield · aurora · sand_table · pendulum_wave · harmonograph | 3D: valley_lake · dunes_moon · snow_pines · planet_rings)"
         required: true
         default: rain_glass
       seconds:
@@ -15,9 +15,13 @@ on:
         required: true
         default: "0"
       audio:
-        description: "وصفة الصوت (sleep_rain · rain_only · ocean · storm · fireplace · calm_night · focus · meditation)". 
+        description: "وصفة الصوت (sleep_rain · rain_only · ocean · storm · fireplace · calm_night · focus · meditation)"
         required: false
         default: sleep_rain
+      cinema:
+        description: "المظهر السينمائي (cinema_night · cinema_cool · cinema_warm · story · satisfying · clean)"
+        required: false
+        default: cinema_night
 permissions:
   contents: read
 jobs:
@@ -39,8 +43,9 @@ jobs:
           scene = os.environ["SCENE"]; secs = float(os.environ["SECS"]); hours = float(os.environ["HOURS"])
           audio = os.environ["AUDIO"]
           out = pathlib.Path("out"); out.mkdir(exist_ok=True)
-          sc = visuals.make_scene(scene, w=1280, h=720, fps=30)
-          loop = visuals.encode(sc, min(secs, sc.loop_seconds), out / f"{scene}_loop.mp4")
+          sc = visuals.make_scene(scene, w=640, h=360, fps=30)
+          loop = visuals.encode(sc, min(secs, sc.loop_seconds), out / f"{scene}_loop.mp4",
+                                out_w=1920, out_h=1080, cinema=os.environ.get('CINEMA') or None)
           wav = ambient.make(audio, min(secs, sc.loop_seconds), out / f"{audio}.wav")
           if hours > 0:
               visuals.long_video(loop, out / f"{scene}_{int(hours)}h.mp4", hours * 3600, audio_wav=wav)
@@ -56,6 +61,7 @@ jobs:
           SECS: ${{ inputs.seconds }}
           HOURS: ${{ inputs.hours }}
           AUDIO: ${{ inputs.audio }}
+          CINEMA: ${{ inputs.cinema }}
       - uses: actions/upload-artifact@v4
         with:
           name: studio-render-${{ inputs.scene }}
