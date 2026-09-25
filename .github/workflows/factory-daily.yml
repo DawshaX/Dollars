@@ -24,6 +24,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: مساحة حرة (الطويلة بتوصل جيجابايت)
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL 2>/dev/null || true
+          df -h / | tail -1
       - run: python -m pip install --quiet numpy pillow imageio-ffmpeg
       - name: إنتاج الطويلة (3/8/10 ساعات) + قصة بلا كلام
         env:
@@ -37,9 +41,9 @@ jobs:
         with:
           name: dollars-daily
           path: |
-            work/**/*.mp4
             work/**/*.jpg
             work/**/*.json
+            work/**/*.txt
           retention-days: 3
           if-no-files-found: ignore
       - name: حفظ الذاكرة

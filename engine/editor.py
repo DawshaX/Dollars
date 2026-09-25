@@ -387,7 +387,7 @@ class Editor:
         loop = self.out / f"{scene}_loop.mp4"
         sc = visuals.make_scene(scene, w=480, h=270, fps=30)
         visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=1920, out_h=1080,
-                       crf=20, cinema=look)
+                       crf=23, maxrate="1200k", cinema=look)   # سقف حجم: الطويلة تفضل قابلة للرفع
         wav = ambient.make(audio, min(loop_seconds, sc.loop_seconds), self.out / f"{audio}.wav")
         name = out_name or f"{scene}_{int(hours)}h"
         video = self.out / f"{name}.mp4"

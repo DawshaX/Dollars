@@ -711,7 +711,7 @@ def black_screen(w: int = 1280, h: int = 720, fps: int = 30, seed: int = 7) -> S
 def encode(scene: Scene, seconds: float, path, fps: int | None = None,
            out_w: int | None = 1920, out_h: int | None = 1080, crf: int = 20,
            preset: str = "veryfast", verbose: bool = False,
-           cinema: str | None = None) -> pathlib.Path:
+           cinema: str | None = None, maxrate: str | None = None) -> pathlib.Path:
     """
     ترميز حلقة فيديو (H.264 · yuv420p · faststart) بلا تجميع كادرات في الرام.
     cinema: اسم مظهر الجودة السينمائية ("cinema_cool" … ) — لو None بناخد مظهر المشهد الافتراضي.
@@ -726,6 +726,8 @@ def encode(scene: Scene, seconds: float, path, fps: int | None = None,
            "-i", "-"]
     if out_w and out_h and (out_w, out_h) != (scene.w, scene.h):
         cmd += ["-vf", f"scale={out_w}:{out_h}:flags=lanczos"]
+    if maxrate:
+        cmd += ["-maxrate", maxrate, "-bufsize", maxrate]
     cmd += ["-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-pix_fmt", "yuv420p",
             "-g", str(fps * 2), "-keyint_min", str(fps), "-sc_threshold", "0",
             "-movflags", "+faststart", str(path)]
