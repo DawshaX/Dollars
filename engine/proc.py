@@ -212,3 +212,31 @@ def duration(path) -> float | None:
         return int(m.group(1)) * 3600 + int(m.group(2)) * 60 + float(m.group(3))
     except Exception:
         return None
+
+
+def blur(a: np.ndarray, radius: float = 1.0, passes: int = 2, mode: str = "wrap") -> np.ndarray:
+    """تنعيم بوكس سريع (فصل أفقي/رأسي) — للأنسجة: شفق ناعم · دخان · ضباب."""
+    if radius <= 0:
+        return a
+    k = max(1, int(round(radius)))
+    out = np.asarray(a, np.float32)
+    for _ in range(max(1, passes)):
+        for axis in (1, 0):
+            out = _movavg(out, k, axis, mode)
+    return out
+
+
+def _movavg(a: np.ndarray, k: int, axis: int, mode: str = "wrap") -> np.ndarray:
+    """متوسط متحرك بنافذة k على محور واحد (wrap = بيفضل دوري ⇒ الحلقة مثالية)."""
+    if k <= 1:
+        return np.asarray(a, np.float32)
+    pad = [(0, 0), (0, 0)]
+    pad[axis] = (k // 2, k - 1 - k // 2)
+    b = np.pad(np.asarray(a, np.float32), pad, mode=mode)
+    c = np.cumsum(b, axis=axis)
+    zero_shape = list(c.shape); zero_shape[axis] = 1
+    c = np.concatenate([np.zeros(zero_shape, np.float32), c], axis=axis)
+    n = a.shape[axis]
+    sl_hi = [slice(None)] * a.ndim; sl_lo = [slice(None)] * a.ndim
+    sl_hi[axis] = slice(k, k + n); sl_lo[axis] = slice(0, n)
+    return (c[tuple(sl_hi)] - c[tuple(sl_lo)]) / float(k)

@@ -30,7 +30,7 @@ try:  # ffmpeg من imageio (مفيش ffmpeg نظام على البيئة دي)
 except Exception:  # pragma: no cover
     FFMPEG = "ffmpeg"
 
-from .proc import (TAU, fbm, tiled_fbm, tiled_fbm2, pick_period, roll_px,
+from .proc import (TAU, blur, fbm, tiled_fbm, tiled_fbm2, pick_period, roll_px,
                      splat, splat_fast, glow, smoothstep, _mix, _bilerp, FFMPEG)
 from . import grade as _grade
 
@@ -97,15 +97,15 @@ class Starfield(Scene):
         h, w, sd = self.h, self.w, self.seed
         self.p1 = pick_period(w, w // 4)
         self.p2 = pick_period(w, w // 6)
-        self.neb = tiled_fbm(h, w, sd + 1, self.p1, scales=(8, 16, 32, 64, 128), gain=0.58)
-        self.neb2 = tiled_fbm(h, w, sd + 2, self.p2, scales=(16, 32, 64, 128), gain=0.6)
+        self.neb = blur(tiled_fbm(h, w, sd + 1, self.p1, scales=(4, 8, 16, 32, 64), gain=0.58), 1.5)
+        self.neb2 = blur(tiled_fbm(h, w, sd + 2, self.p2, scales=(8, 16, 32, 64), gain=0.6), 1.0)
         rng = np.random.default_rng(sd + 3)
         self.tw = pick_period(w, max(64, w // 3))
         self.th = pick_period(h, max(64, h // 2))
         self.xoff = np.arange(0, w, self.tw, dtype=np.float32)
         self.yoff = np.arange(0, h, self.th, dtype=np.float32)
         self.layers = []
-        for n, kb, bright in ((150, 2, 1.0), (90, 3, 0.65), (50, 5, 0.45)):
+        for n, kb, bright in ((190, 2, 1.0), (110, 3, 0.70), (60, 5, 0.50)):
             kx = rng.integers(1, 3, n).astype(np.float32)
             ky = rng.integers(1, 3, n).astype(np.float32)
             self.layers.append(dict(
@@ -127,16 +127,19 @@ class Starfield(Scene):
         img += deep * (1.0 - n1[:, :, None] * 0.5)
         img += purple * (n1 * n2)[:, :, None] * 0.55
         img += teal * (n2 ** 1.6)[:, :, None] * 0.30
+        # درب التبانة: شريط ضبابي ناعم يميل عبر الكادر
+        band = np.exp(-(((self.yy - (h * 0.42 + 0.16 * h * np.sin(self.xx / (w * 0.55)))) / (h * 0.11)) ** 2))
+        img += (band * (0.05 + 0.10 * n2))[:, :, None] * np.array([0.55, 0.62, 0.95], np.float32)
         for lay in self.layers:
             nx = np.mod(lay["x"] + lay["vx"] * t, self.tw)
             ny = np.mod(lay["y"] + lay["vy"] * t, self.th)
             twk = 0.55 + 0.45 * np.sin(TAU * (lay["f"] * u) + lay["p"])
-            br = (lay["b"] * twk)[:, None, None] * np.ones((1, self.xoff.size, self.yoff.size), np.float32)
+            br = (lay["b"] * twk * 0.72)[:, None, None] * np.ones((1, self.xoff.size, self.yoff.size), np.float32)
             xs = (nx[:, None, None] + self.xoff[None, :, None])
             ys = (ny[:, None, None] + self.yoff[None, None, :])
             xs = np.broadcast_to(xs, br.shape); ys = np.broadcast_to(ys, br.shape)
             splat_fast(img, np.ascontiguousarray(xs).ravel(), np.ascontiguousarray(ys).ravel(),
-                       br.ravel(), (1.0, 0.98, 0.92))
+                       br.ravel(), (0.95, 0.96, 1.0))
         for ev in (0.0, 0.5):
             uu = ((u - ev) % 1.0) * L / 1.6
             if uu < 1.0:
@@ -296,9 +299,11 @@ class Aurora(Scene):
     def prepare(self):
         h, w, sd = self.h, self.w, self.seed
         self.star_bg = Starfield(w=w, h=h, seed=sd + 31)
-        self.curtain = tiled_fbm(h, w, sd + 32, pick_period(w, w // 3), scales=(8, 16, 32, 64, 128), gain=0.62)
+        self.curtain = tiled_fbm(h, w, sd + 32, pick_period(w, w // 3), scales=(4, 8, 16, 32), gain=0.55)
+        self.curtain = blur(self.curtain, 2.4)
+        self.curtain = np.clip((self.curtain - 0.28) / 0.62, 0.0, 1.0)
         self.pc = pick_period(w, w // 3)
-        self.mist = tiled_fbm(h, w, sd + 33, pick_period(w, w // 6), scales=(16, 32, 64), gain=0.6)
+        self.mist = blur(tiled_fbm(h, w, sd + 33, pick_period(w, w // 6), scales=(8, 16, 32), gain=0.6), 2.0)
         self.pm = pick_period(w, w // 6)
         self.curve = (h * 0.80 + 0.05 * h * np.sin(self.xx / 190.0)
                       + 0.03 * h * np.sin(self.xx / 61.0 + 1.7))
@@ -307,7 +312,7 @@ class Aurora(Scene):
     def render(self, t):
         h, w, L = self.h, self.w, self.loop_seconds
         u = t / L
-        img = self.star_bg.render(t) * 0.72
+        img = self.star_bg.render(t) * 0.80
         for k, (y0f, amp, lam, col, pw) in enumerate([
                 (0.30, 0.10, 420.0, np.array([0.10, 0.85, 0.45], np.float32), 0.75),
                 (0.42, 0.13, 300.0, np.array([0.15, 0.75, 0.85], np.float32), 0.55),
@@ -316,7 +321,7 @@ class Aurora(Scene):
             centre = h * y0f + h * amp * np.sin(TAU * ((k + 1) * u) + self.xx / lam)
             width = h * (0.075 + 0.02 * math.sin(TAU * 2 * u + k))
             band = np.exp(-(((self.yy - centre) / width) ** 2))
-            img += (band * (0.35 + 1.25 * tex) * pw)[:, :, None] * col
+            img += (band * (0.42 + 0.85 * tex) * pw)[:, :, None] * col
         mist = roll_px(self.mist, self.pm * u)
         img += (mist * 0.05)[:, :, None]
         m = self.mask_mtn[:, :, None]
@@ -351,12 +356,13 @@ class Fireplace(Scene):
         self.ep = rng.random(n, dtype=np.float32) * TAU
         self.es = rng.uniform(0.6, 1.8, n).astype(np.float32)
         self.efreq = rng.integers(1, 4, n)
-        self.frame_mask = np.zeros((h, w), np.float32)
-        self.frame_mask[:int(h * 0.12)] = 1.0
-        self.frame_mask[:, :int(w * 0.07)] = 1.0
-        self.frame_mask[:, int(w * 0.93):] = 1.0
-        self.frame_mask[int(h * 0.78):, :int(w * 0.10)] = 1.0
-        self.frame_mask[int(h * 0.78):, int(w * 0.90):] = 1.0
+        # إطار حجري ناعم: أقواس في الأعلى وحواف مخفّفة (شكل مدفأة مش صندوق)
+        u = self.xx / max(1, w - 1)
+        v = self.yy / max(1, h - 1)
+        arch = 0.055 + 0.075 * (0.5 - 0.5 * np.cos(np.pi * np.clip((v - 0.02) / 0.55, 0, 1)))
+        edge = np.clip((arch - u) / 0.035, 0, 1) + np.clip((u - (1.0 - arch)) / 0.035, 0, 1)
+        top = np.clip((0.115 + 0.055 * np.cos(np.pi * np.clip(u, 0, 1)) - v) / 0.05, 0, 1)
+        self.frame_mask = np.clip(edge + top, 0.0, 1.0).astype(np.float32)
         self.logs = [(w * 0.34, h * 0.815, w * 0.30), (w * 0.60, h * 0.835, w * 0.26),
                      (w * 0.47, h * 0.775, w * 0.20)]
 
@@ -367,7 +373,7 @@ class Fireplace(Scene):
                  + 0.04 * math.sin(TAU * 13 * u + 2.3))
         img = np.zeros((h, w, 3), np.float32)
         stone = roll_px(self.stone, self.ps * u * 0.0)
-        img += (stone * 0.045 * flick)[:, :, None] * np.array([1.0, 0.72, 0.45], np.float32)
+        img += (stone * 0.055 * flick)[:, :, None] * np.array([1.0, 0.74, 0.48], np.float32)
         tex = np.roll(np.roll(self.flame_tex, int(round(self.pfl_y * 2 * u)), axis=0),
                       int(round(self.pfl_x * u)), axis=1)
         d = np.abs(self.xx - self.fire_cx) / (w * 0.16)
@@ -378,7 +384,7 @@ class Fireplace(Scene):
         r = np.clip(field * 1.15, 0, 1)
         g = np.clip((field - 0.35) * 1.25, 0, 1) ** 1.25
         b = np.clip((field - 0.80) * 1.6, 0, 1) ** 1.8
-        img += np.stack([r, g, b], axis=2) * flick
+        img += np.stack([r, g, b], axis=2) * flick * 1.12
         glow(img, self.fire_cx, self.fire_base - h * 0.10, w * 0.34, (1.0, 0.46, 0.14), 0.30 * flick, 2.0)
         ey = self.fire_base - np.mod(self.ev * t + self.ey, h * 0.42)
         ex = self.ex + 8.0 * np.sin(TAU * (self.efreq * u) + self.ep)
@@ -396,9 +402,9 @@ class Fireplace(Scene):
             img[y0:y1, x0:x1] += (band * field[y0:y1, x0:x1])[:, :, None] * np.array(
                 [0.45, 0.16, 0.03], np.float32)
         fm = self.frame_mask[:, :, None]
-        img = img * (1 - fm) + fm * (0.06 + 0.08 * self.stone[:, :, None]) * np.array(
-            [1.0, 0.85, 0.70], np.float32)
-        img += fm * (0.10 * flick) * np.array([0.6, 0.35, 0.15], np.float32)
+        img = img * (1 - fm) + fm * (0.10 + 0.10 * self.stone[:, :, None]) * np.array(
+            [0.95, 0.82, 0.70], np.float32)
+        img += fm * (0.16 * flick) * np.array([0.7, 0.42, 0.20], np.float32)
         return img
 
 
@@ -406,8 +412,9 @@ class Fireplace(Scene):
 
 class SandTable(Scene):
     """
-    طاولة الرمل الساحرة: كورة بترسم خطوط في الرمل،
-    وفي آخر الحلقة «راكة» بتمسح السطح وتبدأ من جديد ⇒ حلقة مثالية.
+    رمل حركي من فوق: كورة مصقولة بتحفر خطوط في رمل أسود ناعم —
+    الضوء جاي من فوق شمال، فالجُرف بيبان بلمعة على حرف والحفر بظل على الحرف التاني.
+    آخر الحلقة «راكة» بتمسح السطح بالكامل ⇒ الحلقة مثالية (نفس الكادر بالظبط).
     """
     name = "sand_table"
     loop_seconds = 40.0
@@ -415,79 +422,93 @@ class SandTable(Scene):
 
     def prepare(self):
         h, w, sd = self.h, self.w, self.seed
-        yy, xx = np.mgrid[0:h, 0:w]
-        d = np.sqrt(((xx - w / 2) / (w / 2)) ** 2 + ((yy - h / 2) / (h / 2)) ** 2)
-        self.disc = np.clip(1.0 - smoothstep((d - 0.80) / 0.18), 0.0, 1.0).astype(np.float32)
-        self.sand = fbm(h, w, sd + 51, scales=(2, 4, 8, 16), gain=0.7)
-        self.cx, self.cy = w / 2, h / 2
-        self.R = min(w, h) * 0.40
-        self.draw_until = 0.86
+        self.sand_tex = fbm(h, w, sd + 51, scales=(3, 6, 12, 24, 48), gain=0.62)          # نسيج الرمل
+        self.fine = fbm(h, w, sd + 52, scales=(48, 96, 192), gain=0.55)                    # حبيبات دقيقة
+        self.cx, self.cy = w * 0.5, h * 0.5
+        self.R = min(w, h) * 0.34
+        self.ball_r = max(3.0, min(w, h) * 0.035)
+        self.draw_until = 0.80
         self.reset()
 
     def reset(self):
-        self.hmap = np.zeros((self.h, self.w), np.float32)
+        self.carve = np.zeros((self.h, self.w), np.float32)      # عمق الحفر
+        self.ridge = np.zeros((self.h, self.w), np.float32)      # كومات رمل على الجناب
         self.last = None
 
-    def _pos(self, u, clean: float = 0.0):
+    def _pos(self, u):
+        """مسار لِيساجو ناعم بيرجع لنفس النقطة (حلقة مقفولة)."""
         a = TAU * u
-        x = self.cx + self.R * (0.66 * math.sin(3 * a) + 0.30 * math.sin(5 * a + 0.6))
-        y = self.cy + self.R * (0.66 * math.cos(2 * a) + 0.30 * math.cos(7 * a + 1.2))
-        if clean > 0.0:
-            x = x * (1 - clean) + self.cx * clean
-            y = y * (1 - clean) + self.cy * clean
+        x = self.cx + self.R * (0.70 * math.sin(3 * a) + 0.22 * math.sin(5 * a + 0.7))
+        y = self.cy + self.R * 0.82 * (0.70 * math.cos(2 * a) + 0.26 * math.cos(7 * a + 1.2))
         return x, y
 
+    def _carve(self, x0, y0, x1, y1):
+        h, w = self.h, self.w
+        steps = max(2, int(math.hypot(x1 - x0, y1 - y0) * 1.6))
+        br = max(3.0, self.ball_r * 0.55)
+        for i in range(1, steps + 1):
+            xi = x0 + (x1 - x0) * i / steps
+            yi = y0 + (y1 - y0) * i / steps
+            px, py = int(round(xi)), int(round(yi))
+            r = int(br) + 1
+            if px < r or py < r or px >= w - r or py >= h - r:
+                continue
+            yy, xx = np.mgrid[py - r:py + r + 1, px - r:px + r + 1]
+            d = np.sqrt((xx - xi) ** 2 + (yy - yi) ** 2)
+            self.carve[py - r:py + r + 1, px - r:px + r + 1] += np.exp(-(d / br) ** 2) * 1.6
+            self.ridge[py - r:py + r + 1, px - r:px + r + 1] += np.exp(-((d - br * 1.5) / (br * 0.9)) ** 2) * 0.9
+
     def render(self, t):
-        L, h, w = self.loop_seconds, self.h, self.w
+        h, w, L = self.h, self.w, self.loop_seconds
         u = (t % L) / L
         if t < 1.0 / self.fps:
             self.reset()
         drawing = u <= self.draw_until
-        if drawing:
-            uu = u / self.draw_until
-            x, y = self._pos(uu)
-            x0, y0 = self.last if self.last else (x, y)
-            self.last = (x, y)
-            steps = 8
-            for i in range(1, steps + 1):
-                xi = x0 + (x - x0) * i / steps
-                yi = y0 + (y - y0) * i / steps
-                px, py = int(xi), int(yi)
-                if 2 <= px < w - 3 and 2 <= py < h - 3:
-                    self.hmap[py - 2:py + 3, px - 2:px + 3] -= 1.35
-        else:
-            self.hmap *= 0.955      # الراكة بتمسح السطح تدريجيًا
-        np.clip(self.hmap, -34.0, 0.0, out=self.hmap)
-        gx = np.zeros_like(self.hmap); gy = np.zeros_like(self.hmap)
-        gx[:, 1:-1] = (self.hmap[:, 2:] - self.hmap[:, :-2]) * 0.5
-        gy[1:-1, :] = (self.hmap[2:, :] - self.hmap[:-2, :]) * 0.5
-        lit = np.clip(0.55 + (-gx * 0.35 - gy * 0.55), 0.0, 1.6)
-        base = 0.20 + 0.16 * self.sand + lit * 0.52
-        sand = np.array([0.60, 0.47, 0.33], np.float32)
-        img = np.zeros((h, w, 3), np.float32)
-        img += (base * self.disc)[:, :, None] * sand
-        if drawing:
-            hx, hy = self._pos(u / self.draw_until)
-            glow(img, hx, hy, self.R * 0.30, (1.0, 0.86, 0.55), 0.18, 2.2)
         clean = 0.0 if drawing else smoothstep((u - self.draw_until) / (1.0 - self.draw_until))
-        bx, by = self._pos(u / self.draw_until if drawing else 0.0, clean)
-        img *= (1.0 - self.disc[:, :, None] * 0.35)
-        glow(img, bx + 6, by + 9, 26, (0.0, 0.0, 0.0), 0.5, 2.0)
-        glow(img, bx, by, 22, (1.0, 0.95, 0.85), 0.75, 2.6)
-        splat(img, [bx], [by], [1.0], (1.0, 1.0, 1.0), wrap=False)
+        if drawing:
+            x, y = self._pos(u / self.draw_until)
+            if self.last:
+                self._carve(self.last[0], self.last[1], x, y)
+            self.last = (x, y)
+        np.clip(self.carve, 0.0, 6.0, out=self.carve)
+        np.clip(self.ridge, 0.0, 4.0, out=self.ridge)
+        if not drawing:                                   # الراكة بتمسح الحفر والكومات
+            self.carve *= (1.0 - 0.20 * (1.0 - clean))
+            self.ridge *= (1.0 - 0.20 * (1.0 - clean))
+        # ── إضاءة: مصدر ضوء واحد من فوق-شمال ⇒ كل حفر له وجه مضيء وحرف مظلّل
+        gx = np.zeros_like(self.carve); gy = np.zeros_like(self.carve)
+        gx[:, 1:-1] = (self.carve[:, 2:] - self.carve[:, :-2]) * 0.5
+        gy[1:-1, :] = (self.carve[2:, :] - self.carve[:-2, :]) * 0.5
+        shade = np.clip(-gx * 1.05 - gy * 1.35, -1.0, 1.0)
+        worn = np.clip(self.carve * 0.30 + self.ridge * 0.28, 0.0, 1.0)
+        base = 0.155 + 0.075 * self.sand_tex + 0.045 * self.fine
+        base = base + shade * 0.30 + worn * 0.085
+        sand_col = np.array([0.74, 0.70, 0.63], np.float32)      # رمل رمادي-دافئ
+        img = (base[:, :, None] * sand_col) * (1.0 - 0.30 * (1.0 - self.vig)[:, :, None])
+        img += (self.ridge * 0.035)[:, :, None] * np.array([0.95, 0.90, 0.80], np.float32)
+        # ── الكورة: معدن مصقول + ظل ناعم + لمعة
+        bx, by = self._pos(u / self.draw_until if drawing else 0.0)
+        if not drawing and clean > 0:
+            bx = bx * (1 - clean) + w * 0.5 * clean
+            by = by * (1 - clean) + h * 0.5 * clean
+        r = self.ball_r
+        glow(img, bx + r * 0.45, by + r * 0.55, r * 2.6, (0.0, 0.0, 0.0), 0.55, 2.0)      # ظل
+        glow(img, bx, by, r * 1.25, (0.62, 0.60, 0.58), 0.55, 3.0)                          # جسم الكورة
+        glow(img, bx - r * 0.35, by - r * 0.45, r * 0.75, (1.0, 0.99, 0.96), 0.95, 3.4)     # اللمعة
+        glow(img, bx + r * 0.30, by + r * 0.35, r * 0.55, (1.0, 0.97, 0.92), 0.30, 3.0)     # انعكاس أرضي
+        # ── نهاية الحلقة: ضوء الراكة بيمرّ على السطح ويكمّل المسح
         if not drawing:
             sweep = (u - self.draw_until) / (1.0 - self.draw_until)
-            sx = w * (0.12 + 0.76 * sweep)
-            band = np.exp(-(((self.xx - sx) / (w * 0.05)) ** 2))
-            img += (band * 0.10)[:, :, None] * np.array([0.9, 0.85, 0.75], np.float32)
-        img *= np.clip(self.disc + 0.06, 0.0, 1.0)[:, :, None]
-        return img
+            sx = w * (-0.05 + 1.15 * sweep)
+            band = np.exp(-(((self.xx - sx) / (w * 0.045)) ** 2))
+            img += (band * 0.11)[:, :, None] * np.array([0.95, 0.90, 0.82], np.float32)
+        return np.clip(img, 0.0, 1.4)
 
 
 # ────────────────────────────── 7) موجة النواسير ──────────────────────────────
 
 class PendulumWave(Scene):
-    """موجة نواسير: 16 كورة بترسم أنماط مبهِرة — إيقاع رياضي مريح."""
+    """موجة نواسير في استوديو: 16 كورة مصقولة بتكشف أنماط رياضية مبهِرة على خلفية هادية."""
     name = "pendulum_wave"
     loop_seconds = 45.0
 
@@ -497,88 +518,119 @@ class PendulumWave(Scene):
 
     def prepare(self):
         h, w, n = self.h, self.w, self.n_req
-        self.pivot_y = h * 0.12
-        self.len = h * 0.66
-        self.x = np.linspace(w * 0.10, w * 0.90, n, dtype=np.float32)
+        self.pivot_y = h * 0.10
+        self.len = h * 0.70
+        self.x = np.linspace(w * 0.09, w * 0.91, n, dtype=np.float32)
         self.freq = np.arange(13, 13 + n, dtype=np.float32)
-        self.amp = (0.30 + 0.06 * np.sin(np.arange(n) * 1.7)).astype(np.float32)
-        self.rad = float(np.clip(w * 0.018, 7.0, 16.0))
-        self.back = fbm(h, w, self.seed + 61, scales=(16, 32, 64, 128), gain=0.6)
-        self.hue = (np.arange(n, dtype=np.float32) / n)
-        self.cols = np.stack([0.35 + 0.65 * np.sin(TAU * self.hue),
-                              0.35 + 0.65 * np.sin(TAU * self.hue + 2.1),
-                              0.35 + 0.65 * np.sin(TAU * self.hue + 4.2)], axis=1).astype(np.float32)
+        self.amp = (0.34 + 0.05 * np.sin(np.arange(n) * 1.7)).astype(np.float32)
+        self.rad = float(np.clip(min(w, h) * 0.045, 8.0, 26.0))
+        self.hue = np.arange(n, dtype=np.float32) / n
+        self.cols = np.stack([0.45 + 0.55 * np.sin(TAU * self.hue),
+                              0.45 + 0.55 * np.sin(TAU * self.hue + 2.1),
+                              0.45 + 0.55 * np.sin(TAU * self.hue + 4.2)], axis=1).astype(np.float32)
+        self.horizon = h * 0.80
 
     def render(self, t):
         h, w, L, n = self.h, self.w, self.loop_seconds, self.n_req
         u = t / L
         img = np.zeros((h, w, 3), np.float32)
-        img += (0.028 + 0.05 * self.back)[:, :, None] * np.array([0.55, 0.62, 0.85], np.float32)
+        # خلفية استوديو: تدرّج هادي + «أرضية» أنعم
+        grad = np.clip(self.yy / max(1, h - 1), 0.0, 1.0)
+        img += (0.030 + 0.055 * grad)[:, :, None] * np.array([0.55, 0.63, 0.85], np.float32)
+        img += np.clip(1.0 - np.abs(self.yy - self.horizon) / (h * 0.035), 0, 1)[:, :, None] * 0.045
+        img *= self.vig[:, :, None]
+        # عارضة معدنية مصقولة (خط لمعة فوق · جسم · ظل تحتها)
+        y0 = int(self.pivot_y)
+        i0, i1 = int(w * 0.055), int(w * 0.945)
+        img[max(0, y0 - 5):y0 - 2, i0:i1] += 0.085
+        img[max(0, y0 - 2):y0 + 3, i0:i1] += 0.135
+        img[y0 + 3:y0 + 6, i0:i1] += 0.045
         th = self.amp * np.cos(TAU * self.freq * u)
         bx = self.x + self.len * np.sin(th)
         by = self.pivot_y + self.len * np.cos(th)
-        k = np.linspace(0.0, 1.0, 16, dtype=np.float32)
+        # خيوط واضحة (سماكة بكسلين بلون فاتح)
+        k = np.linspace(0.0, 1.0, 90, dtype=np.float32)
         rxs = self.x[:, None] + (bx - self.x)[:, None] * k[None, :]
         rys = self.pivot_y + (by - self.pivot_y)[:, None] * k[None, :]
-        rbr = (0.16 * (0.45 + 0.55 * k))[None, :] * np.ones((n, 1), np.float32)
-        splat_fast(img, rxs.ravel(), rys.ravel(), rbr.ravel(), (0.72, 0.78, 0.95))
+        rbr = (0.075 * (0.45 + 0.55 * k))[None, :] * np.ones((n, 1), np.float32)
+        splat_fast(img, rxs.ravel(), rys.ravel(), rbr.ravel(), (0.88, 0.92, 1.0))
+        splat_fast(img, (rxs + 0.8).ravel(), rys.ravel(), (rbr * 0.6).ravel(), (0.82, 0.88, 0.99))
+        # محاور صغيرة على العارضة
+        splat_fast(img, self.x, np.full(n, self.pivot_y, np.float32) - 1.0,
+                   np.full(n, 0.5, np.float32), (0.95, 0.96, 1.0))
+        # انعكاس أرضي باهت + ظل + كرات مصقولة
         for i in range(n):
-            glow(img, float(bx[i]), float(by[i]), self.rad * 2.6, (0.0, 0.0, 0.0), 0.32, 2.0)
+            gy = self.horizon + (self.len * 0.05) * (1.0 - abs(math.cos(th[i])))
+            glow(img, float(bx[i]), float(gy), self.rad * 1.3, (0.0, 0.0, 0.0), 0.30, 2.0)
+            c = tuple(float(v) for v in np.clip(self.cols[i] * 0.5 + 0.22, 0.0, 1.0))
+            glow(img, float(bx[i]), float(self.horizon + (by[i] - self.pivot_y) * 0.12),
+                 self.rad * 0.9, c, 0.10, 2.4)                                               # انعكاس
         for i in range(n):
-            glow(img, float(bx[i]), float(by[i]), self.rad * 3.2, (0.10, 0.12, 0.20), 0.26, 2.0)
-            glow(img, float(bx[i] - self.rad * 0.25), float(by[i] - self.rad * 0.25),
-                 self.rad * 1.5, tuple(float(v) for v in self.cols[i]), 0.6, 2.6)
-        splat_fast(img, bx - self.rad * 0.3, by - self.rad * 0.3,
-                   np.full(n, 0.7, np.float32), (1.0, 1.0, 1.0))
-        img[int(self.pivot_y) - 3:int(self.pivot_y) + 3, int(w * 0.07):int(w * 0.93)] += 0.10
-        return img
+            c = tuple(float(v) for v in np.clip(self.cols[i] * 0.55 + 0.25, 0.0, 1.0))
+            glow(img, float(bx[i]), float(by[i]), self.rad * 1.35, c, 0.38, 3.0)            # جسم الكورة
+            glow(img, float(bx[i]) - self.rad * 0.30, float(by[i]) - self.rad * 0.36,
+                 self.rad * 0.42, (1.0, 1.0, 1.0), 0.95, 3.4)                               # لمعة
+            glow(img, float(bx[i]) + self.rad * 0.22, float(by[i]) + self.rad * 0.30,
+                 self.rad * 0.30, (0.9, 0.88, 0.85), 0.25, 3.0)                             # انعكاس أرضي
+        return np.clip(img, 0.0, 1.4)
 
 
 # ────────────────────────────── 8) هارمونوغراف (رسم ضوئي) ──────────────────────────────
 
 class Harmonograph(Scene):
-    """رسم ضوئي نيون على أسود: منحنى رياضي بيتكرر بدقة ⇒ حلقة مثالية."""
+    """هارمونوغراف على ورق: منحنى رياضي بيترسم قدام عينك بالحبر — حرفة يدوية حقيقية."""
     name = "harmonograph"
     loop_seconds = 30.0
 
     def prepare(self):
-        self.A = self.h * 0.36
-        t = np.linspace(0.0, 1.0, 1100, dtype=np.float32)
-        self.tt = t
-        self.span = 0.55
-        self.uu = np.mod(-self.span * (1.0 - t), 1.0)
+        h, w = self.h, self.w
+        self.A = h * 0.34
+        n = 1400
+        self.tt = np.linspace(0.0, 1.0, n, dtype=np.float32)
+        self.u0 = np.linspace(0.0, 1.0, n, dtype=np.float32)
+        self.span = 0.60
+        self.uu = np.mod(self.u0 + (1.0 - self.span), 1.0)
         self.xs, self.ys = self._curve(self.uu)
-        self.br = (t ** 2.0) * 0.5
-        hue = np.clip(t, 0, 1)[:, None]
-        self.cols = (np.array([0.30, 0.85, 1.0], np.float32) * (1 - hue)
-                     + np.array([0.90, 0.35, 1.0], np.float32) * hue).astype(np.float32)
-        self.bg = fbm(self.h, self.w, self.seed + 71, scales=(16, 32, 64, 128), gain=0.6)
+        self.br = (0.35 + 0.65 * self.tt) * 0.42
+        self.paper = fbm(h, w, self.seed + 71, scales=(4, 8, 16, 32, 96), gain=0.55)
+        self.paper_fine = fbm(h, w, self.seed + 72, scales=(64, 128, 256), gain=0.5)
 
     def _curve(self, u):
         u = np.asarray(u, np.float32)
-        x = (self.A * 0.90 * np.sin(TAU * 3.0 * u + 0.0)
-             + self.A * 0.45 * np.sin(TAU * 5.0 * u + 1.1)
-             + self.A * 0.22 * np.sin(TAU * 2.0 * u + 2.4))
-        y = (self.A * 0.90 * np.sin(TAU * 2.0 * u + 0.6)
-             + self.A * 0.45 * np.sin(TAU * 7.0 * u + 2.0)
-             + self.A * 0.22 * np.sin(TAU * 4.0 * u + 3.3))
-        return self.w / 2 + x, self.h / 2 + y * 0.92
+        x = (self.A * 0.92 * np.sin(TAU * 3.0 * u + 0.0)
+             + self.A * 0.42 * np.sin(TAU * 5.0 * u + 1.1)
+             + self.A * 0.20 * np.sin(TAU * 2.0 * u + 2.4))
+        y = (self.A * 0.92 * np.sin(TAU * 2.0 * u + 0.6)
+             + self.A * 0.42 * np.sin(TAU * 7.0 * u + 2.0)
+             + self.A * 0.20 * np.sin(TAU * 4.0 * u + 3.3))
+        return self.w * 0.5 + x, self.h * 0.52 + y * 0.92
 
     def render(self, t):
         h, w, L = self.h, self.w, self.loop_seconds
         u = (t % L) / L
+        # ورق بإضاءة دافئة ناعمة
+        paper = 0.80 + 0.10 * self.paper + 0.04 * self.paper_fine
         img = np.zeros((h, w, 3), np.float32)
-        img += (0.010 + 0.030 * self.bg)[:, :, None] * np.array([0.6, 0.7, 1.0], np.float32)
-        sh = int(round(u * self.uu.size))
-        xs = np.roll(self.xs, sh); ys = np.roll(self.ys, sh)
-        br = np.roll(self.br, sh); cols = np.roll(self.cols, sh, axis=0)
-        for k in range(0, xs.size, 220):
-            sel = slice(k, k + 220)
-            c = cols[sel].mean(axis=0)
-            splat_fast(img, xs[sel], ys[sel], br[sel] * 0.6, tuple(float(v) for v in c))
-        hx, hy = self._curve(np.array([u], np.float32))
-        glow(img, float(hx[0]), float(hy[0]), 44, (0.85, 0.95, 1.0), 0.70, 2.0)
-        return img
+        img += paper[:, :, None] * np.array([0.98, 0.955, 0.90], np.float32)
+        img *= (0.80 + 0.20 * self.vig)[:, :, None]
+        # المنحنى بيترسم تدريجيًا (والقلم بيكمّل من أول الشكل ⇒ حلقة مقفولة)
+        prog = min(1.0, u / self.span)
+        n_show = max(2, int(prog * self.xs.size))
+        sel = np.arange(n_show, dtype=np.int32)
+        xs = self.xs[sel]; ys = self.ys[sel]
+        ink = np.zeros((h, w, 3), np.float32)                  # طبقة حبر (بتتخصم من الورق)
+        for k in range(0, n_show, 260):
+            sl = slice(k, min(n_show, k + 260))
+            splat_fast(ink, xs[sl], ys[sl], (0.55 * self.br[sl]), (1.0, 1.0, 1.0))
+        splat_fast(ink, xs, ys, np.full(xs.size, 0.55, np.float32), (1.0, 1.0, 1.0))
+        ink = np.clip(ink.mean(axis=2), 0.0, 1.0)
+        img *= (1.0 - ink * 0.93)[:, :, None]                   # الحبر يغمّق
+        img += (ink * 0.05)[:, :, None] * np.array([0.10, 0.16, 0.42], np.float32)  # مسحة أزرق
+        glow(img, float(xs[-1]), float(ys[-1]), 16.0, (0.10, 0.12, 0.22), 0.35, 2.2)
+        # رأس القلم المعدني
+        glow(img, float(xs[-1]) - 3, float(ys[-1]) - 4, 7.0, (0.55, 0.55, 0.58), 0.85, 3.0)
+        glow(img, float(xs[-1]), float(ys[-1]), 3.0, (0.92, 0.92, 0.95), 0.55, 3.0)
+        return np.clip(img, 0.0, 1.3)
 
 
 # ────────────────────────────── ملصقات متحركة (Stingers) ──────────────────────────────

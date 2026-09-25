@@ -105,6 +105,7 @@ def draw_triangles(img, depth, tris_screen, tris_depth, tris_color, cull=True):
 # ────────────────────────────── القاعدة ──────────────────────────────
 
 class Scene3D(V.Scene):
+    is_3d = True                      # رندر 3D غالي ⇒ المخرج بيختار له دقّة أقل
     """مشهد 3D: بيرجّع صورة + خريطة عمق. الوراثة بتدينا الحبيبات والفينييت والتشطيب."""
 
     loop_seconds = 40.0

@@ -36,9 +36,9 @@ STICKERS = ROOT / "assets" / "stickers"
 
 # مواصفات كل نوع (عرضي 16:9 للطويل · رأسي 9:16 للشورتس)
 SPECS = {
-    "satisfying_short": dict(w=360, h=640, ow=720, oh=1280, fps=30, look="satisfying", audio=False),
+    "satisfying_short": dict(w=480, h=854, ow=720, oh=1280, fps=30, look="satisfying", audio=False),
     "story_short":      dict(w=480, h=270, ow=960, ow_h=540, fps=30, look="story", audio=True),
-    "ambience_short":   dict(w=360, h=640, ow=720, oh=1280, fps=30, look=None, audio=True),
+    "ambience_short":   dict(w=480, h=854, ow=720, oh=1280, fps=30, look=None, audio=True),
     "sleep_long":       dict(w=480, h=270, ow=1920, oh=1080, fps=30, look=None, audio=True),
 }
 
@@ -530,8 +530,15 @@ class Editor:
               audio: str = "calm_night", look: str | None = None, loop_seconds: float = 40.0,
               moves: list | None = None, **kw) -> dict:
         look = visuals.LOOKS.get(scene) or look or "cinema_cool"
+        # دقّة الرندر: المشاهد 2D بتتطلع 960×540 (وبعدين 1080p) · المشاهد 3D غالية فبتفضل 480×270
+        try:
+            from engine import render3d  # noqa: F401  (تسجيل مشاهد 3D)
+        except Exception:
+            pass
+        is3d = bool(getattr(visuals.SCENES.get(scene), "is_3d", False))
+        rw, rh = (480, 270) if is3d else (960, 540)
         loop = self.out / f"{scene}_loop.mp4"
-        sc = visuals.make_scene(scene, w=480, h=270, fps=30)
+        sc = visuals.make_scene(scene, w=rw, h=rh, fps=30)
         visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=1920, out_h=1080,
                        crf=23, maxrate="1200k", cinema=look)   # سقف حجم: الطويلة تفضل قابلة للرفع
         wav = ambient.make(audio, min(loop_seconds, sc.loop_seconds), self.out / f"{audio}.wav")

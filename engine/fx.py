@@ -75,15 +75,18 @@ def _fade(t: float, dur: float, ease: float = 0.25) -> float:
 
 
 def light_leak(fr: np.ndarray, k: float = 0.6, side: str = "right") -> np.ndarray:
+    """تسرّب ضوء دافئ من ركن الكادر (شكل فيلم حقيقي) — من غير شرايط حادّة."""
     h, w = fr.shape[:2]
-    x = np.linspace(0, 1, w, dtype=np.float32)
-    if side == "left":
-        x = 1.0 - x
-    band = np.exp(-((x - 0.92) ** 2) / 0.02).astype(np.float32)
-    band += 0.6 * np.exp(-((x - 0.70) ** 2) / 0.05).astype(np.float32)
-    glow = (band * k * 255.0).astype(np.float32)
-    warm = np.stack([glow * 1.00, glow * 0.72, glow * 0.42], axis=-1)
-    out = fr.astype(np.float32) + warm[None, :, :] * np.linspace(0.75, 1.0, h, dtype=np.float32)[:, None, None]
+    ys, xs = np.mgrid[0:h, 0:w].astype(np.float32)
+    ux = xs / max(1, w - 1)
+    uy = ys / max(1, h - 1)
+    cx, cy = (1.02 if side == "right" else -0.02), -0.06
+    r = np.sqrt(((ux - cx) * 1.15) ** 2 + (uy - cy) ** 2)
+    glow = np.exp(-(r ** 2) * 3.1) * 0.75 + np.exp(-(r ** 2) * 9.0) * 0.55
+    edge = np.exp(-(np.clip(r - 0.55, 0, None) ** 2) * 12.0)
+    amt = (glow + 0.25 * edge) * (k * 62.0)
+    warm = np.stack([amt * 1.00, amt * 0.74, amt * 0.44], axis=-1)
+    out = fr.astype(np.float32) + warm
     return np.clip(out, 0, 255).astype(np.uint8)
 
 
@@ -150,7 +153,7 @@ def bloom(fr: np.ndarray, k: float = 0.5) -> np.ndarray:
 
 def scanlines(fr: np.ndarray, k: float = 0.35, t: float = 0.0) -> np.ndarray:
     h = fr.shape[0]
-    m = (1.0 - k * 0.35 * (np.sin(np.arange(h) * 0.55 + t * 6.0) > 0.2)).astype(np.float32)[:, None, None]
+    m = (1.0 - k * 0.13 * (0.5 + 0.5 * np.sin(np.arange(h) * 0.55 + t * 6.0))).astype(np.float32)[:, None, None]
     return np.clip(fr.astype(np.float32) * m, 0, 255).astype(np.uint8)
 
 
@@ -163,7 +166,8 @@ def vignette_soft(fr: np.ndarray, k: float = 0.6) -> np.ndarray:
     h, w = fr.shape[:2]
     yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
     r = np.sqrt(((xx / w - 0.5) * 2) ** 2 + ((yy / h - 0.5) * 2) ** 2)
-    m = np.clip(1.0 - (k * 0.45) * np.clip(r - 0.55, 0, None) / 0.65, 0, 1)
+    t01 = np.clip((r - 0.35) / 0.95, 0.0, 1.0)
+    m = np.clip(1.0 - (k * 0.40) * (t01 * t01 * (3.0 - 2.0 * t01)), 0.0, 1.0)
     return np.clip(fr.astype(np.float32) * m[:, :, None], 0, 255).astype(np.uint8)
 
 
@@ -188,13 +192,15 @@ def sparkle_dust(fr: np.ndarray, t: float, k: float = 0.7, seed: int = 4) -> np.
 
 
 def sweep(fr: np.ndarray, t: float, k: float = 0.6, seed: int = 5) -> np.ndarray:
-    """شعاع ضوء بيمرّ عبر الكادر (لمعة واحدة سريعة)."""
+    """شعاع ضوء ناعم **مايل** بيمرّ عبر الكادر (لمعة سريعة لطيفة، مش شريط)."""
     h, w = fr.shape[:2]
     prog = (t * 0.55) % 1.4 - 0.2
     cx = prog * w * 1.3
-    xs = np.arange(w, dtype=np.float32)[None, :]
-    band = np.exp(-((xs - cx) ** 2) / (2 * (0.045 * w) ** 2)).astype(np.float32)
-    add = (band * (150.0 * k))[:, :, None] * np.array([1.0, 0.94, 0.82], np.float32)[None, None, :]
+    ys, xs = np.mgrid[0:h, 0:w].astype(np.float32)
+    tilt = 0.10 * w * ((ys / max(1, h - 1)) - 0.5)
+    band = np.exp(-((xs + tilt - cx) ** 2) / (2 * (0.055 * w) ** 2)).astype(np.float32)
+    shade = (0.55 + 0.45 * np.exp(-(((ys / max(1, h - 1)) - 0.45) ** 2) * 4.0)).astype(np.float32)
+    add = (band * shade * (72.0 * k))[:, :, None] * np.array([1.0, 0.95, 0.85], np.float32)[None, None, :]
     return np.clip(fr.astype(np.float32) + add, 0, 255).astype(np.uint8)
 
 
