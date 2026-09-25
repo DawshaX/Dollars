@@ -174,6 +174,76 @@
       "pillar": "satisfying",
       "duration": "60s",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T05:05:01.748032+00:00",
+      "slot": {
+        "hour": 5,
+        "at": "2026-09-25T05:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=15s|hook=لون غريب|hour=23|kind=short|pillar=satisfying|scene=pendulum_wave|structure=دورات متكرّرة مريحة|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "15s",
+          "scene": "pendulum_wave",
+          "structure": "دورات متكرّرة مريحة",
+          "hook": "لون غريب",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 23,
+          "character": "paper_man",
+          "predicted": 1.773,
+          "why": "لأن satisfying و15s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 565072,
+      "kind": "satisfying_short",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T05:07:37.394567+00:00",
+      "slot": {
+        "hour": 6,
+        "at": "2026-09-25T06:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=45s|hook=ظهور شخصية|hour=23|kind=short|pillar=satisfying|scene=pendulum_wave|structure=تراكم ← ذروة ← تنظيف|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "45s",
+          "scene": "pendulum_wave",
+          "structure": "تراكم ← ذروة ← تنظيف",
+          "hook": "ظهور شخصية",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 23,
+          "character": null,
+          "predicted": 1.766,
+          "why": "لأن satisfying و45s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 647296,
+      "kind": "satisfying_short",
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }
