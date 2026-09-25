@@ -94,11 +94,19 @@ def _seamless(x: np.ndarray, xfade: float = 1.2) -> np.ndarray:
     return x
 
 
+XFADE = 1.4                    # طول خلط القفل (ثانية)
+
+
 def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
         seed: int = 7) -> np.ndarray:
-    """مقطع موسيقي كامل (n, 2) — هادي، متكرر بلا قطع، ومن صنعنا."""
+    """
+    مقطع موسيقي كامل بالطول المطلوب **بالظبط** (n, 2) — هادي، متكرر بلا قطع، ومن صنعنا.
+    بنولّد 1.4 ث زيادة ونقصّهم في القفل ⇒ الطول مضبوط والحلقة مقفولة في نفس الوقت.
+    """
     rng = np.random.default_rng(int(seed) & 0x7FFFFFFF)
-    n = _n(seconds)
+    want = _n(seconds)
+    n = want + _n(XFADE)                               # طول التوليد (والقفل بيرجّعه للطول المطلوب)
+    gen = seconds + XFADE
     t = np.arange(n, dtype=np.float32) / SR
     prog = _PROGS.get(key, _PROGS["calm"])
     scale = _MINOR if key in ("calm", "night") else _MAJOR
@@ -110,7 +118,7 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
 
     # ── أرضية الأكوردات ──
     if style in ("warm_pad", "night_drone", "dream_pulse"):
-        for b in range(int(math.ceil(seconds / bar))):
+        for b in range(int(math.ceil(gen / bar))):
             deg = prog[b % len(prog)]
             start = _n(b * bar)
             seg = min(n - start, _n(bar + 0.6))
@@ -132,12 +140,12 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
         step = bar / 4.0 if style != "dream_pulse" else bar / 3.0
         k = 0
         pos = 0.0
-        while pos < seconds - 0.1:
+        while pos < gen - 0.1:
             deg = int(rng.integers(0, 7))
             semi = scale[deg] + (12 if rng.random() < 0.45 else 0) + (12 if rng.random() < 0.12 else 0)
             f = _midi(root + 12 + semi)
             dur = step * (1.4 if style != "lofi_keys" else 2.2)
-            seg = _n(min(dur, seconds - pos))
+            seg = _n(min(dur, gen - pos))
             if seg > 16:
                 tt = np.arange(seg, dtype=np.float32) / SR
                 tone = _note(f, tt, shape)
@@ -158,7 +166,7 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
     if style in ("dream_pulse", "lofi_keys"):
         beat = bar / 2.0
         p = 0.0
-        while p < seconds - 0.05:
+        while p < gen - 0.05:
             seg = _n(0.28)
             j = _n(p)
             if j + seg < n:
@@ -177,7 +185,7 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
     right += air * 0.026
 
     stereo = np.stack([left, right], axis=1)
-    stereo = _seamless(stereo, xfade=1.4)
+    stereo = _seamless(stereo, xfade=XFADE)[:want]
     # توحيد المستوى: كل الأنماط تطلع بنفس القوة (RMS ثابت) ⇒ المزج مع الأجواء مضبوط
     rms = float(np.sqrt((stereo ** 2).mean())) + 1e-9
     stereo *= (TARGET_RMS / rms)

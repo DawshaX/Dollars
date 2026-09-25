@@ -62,3 +62,20 @@ def test_music_loop_is_seamless_and_stable_level():
     assert abs(ra - rc) / max(ra, rc) < 0.6                      # نفس المستوى تقريبًا
     edge = np.abs(a[-64:] - a[:64]).mean()
     assert edge < 0.35                                           # مفيش قطع فاضح عند نقطة الحلقة
+
+
+def test_music_bed_is_exactly_asked_length():
+    """الطول بالظبط زي ما اتطلب — ده كان بيقصّر الفيديوهات 1.4 ث قبل كده."""
+    for sec in (4.0, 9.5, 30.0):
+        a = music.bed("warm_pad", sec, seed=5)
+        assert abs(len(a) / music.SR - sec) < 0.01, f"{sec} ث طلعت {len(a)/music.SR:.2f} ث"
+        assert a.shape[1] == 2
+
+
+def test_outro_runs_full_length_with_audio(tmp_path):
+    """شاشة النهاية لازم تكمّل طولها كامل بالنغمات — مش تتقطع عند آخر نغمة."""
+    from engine import editor, proc
+    p = editor.long_outro(tmp_path, 6.0, seed=9)
+    assert p.exists()
+    d = proc.duration(p)
+    assert d is not None and abs(d - 6.0) < 0.15, f"الخاتمة طلعت {d} ث"

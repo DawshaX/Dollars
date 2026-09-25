@@ -340,9 +340,11 @@ def long_intro(out_dir, seconds: float = 12.0, seed: int = 5, moves=None, scenes
     wav = pathlib.Path(out_dir) / "_intro.wav"
     _write_wav(wav, audio)
     out = pathlib.Path(out_dir) / "_intro.mp4"
+    total = sum(s["dur"] for s in shots)
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-i", str(silent),
                     "-i", str(wav), "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "44100",
-                    "-ac", "2", "-shortest", "-movflags", "+faststart", str(out)], check=True)
+                    "-ac", "2", "-af", "apad", "-t", f"{total:.3f}", "-movflags", "+faststart",
+                    str(out)], check=True)
     silent.unlink(missing_ok=True); wav.unlink(missing_ok=True)
     return out
 
@@ -370,7 +372,9 @@ def long_outro(out_dir, seconds: float = 10.0, seed: int = 9) -> pathlib.Path:
         cmd += ["-i", str(music_wav)]
     cmd += ["-vf", vf, "-r", "30", "-t", str(seconds)]
     if music_wav:
-        cmd += ["-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2", "-shortest"]
+        # apad: نضمن إن الصوت مايقصّرش الفيديو (كان بيقطع الفيديو قبل نهاية الفيد عن غلطة)
+        cmd += ["-c:a", "aac", "-b:a", "160k", "-ar", "44100", "-ac", "2", "-af", "apad",
+                "-t", str(seconds)]
     cmd += ["-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-maxrate", "1200k",
             "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)]
     subprocess.run(cmd, check=True, capture_output=True)
@@ -540,11 +544,20 @@ class Editor:
         intro_dur = 0.0
         outro_dur = 0.0
         assembled = False
+        md_parts: dict = {}
         try:                                      # المونتاج أساسي: مقدمة + شاشة نهاية
             intro = long_intro(self.out, seed=self.seed + 3, moves=moves)
             outro = long_outro(self.out, seed=self.seed + 9)
-            intro_dur, outro_dur, assembled = 12.0, 10.0, True
+            intro_dur = round(proc.duration(intro) or 12.0, 2)
+            outro_dur = round(proc.duration(outro) or 10.0, 2)
+            assembled = True
             _concat([intro, body, outro], video)
+            joined = proc.duration(video)
+            parts_sum = round(intro_dur + (proc.duration(body) or 0.0) + outro_dur, 2)
+            if joined and abs(joined - parts_sum) > 1.0:
+                print(f"⚠️ فرق في التلزيق: {joined:.2f} ث مقابل {parts_sum:.2f} ث", flush=True)
+            md_parts = dict(intro_seconds=intro_dur, outro_seconds=outro_dur,
+                            assembled_seconds=round(joined, 2) if joined else None)
             for p in (intro, body, outro):
                 p.unlink(missing_ok=True)
         except Exception as e:                    # لو حصل أي عارض: الفيديو الأساسي يكفي
@@ -561,7 +574,7 @@ class Editor:
         if intro_dur and md.get("chapters"):       # الفصول تتزحّ للوقت الحقيقي بعد المقدمة
             md["chapters"] = ["0:00 ابتداء"] + [f"{_cc_shift(c.split(' ', 1)[0], intro_dur)} {c.split(' ', 1)[1]}"
                                                if " " in c else c for c in md["chapters"]]
-        md["montage"] = {"assembled": assembled, "intro_seconds": intro_dur, "outro_seconds": outro_dur,
+        md["montage"] = {"assembled": assembled, **md_parts,
                          "look": look, "music": "warm_pad", "body_loop_seconds": loop_seconds,
                          "body_reencoded": False, "scene": scene, "audio": audio,
                          "camera_moves": MOVES if not moves else list(moves)}

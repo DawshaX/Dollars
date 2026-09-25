@@ -196,3 +196,19 @@ def glow(img: np.ndarray, cx: float, cy: float, radius: float, color, power: flo
 
 def _mix(a, b, u):
     return a * (1.0 - u) + b * u
+
+
+# ────────────────────────────── قياس ──────────────────────────────
+
+def duration(path) -> float | None:
+    """مدة ملف فيديو/صوت بالثواني (بنقراها من ffmpeg نفسه — بلا ffprobe)."""
+    import re
+    import subprocess
+    try:
+        r = subprocess.run([FFMPEG, "-hide_banner", "-i", str(path)], capture_output=True)
+        m = re.search(r"Duration: (\d+):(\d+):(\d+\.\d+)", r.stderr.decode("utf-8", "ignore"))
+        if not m:
+            return None
+        return int(m.group(1)) * 3600 + int(m.group(2)) * 60 + float(m.group(3))
+    except Exception:
+        return None
