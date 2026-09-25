@@ -413,6 +413,68 @@ def st_thought():
     return img
 
 
+
+
+def st_lazo(mood="happy"):
+    """لازو: نبتة فضائية — ساق ضوئية + أوراق شفافة (شخصية أصلية بتاعتنا)."""
+    img, d = canvas()
+    cx, cy = SIZE * SS / 2, SIZE * SS / 2 + 10 * SS
+    s = SIZE * SS * 0.30
+    d.line([cx, cy + s * 1.15, cx + s * 0.06, cy - s * 0.25], fill=(120, 220, 190, 255), width=12 * SS)
+    for dx, dy, rot in ((-0.7, 0.15, -18), (0.68, 0.05, 16), (-0.5, -0.55, -32), (0.5, -0.62, 30)):
+        leaf = Image.new("RGBA", (int(s * 1.1), int(s * 0.6)), (0, 0, 0, 0))
+        ld = ImageDraw.Draw(leaf)
+        ld.ellipse([0, 0, s * 1.05, s * 0.55], fill=(150, 240, 210, 170), outline=(90, 190, 165, 220), width=4 * SS)
+        leaf = leaf.rotate(rot, expand=True, resample=Image.BICUBIC)
+        img.alpha_composite(leaf, (int(cx + dx * s - leaf.width / 2), int(cy + dy * s - leaf.height / 2)))
+    d.ellipse([cx - s * 0.55, cy - s * 1.05, cx + s * 0.55, cy + s * 0.05],
+              fill=(178, 240, 220, 235), outline=INK, width=5 * SS)
+    ex, ey, er = s * 0.22, cy - s * 0.5, s * 0.14
+    eye(d, cx - ex, ey, er); eye(d, cx + ex, ey, er)
+    if mood == "sleep":
+        d.line([cx - ex * 1.6, ey, cx + ex * 1.6, ey], fill=INK, width=4 * SS)
+    else:
+        smile(d, cx, cy - s * 0.22, s * 0.16, s * 0.1, width=4 * SS)
+    star(d, cx + s * 0.9, cy - s * 1.1, s * 0.14, YEL, INK)
+    return img
+
+
+def st_bomi(mood="happy"):
+    """بومي: سمكة نجمية لامعة — جسم على شكل نجمة + زعانف ضوء."""
+    img, d = canvas()
+    cx, cy = SIZE * SS / 2, SIZE * SS / 2 + 8 * SS
+    s = SIZE * SS * 0.34
+    pts = []
+    for i in range(10):
+        import math as _m
+        ang = -_m.pi / 2 + i * _m.pi / 5
+        rr = s if i % 2 == 0 else s * 0.45
+        pts.append((cx + rr * _m.cos(ang), cy + rr * _m.sin(ang)))
+    d.polygon(pts, fill=(255, 196, 120, 255), outline=INK, width=5 * SS)
+    for i in range(5):                                    # زعانف ضوء
+        ang = -0.9 + i * 0.45
+        import math as _m
+        x2, y2 = cx + s * 1.25 * _m.cos(ang), cy + s * 1.25 * _m.sin(ang)
+        d.line([cx, cy + s * 0.1, x2, y2], fill=(255, 236, 170, 150), width=6 * SS)
+    ex, ey, er = s * 0.26, cy - s * 0.05, s * 0.16
+    if mood == "sleep":
+        d.line([cx - ex * 1.5, ey, cx + ex * 1.5, ey], fill=INK, width=4 * SS)
+        d.line([cx + ex * 0.5, ey, cx + ex * 2.5, ey], fill=INK, width=4 * SS)
+    else:
+        eye(d, cx - ex, ey, er); eye(d, cx + ex, ey, er)
+        smile(d, cx, cy + s * 0.22, s * 0.18, s * 0.12, width=5 * SS)
+    return img
+
+
+def st_bubble():
+    img, d = canvas(); c = SIZE * SS / 2
+    r = SIZE * SS * 0.33
+    d.ellipse([c - r, c - r, c + r, c + r], outline=(200, 235, 255, 230), width=7 * SS)
+    d.ellipse([c - r, c - r, c + r, c + r], fill=(180, 225, 255, 40))
+    d.ellipse([c - r * 0.55, c - r * 0.62, c - r * 0.12, c - r * 0.18], fill=(255, 255, 255, 190))
+    return img
+
+
 STICKERS = {
     "nono_happy": lambda: st_nono("happy"), "nono_shock": lambda: st_nono("shock"),
     "nono_love": lambda: st_nono("love"), "nono_sad": lambda: st_nono("sad"),
@@ -426,6 +488,9 @@ STICKERS = {
     "burst": st_burst, "speed_lines": st_speed_lines, "ring": st_ring, "check": st_check,
     "cross": st_cross, "badge_new": st_badge_new, "zzz": st_zzz, "anger": st_anger,
     "laugh": st_laugh, "speech": st_speech, "thought": st_thought,
+    "lazo_auto": lambda: st_lazo("happy"), "lazo_sleep": lambda: st_lazo("sleep"),
+    "bomi_auto": lambda: st_bomi("happy"), "bomi_sleep": lambda: st_bomi("sleep"),
+    "bubble": st_bubble,
 }
 
 # مواضع الاستخدام المقترحة (يستخدمها المجمّع)

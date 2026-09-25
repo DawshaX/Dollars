@@ -2,7 +2,7 @@
   "note": "ملصقات Dollars — مرسومة بالكود 100%، ملكية كاملة، بلا حقوق.",
   "license": "owned-generated",
   "size": 512,
-  "count": 36,
+  "count": 41,
   "uses": {
     "reaction": [
       "nono_happy",
@@ -52,6 +52,9 @@
     "arrow_curve.png",
     "arrow_right.png",
     "badge_new.png",
+    "bomi_auto.png",
+    "bomi_sleep.png",
+    "bubble.png",
     "burst.png",
     "check.png",
     "cloud.png",
@@ -65,6 +68,8 @@
     "koko_happy.png",
     "koko_sleep.png",
     "laugh.png",
+    "lazo_auto.png",
+    "lazo_sleep.png",
     "moon.png",
     "nono_happy.png",
     "nono_love.png",

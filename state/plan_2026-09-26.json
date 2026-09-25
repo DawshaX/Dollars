@@ -1,0 +1,686 @@
+{
+  "date": "2026-09-26",
+  "shorts": 24,
+  "longs": 4,
+  "mix": {
+    "story": 6,
+    "satisfying": 14,
+    "focus": 2,
+    "sleep": 6
+  },
+  "best_long_hours_seen": [
+    21,
+    22,
+    23
+  ],
+  "slots": [
+    {
+      "hour": 0,
+      "at": "2026-09-26T00:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=سؤال في أول ثانية|hour=1|kind=short|pillar=sleep|scene=starfield|structure=بداية هادية ← ثبات|thumb=شاشة سوداء + نص واضح",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "starfield",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "سؤال في أول ثانية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 1,
+        "character": null,
+        "predicted": 1.938,
+        "why": "لأن sleep و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 1,
+      "at": "2026-09-26T01:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=لقطة قريبة جدًا|hour=19|kind=short|pillar=satisfying|scene=sand_table|structure=دورات متكرّرة مريحة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "sand_table",
+        "structure": "دورات متكرّرة مريحة",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 19,
+        "character": null,
+        "predicted": 1.784,
+        "why": "لأن satisfying و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 2,
+      "at": "2026-09-26T02:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=عدّاد|hour=18|kind=short|pillar=satisfying|scene=stinger_ink|structure=مقارنة سرعات|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "stinger_ink",
+        "structure": "مقارنة سرعات",
+        "hook": "عدّاد",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 18,
+        "character": "paper_man",
+        "predicted": 1.776,
+        "why": "لأن satisfying و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 3,
+      "at": "2026-09-26T03:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=حركة كاميرا سريعة|hour=23|kind=short|pillar=sleep|scene=black|structure=مشهد ليلي ← نجوم|thumb=شاشة سوداء + نص واضح",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "black",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
+        "character": null,
+        "predicted": 1.988,
+        "why": "لأن sleep و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 4,
+      "at": "2026-09-26T04:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=حركة كاميرا سريعة|hour=12|kind=short|pillar=satisfying|scene=stinger_ink|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "stinger_ink",
+        "structure": "مقارنة سرعات",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 12,
+        "character": null,
+        "predicted": 1.755,
+        "why": "لأن satisfying و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 5,
+      "at": "2026-09-26T05:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=صوت مفاجئ|hour=7|kind=short|pillar=satisfying|scene=stinger_zoom|structure=نمو نمط هندسي|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "stinger_zoom",
+        "structure": "نمو نمط هندسي",
+        "hook": "صوت مفاجئ",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 7,
+        "character": "lazo_auto",
+        "predicted": 1.769,
+        "why": "لأن satisfying و30s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 6,
+      "at": "2026-09-26T06:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=حركة عكسية|hour=21|kind=short|pillar=sleep|scene=starfield|structure=مشهد ليلي ← نجوم|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "starfield",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "حركة عكسية",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 21,
+        "character": null,
+        "predicted": 1.923,
+        "why": "لأن sleep و60s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 7,
+      "at": "2026-09-26T07:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=2m|hook=لون غريب|hour=2|kind=short|pillar=story|scene=sand_table|structure=مشكلة ← محاولة ← حل|thumb=قبل/بعد مقسوم",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "2m",
+        "scene": "sand_table",
+        "structure": "مشكلة ← محاولة ← حل",
+        "hook": "لون غريب",
+        "thumb": "قبل/بعد مقسوم",
+        "hour": 2,
+        "character": "koko",
+        "predicted": 1.667,
+        "why": "لأن story و2m وقبل/بعد مقسوم أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 8,
+      "at": "2026-09-26T08:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=4m|hook=صمت مفاجئ|hour=22|kind=short|pillar=story|scene=starfield|structure=خوف ← شجاعة ← مكافأة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "4m",
+        "scene": "starfield",
+        "structure": "خوف ← شجاعة ← مكافأة",
+        "hook": "صمت مفاجئ",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 22,
+        "character": "bomi_auto",
+        "predicted": 1.688,
+        "why": "لأن story و4m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 9,
+      "at": "2026-09-26T09:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=حركة كاميرا سريعة|hour=19|kind=short|pillar=satisfying|scene=harmonograph|structure=تراكم ← ذروة ← تنظيف|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "harmonograph",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 19,
+        "character": null,
+        "predicted": 1.755,
+        "why": "لأن satisfying و15s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 10,
+      "at": "2026-09-26T10:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=1m|hook=لون غريب|hour=18|kind=short|pillar=story|scene=harmonograph|structure=خوف ← شجاعة ← مكافأة|thumb=وش متعجّب",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "1m",
+        "scene": "harmonograph",
+        "structure": "خوف ← شجاعة ← مكافأة",
+        "hook": "لون غريب",
+        "thumb": "وش متعجّب",
+        "hour": 18,
+        "character": "bomi_auto",
+        "predicted": 1.652,
+        "why": "لأن story و1m ووش متعجّب أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 11,
+      "at": "2026-09-26T11:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=2m|hook=ظهور شخصية|hour=21|kind=short|pillar=story|scene=sand_table|structure=مشكلة ← محاولة ← حل|thumb=لمعة/لمعان مركزي",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "2m",
+        "scene": "sand_table",
+        "structure": "مشكلة ← محاولة ← حل",
+        "hook": "ظهور شخصية",
+        "thumb": "لمعة/لمعان مركزي",
+        "hour": 21,
+        "character": "bomi_auto",
+        "predicted": 1.667,
+        "why": "لأن story و2m ولمعة/لمعان مركزي أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 12,
+      "at": "2026-09-26T12:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=همسة|hour=23|kind=short|pillar=satisfying|scene=harmonograph|structure=مقارنة سرعات|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "harmonograph",
+        "structure": "مقارنة سرعات",
+        "hook": "همسة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
+        "character": "paper_man",
+        "predicted": 1.784,
+        "why": "لأن satisfying و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 13,
+      "at": "2026-09-26T13:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=لون غريب|hour=8|kind=short|pillar=satisfying|scene=stinger_ink|structure=نمو نمط هندسي|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "stinger_ink",
+        "structure": "نمو نمط هندسي",
+        "hook": "لون غريب",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 8,
+        "character": null,
+        "predicted": 1.762,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 14,
+      "at": "2026-09-26T14:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=لقطة قريبة جدًا|hour=7|kind=short|pillar=satisfying|scene=stinger_zoom|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "stinger_zoom",
+        "structure": "مقارنة سرعات",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 7,
+        "character": null,
+        "predicted": 1.762,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 15,
+      "at": "2026-09-26T15:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=همسة|hour=7|kind=short|pillar=satisfying|scene=pendulum_wave|structure=تراكم ← ذروة ← تنظيف|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "pendulum_wave",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "همسة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 7,
+        "character": null,
+        "predicted": 1.791,
+        "why": "لأن satisfying و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 16,
+      "at": "2026-09-26T16:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=قبل/بعد|hour=23|kind=short|pillar=satisfying|scene=stinger_ink|structure=دورات متكرّرة مريحة|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "stinger_ink",
+        "structure": "دورات متكرّرة مريحة",
+        "hook": "قبل/بعد",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
+        "character": null,
+        "predicted": 1.769,
+        "why": "لأن satisfying و15s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 17,
+      "at": "2026-09-26T17:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=لقطة قريبة جدًا|hour=18|kind=short|pillar=satisfying|scene=stinger_ink|structure=حركة واحدة كاملة|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "stinger_ink",
+        "structure": "حركة واحدة كاملة",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 18,
+        "character": null,
+        "predicted": 1.755,
+        "why": "لأن satisfying و15s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 18,
+      "at": "2026-09-26T18:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=حركة عكسية|hour=18|kind=short|pillar=satisfying|scene=sand_table|structure=حركة واحدة كاملة|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "sand_table",
+        "structure": "حركة واحدة كاملة",
+        "hook": "حركة عكسية",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 18,
+        "character": "bomi_auto",
+        "predicted": 1.784,
+        "why": "لأن satisfying و15s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 19,
+      "at": "2026-09-26T19:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=لون غريب|hour=22|kind=short|pillar=focus|scene=rain_glass|structure=بداية هادية ← ثبات|thumb=قبل/بعد مقسوم",
+        "pillar": "focus",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "rain_glass",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "لون غريب",
+        "thumb": "قبل/بعد مقسوم",
+        "hour": 22,
+        "character": null,
+        "predicted": 1.737,
+        "why": "لأن focus و60s وقبل/بعد مقسوم أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 20,
+      "at": "2026-09-26T20:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=عدّاد|hour=7|kind=short|pillar=satisfying|scene=pendulum_wave|structure=دورات متكرّرة مريحة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "pendulum_wave",
+        "structure": "دورات متكرّرة مريحة",
+        "hook": "عدّاد",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 7,
+        "character": null,
+        "predicted": 1.769,
+        "why": "لأن satisfying و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 21,
+      "at": "2026-09-26T21:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=1m|hook=قبل/بعد|hour=19|kind=short|pillar=story|scene=starfield|structure=خوف ← شجاعة ← مكافأة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "1m",
+        "scene": "starfield",
+        "structure": "خوف ← شجاعة ← مكافأة",
+        "hook": "قبل/بعد",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 19,
+        "character": "lazo_auto",
+        "predicted": 1.702,
+        "why": "لأن story و1m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 22,
+      "at": "2026-09-26T22:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=صمت مفاجئ|hour=0|kind=short|pillar=satisfying|scene=stinger_ink|structure=مقارنة سرعات|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "stinger_ink",
+        "structure": "مقارنة سرعات",
+        "hook": "صمت مفاجئ",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 0,
+        "character": null,
+        "predicted": 1.762,
+        "why": "لأن satisfying و60s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 23,
+      "at": "2026-09-26T23:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=لون غريب|hour=22|kind=short|pillar=focus|scene=rain_glass|structure=بداية هادية ← ثبات|thumb=قبل/بعد مقسوم",
+        "pillar": "focus",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "rain_glass",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "لون غريب",
+        "thumb": "قبل/بعد مقسوم",
+        "hour": 22,
+        "character": null,
+        "predicted": 1.737,
+        "why": "لأن focus و60s وقبل/بعد مقسوم أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 2,
+      "at": "2026-09-26T02:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=10h|hook=حركة عكسية|hour=21|kind=long|pillar=sleep|scene=aurora|structure=بداية هادية ← ثبات|thumb=شاشة سوداء + نص واضح",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "10h",
+        "scene": "aurora",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "حركة عكسية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 21,
+        "character": null,
+        "predicted": 1.981,
+        "why": "لأن sleep و10h وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 8,
+      "at": "2026-09-26T08:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=10h|hook=قبل/بعد|hour=19|kind=long|pillar=sleep|scene=ocean|structure=مطر ← رعد ← هدوء|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "10h",
+        "scene": "ocean",
+        "structure": "مطر ← رعد ← هدوء",
+        "hook": "قبل/بعد",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 19,
+        "character": null,
+        "predicted": 1.981,
+        "why": "لأن sleep و10h وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 14,
+      "at": "2026-09-26T14:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=10h|hook=حركة كاميرا سريعة|hour=23|kind=long|pillar=sleep|scene=starfield|structure=مشهد ليلي ← نجوم|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "10h",
+        "scene": "starfield",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 23,
+        "character": null,
+        "predicted": 1.973,
+        "why": "لأن sleep و10h وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 20,
+      "at": "2026-09-26T20:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=1m|hook=ظهور شخصية|hour=2|kind=long|pillar=story|scene=sand_table|structure=مشكلة ← محاولة ← حل|thumb=شاشة سوداء + نص واضح",
+        "pillar": "story",
+        "kind": "long",
+        "duration": "1m",
+        "scene": "sand_table",
+        "structure": "مشكلة ← محاولة ← حل",
+        "hook": "ظهور شخصية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 2,
+        "character": "bomi_auto",
+        "predicted": 1.731,
+        "why": "لأن story و1m وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    }
+  ]
+}

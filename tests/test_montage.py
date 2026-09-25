@@ -72,3 +72,16 @@ def test_montage_assembles_at_720p_without_reencode(tmp_path):
     assert d is not None and abs(d - 10.0) < 1.0, f"الملزوق طلع {d} ث"
     info = subprocess.run([proc.FFMPEG, "-hide_banner", "-i", str(joined)], capture_output=True).stderr.decode()
     assert "1280x720" in info, "المقاس اتغيّر في اللزق"
+
+
+def test_every_story_validates_and_has_assets():
+    """القِصص كلها سليمة: كل بيت له مشهد موجود · إضافة بصرية · موسيقى · مؤثرات معروفة."""
+    from engine import sfx, visuals
+    bad = []
+    for s in story.all_stories():
+        st = story.Story(s)
+        bad += [(st.id, p) for p in st.validate()]
+        assert st.music in music.STYLES()
+        assert all(layer for layer in st.fx_summary())
+    assert not bad, f"قصص فيها مشاكل: {bad}"
+    assert len(story.all_stories()) >= 8, "المكتبة لازم تفضل بتكبر (8 قصص على الأقل)"

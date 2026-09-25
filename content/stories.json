@@ -306,6 +306,915 @@
         }
       ],
       "music": "lullaby_bell"
+    },
+    {
+      "id": "bomi_fire",
+      "title": "بومي والنار",
+      "hero_name": "Bomi",
+      "kw": "Bomi and the Little Fire — a wordless story",
+      "thing": "a spark that got lost",
+      "ambient": "fire",
+      "look": "cinema_warm",
+      "fps": 24,
+      "size": [
+        960,
+        540
+      ],
+      "video_desc": "a curious clay creature finds a lonely spark in a cold night and carries it home",
+      "pinned_comment": "Would you keep the spark or set it free? 🔥 (Your comment writes the next story.)",
+      "music": "warm_pad",
+      "beats": [
+        {
+          "scene": "fireplace",
+          "dur": 3.2,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "bomi_auto",
+              "x": 0.26,
+              "y": 0.78,
+              "scale": 0.42,
+              "move": "walk_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "match_strike"
+            },
+            {
+              "at": 1.4,
+              "name": "fire_crackle",
+              "gain": 0.45
+            }
+          ]
+        },
+        {
+          "scene": "snow_pines",
+          "dur": 3.4,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "bomi_auto",
+              "x": 0.5,
+              "y": 0.76,
+              "scale": 0.44,
+              "move": "wobble",
+              "cycles": 2.0
+            },
+            {
+              "who": "sparkle",
+              "x": 0.74,
+              "y": 0.52,
+              "scale": 0.22,
+              "move": "bob"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "wind_gust",
+              "gain": 0.4
+            },
+            {
+              "at": 1.5,
+              "name": "shimmer",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "dunes_moon",
+          "dur": 3.0,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "bomi_auto",
+              "x": 0.34,
+              "y": 0.78,
+              "scale": 0.42,
+              "move": "hop",
+              "cycles": 3.0
+            },
+            {
+              "who": "moon",
+              "x": 0.78,
+              "y": 0.28,
+              "scale": 0.2,
+              "move": "sway"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "soft_impact",
+              "gain": 0.45
+            },
+            {
+              "at": 1.2,
+              "name": "warm_hum",
+              "gain": 0.35
+            }
+          ]
+        },
+        {
+          "scene": "fireplace",
+          "dur": 3.6,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "bomi_auto",
+              "x": 0.62,
+              "y": 0.76,
+              "scale": 0.44,
+              "move": "idle"
+            },
+            {
+              "who": "heart",
+              "x": 0.42,
+              "y": 0.55,
+              "scale": 0.24,
+              "move": "pop_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "chime_soft",
+              "gain": 0.5
+            },
+            {
+              "at": 2.2,
+              "name": "fire_crackle",
+              "gain": 0.4
+            }
+          ],
+          "camera": {
+            "zoom": 1.06,
+            "pan": [
+              0.02,
+              0.01
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "lazo_space",
+      "title": "لازو والنجوم",
+      "hero_name": "Lazo",
+      "kw": "Lazo and the Star Field — a wordless story",
+      "thing": "a star that fell too low",
+      "ambient": "calm_night",
+      "look": "cinema_night",
+      "fps": 24,
+      "size": [
+        960,
+        540
+      ],
+      "video_desc": "a small traveller climbs a night hill to put a fallen star back in the sky",
+      "pinned_comment": "Which constellation should Lazo visit next? ✨ (Every comment decides the next story.)",
+      "music": "dream_pulse",
+      "beats": [
+        {
+          "scene": "starfield",
+          "dur": 3.2,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "star",
+              "x": 0.7,
+              "y": 0.3,
+              "scale": 0.22,
+              "move": "fall"
+            },
+            {
+              "who": "lazo_auto",
+              "x": 0.3,
+              "y": 0.8,
+              "scale": 0.4,
+              "move": "walk_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "whoosh",
+              "gain": 0.4
+            },
+            {
+              "at": 1.5,
+              "name": "twinkle_run",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "planet_rings",
+          "dur": 3.6,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "lazo_auto",
+              "x": 0.5,
+              "y": 0.78,
+              "scale": 0.42,
+              "move": "bob"
+            },
+            {
+              "who": "arrow_curve",
+              "x": 0.72,
+              "y": 0.44,
+              "scale": 0.2,
+              "move": "sway"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "beam",
+              "gain": 0.45
+            },
+            {
+              "at": 1.8,
+              "name": "shimmer",
+              "gain": 0.4
+            }
+          ]
+        },
+        {
+          "scene": "aurora",
+          "dur": 3.4,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "lazo_auto",
+              "x": 0.38,
+              "y": 0.76,
+              "scale": 0.42,
+              "move": "spin",
+              "cycles": 1.0
+            },
+            {
+              "who": "star",
+              "x": 0.62,
+              "y": 0.34,
+              "scale": 0.2,
+              "move": "bob"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "swell",
+              "gain": 0.45
+            },
+            {
+              "at": 1.6,
+              "name": "magic_up",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "starfield",
+          "dur": 3.4,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "lazo_auto",
+              "x": 0.5,
+              "y": 0.8,
+              "scale": 0.4,
+              "move": "idle"
+            },
+            {
+              "who": "sparkle",
+              "x": 0.66,
+              "y": 0.3,
+              "scale": 0.2,
+              "move": "pop_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "chime_soft",
+              "gain": 0.5
+            },
+            {
+              "at": 2.0,
+              "name": "twinkle_run",
+              "gain": 0.35
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nono_ocean",
+      "title": "نونو والموج",
+      "hero_name": "Nono",
+      "kw": "Nono and the Big Wave — a wordless story",
+      "thing": "a shell that sings",
+      "ambient": "waves",
+      "look": "cinema_cool",
+      "fps": 24,
+      "size": [
+        960,
+        540
+      ],
+      "video_desc": "Nono follows a singing shell across the shore and finds the sea singing back",
+      "pinned_comment": "What should Nono listen to next — the ocean, the wind or the rain? 🐚",
+      "music": "lofi_keys",
+      "beats": [
+        {
+          "scene": "ocean",
+          "dur": 3.2,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_happy",
+              "x": 0.3,
+              "y": 0.8,
+              "scale": 0.44,
+              "move": "walk_in"
+            },
+            {
+              "who": "droplet",
+              "x": 0.66,
+              "y": 0.6,
+              "scale": 0.18,
+              "move": "bob"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "water",
+              "gain": 0.5
+            },
+            {
+              "at": 1.5,
+              "name": "shimmer",
+              "gain": 0.4
+            }
+          ]
+        },
+        {
+          "scene": "ocean",
+          "dur": 3.4,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_shock",
+              "x": 0.5,
+              "y": 0.76,
+              "scale": 0.46,
+              "move": "hop",
+              "cycles": 2.0
+            },
+            {
+              "who": "bubble",
+              "x": 0.72,
+              "y": 0.5,
+              "scale": 0.2,
+              "move": "bob"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "bubble_pop",
+              "gain": 0.5
+            },
+            {
+              "at": 1.4,
+              "name": "bubble",
+              "gain": 0.4
+            }
+          ]
+        },
+        {
+          "scene": "rain_glass",
+          "dur": 3.2,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_love",
+              "x": 0.44,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "sway"
+            },
+            {
+              "who": "note",
+              "x": 0.72,
+              "y": 0.42,
+              "scale": 0.2,
+              "move": "bob"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "rain_drop",
+              "gain": 0.45
+            },
+            {
+              "at": 1.5,
+              "name": "lullaby_note",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "ocean",
+          "dur": 3.6,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_happy",
+              "x": 0.58,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "idle"
+            },
+            {
+              "who": "heart",
+              "x": 0.38,
+              "y": 0.56,
+              "scale": 0.22,
+              "move": "pop_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "water",
+              "gain": 0.4
+            },
+            {
+              "at": 2.0,
+              "name": "chime_soft",
+              "gain": 0.45
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "koko_snow",
+      "title": "كوكو والثلج",
+      "hero_name": "Koko",
+      "kw": "Koko and the First Snow — a wordless story",
+      "thing": "the first snowflake of winter",
+      "ambient": "wind",
+      "look": "cinema_cool",
+      "fps": 24,
+      "size": [
+        960,
+        540
+      ],
+      "video_desc": "Koko catches the season's first snowflake and shares it with everyone on the hill",
+      "pinned_comment": "Who should Koko share the snow with next? ❄️",
+      "music": "lullaby_bell",
+      "beats": [
+        {
+          "scene": "snow_pines",
+          "dur": 3.2,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "koko_happy",
+              "x": 0.3,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "walk_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "wind_gust",
+              "gain": 0.4
+            },
+            {
+              "at": 1.5,
+              "name": "glass_tap",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "snow_pines",
+          "dur": 3.4,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "koko_happy",
+              "x": 0.52,
+              "y": 0.76,
+              "scale": 0.44,
+              "move": "hop",
+              "cycles": 2.5
+            },
+            {
+              "who": "sparkle",
+              "x": 0.72,
+              "y": 0.44,
+              "scale": 0.2,
+              "move": "fall"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "twinkle_run",
+              "gain": 0.5
+            },
+            {
+              "at": 1.6,
+              "name": "chime_soft",
+              "gain": 0.4
+            }
+          ]
+        },
+        {
+          "scene": "valley_lake",
+          "dur": 3.4,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "koko_happy",
+              "x": 0.42,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "bob"
+            },
+            {
+              "who": "nono_love",
+              "x": 0.66,
+              "y": 0.78,
+              "scale": 0.4,
+              "move": "idle",
+              "phase": 0.5
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "bell",
+              "gain": 0.45
+            },
+            {
+              "at": 1.8,
+              "name": "warm_hum",
+              "gain": 0.35
+            }
+          ]
+        },
+        {
+          "scene": "starfield",
+          "dur": 3.4,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "koko_sleep",
+              "x": 0.5,
+              "y": 0.8,
+              "scale": 0.44,
+              "move": "idle"
+            },
+            {
+              "who": "moon",
+              "x": 0.72,
+              "y": 0.3,
+              "scale": 0.2,
+              "move": "sway"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "page_turn",
+              "gain": 0.4
+            },
+            {
+              "at": 1.8,
+              "name": "soft_impact",
+              "gain": 0.3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paper_man_help",
+      "title": "الرجل الورقي والفانوس",
+      "hero_name": "Paper Man",
+      "kw": "The Paper Man and the Lantern — a wordless story",
+      "thing": "a lantern that went out",
+      "ambient": "room_tone",
+      "look": "cinema_warm",
+      "fps": 24,
+      "size": [
+        960,
+        540
+      ],
+      "video_desc": "the paper man walks through a dark house to relight a lantern and light the way home",
+      "pinned_comment": "Where should the paper man carry the lantern? 🏮",
+      "music": "music_box",
+      "beats": [
+        {
+          "scene": "fireplace",
+          "dur": 3.2,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "paper_man",
+              "x": 0.3,
+              "y": 0.78,
+              "scale": 0.42,
+              "move": "walk_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "page_turn",
+              "gain": 0.5
+            },
+            {
+              "at": 1.5,
+              "name": "match_strike",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "harmonograph",
+          "dur": 3.2,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "paper_man_facepalm",
+              "x": 0.5,
+              "y": 0.78,
+              "scale": 0.42,
+              "move": "wobble",
+              "cycles": 2.0
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "paper",
+              "gain": 0.5
+            },
+            {
+              "at": 1.4,
+              "name": "ui_close",
+              "gain": 0.4
+            }
+          ]
+        },
+        {
+          "scene": "dunes_moon",
+          "dur": 3.2,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "paper_man",
+              "x": 0.44,
+              "y": 0.78,
+              "scale": 0.42,
+              "move": "bob"
+            },
+            {
+              "who": "flame",
+              "x": 0.7,
+              "y": 0.48,
+              "scale": 0.2,
+              "move": "sway"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "whoosh_soft",
+              "gain": 0.45
+            },
+            {
+              "at": 1.5,
+              "name": "match_strike",
+              "gain": 0.5
+            }
+          ]
+        },
+        {
+          "scene": "fireplace",
+          "dur": 3.6,
+          "look": "cinema_warm",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "paper_man",
+              "x": 0.58,
+              "y": 0.78,
+              "scale": 0.42,
+              "move": "idle"
+            },
+            {
+              "who": "sun",
+              "x": 0.36,
+              "y": 0.5,
+              "scale": 0.22,
+              "move": "pop_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "fire_crackle",
+              "gain": 0.45
+            },
+            {
+              "at": 2.0,
+              "name": "warm_hum",
+              "gain": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nono_balloon",
+      "title": "نونو والبالونة",
+      "hero_name": "Nono",
+      "kw": "Nono and the Lost Balloon — a wordless story",
+      "thing": "a red balloon in the wind",
+      "ambient": "wind",
+      "look": "cinema_cool",
+      "fps": 24,
+      "size": [
+        960,
+        540
+      ],
+      "video_desc": "a balloon slips away on the wind and Nono learns that letting go can be a gift",
+      "pinned_comment": "Should Nono chase the balloon or wave goodbye? 🎈",
+      "music": "music_box",
+      "beats": [
+        {
+          "scene": "dunes_moon",
+          "dur": 3.2,
+          "look": "cinema_night",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_happy",
+              "x": 0.3,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "walk_in"
+            },
+            {
+              "who": "heart",
+              "x": 0.66,
+              "y": 0.4,
+              "scale": 0.2,
+              "move": "bob"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "pop",
+              "gain": 0.4
+            },
+            {
+              "at": 1.5,
+              "name": "wind_gust",
+              "gain": 0.45
+            }
+          ]
+        },
+        {
+          "scene": "snow_pines",
+          "dur": 3.2,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_sad",
+              "x": 0.48,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "fall",
+              "cycles": 1.0
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.2,
+              "name": "downlifter",
+              "gain": 0.5
+            },
+            {
+              "at": 1.4,
+              "name": "wind_gust",
+              "gain": 0.4
+            }
+          ]
+        },
+        {
+          "scene": "aurora",
+          "dur": 3.4,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_love",
+              "x": 0.4,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "sway"
+            },
+            {
+              "who": "heart",
+              "x": 0.7,
+              "y": 0.36,
+              "scale": 0.22,
+              "move": "sway"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.3,
+              "name": "shimmer",
+              "gain": 0.5
+            },
+            {
+              "at": 1.6,
+              "name": "swell",
+              "gain": 0.45
+            }
+          ]
+        },
+        {
+          "scene": "valley_lake",
+          "dur": 3.6,
+          "look": "cinema_cool",
+          "transition": "none",
+          "chars": [
+            {
+              "who": "nono_happy",
+              "x": 0.56,
+              "y": 0.78,
+              "scale": 0.44,
+              "move": "idle"
+            },
+            {
+              "who": "star",
+              "x": 0.34,
+              "y": 0.42,
+              "scale": 0.22,
+              "move": "pop_in"
+            }
+          ],
+          "sfx": [
+            {
+              "at": 0.25,
+              "name": "chime_soft",
+              "gain": 0.5
+            },
+            {
+              "at": 2.0,
+              "name": "twinkle_run",
+              "gain": 0.4
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -196,7 +196,7 @@
     }
   },
   "stickers": {
-    "count": 36,
+    "count": 41,
     "uses": {
       "reaction": [
         "nono_happy",
@@ -373,6 +373,36 @@
       "id": "koko_star",
       "title": "كوكو والنجمة",
       "beats": 4
+    },
+    {
+      "id": "bomi_fire",
+      "title": "بومي والنار",
+      "beats": 4
+    },
+    {
+      "id": "lazo_space",
+      "title": "لازو والنجوم",
+      "beats": 4
+    },
+    {
+      "id": "nono_ocean",
+      "title": "نونو والموج",
+      "beats": 4
+    },
+    {
+      "id": "koko_snow",
+      "title": "كوكو والثلج",
+      "beats": 4
+    },
+    {
+      "id": "paper_man_help",
+      "title": "الرجل الورقي والفانوس",
+      "beats": 4
+    },
+    {
+      "id": "nono_balloon",
+      "title": "نونو والبالونة",
+      "beats": 4
     }
   ],
   "brand": {
@@ -456,7 +486,7 @@
     ],
     "music_previews": 6,
     "fx_kinds": 10,
-    "stickers": 36,
+    "stickers": 41,
     "memes": 6,
     "brand": 6
   },

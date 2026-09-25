@@ -274,13 +274,18 @@ def collect_ideas(brain: Brain, n: int = 20, pillar: str | None = None, date_str
         hook = rng.choice(HOOKS)
         thumb = rng.choice(THUMB_STYLES)
         if p in ("sleep", "focus"):
-            dur = rng.choice([f"{h}h" for h in spec["dur_h"]])
-            ch = None
-            kind = "long"
+            if rng.random() < 0.35:                  # شورت أجواء من نفس النمط
+                dur = f"{rng.choice([45, 60])}s"
+                ch = None
+                kind = "short"
+            else:
+                dur = rng.choice([f"{h}h" for h in spec["dur_h"]])
+                ch = None
+                kind = "long"
         elif p == "story":
             dur = f"{rng.choice(spec['dur_min'])}m"
             ch = rng.choice(chars)["id"] if chars else None
-            kind = "long"
+            kind = "long" if rng.random() < 0.5 else "short"      # قصة قصيرة كمان كل يوم
         else:
             dur = f"{rng.choice(spec['dur_s'])}s"
             ch = rng.choice(chars)["id"] if (chars and rng.random() < 0.25) else None
@@ -415,23 +420,49 @@ def plan_day(brain: Brain, date_str: str | None = None, characters: list | None 
     """24 شورت (كل ساعة) + الطويلات بفواصل 4/6/8/12 ساعة — كل حاجة متولّدة من الأوزان."""
     date_str = date_str or date.today().isoformat()
     d0 = datetime.fromisoformat(date_str + "T00:00:00")
-    ideas = collect_ideas(brain, n=60, date_str=date_str, characters=characters)
+    ideas = collect_ideas(brain, n=90, date_str=date_str, characters=characters)
     shorts = [i for i in ideas if i["kind"] == "short"]
     longs = [i for i in ideas if i["kind"] == "long"]
+    # ── تنويع الشورتس: مش كله نمط واحد — توزيع حسب أوزان العقل مع ضمان حصص دنيا
+    by_p = {}
+    for i in shorts:
+        by_p.setdefault(i["pillar"], []).append(i)
+    mix_goal = {"satisfying": 14, "story": 5, "sleep": 3, "focus": 2}   # 24 ساعة/يوم
+    # لو مفيش أفكار كفاية لنمط، الرحمة للنمط اللي عنده مخزون
+    fallback_order = sorted(by_p, key=lambda k: -len(by_p[k]))
+    rotation = []
+    for pname, want in mix_goal.items():
+        pool = by_p.get(pname) or by_p.get(fallback_order[0] if fallback_order else "", [])
+        for k in range(want):
+            if pool:
+                rotation.append(pool[k % len(pool)])
+    while len(rotation) < 24 and fallback_order:          # كمّل من أكبر نمط لو ناقص
+        for pname in fallback_order:
+            if len(rotation) >= 24:
+                break
+            rotation.append(by_p[pname][len(rotation) % len(by_p[pname])])
+    rng_plan = random.Random(f"{date_str}|mix")
+    rng_plan.shuffle(rotation)                            # نوزّع الأنماط على الساعات
     slots = []
     for h in range(24):
-        pick = shorts[h % max(len(shorts), 1)] if shorts else None
+        pick = rotation[h % max(len(rotation), 1)] if rotation else None
         slots.append({"hour": h, "at": (d0 + timedelta(hours=h)).isoformat() + "Z",
                       "kind": "short", "idea": pick})
+    # ── الطويلات: نوم/تركيز + قصة واحدة على الأقل كل يوم
+    story_ideas = [i for i in longs if i["pillar"] == "story"]
+    sleep_ideas = [i for i in longs if i["pillar"] != "story"]
     long_hours = [2, 8, 14, 20]          # فواصل 6 ساعات (مقسومة 12/6) — تتظبّط لو الأرقام قالت غير كده
     scores = sorted((brain.prior("hour", h), h) for h in range(24))
     best_long_hours = sorted([h for _, h in scores[-6:]])
+    plan_longs = (sleep_ideas[:3] + story_ideas[:1]) if story_ideas else sleep_ideas[:4]
     for i, h in enumerate(sorted(set([long_hours[i % len(long_hours)] for i in range(len(long_hours))]))):
-        if i < len(longs):
+        if i < len(plan_longs):
             slots.append({"hour": h, "at": (d0 + timedelta(hours=h)).isoformat() + "Z",
-                          "kind": "long", "idea": longs[i]})
+                          "kind": "long", "idea": plan_longs[i]})
     plan = {"date": date_str, "shorts": sum(1 for s in slots if s["kind"] == "short"),
             "longs": sum(1 for s in slots if s["kind"] == "long"),
+            "mix": {k: sum(1 for s in slots if (s.get("idea") or {}).get("pillar") == k)
+                    for k in set((s.get("idea") or {}).get("pillar") for s in slots)},
             "best_long_hours_seen": best_long_hours[-3:], "slots": slots}
     _jdump(STATE / f"plan_{date_str}.json", plan)
     return plan
