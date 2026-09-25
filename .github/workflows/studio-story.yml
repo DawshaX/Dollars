@@ -42,7 +42,7 @@ jobs:
         run: |
           git config user.name "Dollars Studio"
           git config user.email "studio@dawshax.local"
-          git add samples/stories content 2>/dev/null || true
+          git add content samples/stories/*.meta.json samples/stories/*.meta.txt 2>/dev/null || true
           if git diff --cached --quiet; then echo "مفيش جديد"; exit 0; fi
           git commit -m "📖 قصة جديدة اترندرت + بيانات يوتيوب جاهزة"
           git pull --rebase --autostash origin main
