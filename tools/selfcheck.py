@@ -60,6 +60,18 @@ def check_loop(quick: bool = True) -> list:
              "الحلقة المثالية مضمونة (تكرار بلا قطع)")]
 
 
+def check_stories() -> list:
+    from engine import story, cutout
+    rows = []
+    stories = story.all_stories()
+    bad = [s["id"] for s in stories if story.Story(s).validate()]
+    rows.append((OK if not bad else BAD, f"القِصص: {len(stories)} قصة جاهزة",
+                 "· ".join(f"{s['title']} ({sum(float(b['dur']) for b in s['beats']):.0f} ث)" for s in stories)))
+    rows.append((OK, f"محرّك التحريك: {len(cutout.MOVES)} حركة · {len(list(cutout.STICKERS.glob('*.png')))} ملصق قابل للتحريك",
+                 "تنفّس · نطّ · انضغاط · ميل · دوران · رمشة · ظل تلامس"))
+    return rows
+
+
 def check_library() -> list:
     lib = _load("content/library.json", {})
     if not lib:
@@ -114,6 +126,7 @@ def main():
     quick = "--quick" in sys.argv
     print("# 🔍 الفحص الذاتي — Dollars Studio\n")
     groups = [("المحركات", check_engine()), ("الحلقة المثالية", check_loop()),
+              ("القِصص والتحريك", check_stories()),
               ("المكتبة والشخصيات", check_library()), ("العقل الذاتي", check_brain()),
               ("أرقام القناة", check_numbers()), ("الملفات", check_repo())]
     if not quick:

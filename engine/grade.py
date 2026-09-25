@@ -237,7 +237,8 @@ PRESETS = {
 
 
 def apply(img: np.ndarray, preset: str = "cinema_night", depth: np.ndarray | None = None,
-          sun_xy=(0.7, 0.25), seed: int = 0, focus: float = 0.72, aperture: float = 0.30) -> np.ndarray:
+          sun_xy=(0.7, 0.25), seed: int = 0, focus: float = 0.72, aperture: float = 0.30,
+          max_blur: float = 3.0) -> np.ndarray:
     """
     img: float32 0..1 (H,W,3) · depth: 0 قريب → 1 بعيد (أو None) · يقبل uint8 ويحوّله.
     """
@@ -254,7 +255,7 @@ def apply(img: np.ndarray, preset: str = "cinema_night", depth: np.ndarray | Non
     if p["halation"] > 0:
         x = halation(x, threshold=0.78, strength=p["halation"], radius=40)
     if p["dof"] and depth is not None:
-        x = dof(x, depth, focus=focus, aperture=aperture, max_blur=3.0)
+        x = dof(x, depth, focus=focus, aperture=aperture, max_blur=max_blur)
     x = film_tonemap(x, exposure=p["exposure"])
     x = color_grade(x, p["grade"])
     if p["ca"] > 0:

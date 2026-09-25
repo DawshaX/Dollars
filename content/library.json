@@ -8,7 +8,10 @@
       "rain_glass",
       "ocean",
       "aurora",
-      "fireplace"
+      "fireplace",
+      "valley_lake",
+      "snow_pines",
+      "dunes_moon"
     ],
     "satisfying_and_stingers": [
       "sand_table",
@@ -17,21 +20,32 @@
       "stinger_confetti",
       "stinger_glitch",
       "stinger_zoom",
-      "stinger_ink"
+      "stinger_ink",
+      "planet_rings"
+    ],
+    "scenes_3d": [
+      "dunes_moon",
+      "planet_rings",
+      "snow_pines",
+      "valley_lake"
     ],
     "all": [
       "aurora",
+      "dunes_moon",
       "fireplace",
       "harmonograph",
       "ocean",
       "pendulum_wave",
+      "planet_rings",
       "rain_glass",
       "sand_table",
+      "snow_pines",
       "starfield",
       "stinger_confetti",
       "stinger_glitch",
       "stinger_ink",
-      "stinger_zoom"
+      "stinger_zoom",
+      "valley_lake"
     ],
     "note": "كل مشهد حركة حقيقية (جزيئات · موج · لهب · كور) مش صورة ثابتة"
   },
@@ -286,6 +300,18 @@
       "name": "Bomi",
       "type": "سمكة نجمية",
       "origin": "auto"
+    }
+  ],
+  "stories": [
+    {
+      "id": "nono_rain",
+      "title": "نونو والمطر",
+      "beats": 4
+    },
+    {
+      "id": "koko_star",
+      "title": "كوكو والنجمة",
+      "beats": 4
     }
   ],
   "rules": {

@@ -162,6 +162,21 @@ def splat_fast(img: np.ndarray, xs, ys, bright, color, wrap: bool = True) -> Non
     img += up * np.asarray(color, np.float32)[None, None, :]
 
 
+def upscale(img: np.ndarray, size) -> np.ndarray:
+    """تكبير صورة float 0..1 لمقاس معيّن (بيستخدم PIL لو متاح — أسرع وأنعم)."""
+    h, w = size
+    if img.shape[0] == h and img.shape[1] == w:
+        return img
+    try:
+        from PIL import Image
+        im = Image.fromarray((np.clip(img, 0, 1) * 255).astype(np.uint8))
+        return np.asarray(im.resize((w, h), Image.BILINEAR), np.float32) / 255.0
+    except Exception:
+        ys = np.linspace(0, img.shape[0] - 1, h).astype(np.int32)
+        xs = np.linspace(0, img.shape[1] - 1, w).astype(np.int32)
+        return img[ys][:, xs]
+
+
 def glow(img: np.ndarray, cx: float, cy: float, radius: float, color, power: float = 1.0,
          softness: float = 2.2) -> None:
     """هالة ناعمة (قمر · لمبة · لمعة كورة)."""

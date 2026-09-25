@@ -1,0 +1,54 @@
+name: 📖 رندر قصة (يدوي)
+on:
+  workflow_dispatch:
+    inputs:
+      story_id:
+        description: "معرّف القصة (nono_rain · koko_star) أو all"
+        required: true
+        default: all
+permissions:
+  contents: write
+jobs:
+  story:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet numpy pillow imageio-ffmpeg pytest
+      - name: تشغيل الاختبارات أولًا (مفيش رندر على كود مكسور)
+        run: python -m pytest tests/ -q
+      - name: رندر القصة/القصص + بيانات يوتيوب
+        run: python - <<'PY'
+          import pathlib, sys
+          sys.path.insert(0, ".")
+          from engine import story
+          which = "${{ inputs.story_id }}"
+          ids = [s["id"] for s in story.all_stories()] if which == "all" else [which]
+          for sid in ids:
+              st = story.load(sid)
+              problems = st.validate()
+              if problems:
+                  raise SystemExit(f"❌ {sid}: " + " | ".join(problems))
+              p = st.render(pathlib.Path("samples/stories") / f"{sid}.mp4")
+              print("✅", sid, p.stat().st_size // 1024, "كيلوبايت")
+              print(st.write_package("samples/stories"))
+          PY
+      - name: حفظ العيّنة + بيانات النشر على جيت هوب
+        run: |
+          git config user.name "Dollars Studio"
+          git config user.email "studio@dawshax.local"
+          git add samples/stories content 2>/dev/null || true
+          if git diff --cached --quiet; then echo "مفيش جديد"; exit 0; fi
+          git commit -m "📖 قصة جديدة اترندرت + بيانات يوتيوب جاهزة"
+          git pull --rebase --autostash origin main
+          git push origin main
+      - uses: actions/upload-artifact@v4
+        with:
+          name: story-${{ inputs.story_id }}
+          path: samples/stories/
+          retention-days: 14

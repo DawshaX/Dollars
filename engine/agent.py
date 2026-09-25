@@ -37,14 +37,14 @@ CONTENT = ROOT / "content"
 # ───────────────────────── خصائص المحتوى (اللي بنتعلّم منها) ─────────────────────────
 
 PILLARS = {
-    "sleep": {"share": 0.35, "longs_per_day": 3, "scenes": ["black", "rain_glass", "ocean",
-                                                            "starfield", "aurora", "fireplace"],
+    "sleep": {"share": 0.35, "longs_per_day": 3, "scenes": ["black", "rain_glass", "ocean", "starfield", "aurora", "fireplace",
+                                                            "valley_lake", "dunes_moon", "snow_pines"],
               "audio": ["sleep_rain", "rain_only", "ocean", "storm", "fireplace", "calm_night", "focus"],
               "dur_h": [3, 8, 10]},
-    "story": {"share": 0.25, "longs_per_day": 0, "scenes": ["sand_table", "harmonograph", "starfield"],
+    "story": {"share": 0.25, "longs_per_day": 0, "scenes": ["sand_table", "harmonograph", "starfield", "planet_rings"],
               "audio": [], "dur_min": [1, 2, 3, 4]},
     "satisfying": {"share": 0.35, "longs_per_day": 0,
-                   "scenes": ["sand_table", "pendulum_wave", "harmonograph", "stinger_confetti",
+                   "scenes": ["sand_table", "pendulum_wave", "harmonograph", "planet_rings", "stinger_confetti",
                               "stinger_glitch", "stinger_zoom", "stinger_ink"],
                    "audio": [], "dur_s": [15, 30, 45, 60]},
     "focus": {"share": 0.05, "longs_per_day": 3, "scenes": ["black", "rain_glass", "starfield"],

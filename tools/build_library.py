@@ -11,7 +11,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from engine import ambient, sfx, visuals  # noqa: E402
+from engine import ambient, render3d, sfx, visuals  # noqa: E402
 
 
 def _load(p, default=None):
@@ -33,6 +33,7 @@ def build() -> dict:
         "scenes": {
             "long_ambience": list(visuals.SLEEP_SCENES),
             "satisfying_and_stingers": list(visuals.SMILE_SCENES),
+            "scenes_3d": sorted(render3d.SCENES_3D),
             "all": sorted(visuals.SCENES),
             "note": "كل مشهد حركة حقيقية (جزيئات · موج · لهب · كور) مش صورة ثابتة",
         },
@@ -52,6 +53,8 @@ def build() -> dict:
         "memes": {"count": len(memes.get("templates", {})), "templates": memes.get("templates", {})},
         "characters": [{"id": c["id"], "name": c["name"], "type": c.get("type"),
                         "origin": c.get("origin", "hand")} for c in chars.get("characters", [])],
+        "stories": [{"id": s.get("id"), "title": s.get("title"), "beats": len(s.get("beats") or [])}
+                    for s in (_load(ROOT / "content/stories.json", {}) or {}).get("stories", [])],
         "rules": {
             "no_copyright": "ممنوع أي مقطع/صورة/أغنية/ميم من حد تاني — ولو مشهور",
             "no_real_people_voices": "ممنوع تقليد صوت أي إنسان حقيقي",
@@ -77,7 +80,8 @@ def main():
     out.write_text(json.dumps(lib, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"✅ الفهرس اتكتب: {out} · مشاهد {len(lib['scenes']['all'])} · "
           f"مؤثرات {lib['sfx']['count']} · ملصقات {lib['stickers']['count']} · "
-          f"قوالب ميمز {lib['memes']['count']} · شخصيات {len(lib['characters'])}")
+          f"قوالب ميمز {lib['memes']['count']} · شخصيات {len(lib['characters'])} · "
+          f"قصص {len(lib['stories'])}")
 
 
 if __name__ == "__main__":

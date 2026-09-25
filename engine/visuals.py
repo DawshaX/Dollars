@@ -161,7 +161,7 @@ class RainGlass(Scene):
         self.city = tiled_fbm(h, w, sd + 12, pick_period(w, w // 5), scales=(8, 16, 32, 64), gain=0.6)
         self.pc = pick_period(w, w // 5)
         self.lights = [(float(rng.random() * w), float(h * (0.55 + 0.42 * rng.random())),
-                        float(rng.uniform(28, 95)), float(rng.uniform(0.25, 0.75)),
+                        float(rng.uniform(22, 62)), float(rng.uniform(0.22, 0.62)),
                         rng.choice([np.array([1.0, 0.72, 0.35], np.float32),
                                     np.array([0.45, 0.75, 1.0], np.float32),
                                     np.array([1.0, 0.95, 0.85], np.float32)]))
@@ -169,14 +169,14 @@ class RainGlass(Scene):
         n = 300
         self.rx = rng.random(n, dtype=np.float32) * w
         self.ry = rng.random(n, dtype=np.float32) * (h + 240)
-        self.rlen = rng.uniform(14, 52, n).astype(np.float32)
+        self.rlen = rng.uniform(22, 78, n).astype(np.float32)
         # سرعة المطر = عدد صحيح من ارتفاعات الشاشة لكل حلقة ⇒ حلقة مثالية
         self.rsp = (rng.integers(2, 7, n).astype(np.float32) * (h + 240) / L)
-        self.ra = rng.uniform(0.05, 0.17, n).astype(np.float32)
-        m = 90
+        self.ra = rng.uniform(0.10, 0.30, n).astype(np.float32)
+        m = 64
         self.dx = rng.random(m, dtype=np.float32) * w
         self.dy = rng.random(m, dtype=np.float32) * h * 0.9
-        self.dr = rng.uniform(3.5, 13.0, m).astype(np.float32)
+        self.dr = rng.uniform(2.6, 7.5, m).astype(np.float32)
         self.dp = rng.random(m, dtype=np.float32)
         self.dsl = rng.uniform(0.25, 1.0, m).astype(np.float32)
         self.dn = rng.integers(1, 3, m)
@@ -223,7 +223,7 @@ class RainGlass(Scene):
             rim = np.exp(-((d - 0.86) ** 2) * 26.0)
             lens = np.exp(-(d ** 2) * 2.4)
             for c in range(3):
-                sub[:, :, c] += rim * (0.17 * k) + lens * (0.04 * k)
+                sub[:, :, c] += rim * (0.12 * k) + lens * (0.025 * k)
                 sub[:, :, c] += lens * base[y0:y1, x0:x1, c] * (0.5 * k)
         flash = 0.0
         for ft in self.flash_t:
@@ -685,6 +685,11 @@ SMILE_SCENES = ("sand_table", "pendulum_wave", "harmonograph", "stinger_confetti
 
 
 def make_scene(name: str, w: int = 1280, h: int = 720, fps: int = 30, seed: int = 7) -> Scene:
+    if name not in SCENES:                 # ممكن يكون مشهد 3D — بيتسجّل عند الاستيراد
+        try:
+            from . import render3d  # noqa: F401
+        except Exception:
+            pass
     if name not in SCENES:
         raise KeyError(f"مشهد غير معروف: {name}")
     return SCENES[name](w=w, h=h, fps=fps, seed=seed)
