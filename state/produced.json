@@ -164,17 +164,32 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 275.7,
       "at": "2026-09-25T06:10:56.976972+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 11,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "harmonograph",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_11/satisfying_short_408767_15s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 41.6,
+      "at": "2026-09-25T09:34:45.930461+00:00"
     }
   ],
   "stats": {
-    "total": 11,
+    "total": 12,
     "published": 0,
-    "staged": 11,
+    "staged": 12,
     "by_pillar": {
       "focus": 5,
-      "satisfying": 6
+      "satisfying": 7
     }
   },
   "created": null,
-  "updated": "2026-09-25T06:10:56.978467+00:00"
+  "updated": "2026-09-25T09:34:45.931707+00:00"
 }
