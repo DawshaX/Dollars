@@ -551,6 +551,41 @@
       "pillar": "story",
       "duration": "1m",
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
+    },
+    {
+      "at": "2026-09-25T15:37:39.870951+00:00",
+      "slot": {
+        "hour": 16,
+        "at": "2026-09-25T16:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=60s|hook=حركة عكسية|hour=19|kind=short|pillar=satisfying|scene=sand_table|structure=نمو نمط هندسي|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "60s",
+          "scene": "sand_table",
+          "structure": "نمو نمط هندسي",
+          "hook": "حركة عكسية",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 19,
+          "character": null,
+          "predicted": 1.787,
+          "why": "لأن satisfying و60s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-25"
+      },
+      "seed": 59669,
+      "kind": "satisfying_short",
+      "title": "Kinetic Sand — oddly satisfying (60s) #shorts",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور"
     }
   ]
 }
