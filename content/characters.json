@@ -8,8 +8,17 @@
       "look": "كرّة طين صغيرة بعينين واسعتين وأرجل قصيرة",
       "personality": "فضولي · بيقع في مواقف غريبة · بيرجع يقوم",
       "voice": "بحّة طفولية دافية بلا كلمات (همهمات)",
-      "worlds": ["surreal", "kitchen", "rain", "space"],
-      "formats": ["silent_gag", "minute_story", "calm_loop"],
+      "worlds": [
+        "surreal",
+        "kitchen",
+        "rain",
+        "space"
+      ],
+      "formats": [
+        "silent_gag",
+        "minute_story",
+        "calm_loop"
+      ],
       "audience": "كل الأعمار — يعبر الحدود بلا كلام"
     },
     {
@@ -19,8 +28,17 @@
       "look": "قطة من سُحب ناعمة، ذيلها بيدخّن نجوم صغيرة",
       "personality": "هادية · راعية · بتحضن القلق",
       "voice": "همس ناعم + خرخرة",
-      "worlds": ["space", "night_sky", "bedroom", "ocean"],
-      "formats": ["whisper_bedtime", "calm_loop", "affirmation"],
+      "worlds": [
+        "space",
+        "night_sky",
+        "bedroom",
+        "ocean"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "calm_loop",
+        "affirmation"
+      ],
       "audience": "النوم والهدوء — أعلى ساعات مشاهدة"
     },
     {
@@ -30,9 +48,58 @@
       "look": "رجل من ورق مطوي في عالم ألوان مسطّحة",
       "personality": "لطيف · بسيط · بيكتشف حاجات عادية بشكل مدهش",
       "voice": "بلا كلام (موسيقى وإشارات) + تعليق منفصل اختياري",
-      "worlds": ["paper_city", "desert", "garden", "surreal"],
-      "formats": ["silent_gag", "creative_short", "story_30s"],
+      "worlds": [
+        "paper_city",
+        "desert",
+        "garden",
+        "surreal"
+      ],
+      "formats": [
+        "silent_gag",
+        "creative_short",
+        "story_30s"
+      ],
       "audience": "ميمز من إنتاجنا — كوميديا صامتة عالمية"
+    },
+    {
+      "id": "lazo_auto",
+      "name": "Lazo",
+      "type": "نبتة فضائية",
+      "look": "ساق ضوئية + أوراق شفافة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "كسول ومضحك",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "clouds",
+        "city_night"
+      ],
+      "formats": [
+        "minute_story",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-25T00:49:43.756441",
+      "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, clouds background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "bomi_auto",
+      "name": "Bomi",
+      "type": "سمكة نجمية",
+      "look": "جسم لامع + زعانف ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "garden",
+        "clouds"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "tiny_adventure"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-25T00:49:43.756480",
+      "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -41,5 +108,6 @@
     "شخصية الروبوت الحيران (ذكاء اصطناعي بمشاعر)",
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
-  ]
+  ],
+  "_auto_count": 2
 }

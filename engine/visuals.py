@@ -1,0 +1,935 @@
+"""
+🎬 محرّك المشاهد الحيّة — Dollars Studio
+========================================
+كل حاجة هنا **متولّدة بالكود**: ملكية كاملة 100%، صفر حقوق، صفر سرقة.
+
+المبادئ:
+- كل مشهد دالة **دورية** في الزمن (loop_seconds) ⇒ حلقة مثالية بلا أي قطع.
+- الحركة حقيقية: جزيئات · موجات · سُحب · لهب · كاميرا بتتحرك · أحداث بتحصل
+  (شهب · برق · راكة رمل · كور بتتحرك) — مش صورة ثابتة.
+- فيديو 10 ساعات = نعمل الحلقة *مرة واحدة* ثم ffmpeg يكرّرها بـ copy
+  (بلا إعادة ترميز) ⇒ سريع جدًا وبلا استهلاك رام.
+
+الواجهة:
+    scene = make_scene("rain_glass")
+    encode(scene, seconds=120, path="out/loop.mp4")
+    long_video("out/loop.mp4", out="out/10h.mp4", total_seconds=36000, audio_wav="rain.wav")
+"""
+from __future__ import annotations
+
+import math
+import pathlib
+import subprocess
+
+import numpy as np
+
+try:  # ffmpeg من imageio (مفيش ffmpeg نظام على البيئة دي)
+    from imageio_ffmpeg import get_ffmpeg_exe
+
+    FFMPEG = get_ffmpeg_exe()
+except Exception:  # pragma: no cover
+    FFMPEG = "ffmpeg"
+
+TAU = 2.0 * math.pi
+
+
+# ────────────────────────────── أدوات رياضية ──────────────────────────────
+
+def smoothstep(x):
+    x = np.clip(x, 0.0, 1.0)
+    return x * x * (3.0 - 2.0 * x)
+
+
+def _bilerp(a: np.ndarray, h: int, w: int) -> np.ndarray:
+    gh, gw = a.shape
+    ys = np.linspace(0.0, gh - 1, h, dtype=np.float32)
+    xs = np.linspace(0.0, gw - 1, w, dtype=np.float32)
+    y0 = np.floor(ys).astype(np.int32); y1 = np.minimum(y0 + 1, gh - 1); fy = (ys - y0)[:, None]
+    x0 = np.floor(xs).astype(np.int32); x1 = np.minimum(x0 + 1, gw - 1); fx = (xs - x0)[None, :]
+    fy = smoothstep(fy); fx = smoothstep(fx)
+    top = a[y0][:, x0] * (1 - fx) + a[y0][:, x1] * fx
+    bot = a[y1][:, x0] * (1 - fx) + a[y1][:, x1] * fx
+    return (top * (1 - fy) + bot * fy).astype(np.float32)
+
+
+def fbm(h: int, w: int, seed: int = 0, scales=(4, 8, 16, 32, 64, 128),
+        gain: float = 0.5) -> np.ndarray:
+    """ضجيج كسري (fBm) سريع — بيراميد من شبكات عشوائية."""
+    out = np.zeros((h, w), np.float32)
+    amp, tot = 1.0, 0.0
+    for s in scales:
+        gh, gw = max(2, h // s + 2), max(2, w // s + 2)
+        rng = np.random.default_rng(seed * 100003 + s)
+        out += amp * _bilerp(rng.random((gh, gw), dtype=np.float32), h, w)
+        tot += amp
+        amp *= gain
+    out /= max(tot, 1e-6)
+    out -= float(out.min())
+    out /= max(float(np.ptp(out)), 1e-6)
+    return out
+
+
+def pick_period(size: int, target: int) -> int:
+    """أقرب قاسم للمقاس المطلوب — يضمن تقطيعًا صحيحًا 100% بلا كسر عند الحدود."""
+    size, target = int(size), max(8, int(target))
+    for d in range(min(target, size // 2), 7, -1):
+        if size % d == 0:
+            return d
+    for d in range(target, size // 2 + 1):
+        if size % d == 0:
+            return d
+    return size
+
+
+def tiled_fbm(h: int, w: int, seed: int, period: int, axis: int = 1, **kw) -> np.ndarray:
+    """
+    ضجيج بمقاس `period` بيتكرّر لحد المقاس الكامل (axis=1 أفقي · axis=0 رأسي).
+    ⇒ أي إزاحة من مضاعفات `period` بترجّع المشهد لأصله = **حلقة مثالية** للحركة البطيئة.
+    """
+    period = max(8, int(period))
+    if axis == 0:
+        base = fbm(min(period, h), w, seed, **kw)
+        if period >= h:
+            return base
+        reps = int(math.ceil(h / period)) + 1
+        return np.ascontiguousarray(np.tile(base, (reps, 1))[:h, :])
+    base = fbm(h, min(period, w), seed, **kw)
+    if period >= w:
+        return base
+    reps = int(math.ceil(w / period)) + 1
+    return np.ascontiguousarray(np.tile(base, (1, reps))[:, :w])
+
+
+def tiled_fbm2(h: int, w: int, seed: int, ph: int, pw: int, **kw) -> np.ndarray:
+    """ضجيج دوري **رأسيًا وأفقيًا** — لأي نسيج بيتحرك في الاتجاهين (لهب · دخان · ماء)."""
+    ph, pw = pick_period(h, ph), pick_period(w, pw)
+    base = fbm(ph, pw, seed, **kw)
+    ry = int(math.ceil(h / ph)) + 1
+    rx = int(math.ceil(w / pw)) + 1
+    return np.ascontiguousarray(np.tile(base, (ry, rx))[:h, :w])
+
+
+def roll_px(arr: np.ndarray, px: float, axis: int = 1) -> np.ndarray:
+    """إزاحة بمضاعفات دورية (تستخدم مع tiled_fbm)."""
+    return np.roll(arr, int(round(px)), axis=axis)
+
+
+def splat(img: np.ndarray, xs, ys, bright, color, wrap: bool = True) -> None:
+    """إضافة نقاط مضيئة بأعلى دقة (bincount) — للعناصر المهمة القليلة."""
+    h, w = img.shape[:2]
+    xs = np.asarray(xs, np.float32).ravel(); ys = np.asarray(ys, np.float32).ravel()
+    bright = np.asarray(bright, np.float32).ravel()
+    x0 = np.floor(xs).astype(np.int32); y0 = np.floor(ys).astype(np.int32)
+    fx = xs - x0; fy = ys - y0
+    flat3 = img.reshape(-1, 3)
+    for dx in (0, 1):
+        for dy in (0, 1):
+            wt = bright * (fx if dx else 1.0 - fx) * (fy if dy else 1.0 - fy)
+            xi, yi = x0 + dx, y0 + dy
+            if wrap:
+                xi = np.mod(xi, w); yi = np.mod(yi, h)
+                m = np.ones_like(wt, bool)
+            else:
+                m = (xi >= 0) & (xi < w) & (yi >= 0) & (yi < h)
+            if not np.any(m):
+                continue
+            idx = yi[m].astype(np.int64) * w + xi[m].astype(np.int64)
+            wt = wt[m]
+            for c in range(3):
+                acc = np.bincount(idx, weights=wt, minlength=h * w).astype(np.float32)
+                flat3[:, c] += acc * np.float32(color[c])
+
+
+def splat_fast(img: np.ndarray, xs, ys, bright, color, wrap: bool = True) -> None:
+    """نفس الفكرة لكن بنصف الدقة ثم تُرفع ⇒ 4× أسرع (للنجوم · المطر · الجمر · الكور)."""
+    h, w = img.shape[:2]
+    h2, w2 = max(1, h // 2), max(1, w // 2)
+    xs = np.asarray(xs, np.float32).ravel() * 0.5
+    ys = np.asarray(ys, np.float32).ravel() * 0.5
+    bright = np.asarray(bright, np.float32).ravel()
+    x0 = np.floor(xs).astype(np.int32); y0 = np.floor(ys).astype(np.int32)
+    fx = xs - x0; fy = ys - y0
+    acc = np.zeros((3, h2 * w2), np.float32)
+    for dx in (0, 1):
+        for dy in (0, 1):
+            wt = bright * (fx if dx else 1.0 - fx) * (fy if dy else 1.0 - fy)
+            xi, yi = x0 + dx, y0 + dy
+            if wrap:
+                xi = np.mod(xi, w2); yi = np.mod(yi, h2)
+                m = np.ones_like(wt, bool)
+            else:
+                m = (xi >= 0) & (xi < w2) & (yi >= 0) & (yi < h2)
+            if not np.any(m):
+                continue
+            idx = yi[m].astype(np.int64) * w2 + xi[m].astype(np.int64)
+            wt = wt[m]
+            for c in range(3):
+                acc[c] += np.bincount(idx, weights=wt, minlength=h2 * w2).astype(np.float32)
+    small = acc.reshape(3, h2, w2).transpose(1, 2, 0)
+    up = np.repeat(np.repeat(small, 2, axis=0), 2, axis=1)
+    if up.shape[0] != h or up.shape[1] != w:      # الأبعاد الفردية: نكمّل بتمدید الحافة
+        up = np.pad(up, ((0, max(0, h - up.shape[0])), (0, max(0, w - up.shape[1])), (0, 0)),
+                    mode="edge")[:h, :w]
+    img += up * np.asarray(color, np.float32)[None, None, :]
+
+
+def glow(img: np.ndarray, cx: float, cy: float, radius: float, color, power: float = 1.0,
+         softness: float = 2.2) -> None:
+    """هالة ناعمة (قمر · لمبة · لمعة كورة)."""
+    h, w = img.shape[:2]
+    r = max(2.0, float(radius))
+    x0, x1 = max(0, int(cx - r)), min(w, int(cx + r) + 1)
+    y0, y1 = max(0, int(cy - r)), min(h, int(cy + r) + 1)
+    if x0 >= x1 or y0 >= y1:
+        return
+    xs = np.arange(x0, x1, dtype=np.float32)[None, :] - np.float32(cx)
+    ys = np.arange(y0, y1, dtype=np.float32)[:, None] - np.float32(cy)
+    d = np.sqrt(ys * ys + xs * xs) / r
+    fall = np.exp(-np.power(d, softness) * 2.2) + 0.35 * np.exp(-np.power(d, softness * 2.6) * 6.0)
+    for c in range(3):
+        img[y0:y1, x0:x1, c] += fall * np.float32(color[c] * power)
+
+
+def _mix(a, b, u):
+    return a * (1.0 - u) + b * u
+
+
+# ────────────────────────────── القاعدة ──────────────────────────────
+
+class Scene:
+    """مشهد دوري: frame(t + loop_seconds) ≈ frame(t)."""
+    name = "scene"
+    loop_seconds = 60.0
+    stateful = False
+    grain_amp = 0.012
+
+    def __init__(self, w: int = 1280, h: int = 720, fps: int = 30, seed: int = 7):
+        self.w, self.h, self.fps, self.seed = int(w), int(h), int(fps), int(seed)
+        yy, xx = np.mgrid[0:h, 0:w]
+        self.xx = xx.astype(np.float32); self.yy = yy.astype(np.float32)
+        dx = (xx / max(1, w - 1) - 0.5) * 2.0; dy = (yy / max(1, h - 1) - 0.5) * 2.0
+        self.vig = np.clip(1.0 - 0.28 * (dx * dx + dy * dy) ** 1.25, 0.55, 1.0).astype(np.float32)
+        g = np.random.default_rng(seed + 991).random((24, h // 3 + 1, w // 3 + 1), dtype=np.float32)
+        self.grain = np.ascontiguousarray(g, dtype=np.float32)
+        self.prepare()
+
+    def prepare(self) -> None:  # pragma: no cover
+        pass
+
+    def reset(self) -> None:
+        """للمشاهد ذات الحالة."""
+
+    def render(self, t: float) -> np.ndarray:  # pragma: no cover
+        raise NotImplementedError
+
+    def raw(self, t: float) -> np.ndarray:
+        """المشهد قبل الحبيبات والفينييت (للاختبارات والتحليل)."""
+        return self.render(float(t))
+
+    def frame(self, t: float, index: int | None = None) -> np.ndarray:
+        img = self.raw(t)
+        i = int(index if index is not None else round(t * self.fps))
+        g = self.grain[i % self.grain.shape[0]]
+        g = np.repeat(np.repeat(g, 3, axis=0), 3, axis=1)[:self.h, :self.w]
+        img += (g - 0.5)[:, :, None] * (self.grain_amp * 2.0)
+        img *= self.vig[:, :, None]
+        return (np.clip(img, 0.0, 1.0) * 255.0 + 0.5).astype(np.uint8)
+
+
+# ────────────────────────────── 1) سماء النجوم ──────────────────────────────
+
+class Starfield(Scene):
+    """فضاء حيّ: نجوم بتلمع · سُحب مجرّية بتزحف · شهب · تنفّس هادي."""
+    name = "starfield"
+    loop_seconds = 60.0
+
+    def prepare(self):
+        h, w, sd = self.h, self.w, self.seed
+        self.p1 = pick_period(w, w // 4)
+        self.p2 = pick_period(w, w // 6)
+        self.neb = tiled_fbm(h, w, sd + 1, self.p1, scales=(8, 16, 32, 64, 128), gain=0.58)
+        self.neb2 = tiled_fbm(h, w, sd + 2, self.p2, scales=(16, 32, 64, 128), gain=0.6)
+        rng = np.random.default_rng(sd + 3)
+        self.tw = pick_period(w, max(64, w // 3))
+        self.th = pick_period(h, max(64, h // 2))
+        self.xoff = np.arange(0, w, self.tw, dtype=np.float32)
+        self.yoff = np.arange(0, h, self.th, dtype=np.float32)
+        self.layers = []
+        for n, kb, bright in ((150, 2, 1.0), (90, 3, 0.65), (50, 5, 0.45)):
+            kx = rng.integers(1, 3, n).astype(np.float32)
+            ky = rng.integers(1, 3, n).astype(np.float32)
+            self.layers.append(dict(
+                x=rng.random(n, dtype=np.float32) * self.tw,
+                y=rng.random(n, dtype=np.float32) * self.th,
+                b=(0.4 + 0.6 * rng.random(n, dtype=np.float32)) * bright,
+                f=rng.integers(1, 5, n), p=rng.random(n, dtype=np.float32) * TAU,
+                vx=kx * self.tw / self.loop_seconds, vy=ky * self.th / self.loop_seconds))
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = t / L
+        img = np.zeros((h, w, 3), np.float32)
+        n1 = roll_px(self.neb, self.p1 * u)
+        n2 = roll_px(self.neb2, -self.p2 * u)
+        deep = np.array([0.010, 0.016, 0.042], np.float32)
+        purple = np.array([0.17, 0.075, 0.31], np.float32)
+        teal = np.array([0.03, 0.17, 0.23], np.float32)
+        img += deep * (1.0 - n1[:, :, None] * 0.5)
+        img += purple * (n1 * n2)[:, :, None] * 0.55
+        img += teal * (n2 ** 1.6)[:, :, None] * 0.30
+        for lay in self.layers:
+            nx = np.mod(lay["x"] + lay["vx"] * t, self.tw)
+            ny = np.mod(lay["y"] + lay["vy"] * t, self.th)
+            twk = 0.55 + 0.45 * np.sin(TAU * (lay["f"] * u) + lay["p"])
+            br = (lay["b"] * twk)[:, None, None] * np.ones((1, self.xoff.size, self.yoff.size), np.float32)
+            xs = (nx[:, None, None] + self.xoff[None, :, None])
+            ys = (ny[:, None, None] + self.yoff[None, None, :])
+            xs = np.broadcast_to(xs, br.shape); ys = np.broadcast_to(ys, br.shape)
+            splat_fast(img, np.ascontiguousarray(xs).ravel(), np.ascontiguousarray(ys).ravel(),
+                       br.ravel(), (1.0, 0.98, 0.92))
+        for ev in (0.0, 0.5):
+            uu = ((u - ev) % 1.0) * L / 1.6
+            if uu < 1.0:
+                k = np.linspace(0.0, 1.0, 30, dtype=np.float32)
+                ax = w * (0.12 + 0.5 * ev) + k * w * 0.44
+                ay = h * (0.16 + 0.34 * ev) + k * h * 0.26
+                br = np.exp(-k * 5.0) * max(0.0, 1.0 - uu) * 1.6
+                splat_fast(img, ax, ay, br, (1.0, 0.95, 0.85))
+        return img
+
+
+# ────────────────────────────── 2) مطر على الزجاج ──────────────────────────────
+
+class RainGlass(Scene):
+    """ليل + مطر على زجاج: خطوط بتمشي · قطرات بتزحلق · برق · بوكيه أضواء."""
+    name = "rain_glass"
+    loop_seconds = 60.0
+
+    def prepare(self):
+        h, w, sd, L = self.h, self.w, self.seed, self.loop_seconds
+        rng = np.random.default_rng(sd + 11)
+        self.city = tiled_fbm(h, w, sd + 12, pick_period(w, w // 5), scales=(8, 16, 32, 64), gain=0.6)
+        self.pc = pick_period(w, w // 5)
+        self.lights = [(float(rng.random() * w), float(h * (0.55 + 0.42 * rng.random())),
+                        float(rng.uniform(28, 95)), float(rng.uniform(0.25, 0.75)),
+                        rng.choice([np.array([1.0, 0.72, 0.35], np.float32),
+                                    np.array([0.45, 0.75, 1.0], np.float32),
+                                    np.array([1.0, 0.95, 0.85], np.float32)]))
+                       for _ in range(26)]
+        n = 300
+        self.rx = rng.random(n, dtype=np.float32) * w
+        self.ry = rng.random(n, dtype=np.float32) * (h + 240)
+        self.rlen = rng.uniform(14, 52, n).astype(np.float32)
+        # سرعة المطر = عدد صحيح من ارتفاعات الشاشة لكل حلقة ⇒ حلقة مثالية
+        self.rsp = (rng.integers(2, 7, n).astype(np.float32) * (h + 240) / L)
+        self.ra = rng.uniform(0.05, 0.17, n).astype(np.float32)
+        m = 90
+        self.dx = rng.random(m, dtype=np.float32) * w
+        self.dy = rng.random(m, dtype=np.float32) * h * 0.9
+        self.dr = rng.uniform(3.5, 13.0, m).astype(np.float32)
+        self.dp = rng.random(m, dtype=np.float32)
+        self.dsl = rng.uniform(0.25, 1.0, m).astype(np.float32)
+        self.dn = rng.integers(1, 3, m)
+        self.flash_t = [0.28, 0.66]
+        self.flash2_t = [0.31, 0.685]
+        self.seg = np.linspace(0.0, 1.0, 9, dtype=np.float32)
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = t / L
+        img = np.zeros((h, w, 3), np.float32)
+        sky = np.array([0.035, 0.045, 0.075], np.float32)
+        city = roll_px(self.city, self.pc * u)
+        img += sky * (0.7 + 0.6 * city[:, :, None])
+        for (lx, ly, lr, lb, lc) in self.lights:
+            x = lx + 26.0 * math.sin(TAU * u + lx * 0.01)
+            glow(img, x, ly, lr * (1.0 + 0.12 * math.sin(TAU * 2 * u + ly * 0.02)), lc, lb * 0.5, 2.0)
+        base = img.copy()
+        y = np.mod(self.ry + self.rsp * t, h + 240) - 120
+        for k in range(0, len(self.rx), 75):     # تجميع الخطوط في دفعات (سرعة)
+            sel = slice(k, k + 75)
+            ln = self.rlen[sel][:, None] * self.seg[None, :]
+            ys = (y[sel][:, None] - ln).ravel()
+            xs = (self.rx[sel][:, None] + 6.0 * self.seg[None, :]).ravel()
+            br = (self.ra[sel][:, None] * np.linspace(1.0, 0.15, len(self.seg), dtype=np.float32)[None, :]).ravel()
+            splat_fast(img, xs, ys, br, (0.72, 0.80, 0.95))
+        prog = np.mod(u * self.dn + self.dp, 1.0)
+        slide = smoothstep(np.clip((prog - 0.35) / 0.6, 0.0, 1.0))
+        radius = self.dr * (0.55 + 0.75 * smoothstep(np.clip(prog / 0.35, 0.0, 1.0)))
+        dy = self.dy + slide * self.dsl * self.dr * 4.0
+        fade = np.clip(np.minimum(prog / 0.12, (1.0 - prog) / 0.18), 0.0, 1.0)
+        for j in range(len(self.dx)):
+            py, px, pr, k = float(dy[j]), float(self.dx[j]), float(radius[j]), float(fade[j])
+            if k <= 0.02:
+                continue
+            y0, y1 = max(0, int(py - pr)), min(h, int(py + pr) + 1)
+            x0, x1 = max(0, int(px - pr)), min(w, int(px + pr) + 1)
+            if y0 >= y1 or x0 >= x1:
+                continue
+            sub = img[y0:y1, x0:x1]
+            xs = np.arange(x0, x1, dtype=np.float32)[None, :] - np.float32(px)
+            ys = np.arange(y0, y1, dtype=np.float32)[:, None] - np.float32(py)
+            d = np.sqrt(xs * xs + ys * ys) / max(pr, 1e-6)
+            rim = np.exp(-((d - 0.86) ** 2) * 26.0)
+            lens = np.exp(-(d ** 2) * 2.4)
+            for c in range(3):
+                sub[:, :, c] += rim * (0.17 * k) + lens * (0.04 * k)
+                sub[:, :, c] += lens * base[y0:y1, x0:x1, c] * (0.5 * k)
+        flash = 0.0
+        for ft in self.flash_t:
+            d1 = ((u - ft) % 1.0) * L
+            flash += math.exp(-(d1 * 3.2) ** 2)
+        for ft in self.flash2_t:
+            d1 = ((u - ft) % 1.0) * L
+            flash += 0.45 * math.exp(-(d1 * 7.0) ** 2)
+        img += (0.16 * flash) * np.array([0.75, 0.80, 1.0], np.float32)
+        return img
+
+
+# ────────────────────────────── 3) بحر وموج ──────────────────────────────
+
+class Ocean(Scene):
+    """بحر حيّ: موج بيتمشى · رغوة · قمر وانعكاسه · سُحب بتزحف."""
+    name = "ocean"
+    loop_seconds = 60.0
+
+    def prepare(self):
+        h, w, sd = self.h, self.w, self.seed
+        self.pc = pick_period(w, w // 6)
+        self.pf = pick_period(w, w // 8)
+        self.sky = tiled_fbm(h, w, sd + 21, self.pc, scales=(16, 32, 64, 128), gain=0.6)
+        self.foam = tiled_fbm(h, w, sd + 22, self.pf, scales=(4, 8, 16, 32), gain=0.62)
+        self.horizon = int(h * 0.46)
+        self.moon_x = w * 0.68
+        self.moon_y = h * 0.19
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = t / L
+        img = np.zeros((h, w, 3), np.float32)
+        top = np.array([0.020, 0.032, 0.070], np.float32)
+        bot = np.array([0.075, 0.085, 0.130], np.float32)
+        ramp = np.clip((self.yy / max(1, self.horizon))[:, :, None], 0, 1)
+        img += _mix(top, bot, ramp)
+        cloud = roll_px(self.sky, self.pc * u)
+        img[:self.horizon] += cloud[:self.horizon, :, None] * 0.10
+        glow(img, self.moon_x, self.moon_y, 210, (0.85, 0.90, 1.0), 0.30, 2.0)
+        glow(img, self.moon_x, self.moon_y, 46, (1.0, 1.0, 0.98), 0.55, 2.4)
+        yy = np.clip(self.yy - self.horizon, 0, None)
+        depth = yy / max(1.0, (h - self.horizon))
+        img += np.array([0.015, 0.030, 0.060], np.float32) * (1.0 - 0.4 * depth[:, :, None])
+        for i, (amp, lam, spd, shade) in enumerate([
+                (0.55, 520.0, 1, 0.055), (0.40, 310.0, 2, 0.075),
+                (0.28, 175.0, 4, 0.10), (0.18, 105.0, 7, 0.085)]):
+            ph = TAU * (self.xx / lam + spd * u)
+            band = amp * np.sin(ph + depth * (5.0 + 3.0 * i))
+            band = band * (0.25 + 0.75 * depth)
+            img += shade * band[:, :, None] * np.array([0.55, 0.75, 1.0], np.float32)
+            crest = np.clip(band - amp * 0.55, 0.0, None)
+            f = roll_px(self.foam, self.pf * spd * u)
+            mask = crest[:h, :] * (0.5 + 0.9 * depth)
+            img += (f * mask)[:, :, None] * 0.30
+        rx = (self.xx - self.moon_x)
+        col = np.exp(-(rx / 62.0) ** 2) * (self.yy > self.horizon)
+        flick = 0.6 + 0.4 * np.sin(TAU * 3 * u + self.yy * 0.35) * np.sin(TAU * 2 * u)
+        img += (col * flick * 0.20)[:, :, None] * np.array([0.9, 0.94, 1.0], np.float32)
+        return img
+
+
+# ────────────────────────────── 4) الشفق القطبي ──────────────────────────────
+
+class Aurora(Scene):
+    """شفق قطبي حيّ: ستائر بتراقص · نجوم · جبل · ضباب."""
+    name = "aurora"
+    loop_seconds = 60.0
+
+    def prepare(self):
+        h, w, sd = self.h, self.w, self.seed
+        self.star_bg = Starfield(w=w, h=h, seed=sd + 31)
+        self.curtain = tiled_fbm(h, w, sd + 32, pick_period(w, w // 3), scales=(8, 16, 32, 64, 128), gain=0.62)
+        self.pc = pick_period(w, w // 3)
+        self.mist = tiled_fbm(h, w, sd + 33, pick_period(w, w // 6), scales=(16, 32, 64), gain=0.6)
+        self.pm = pick_period(w, w // 6)
+        self.curve = (h * 0.80 + 0.05 * h * np.sin(self.xx / 190.0)
+                      + 0.03 * h * np.sin(self.xx / 61.0 + 1.7))
+        self.mask_mtn = (self.yy > self.curve).astype(np.float32)
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = t / L
+        img = self.star_bg.render(t) * 0.72
+        for k, (y0f, amp, lam, col, pw) in enumerate([
+                (0.30, 0.10, 420.0, np.array([0.10, 0.85, 0.45], np.float32), 0.75),
+                (0.42, 0.13, 300.0, np.array([0.15, 0.75, 0.85], np.float32), 0.55),
+                (0.56, 0.09, 520.0, np.array([0.45, 0.25, 0.95], np.float32), 0.35)]):
+            tex = roll_px(self.curtain, self.pc * (k + 1) * u)
+            centre = h * y0f + h * amp * np.sin(TAU * ((k + 1) * u) + self.xx / lam)
+            width = h * (0.075 + 0.02 * math.sin(TAU * 2 * u + k))
+            band = np.exp(-(((self.yy - centre) / width) ** 2))
+            img += (band * (0.35 + 1.25 * tex) * pw)[:, :, None] * col
+        mist = roll_px(self.mist, self.pm * u)
+        img += (mist * 0.05)[:, :, None]
+        m = self.mask_mtn[:, :, None]
+        img = img * (1.0 - m) + m * 0.015
+        img += (mist * self.mask_mtn * 0.05)[:, :, None]
+        return img
+
+
+# ────────────────────────────── 5) مدفأة ──────────────────────────────
+
+class Fireplace(Scene):
+    """نار حيّة: لهب · جمر طائر · جذوع · رفرفة ضوء على الحجر."""
+    name = "fireplace"
+    loop_seconds = 60.0
+    grain_amp = 0.02
+
+    def prepare(self):
+        h, w, sd, L = self.h, self.w, self.seed, self.loop_seconds
+        rng = np.random.default_rng(sd + 41)
+        self.stone = tiled_fbm(h, w, sd + 42, pick_period(w, w // 4), scales=(8, 16, 32, 64), gain=0.6)
+        self.ps = pick_period(w, w // 4)
+        self.pfl_y = pick_period(h, h // 4)
+        self.pfl_x = pick_period(w, w // 5)
+        self.flame_tex = tiled_fbm2(h, w, sd + 43, self.pfl_y, self.pfl_x,
+                                    scales=(4, 8, 16, 32), gain=0.65)
+        self.fire_base = h * 0.80
+        self.fire_cx = w * 0.5
+        n = 110
+        self.ex = self.fire_cx + rng.uniform(-0.16, 0.16, n) * w
+        self.ey = rng.random(n, dtype=np.float32) * h * 0.42
+        self.ev = rng.integers(1, 4, n).astype(np.float32) * (h * 0.42) / L
+        self.ep = rng.random(n, dtype=np.float32) * TAU
+        self.es = rng.uniform(0.6, 1.8, n).astype(np.float32)
+        self.efreq = rng.integers(1, 4, n)
+        self.frame_mask = np.zeros((h, w), np.float32)
+        self.frame_mask[:int(h * 0.12)] = 1.0
+        self.frame_mask[:, :int(w * 0.07)] = 1.0
+        self.frame_mask[:, int(w * 0.93):] = 1.0
+        self.frame_mask[int(h * 0.78):, :int(w * 0.10)] = 1.0
+        self.frame_mask[int(h * 0.78):, int(w * 0.90):] = 1.0
+        self.logs = [(w * 0.34, h * 0.815, w * 0.30), (w * 0.60, h * 0.835, w * 0.26),
+                     (w * 0.47, h * 0.775, w * 0.20)]
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = t / L
+        flick = (0.80 + 0.10 * math.sin(TAU * 3 * u) + 0.06 * math.sin(TAU * 7 * u + 1.1)
+                 + 0.04 * math.sin(TAU * 13 * u + 2.3))
+        img = np.zeros((h, w, 3), np.float32)
+        stone = roll_px(self.stone, self.ps * u * 0.0)
+        img += (stone * 0.045 * flick)[:, :, None] * np.array([1.0, 0.72, 0.45], np.float32)
+        tex = np.roll(np.roll(self.flame_tex, int(round(self.pfl_y * 2 * u)), axis=0),
+                      int(round(self.pfl_x * u)), axis=1)
+        d = np.abs(self.xx - self.fire_cx) / (w * 0.16)
+        up = np.clip((self.fire_base - self.yy) / (h * 0.42), 0.0, 1.0)
+        core = np.exp(-(d ** 2) * (1.0 + 2.6 * up))
+        field = np.clip(core * up * (0.35 + 1.5 * tex) * 1.7, 0.0, 1.4)
+        field *= np.clip((self.fire_base - self.yy) / 8.0 + 1.0, 0.0, 1.0)
+        r = np.clip(field * 1.15, 0, 1)
+        g = np.clip((field - 0.35) * 1.25, 0, 1) ** 1.25
+        b = np.clip((field - 0.80) * 1.6, 0, 1) ** 1.8
+        img += np.stack([r, g, b], axis=2) * flick
+        glow(img, self.fire_cx, self.fire_base - h * 0.10, w * 0.34, (1.0, 0.46, 0.14), 0.30 * flick, 2.0)
+        ey = self.fire_base - np.mod(self.ev * t + self.ey, h * 0.42)
+        ex = self.ex + 8.0 * np.sin(TAU * (self.efreq * u) + self.ep)
+        tw = 0.5 + 0.5 * np.sin(TAU * (self.efreq * 2 * u) + self.ep)
+        splat_fast(img, ex, ey, 0.55 * self.es * tw, (1.0, 0.55, 0.18), wrap=False)
+        for (lx, ly, lw) in self.logs:
+            y0, y1 = int(ly - h * 0.035), int(ly + h * 0.030)
+            x0, x1 = int(lx - lw / 2), int(lx + lw / 2)
+            xs = np.arange(x0, x1, dtype=np.float32)[None, :]
+            ell = np.sqrt(np.clip(1.0 - ((xs - (x0 + x1) / 2) / (lw / 2)) ** 2, 0, 1))
+            t01 = np.linspace(0, 1, max(1, y1 - y0), dtype=np.float32)[:, None]
+            band = np.clip(ell * (0.65 - np.abs(t01 - 0.45) * 1.1), 0, 1)
+            band = band * (0.55 + 0.45 * self.stone[y0:y1, x0:x1])
+            img[y0:y1, x0:x1] += band[:, :, None] * np.array([0.20, 0.115, 0.070], np.float32)
+            img[y0:y1, x0:x1] += (band * field[y0:y1, x0:x1])[:, :, None] * np.array(
+                [0.45, 0.16, 0.03], np.float32)
+        fm = self.frame_mask[:, :, None]
+        img = img * (1 - fm) + fm * (0.06 + 0.08 * self.stone[:, :, None]) * np.array(
+            [1.0, 0.85, 0.70], np.float32)
+        img += fm * (0.10 * flick) * np.array([0.6, 0.35, 0.15], np.float32)
+        return img
+
+
+# ────────────────────────────── 6) طاولة الرمل (مريح للعين) ──────────────────────────────
+
+class SandTable(Scene):
+    """
+    طاولة الرمل الساحرة: كورة بترسم خطوط في الرمل،
+    وفي آخر الحلقة «راكة» بتمسح السطح وتبدأ من جديد ⇒ حلقة مثالية.
+    """
+    name = "sand_table"
+    loop_seconds = 40.0
+    stateful = True
+
+    def prepare(self):
+        h, w, sd = self.h, self.w, self.seed
+        yy, xx = np.mgrid[0:h, 0:w]
+        d = np.sqrt(((xx - w / 2) / (w / 2)) ** 2 + ((yy - h / 2) / (h / 2)) ** 2)
+        self.disc = np.clip(1.0 - smoothstep((d - 0.80) / 0.18), 0.0, 1.0).astype(np.float32)
+        self.sand = fbm(h, w, sd + 51, scales=(2, 4, 8, 16), gain=0.7)
+        self.cx, self.cy = w / 2, h / 2
+        self.R = min(w, h) * 0.40
+        self.draw_until = 0.86
+        self.reset()
+
+    def reset(self):
+        self.hmap = np.zeros((self.h, self.w), np.float32)
+        self.last = None
+
+    def _pos(self, u, clean: float = 0.0):
+        a = TAU * u
+        x = self.cx + self.R * (0.66 * math.sin(3 * a) + 0.30 * math.sin(5 * a + 0.6))
+        y = self.cy + self.R * (0.66 * math.cos(2 * a) + 0.30 * math.cos(7 * a + 1.2))
+        if clean > 0.0:
+            x = x * (1 - clean) + self.cx * clean
+            y = y * (1 - clean) + self.cy * clean
+        return x, y
+
+    def render(self, t):
+        L, h, w = self.loop_seconds, self.h, self.w
+        u = (t % L) / L
+        if t < 1.0 / self.fps:
+            self.reset()
+        drawing = u <= self.draw_until
+        if drawing:
+            uu = u / self.draw_until
+            x, y = self._pos(uu)
+            x0, y0 = self.last if self.last else (x, y)
+            self.last = (x, y)
+            steps = 8
+            for i in range(1, steps + 1):
+                xi = x0 + (x - x0) * i / steps
+                yi = y0 + (y - y0) * i / steps
+                px, py = int(xi), int(yi)
+                if 2 <= px < w - 3 and 2 <= py < h - 3:
+                    self.hmap[py - 2:py + 3, px - 2:px + 3] -= 1.35
+        else:
+            self.hmap *= 0.955      # الراكة بتمسح السطح تدريجيًا
+        np.clip(self.hmap, -34.0, 0.0, out=self.hmap)
+        gx = np.zeros_like(self.hmap); gy = np.zeros_like(self.hmap)
+        gx[:, 1:-1] = (self.hmap[:, 2:] - self.hmap[:, :-2]) * 0.5
+        gy[1:-1, :] = (self.hmap[2:, :] - self.hmap[:-2, :]) * 0.5
+        lit = np.clip(0.55 + (-gx * 0.35 - gy * 0.55), 0.0, 1.6)
+        base = 0.20 + 0.16 * self.sand + lit * 0.52
+        sand = np.array([0.60, 0.47, 0.33], np.float32)
+        img = np.zeros((h, w, 3), np.float32)
+        img += (base * self.disc)[:, :, None] * sand
+        if drawing:
+            hx, hy = self._pos(u / self.draw_until)
+            glow(img, hx, hy, self.R * 0.30, (1.0, 0.86, 0.55), 0.18, 2.2)
+        clean = 0.0 if drawing else smoothstep((u - self.draw_until) / (1.0 - self.draw_until))
+        bx, by = self._pos(u / self.draw_until if drawing else 0.0, clean)
+        img *= (1.0 - self.disc[:, :, None] * 0.35)
+        glow(img, bx + 6, by + 9, 26, (0.0, 0.0, 0.0), 0.5, 2.0)
+        glow(img, bx, by, 22, (1.0, 0.95, 0.85), 0.75, 2.6)
+        splat(img, [bx], [by], [1.0], (1.0, 1.0, 1.0), wrap=False)
+        if not drawing:
+            sweep = (u - self.draw_until) / (1.0 - self.draw_until)
+            sx = w * (0.12 + 0.76 * sweep)
+            band = np.exp(-(((self.xx - sx) / (w * 0.05)) ** 2))
+            img += (band * 0.10)[:, :, None] * np.array([0.9, 0.85, 0.75], np.float32)
+        img *= np.clip(self.disc + 0.06, 0.0, 1.0)[:, :, None]
+        return img
+
+
+# ────────────────────────────── 7) موجة النواسير ──────────────────────────────
+
+class PendulumWave(Scene):
+    """موجة نواسير: 16 كورة بترسم أنماط مبهِرة — إيقاع رياضي مريح."""
+    name = "pendulum_wave"
+    loop_seconds = 45.0
+
+    def __init__(self, w=1280, h=720, fps=30, seed=7, n=16):
+        self.n_req = n
+        super().__init__(w, h, fps, seed)
+
+    def prepare(self):
+        h, w, n = self.h, self.w, self.n_req
+        self.pivot_y = h * 0.12
+        self.len = h * 0.66
+        self.x = np.linspace(w * 0.10, w * 0.90, n, dtype=np.float32)
+        self.freq = np.arange(13, 13 + n, dtype=np.float32)
+        self.amp = (0.30 + 0.06 * np.sin(np.arange(n) * 1.7)).astype(np.float32)
+        self.rad = float(np.clip(w * 0.018, 7.0, 16.0))
+        self.back = fbm(h, w, self.seed + 61, scales=(16, 32, 64, 128), gain=0.6)
+        self.hue = (np.arange(n, dtype=np.float32) / n)
+        self.cols = np.stack([0.35 + 0.65 * np.sin(TAU * self.hue),
+                              0.35 + 0.65 * np.sin(TAU * self.hue + 2.1),
+                              0.35 + 0.65 * np.sin(TAU * self.hue + 4.2)], axis=1).astype(np.float32)
+
+    def render(self, t):
+        h, w, L, n = self.h, self.w, self.loop_seconds, self.n_req
+        u = t / L
+        img = np.zeros((h, w, 3), np.float32)
+        img += (0.028 + 0.05 * self.back)[:, :, None] * np.array([0.55, 0.62, 0.85], np.float32)
+        th = self.amp * np.cos(TAU * self.freq * u)
+        bx = self.x + self.len * np.sin(th)
+        by = self.pivot_y + self.len * np.cos(th)
+        k = np.linspace(0.0, 1.0, 16, dtype=np.float32)
+        rxs = self.x[:, None] + (bx - self.x)[:, None] * k[None, :]
+        rys = self.pivot_y + (by - self.pivot_y)[:, None] * k[None, :]
+        rbr = (0.16 * (0.45 + 0.55 * k))[None, :] * np.ones((n, 1), np.float32)
+        splat_fast(img, rxs.ravel(), rys.ravel(), rbr.ravel(), (0.72, 0.78, 0.95))
+        for i in range(n):
+            glow(img, float(bx[i]), float(by[i]), self.rad * 2.6, (0.0, 0.0, 0.0), 0.32, 2.0)
+        for i in range(n):
+            glow(img, float(bx[i]), float(by[i]), self.rad * 3.2, (0.10, 0.12, 0.20), 0.26, 2.0)
+            glow(img, float(bx[i] - self.rad * 0.25), float(by[i] - self.rad * 0.25),
+                 self.rad * 1.5, tuple(float(v) for v in self.cols[i]), 0.6, 2.6)
+        splat_fast(img, bx - self.rad * 0.3, by - self.rad * 0.3,
+                   np.full(n, 0.7, np.float32), (1.0, 1.0, 1.0))
+        img[int(self.pivot_y) - 3:int(self.pivot_y) + 3, int(w * 0.07):int(w * 0.93)] += 0.10
+        return img
+
+
+# ────────────────────────────── 8) هارمونوغراف (رسم ضوئي) ──────────────────────────────
+
+class Harmonograph(Scene):
+    """رسم ضوئي نيون على أسود: منحنى رياضي بيتكرر بدقة ⇒ حلقة مثالية."""
+    name = "harmonograph"
+    loop_seconds = 30.0
+
+    def prepare(self):
+        self.A = self.h * 0.36
+        t = np.linspace(0.0, 1.0, 1100, dtype=np.float32)
+        self.tt = t
+        self.span = 0.55
+        self.uu = np.mod(-self.span * (1.0 - t), 1.0)
+        self.xs, self.ys = self._curve(self.uu)
+        self.br = (t ** 2.0) * 0.5
+        hue = np.clip(t, 0, 1)[:, None]
+        self.cols = (np.array([0.30, 0.85, 1.0], np.float32) * (1 - hue)
+                     + np.array([0.90, 0.35, 1.0], np.float32) * hue).astype(np.float32)
+        self.bg = fbm(self.h, self.w, self.seed + 71, scales=(16, 32, 64, 128), gain=0.6)
+
+    def _curve(self, u):
+        u = np.asarray(u, np.float32)
+        x = (self.A * 0.90 * np.sin(TAU * 3.0 * u + 0.0)
+             + self.A * 0.45 * np.sin(TAU * 5.0 * u + 1.1)
+             + self.A * 0.22 * np.sin(TAU * 2.0 * u + 2.4))
+        y = (self.A * 0.90 * np.sin(TAU * 2.0 * u + 0.6)
+             + self.A * 0.45 * np.sin(TAU * 7.0 * u + 2.0)
+             + self.A * 0.22 * np.sin(TAU * 4.0 * u + 3.3))
+        return self.w / 2 + x, self.h / 2 + y * 0.92
+
+    def render(self, t):
+        h, w, L = self.h, self.w, self.loop_seconds
+        u = (t % L) / L
+        img = np.zeros((h, w, 3), np.float32)
+        img += (0.010 + 0.030 * self.bg)[:, :, None] * np.array([0.6, 0.7, 1.0], np.float32)
+        sh = int(round(u * self.uu.size))
+        xs = np.roll(self.xs, sh); ys = np.roll(self.ys, sh)
+        br = np.roll(self.br, sh); cols = np.roll(self.cols, sh, axis=0)
+        for k in range(0, xs.size, 220):
+            sel = slice(k, k + 220)
+            c = cols[sel].mean(axis=0)
+            splat_fast(img, xs[sel], ys[sel], br[sel] * 0.6, tuple(float(v) for v in c))
+        hx, hy = self._curve(np.array([u], np.float32))
+        glow(img, float(hx[0]), float(hy[0]), 44, (0.85, 0.95, 1.0), 0.70, 2.0)
+        return img
+
+
+# ────────────────────────────── ملصقات متحركة (Stingers) ──────────────────────────────
+
+class Confetti(Scene):
+    """انفجار قصاصات ملوّنة — للمفاجآت واللحظات المضحكة."""
+    name = "stinger_confetti"
+    loop_seconds = 3.0
+
+    def prepare(self):
+        rng = np.random.default_rng(self.seed + 71)
+        n = 260
+        self.x0 = rng.random(n, dtype=np.float32) * self.w
+        self.y0 = rng.random(n, dtype=np.float32) * self.h * 0.6
+        self.vx = (rng.random(n, dtype=np.float32) - 0.5) * 300.0
+        self.vy = -(140.0 + rng.random(n, dtype=np.float32) * 280.0)
+        self.ph = rng.random(n, dtype=np.float32) * TAU
+        self.col = (rng.random((n, 3), dtype=np.float32) * 0.7 + 0.3)
+
+    def render(self, t):
+        u = (t % self.loop_seconds) / self.loop_seconds
+        gt = u * 1.5
+        img = np.zeros((self.h, self.w, 3), np.float32)
+        x = self.x0 + self.vx * gt + 30.0 * np.sin(TAU * u + self.ph)
+        y = self.y0 + self.vy * gt + 260.0 * gt * gt
+        alive = (y < self.h + 30) & (y > -40)
+        x, y, c = x[alive], y[alive], self.col[alive]
+        idx = (np.clip(y, 0, self.h - 1).astype(np.int64) * self.w
+               + np.clip(x, 0, self.w - 1).astype(np.int64))
+        for ch in range(3):
+            img[:, :, ch] += np.bincount(idx, weights=c[:, ch] * 1.3,
+                                         minlength=self.h * self.w).reshape(self.h, self.w).astype(np.float32)
+        return img
+
+
+class Glitch(Scene):
+    """تشويش رقمي — انتقالات قوية للشورتس."""
+    name = "stinger_glitch"
+    loop_seconds = 2.0
+
+    def render(self, t):
+        h, w = self.h, self.w
+        u = (t % self.loop_seconds) / self.loop_seconds
+        img = np.zeros((h, w, 3), np.float32)
+        bars = (np.sin(TAU * (u * 3.0 + np.arange(h, dtype=np.float32) / 9.0)) > 0.6).astype(np.float32)
+        img += bars[:, None, None] * 0.35 * np.array([0.4, 0.9, 1.0], np.float32)
+        rng = np.random.default_rng(int(u * 24) + 3)
+        for _ in range(14):
+            y = int(rng.integers(0, h - 12)); hh = int(rng.integers(3, 14))
+            x = int(rng.integers(-w // 3, w)); ww = int(rng.integers(w // 6, w // 2))
+            col = rng.random(3, dtype=np.float32) * 0.8
+            y0, y1 = y, min(h, y + hh); x0, x1 = max(0, x), min(w, x + ww)
+            if y1 > y0 and x1 > x0:
+                img[y0:y1, x0:x1] += col
+        return img * 0.9
+
+
+class ZoomPunch(Scene):
+    """نبضة زووم + وميض — للتأكيد على لحظة."""
+    name = "stinger_zoom"
+    loop_seconds = 1.5
+
+    def render(self, t):
+        u = (t % self.loop_seconds) / self.loop_seconds
+        img = np.zeros((self.h, self.w, 3), np.float32)
+        rr = np.sqrt(((self.xx - self.w / 2) / (self.w * 0.5)) ** 2
+                     + ((self.yy - self.h / 2) / (self.h * 0.5)) ** 2)
+        ring = np.exp(-((rr - u * 1.25) ** 2) * 90.0)
+        img += (ring * (1 - u))[:, :, None] * np.array([1.0, 0.95, 0.85], np.float32)
+        img += max(0.0, 1.0 - u * 5.0) * 0.35
+        return img
+
+
+class InkWipe(Scene):
+    """مسحة حبر سينمائية — انتقال بين المشاهد."""
+    name = "stinger_ink"
+    loop_seconds = 2.0
+
+    def prepare(self):
+        self.tex = fbm(self.h, self.w, self.seed + 81, scales=(8, 16, 32, 64), gain=0.65)
+
+    def render(self, t):
+        u = (t % self.loop_seconds) / self.loop_seconds
+        edge = smoothstep((u - 0.15) / 0.5)
+        m = np.clip(edge * 1.35 - self.tex * 0.55, 0.0, 1.0)
+        img = np.zeros((self.h, self.w, 3), np.float32)
+        img += m[:, :, None] * np.array([0.10, 0.07, 0.16], np.float32)
+        img += (np.clip(m - 0.85, 0, None) * 3.0)[:, :, None] * np.array([0.5, 0.4, 0.9], np.float32)
+        return img
+
+
+# ────────────────────────────── السجل + الترميز ──────────────────────────────
+
+SCENES = {
+    "starfield": Starfield, "rain_glass": RainGlass, "ocean": Ocean, "aurora": Aurora,
+    "fireplace": Fireplace, "sand_table": SandTable, "pendulum_wave": PendulumWave,
+    "harmonograph": Harmonograph, "stinger_confetti": Confetti, "stinger_glitch": Glitch,
+    "stinger_zoom": ZoomPunch, "stinger_ink": InkWipe,
+}
+
+SLEEP_SCENES = ("starfield", "rain_glass", "ocean", "aurora", "fireplace")
+SMILE_SCENES = ("sand_table", "pendulum_wave", "harmonograph", "stinger_confetti",
+                "stinger_glitch", "stinger_zoom", "stinger_ink")
+
+
+def make_scene(name: str, w: int = 1280, h: int = 720, fps: int = 30, seed: int = 7) -> Scene:
+    if name not in SCENES:
+        raise KeyError(f"مشهد غير معروف: {name}")
+    return SCENES[name](w=w, h=h, fps=fps, seed=seed)
+
+
+def black_screen(w: int = 1280, h: int = 720, fps: int = 30, seed: int = 7) -> Scene:
+    """الشاشة السوداء «الحقيقية» (اللي بتجيب مئات الملايين) + تنفّس خفيف جدًا يمنع الجمود."""
+    class _Black(Scene):
+        name = "black_screen"
+        grain_amp = 0.004
+
+        def render(self, t):
+            u = (t % self.loop_seconds) / self.loop_seconds
+            v = 0.007 + 0.004 * math.sin(TAU * u)
+            return np.full((self.h, self.w, 3), v, np.float32)
+    return _Black(w=w, h=h, fps=fps, seed=seed)
+
+
+def encode(scene: Scene, seconds: float, path, fps: int | None = None,
+           out_w: int | None = 1920, out_h: int | None = 1080, crf: int = 20,
+           preset: str = "veryfast", verbose: bool = False) -> pathlib.Path:
+    """ترميز حلقة فيديو (H.264 · yuv420p · faststart) بلا تجميع كادرات في الرام."""
+    fps = int(fps or scene.fps)
+    path = pathlib.Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    frames = int(round(seconds * fps))
+    cmd = [FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
+           "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{scene.w}x{scene.h}", "-r", str(fps),
+           "-i", "-"]
+    if out_w and out_h and (out_w, out_h) != (scene.w, scene.h):
+        cmd += ["-vf", f"scale={out_w}:{out_h}:flags=lanczos"]
+    cmd += ["-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-pix_fmt", "yuv420p",
+            "-g", str(fps * 2), "-keyint_min", str(fps), "-sc_threshold", "0",
+            "-movflags", "+faststart", str(path)]
+    if scene.stateful:
+        scene.reset()
+    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL,
+                            stderr=subprocess.PIPE)
+    try:
+        for i in range(frames):
+            proc.stdin.write(memoryview(scene.frame(i / fps, index=i)))
+    finally:
+        if proc.stdin:
+            proc.stdin.close()
+    err = proc.stderr.read().decode("utf-8", "ignore") if proc.stderr else ""
+    rc = proc.wait()
+    if rc != 0:
+        raise RuntimeError(f"ffmpeg فشل ({rc}): {err[:400]}")
+    if verbose:
+        print(f"✅ {path.name} · {frames} كادر · {seconds:.1f} ث")
+    return path
+
+
+def long_video(loop_path, out, total_seconds: float, audio_wav=None, audio_loop: bool = True,
+               verbose: bool = False):
+    """فيديو طويل من حلقة قصيرة **بلا إعادة ترميز** ⇒ 10 ساعات في ثواني، وبلا فجوات."""
+    loop_path, out = pathlib.Path(loop_path), pathlib.Path(out)
+    probe = subprocess.run([FFMPEG, "-hide_banner", "-i", str(loop_path)], capture_output=True)
+    dur = 60.0
+    for line in probe.stderr.decode("utf-8", "ignore").splitlines():
+        if "Duration:" in line:
+            hh, mm, ss = line.split("Duration:")[1].split(",")[0].strip().split(":")
+            dur = int(hh) * 3600 + int(mm) * 60 + float(ss)
+    loops = max(1, int(math.ceil(total_seconds / max(dur, 0.1))))
+    cmd = [FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
+           "-stream_loop", str(loops), "-i", str(loop_path)]
+    if audio_wav:
+        cmd += (["-stream_loop", str(loops)] if audio_loop else []) + ["-i", str(audio_wav)]
+    cmd += ["-t", f"{total_seconds:.3f}", "-c:v", "copy"]
+    if audio_wav:
+        cmd += ["-c:a", "aac", "-b:a", "192k", "-ar", "44100", "-ac", "2"]
+    cmd += ["-movflags", "+faststart", str(out)]
+    subprocess.run(cmd, check=True, capture_output=True)
+    if verbose:
+        print(f"✅ {out.name} · {total_seconds/3600:.1f} ساعة · {loops} تكرار")
+    return out
+
+
+def render_showcase(out_dir, seconds: float = 8.0, w: int = 1280, h: int = 720,
+                    fps: int = 30, scenes=None) -> list:
+    """عيّنات قصيرة من كل مشهد — للمراجعة بالعين."""
+    out_dir = pathlib.Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    made = []
+    for name in (scenes or list(SCENES)):
+        sc = make_scene(name, w=w, h=h, fps=fps)
+        made.append(encode(sc, seconds, out_dir / f"{name}.mp4",
+                           out_w=w * 2, out_h=h * 2, crf=23))
+    return made
+
+
+if __name__ == "__main__":
+    import sys
+    which = sys.argv[1:] or ["starfield"]
+    for nm in which:
+        sc = make_scene(nm)
+        p = encode(sc, min(sc.loop_seconds, 10.0), f"out/{nm}.mp4", verbose=True)
+        print("→", p)

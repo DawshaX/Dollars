@@ -8,13 +8,13 @@ permissions:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - name: تجهيز الأدوات
-        run: python -m pip install --quiet numpy pytest pillow
+        run: python -m pip install --quiet numpy pytest pillow imageio-ffmpeg
       - name: تشغيل الاختبارات
         run: python -m pytest tests/ -q

@@ -1,0 +1,63 @@
+name: 🎬 مصنع الرندر (يدوي)
+on:
+  workflow_dispatch:
+    inputs:
+      scene:
+        description: "المشهد (rain_glass · ocean · fireplace · starfield · aurora · sand_table · pendulum_wave · harmonograph)"
+        required: true
+        default: rain_glass
+      seconds:
+        description: "مدة الحلقة بالثواني"
+        required: true
+        default: "20"
+      hours:
+        description: "حوّلها لفيديو كام ساعة؟ (0 = بلا)"
+        required: true
+        default: "0"
+      audio:
+        description: "وصفة الصوت (sleep_rain · rain_only · ocean · storm · fireplace · calm_night · focus · meditation)". 
+        required: false
+        default: sleep_rain
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --quiet numpy pillow imageio-ffmpeg
+      - name: رندر الحلقة + الصوت + الفيديو الطويل
+        run: |
+          python - <<'PY'
+          import os, pathlib, sys
+          sys.path.insert(0, ".")
+          from engine import visuals, ambient, meta
+          scene = os.environ["SCENE"]; secs = float(os.environ["SECS"]); hours = float(os.environ["HOURS"])
+          audio = os.environ["AUDIO"]
+          out = pathlib.Path("out"); out.mkdir(exist_ok=True)
+          sc = visuals.make_scene(scene, w=1280, h=720, fps=30)
+          loop = visuals.encode(sc, min(secs, sc.loop_seconds), out / f"{scene}_loop.mp4")
+          wav = ambient.make(audio, min(secs, sc.loop_seconds), out / f"{audio}.wav")
+          if hours > 0:
+              visuals.long_video(loop, out / f"{scene}_{int(hours)}h.mp4", hours * 3600, audio_wav=wav)
+          else:
+              visuals.long_video(loop, out / f"{scene}_preview.mp4", min(secs, sc.loop_seconds), audio_wav=wav)
+          md = meta.build({"pillar": "sleep" if scene in visuals.SLEEP_SCENES else "satisfying",
+                           "hours": hours or None, "seconds": None if hours else secs})
+          print(meta.write_package(md, "out"))
+          print("مشاكل:", meta.validate(md) or "مفيش ✅")
+          PY
+        env:
+          SCENE: ${{ inputs.scene }}
+          SECS: ${{ inputs.seconds }}
+          HOURS: ${{ inputs.hours }}
+          AUDIO: ${{ inputs.audio }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: studio-render-${{ inputs.scene }}
+          path: out/
+          retention-days: 7

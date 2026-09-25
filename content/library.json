@@ -1,0 +1,310 @@
+{
+  "note": "مكتبة Dollars — كل عنصر هنا ملكنا (متولّد بالكود) ⇒ صفر حقوق، صفر سرقة.",
+  "license": "owned-generated",
+  "version": 20260925,
+  "scenes": {
+    "long_ambience": [
+      "starfield",
+      "rain_glass",
+      "ocean",
+      "aurora",
+      "fireplace"
+    ],
+    "satisfying_and_stingers": [
+      "sand_table",
+      "pendulum_wave",
+      "harmonograph",
+      "stinger_confetti",
+      "stinger_glitch",
+      "stinger_zoom",
+      "stinger_ink"
+    ],
+    "all": [
+      "aurora",
+      "fireplace",
+      "harmonograph",
+      "ocean",
+      "pendulum_wave",
+      "rain_glass",
+      "sand_table",
+      "starfield",
+      "stinger_confetti",
+      "stinger_glitch",
+      "stinger_ink",
+      "stinger_zoom"
+    ],
+    "note": "كل مشهد حركة حقيقية (جزيئات · موج · لهب · كور) مش صورة ثابتة"
+  },
+  "audio_recipes": [
+    "calm_night",
+    "fireplace",
+    "focus",
+    "meditation",
+    "ocean",
+    "rain_only",
+    "sleep_rain",
+    "storm"
+  ],
+  "sfx": {
+    "count": 32,
+    "uses": {
+      "transition": [
+        "whoosh",
+        "swipe",
+        "zoom",
+        "glitch",
+        "riser",
+        "bass_drop",
+        "impact",
+        "record_stop"
+      ],
+      "comedy": [
+        "boing",
+        "spring",
+        "slide_whistle",
+        "sad_trombone",
+        "error",
+        "bubble",
+        "pop"
+      ],
+      "celebration": [
+        "tada",
+        "magic",
+        "sparkle",
+        "coin",
+        "cork",
+        "appear",
+        "cymbal",
+        "success"
+      ],
+      "world": [
+        "thud",
+        "drum",
+        "heartbeat",
+        "tick",
+        "water",
+        "paper",
+        "click",
+        "ding",
+        "bell"
+      ]
+    },
+    "recommended": {
+      "sleep": [],
+      "story": [
+        "bell",
+        "appear",
+        "boing",
+        "sparkle",
+        "magic",
+        "slide_whistle",
+        "sad_trombone",
+        "tada"
+      ],
+      "satisfying": [
+        "bubble",
+        "pop",
+        "click",
+        "sparkle",
+        "ding",
+        "swipe"
+      ],
+      "short_comedy": [
+        "boing",
+        "spring",
+        "record_stop",
+        "error",
+        "slide_whistle",
+        "whoosh",
+        "pop"
+      ]
+    }
+  },
+  "stickers": {
+    "count": 36,
+    "uses": {
+      "reaction": [
+        "nono_happy",
+        "nono_shock",
+        "nono_love",
+        "nono_sad",
+        "nono_sleepy",
+        "koko_happy",
+        "koko_sleep",
+        "paper_man",
+        "paper_man_facepalm",
+        "laugh",
+        "anger",
+        "zzz"
+      ],
+      "emotion": [
+        "heart",
+        "heart_broken",
+        "star",
+        "sparkle",
+        "flame",
+        "droplet",
+        "moon",
+        "sun",
+        "cloud"
+      ],
+      "ui": [
+        "question",
+        "exclaim",
+        "arrow_right",
+        "arrow_curve",
+        "crown",
+        "check",
+        "cross",
+        "badge_new",
+        "ring",
+        "burst",
+        "speed_lines",
+        "speech",
+        "thought",
+        "note",
+        "rain_cloud"
+      ]
+    }
+  },
+  "memes": {
+    "count": 6,
+    "templates": {
+      "reaction_face_big": {
+        "sticker": "nono_shock",
+        "use": "وش كبير + جملة تحت — لأي صدمة أو مفاجأة",
+        "text_areas": {
+          "top": [
+            0.06,
+            0.1
+          ],
+          "bottom": [
+            0.78,
+            0.96
+          ]
+        }
+      },
+      "character_center": {
+        "sticker": "nono_happy",
+        "use": "الشخصية في النص + عنوان فوق وتحت",
+        "text_areas": {
+          "top": [
+            0.05,
+            0.18
+          ],
+          "bottom": [
+            0.8,
+            0.95
+          ]
+        }
+      },
+      "side_by_side": {
+        "sticker": "paper_man",
+        "use": "قبل/بعد: صورتين جنب بعض + سطر تحت",
+        "text_areas": {
+          "left": [
+            0.04,
+            0.46
+          ],
+          "right": [
+            0.54,
+            0.96
+          ],
+          "bottom": [
+            0.82,
+            0.96
+          ]
+        }
+      },
+      "calm_koko": {
+        "sticker": "koko_sleep",
+        "use": "هادئ للنوم: قطة السحاب + سطر ناعم",
+        "text_areas": {
+          "top": [
+            0.08,
+            0.22
+          ],
+          "bottom": [
+            0.8,
+            0.94
+          ]
+        }
+      },
+      "zoom_question": {
+        "sticker": "question",
+        "use": "سؤال يشدّ المشاهد في أول ثانية",
+        "text_areas": {
+          "center": [
+            0.25,
+            0.75
+          ]
+        }
+      },
+      "celebration_burst": {
+        "sticker": "badge_new",
+        "use": "احتفال/إعلان — شرايط ولون قوي",
+        "text_areas": {
+          "top": [
+            0.05,
+            0.2
+          ],
+          "bottom": [
+            0.8,
+            0.95
+          ]
+        }
+      }
+    }
+  },
+  "characters": [
+    {
+      "id": "nono",
+      "name": "نونو",
+      "type": "كائن طيني فضولي",
+      "origin": "hand"
+    },
+    {
+      "id": "koko",
+      "name": "كوكو",
+      "type": "قطة سحابية",
+      "origin": "hand"
+    },
+    {
+      "id": "paper_man",
+      "name": "الرجل الورقي",
+      "type": "شخصية ورق مقصوص",
+      "origin": "hand"
+    },
+    {
+      "id": "lazo_auto",
+      "name": "Lazo",
+      "type": "نبتة فضائية",
+      "origin": "auto"
+    },
+    {
+      "id": "bomi_auto",
+      "name": "Bomi",
+      "type": "سمكة نجمية",
+      "origin": "auto"
+    }
+  ],
+  "rules": {
+    "no_copyright": "ممنوع أي مقطع/صورة/أغنية/ميم من حد تاني — ولو مشهور",
+    "no_real_people_voices": "ممنوع تقليد صوت أي إنسان حقيقي",
+    "ai_disclosure": "الإفصاح عن المحتوى المولّد إلزامي في كل وصف",
+    "not_made_for_kids": "family-safe لكن مش «مصنوع للأطفال» (عشان الإعلانات)",
+    "allowed_external": [
+      "NASA (ملكية عامة)",
+      "Wikimedia CC0",
+      "Pexels/Pixabay (بسجل ترخيص)",
+      "Openverse (CC0 فقط) — وممنوع أي حاجة CC BY-NC"
+    ],
+    "log_required": "أي أصل خارجي لازم يتسجّل في vault/index.json بالترخيص والمصدر"
+  },
+  "how_to_use": {
+    "sleep_long": "مشهد نوم + وصفة صوت + شاشة سوداء اختياري ⇒ 3/8/10 ساعات",
+    "story": "شخصية + مشهد + مؤثرات (bell/appear/boing/sparkle) + ملصقات المشاعر",
+    "satisfying_short": "مشهد رياضي (sand_table/pendulum_wave/harmonograph) + pops/clicks",
+    "transitions": "whoosh · swipe · glitch · zoom · ink wipe بين المشاهد"
+  }
+}

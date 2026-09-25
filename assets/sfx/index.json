@@ -1,0 +1,112 @@
+{
+  "note": "مكتبة مؤثرات Dollars — متولّدة بالكود 100%، ملكية كاملة، بلا أي حقوق غيرنا.",
+  "license": "owned-generated",
+  "sample_rate": 44100,
+  "count": 32,
+  "uses": {
+    "transition": [
+      "whoosh",
+      "swipe",
+      "zoom",
+      "glitch",
+      "riser",
+      "bass_drop",
+      "impact",
+      "record_stop"
+    ],
+    "comedy": [
+      "boing",
+      "spring",
+      "slide_whistle",
+      "sad_trombone",
+      "error",
+      "bubble",
+      "pop"
+    ],
+    "celebration": [
+      "tada",
+      "magic",
+      "sparkle",
+      "coin",
+      "cork",
+      "appear",
+      "cymbal",
+      "success"
+    ],
+    "world": [
+      "thud",
+      "drum",
+      "heartbeat",
+      "tick",
+      "water",
+      "paper",
+      "click",
+      "ding",
+      "bell"
+    ]
+  },
+  "recommended": {
+    "sleep": [],
+    "story": [
+      "bell",
+      "appear",
+      "boing",
+      "sparkle",
+      "magic",
+      "slide_whistle",
+      "sad_trombone",
+      "tada"
+    ],
+    "satisfying": [
+      "bubble",
+      "pop",
+      "click",
+      "sparkle",
+      "ding",
+      "swipe"
+    ],
+    "short_comedy": [
+      "boing",
+      "spring",
+      "record_stop",
+      "error",
+      "slide_whistle",
+      "whoosh",
+      "pop"
+    ]
+  },
+  "files": {
+    "appear": "appear.wav",
+    "bass_drop": "bass_drop.wav",
+    "bell": "bell.wav",
+    "boing": "boing.wav",
+    "bubble": "bubble.wav",
+    "click": "click.wav",
+    "coin": "coin.wav",
+    "cork": "cork.wav",
+    "cymbal": "cymbal.wav",
+    "ding": "ding.wav",
+    "drum": "drum.wav",
+    "error": "error.wav",
+    "glitch": "glitch.wav",
+    "heartbeat": "heartbeat.wav",
+    "impact": "impact.wav",
+    "magic": "magic.wav",
+    "paper": "paper.wav",
+    "pop": "pop.wav",
+    "record_stop": "record_stop.wav",
+    "riser": "riser.wav",
+    "sad_trombone": "sad_trombone.wav",
+    "slide_whistle": "slide_whistle.wav",
+    "sparkle": "sparkle.wav",
+    "spring": "spring.wav",
+    "success": "success.wav",
+    "swipe": "swipe.wav",
+    "tada": "tada.wav",
+    "thud": "thud.wav",
+    "tick": "tick.wav",
+    "water": "water.wav",
+    "whoosh": "whoosh.wav",
+    "zoom": "zoom.wav"
+  }
+}
