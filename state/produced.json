@@ -584,19 +584,49 @@
       "reason": "🚦 بوابة الجودة رفضت النشر: ['الأبعاد']",
       "seconds_spent": 148.0,
       "at": "2026-09-26T10:20:32.065754+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 2,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "black",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_02/black_10h.mp4",
+      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
+      "published": false,
+      "url": null,
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['الأبعاد', 'مفيش ثبات طويل']",
+      "seconds_spent": 1929.5,
+      "at": "2026-09-26T12:08:12.353799+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 8,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "starfield",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_08/starfield_10h.mp4",
+      "title": "Deep Space Sleep for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": false,
+      "url": null,
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['الأبعاد', 'مفيش ثبات طويل']",
+      "seconds_spent": 970.0,
+      "at": "2026-09-26T12:25:11.349728+00:00"
     }
   ],
   "stats": {
-    "total": 39,
+    "total": 41,
     "published": 3,
-    "staged": 35,
+    "staged": 37,
     "by_pillar": {
       "focus": 5,
       "satisfying": 18,
-      "sleep": 11,
+      "sleep": 13,
       "story": 5
     }
   },
   "created": null,
-  "updated": "2026-09-26T10:20:32.870189+00:00"
+  "updated": "2026-09-26T12:25:56.085097+00:00"
 }
