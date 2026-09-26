@@ -269,6 +269,55 @@ def apply(img: np.ndarray, preset: str = "cinema_night", depth: np.ndarray | Non
     return np.clip(x, 0.0, 1.0)
 
 
+
+# ─────────────── تدرّج لوني من لوحة مرجع بصري (تحليل حقيقي) ───────────────
+
+def _hex_to_rgb(h) -> list:
+    h = str(h).strip().lstrip("#")
+    if len(h) == 3:
+        h = "".join(c * 2 for c in h)
+    try:
+        return [int(h[i:i + 2], 16) / 255.0 for i in (0, 2, 4)]
+    except Exception:
+        return [0.5, 0.5, 0.5]
+
+
+def split_tone(img: np.ndarray, palette, strength: float = 0.45,
+               protect: float = 0.55) -> np.ndarray:
+    """
+    تدرّج «سبليت تون» من لوحة مرجع حقيقي: بنفصل صِبغة كل لون (hue) عن سطوعه،
+    ونضرب بها الظلال/النص/الأضواء كل واحد على حدة — مع الحفاظ على الألوان الأصلية بنسبة `protect`.
+    النتيجة: الفيديو بياخد **مزاج وألوان المرجع** من غير ما يفقد هويته.
+    """
+    if not palette:
+        return img
+    cols = [_hex_to_rgb(c) if isinstance(c, str) else list(c) for c in palette]
+    if not cols:
+        return img
+
+    def lum(c):
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+
+    def hue_only(c):
+        """نفس الصِبغة بسطوع محايد ⇒ نضرب بيها بلا ما نغيّر الإضاءة."""
+        l = max(lum(c), 0.06)
+        return np.clip(np.array(c, np.float32) / l, 0.0, 3.0)
+
+    srt = sorted(cols, key=lum)
+    cs, cm, ch = hue_only(srt[0]), hue_only(srt[len(srt) // 2]), hue_only(srt[-1])
+    x = img.astype(np.float32)
+    lum_map = x @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+    w_s = np.clip((0.40 - lum_map) / 0.40, 0.0, 1.0)               # الظلال
+    w_h = np.clip((lum_map - 0.62) / 0.38, 0.0, 1.0)               # الأضواء
+    w_m = np.clip(1.0 - w_s - w_h, 0.0, 1.0)                       # النص
+    factor = 1.0 + strength * (w_s[:, :, None] * (cs - 1.0)
+                               + w_m[:, :, None] * (cm - 1.0)
+                               + w_h[:, :, None] * (ch - 1.0))
+    out = x * np.clip(factor, 0.25, 2.2)
+    out = out + (0.035 * strength) * (w_s[:, :, None] * cs)        # رفعة بسيطة للظلال (طابع فيلم)
+    return np.clip(x * protect + out * (1.0 - protect), 0.0, 1.0)
+
+
 def quality_report(img: np.ndarray) -> dict:
     """قياس موضوعي للجودة: تباين · تشبّع · حِدّة · نطاق ديناميكي (للمراجعة قبل النشر)."""
     x = img.astype(np.float32) / 255.0 if img.dtype == np.uint8 else img.astype(np.float32)

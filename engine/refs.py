@@ -108,11 +108,15 @@ def board(query: str, limit: int = 8, sources=("openverse", "pixabay", "pexels")
     except Exception as e:
         errors.append(f"openverse: {type(e).__name__}")
 
-    # Pixabay / Pexels (لو المفاتيح موجودة)
-    import os
-    if os.environ.get("PIXABAY_API_KEY") and "pixabay" in sources:
+    # ويكيميديا كومنز (بلا مفتاح)
+    if "wikimedia" in sources:
+        items += wikimedia_refs(query, limit=max(2, limit // 2))
+
+    # Pixabay / Pexels (بالمفاتيح — بأي اسم متعارف عليه)
+    pbay, pxls = _key("PIXABAY_API_KEY", "PIXABAY_KEY"), _key("PEXELS_API_KEY", "PEXELS")
+    if pbay and "pixabay" in sources:
         try:
-            q = urllib.parse.urlencode({"key": os.environ["PIXABAY_API_KEY"], "q": query,
+            q = urllib.parse.urlencode({"key": pbay, "q": query,
                                         "image_type": "photo", "per_page": limit})
             d = json.loads(_get(f"https://pixabay.com/api/?{q}").decode("utf-8"))
             for it in d.get("hits", [])[:limit]:
@@ -120,11 +124,11 @@ def board(query: str, limit: int = 8, sources=("openverse", "pixabay", "pexels")
                               "license": "Pixabay", "url": it.get("pageURL"), "thumb": it.get("previewURL")})
         except Exception as e:
             errors.append(f"pixabay: {type(e).__name__}")
-    if os.environ.get("PEXELS_API_KEY") and "pexels" in sources:
+    if pxls and "pexels" in sources:
         try:
             req = urllib.request.Request(
                 "https://api.pexels.com/v1/search?" + urllib.parse.urlencode({"query": query, "per_page": limit}),
-                headers={**UA, "Authorization": os.environ["PEXELS_API_KEY"]})
+                headers={**UA, "Authorization": pxls})
             with urllib.request.urlopen(req, timeout=25) as r:
                 d = json.loads(r.read().decode("utf-8"))
             for it in d.get("photos", [])[:limit]:
@@ -161,7 +165,108 @@ def board(query: str, limit: int = 8, sources=("openverse", "pixabay", "pexels")
     return board_doc
 
 
-# ───────────────────────── 2) أرقام السوق (يوتيوب) ─────────────────────────
+
+# ─────────────── 2) تحليل المرجع البصري ⇒ لوحة ألوان حقيقية ───────────────
+# بنفتح صور المراجع (المحفوظة عندنا في docs/refs/<slug>/) ونحلّلها **بكسل حقيقي**:
+# الألوان السايدة · السطوع · التباين · التشبّع · توزيع الفاتح/الغامق.
+# الناتج: لوحة ألوان بتتطبّق فعلًا في تدرّج ألوان الفيديو (`grade.split_tone`) —
+# ودي طريقة استخدام المرجع البصري: **إلهام وتحليل، مش نسخ ملفات**.
+
+def _quant_colors(img, n: int = 6) -> list:
+    """أهم الألوان في الصورة بنسبتها (تحليل بكسل حقيقي)."""
+    small = img.convert("RGB").resize((160, 160))
+    q = small.quantize(colors=n, method=2)
+    pal = q.getpalette() or []
+    counts = sorted(q.getcolors() or [], reverse=True)
+    out = []
+    total = sum(c for c, _ in counts) or 1
+    for cnt, idx in counts:
+        r, g, b = pal[idx * 3:idx * 3 + 3]
+        out.append({"hex": f"#{r:02x}{g:02x}{b:02x}", "rgb": [r, g, b], "share": round(cnt / total, 3),
+                    "lum": round((0.2126 * r + 0.7152 * g + 0.0722 * b) / 255.0, 3)})
+    return out
+
+
+def _img_stats(img) -> dict:
+    import numpy as np
+    a = np.asarray(img.convert("RGB").resize((160, 160)), dtype=np.float32) / 255.0
+    lum = 0.2126 * a[:, :, 0] + 0.7152 * a[:, :, 1] + 0.0722 * a[:, :, 2]
+    mx, mn = a.max(axis=2), a.min(axis=2)
+    sat = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1e-6), 0.0)
+    warm = float((a[:, :, 0] - a[:, :, 2]).mean())        # دافي + / بارد -
+    return {"brightness": round(float(lum.mean()), 3), "contrast": round(float(lum.std()), 3),
+            "saturation": round(float(sat.mean()), 3), "warmth": round(warm, 3),
+            "dark_share": round(float((lum < 0.25).mean()), 3),
+            "bright_share": round(float((lum > 0.75).mean()), 3)}
+
+
+def analyze_refs(query: str, limit: int = 6) -> dict:
+    """يحلّل صور لوحة مراجع موجودة (أو يجيبها) ويرجّع لوحة ألوان + إحصاءات."""
+    from PIL import Image
+    slug = re.sub(r"[^a-z0-9]+", "-", query.lower()).strip("-")[:48] or "board"
+    doc = _jload(REFS / f"{slug}.json", {}) or {}
+    if not doc.get("saved"):
+        doc = board(query, limit=limit)
+    files = sorted((REFS / slug).glob("*.jpg")) + sorted((REFS / slug).glob("*.png"))
+    per, colors, stats = [], {}, []
+    for f in files[:limit]:
+        try:
+            im = Image.open(f)
+            c = _quant_colors(im, 6)
+            st = _img_stats(im)
+            for x in c:
+                colors[x["hex"]] = colors.get(x["hex"], 0.0) + x["share"]
+            stats.append(st)
+            per.append({"file": f.name, "colors": c, "stats": st})
+        except Exception as e:
+            doc.setdefault("errors", []).append(f"تحليل {f.name}: {type(e).__name__}")
+    top = [k for k, _ in sorted(colors.items(), key=lambda kv: -kv[1])[:6]]
+    agg = {k: round(sum(s[k] for s in stats) / max(1, len(stats)), 3) for k in
+           ("brightness", "contrast", "saturation", "warmth", "dark_share", "bright_share")} if stats else {}
+    # إضاءة ومزاج مستنتجين من الأرقام الحقيقية
+    mood = []
+    if agg.get("brightness", 0) < 0.30:
+        mood.append("ليل / غامق")
+    if agg.get("brightness", 0) > 0.62:
+        mood.append("نهار / فاتح")
+    if agg.get("warmth", 0) > 0.03:
+        mood.append("دافي")
+    if agg.get("warmth", 0) < -0.03:
+        mood.append("بارد")
+    if agg.get("contrast", 0) > 0.20:
+        mood.append("تباين عالي")
+    if agg.get("saturation", 0) > 0.35:
+        mood.append("مشبع بالألوان")
+    elif agg.get("saturation", 0) < 0.16:
+        mood.append("هادئ الألوان")
+    out = {"query": query, "images": len(per), "palette": top, "stats": agg, "mood": mood,
+           "per_image": per, "rule": "تحليل بكسل فقط — مفيش ملف مرجعي بيدخل أي فيديو",
+           "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    old = _jload(STATE / "refs.json", {}) or {}
+    old.setdefault("palettes", {})[slug] = out
+    old["palettes"][slug]["query"] = query
+    _jdump(STATE / "refs.json", old)
+    board_doc = _jload(REFS / f"{slug}.json", {}) or {}
+    board_doc["palette"] = {"colors": top, "stats": agg, "mood": mood}
+    _jdump(REFS / f"{slug}.json", board_doc)
+    return out
+
+
+def palette_for(topic: str, live: bool = True) -> dict:
+    """لوحة الألوان المرجعية لتخصص: من التحليل الحقيقي لو موجود، وإلا من وصفة المرجع عندنا."""
+    slug = re.sub(r"[^a-z0-9]+", "-", (topic or "").lower()).strip("-")[:48] or "board"
+    doc = _jload(STATE / "refs.json", {}) or {}
+    hit = (doc.get("palettes") or {}).get(slug)
+    if hit and hit.get("palette"):
+        return {"source": "analyzed", "colors": hit["palette"], "stats": hit.get("stats", {}),
+                "mood": hit.get("mood", []), "images": hit.get("images", 0)}
+    rec = RECIPES.get((topic or "").lower())
+    if rec:
+        return {"source": "recipe", "colors": rec.get("palette", []), "stats": {}, "mood": [rec.get("mood", "")]}
+    return {"source": "none", "colors": [], "stats": {}, "mood": []}
+
+
+# ───────────────────────── 3) أرقام السوق (يوتيوب) ─────────────────────────
 
 def _yt_search(query: str, gl: str = "US", hl: str = "en") -> list:
     """أكثر الفيديوهات مشاهدة لكلمة بحث — من صفحة نتائج يوتيوب نفسها (ترتيب المشاهدات)."""
@@ -245,7 +350,7 @@ RECIPES = {
                  mood="كوفي دافئ · راحة"),
     "focus": dict(look="cinema_cool", moves=["still", "drift_up", "pan_left"],
                   scenes=["starfield", "ocean", "planet_rings", "rain_glass"],
-                  music="night_drone", palette=["#0c1220", "#2b3f63", "#9fb4d8"],
+                  music="harp_mist", palette=["#0c1220", "#2b3f63", "#9fb4d8"],
                   mood="تركيز طويل · بلا تشتيت"),
     "story": dict(look="story", moves=["zoom_in", "pan_right", "drift_up"],
                   scenes=["valley_lake", "dunes_moon", "snow_pines", "aurora"],
@@ -255,9 +360,152 @@ RECIPES = {
                   scenes=["ocean", "valley_lake"], music="night_drone",
                   palette=["#04121f", "#0d4f6b", "#9fe3ff"], mood="موج وأفق"),
     "space": dict(look="cinema_night", moves=["zoom_out", "still", "drift_up"],
-                  scenes=["starfield", "planet_rings", "aurora"], music="dream_pulse",
+                  scenes=["starfield", "planet_rings", "aurora"], music="cosmic_pad",
                   palette=["#05060f", "#3a2a6b", "#cfe0ff"], mood="فَضاء وسكون"),
 }
+
+
+# ───────── 3) مصادر بلا مفتاح: ريدت (طلب حقيقي) + ويكيميديا (مراجع) ─────────
+# كلها APIs عامة **بلا مفتاح** ⇒ المصنع بيشتغل من غير ما حد يعمله حاجة.
+
+def _key(*names) -> str:
+    """يقرا أول مفتاح موجود من البيئة (بيدعم كل صيغ الأسماء المستخدمة عندنا)."""
+    import os
+    for n in names:
+        v = os.environ.get(n)
+        if v:
+            return v.strip()
+    return ""
+
+
+def reddit_demand(subs=("oddlysatisfying", "rainsounds", "ambient", "SleepingTime", "studying"),
+                  limit: int = 12) -> dict:
+    """
+    طلب حقيقي من الجمهور: أعلى المنشورات في مجتمعاتنا (Reddit عام، بلا مفتاح).
+    اللي الناس بتعمله upvote بيدّينا إشارة مزاج/موضوع مش موجودة في أرقام يوتيوب.
+    """
+    out, errors = {}, []
+    for sub in subs:
+        try:
+            url = f"https://www.reddit.com/r/{sub}/top.json?t=month&limit={limit}"
+            d = json.loads(_get(url, timeout=20).decode("utf-8", "ignore"))
+            posts = [c["data"] for c in d["data"]["children"]]
+            out[sub] = [{"title": x.get("title", "")[:110], "score": int(x.get("score", 0)),
+                         "comments": int(x.get("num_comments", 0)),
+                         "ratio": round(float(x.get("upvote_ratio", 0)), 3)} for x in posts]
+        except Exception as e:
+            errors.append(f"reddit/{sub}: {type(e).__name__}")
+    # موضوعات سايدة: كلمات متكرّرة في أعلى 5 منشورات
+    words = {}
+    for sub, posts in out.items():
+        for p in posts[:5]:
+            for w in re.findall(r"[a-zA-Z]{4,}", p["title"].lower()):
+                if w not in ("this", "that", "with", "from", "they", "have", "just", "what", "when",
+                             "your", "will", "been", "were", "into", "very", "more", "than", "some"):
+                    words[w] = words.get(w, 0) + p["score"]
+    doc = {"subs": out, "topics": dict(sorted(words.items(), key=lambda kv: -kv[1])[:14]),
+           "errors": errors, "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    return doc
+
+
+def youtube_suggest(seed: str, gl: str = "us", hl: str = "en") -> list:
+    """اقتراحات البحث الحقيقية بتاعة يوتيوب (بلا مفتاح) — الناس بتدوّر على إيه بالحرف."""
+    try:
+        q = urllib.parse.urlencode({"client": "firefox", "ds": "yt", "hl": hl, "gl": gl, "q": seed})
+        data = json.loads(_get(f"https://suggestqueries.google.com/complete/search?{q}", timeout=15)
+                          .decode("utf-8", "ignore"))
+        return [str(x) for x in (data[1] if len(data) > 1 else []) if x]
+    except Exception:
+        return []
+
+
+SEARCH_SEEDS = {
+    "sleep": ["rain sounds", "sleep sounds", "black screen sleep", "10 hours rain", "brown noise"],
+    "focus": ["study with me", "focus music", "brown noise focus", "concentration sounds"],
+    "satisfying": ["satisfying video", "kinetic sand", "oddly satisfying", "satisfying loop"],
+    "story": ["wordless animation", "animated short no dialogue", "bedtime story animation"],
+}
+
+
+def search_demand(gl: str = "us", hl: str = "en") -> dict:
+    """
+    طلب البحث الحقيقي: بنسأل يوتيوب «الناس بتكتب إيه؟» لكل تخصص بتاعنا.
+    النتيجة بتتحفظ وتتغذّى للعقل + بتستخدم في الكلمات المفتاحية للفيديوهات.
+    """
+    out, errors, by_pillar = {}, [], {}
+    for pillar, seeds in SEARCH_SEEDS.items():
+        got = {}
+        for sd in seeds:
+            for i, phrase in enumerate(youtube_suggest(sd, gl=gl, hl=hl)[:10]):
+                p_ = phrase.strip().lower()
+                if not p_:
+                    continue
+                got[p_] = got.get(p_, 0) + max(1, 11 - i)          # الأقرب للكلمة = أقوى
+        out[pillar] = dict(sorted(got.items(), key=lambda kv: -kv[1])[:14])
+        by_pillar[pillar] = list(out[pillar])[:6]
+    doc = {"by_pillar": out, "top": by_pillar, "errors": errors,
+           "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+    return doc
+
+
+def phrases_for(pillar: str, n: int = 6) -> list:
+    """أقوى عبارات البحث الحقيقية للتخصص (تستخدمها العناوين والوسوم)."""
+    doc = _jload(STATE / "trends.json", {}) or {}
+    sd = (doc.get("search_demand") or {}).get("by_pillar", {}).get(pillar)
+    if not sd:
+        sd = search_demand()["by_pillar"].get(pillar, {})
+    return list(sd)[:n] if isinstance(sd, dict) else list(sd)[:n]
+
+
+def wikimedia_refs(query: str, limit: int = 4) -> list:
+    """صور مرجعية من ويكيميديا كومنز (بلا مفتاح) — **مرجع بصري بس** زي أي لوحة تانية."""
+    try:
+        q = urllib.parse.urlencode({"action": "query", "format": "json", "generator": "search",
+                                    "gsrsearch": query, "gsrnamespace": 6, "gsrlimit": limit,
+                                    "prop": "imageinfo", "iiprop": "url|extmetadata", "iiurlwidth": 480})
+        d = json.loads(_get(f"https://commons.wikimedia.org/w/api.php?{q}", timeout=20).decode("utf-8"))
+        items = []
+        for page in (d.get("query", {}).get("pages", {}) or {}).values():
+            ii = (page.get("imageinfo") or [{}])[0]
+            meta = ii.get("extmetadata", {})
+            items.append({"source": "wikimedia", "title": page.get("title", "")[5:80],
+                          "creator": (meta.get("Artist", {}) or {}).get("value", "")[:60],
+                          "license": (meta.get("LicenseShortName", {}) or {}).get("value", "?"),
+                          "url": ii.get("descriptionurl"), "thumb": ii.get("thumburl")})
+        return [i for i in items if i.get("thumb")]
+    except Exception:
+        return []
+
+
+def trends_v2(apply_to_brain: bool = False, use_reddit: bool = True) -> dict:
+    """صورة الطلب الكاملة: يوتيوب (مشاهدات) + بحث حقيقي (اقتراحات) + ريدت (تفاعل)."""
+    doc = trends(apply_to_brain=False)
+    try:
+        sd = search_demand()
+        doc["search_demand"] = sd
+        # تغذية مباشرة: عبارات النوم اللي فيها «no ads / black screen / for sleeping» = طلب مؤكد
+        boost = {"sleep": 0, "focus": 0}
+        for pillar in ("sleep", "focus"):
+            for ph in sd["by_pillar"].get(pillar, {}):
+                if any(k in ph for k in ("no ads", "black screen", "for sleeping", "for studying", "brown noise")):
+                    boost[pillar] += 1
+        doc["search_boost"] = boost
+    except Exception as e:
+        doc.setdefault("errors", []).append(f"suggest: {type(e).__name__}")
+    if use_reddit:
+        try:
+            rd = reddit_demand()
+            doc["reddit"] = {"subs": {k: len(v) for k, v in rd["subs"].items()},
+                             "topics": rd["topics"], "errors": rd["errors"]}
+            for t, score in list(rd["topics"].items())[:10]:      # إشارة إضافية للطلب
+                if t in doc.get("demand", {}):
+                    doc["demand"][t] = doc["demand"][t] + min(6, int(score / 20000))
+        except Exception as e:
+            doc.setdefault("errors", []).append(f"reddit: {type(e).__name__} (بعض السيرفرات بتحجب ريدت — عادي)")
+    _jdump(STATE / "trends.json", doc)
+    if apply_to_brain:
+        doc["brain"] = apply_to_brain_from(doc)
+    return doc
 
 
 def look_recipe(topic: str, save: bool = True) -> dict:
@@ -286,8 +534,13 @@ def look_recipe(topic: str, save: bool = True) -> dict:
 
 
 def recipe_for(pillar: str) -> dict:
-    """أفضل إعداد مونتاج للتخصص: من قواعد المرجع + أقرب لوحة محفوظة (لو فيه)."""
+    """أفضل إعداد مونتاج للتخصص: من قواعد المرجع + لوحة الألوان المحلّلة + أقرب لوحة محفوظة."""
     rec = look_recipe(pillar, save=False)
+    pal = palette_for(pillar, live=False)
+    if pal.get("colors"):
+        rec["palette"] = pal["colors"]              # ألوان حقيقية من تحليل المراجع
+        rec["palette_source"] = pal.get("source")
+        rec["ref_mood"] = pal.get("mood")
     doc = _jload(STATE / "refs.json", {}) or {}
     boards = doc.get("boards") or []
     for b in boards:
@@ -364,7 +617,10 @@ if __name__ == "__main__":
     ap.add_argument("--board", metavar="QUERY")
     ap.add_argument("--pinterest", metavar="QUERY")
     ap.add_argument("--trends", action="store_true")
+    ap.add_argument("--trends2", action="store_true", help="يوتيوب + ريدت (طلب أدق)")
+    ap.add_argument("--reddit", action="store_true", help="طلب حقيقي من مجتمعاتنا (بلا مفتاح)")
     ap.add_argument("--recipe", metavar="TOPIC", help="تحويل مرجع بصري لإعدادات مونتاج")
+    ap.add_argument("--analyze", metavar="TOPIC", help="تحليل صور المراجع ⇒ لوحة ألوان حقيقية")
     ap.add_argument("--apply", action="store_true", help="يغذّي العقل بلطف")
     ap.add_argument("--limit", type=int, default=8)
     a = ap.parse_args()
@@ -379,10 +635,28 @@ if __name__ == "__main__":
     if a.pinterest:
         for i in pinterest_links(a.pinterest):
             print("•", i["label"], "→", i["url"])
+    if a.analyze:
+        r = analyze_refs(a.analyze)
+        print(f"🎨 تحليل «{a.analyze}»: {r['images']} صورة مرجعية")
+        print(f"   الألوان: {r['palette']}")
+        print(f"   إحصاءات: {r['stats']}")
+        print(f"   المزاج: {' · '.join(r['mood']) or '—'}")
     if a.recipe:
         r = look_recipe(a.recipe)
         print(f"🎬 وصفة المونتاج «{a.recipe}»: مظهر={r['look']} · موسيقى={r['music']} · "
               f"كاميرا={r['moves']} · مشاهد={r['scenes']} · مزاج={r['mood']}")
+    if a.reddit:
+        r = reddit_demand()
+        print("👥 مواضيع سايدة (Reddit · بلا مفتاح):")
+        for t, sc in list(r["topics"].items())[:10]:
+            print(f"   • {t:18s} {sc:,}")
+    if a.trends2:
+        d = trends_v2(apply_to_brain=a.apply)
+        print("📈 يوتيوب:", {k: (v["top"][0]["views_text"] if v.get("top") else "—") for k, v in d["queries"].items()})
+        print("👥 ريدت:", d.get("reddit", {}).get("topics", {}))
+        print("   الطلب:", d["demand"])
+        if a.apply:
+            print("   تغذية العقل:", d.get("brain"))
     if a.trends:
         d = trends(apply_to_brain=a.apply)
         print("📈 أعلى مشاهدات في تخصصاتنا:")

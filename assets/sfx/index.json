@@ -2,7 +2,7 @@
   "note": "مكتبة مؤثرات Dollars — متولّدة بالكود 100%، ملكية كاملة، بلا أي حقوق غيرنا.",
   "license": "owned-generated",
   "sample_rate": 44100,
-  "count": 60,
+  "count": 74,
   "uses": {
     "transition": [
       "whoosh",
@@ -44,6 +44,18 @@
       "ding",
       "bell"
     ],
+    "nature": [
+      "cricket_field",
+      "owl_night",
+      "frog_pond",
+      "brook_water",
+      "leaves_rustle",
+      "snow_crunch",
+      "wind_gust",
+      "rain_drop",
+      "thunder_far",
+      "fire_crackle"
+    ],
     "atmosphere": [
       "vinyl",
       "fire_crackle",
@@ -51,6 +63,16 @@
       "thunder_far",
       "rain_drop",
       "warm_hum"
+    ],
+    "home": [
+      "kettle_whistle",
+      "clock_chime",
+      "door_creak_soft",
+      "fabric_swish",
+      "quill_write",
+      "wood_block",
+      "page_turn",
+      "match_strike"
     ],
     "magic": [
       "shimmer",
@@ -76,7 +98,11 @@
       "whoosh_soft",
       "soft_impact",
       "sub_hit",
-      "tape_stop"
+      "tape_stop",
+      "clock_chime",
+      "wood_block",
+      "marimba_roll",
+      "harp_gliss"
     ]
   },
   "recommended": {
@@ -100,7 +126,13 @@
       "glass_tap",
       "wood_tap",
       "rain_drop",
-      "match_strike"
+      "match_strike",
+      "harp_gliss",
+      "marimba_roll",
+      "owl_night",
+      "frog_pond",
+      "quill_write",
+      "clock_chime"
     ],
     "satisfying": [
       "bubble",
@@ -118,7 +150,13 @@
       "whoosh_soft",
       "soft_impact",
       "ui_open",
-      "ui_close"
+      "ui_close",
+      "wood_block",
+      "leaves_rustle",
+      "brook_water",
+      "snow_crunch",
+      "fabric_swish",
+      "kettle_whistle"
     ],
     "short_comedy": [
       "boing",
@@ -142,30 +180,42 @@
     "beam": "beam.wav",
     "bell": "bell.wav",
     "boing": "boing.wav",
+    "brook_water": "brook_water.wav",
     "bubble": "bubble.wav",
     "bubble_pop": "bubble_pop.wav",
     "chime_soft": "chime_soft.wav",
     "click": "click.wav",
+    "clock_chime": "clock_chime.wav",
     "coin": "coin.wav",
     "coin_drop": "coin_drop.wav",
     "cork": "cork.wav",
+    "cricket_field": "cricket_field.wav",
     "cymbal": "cymbal.wav",
     "ding": "ding.wav",
+    "door_creak_soft": "door_creak_soft.wav",
     "downlifter": "downlifter.wav",
     "drum": "drum.wav",
     "error": "error.wav",
+    "fabric_swish": "fabric_swish.wav",
     "fire_crackle": "fire_crackle.wav",
+    "frog_pond": "frog_pond.wav",
     "glass_tap": "glass_tap.wav",
     "glitch": "glitch.wav",
+    "harp_gliss": "harp_gliss.wav",
     "heartbeat": "heartbeat.wav",
     "impact": "impact.wav",
+    "kettle_whistle": "kettle_whistle.wav",
+    "leaves_rustle": "leaves_rustle.wav",
     "lullaby_note": "lullaby_note.wav",
     "magic": "magic.wav",
     "magic_up": "magic_up.wav",
+    "marimba_roll": "marimba_roll.wav",
     "match_strike": "match_strike.wav",
+    "owl_night": "owl_night.wav",
     "page_turn": "page_turn.wav",
     "paper": "paper.wav",
     "pop": "pop.wav",
+    "quill_write": "quill_write.wav",
     "rain_drop": "rain_drop.wav",
     "record_stop": "record_stop.wav",
     "reverse_swell": "reverse_swell.wav",
@@ -173,6 +223,7 @@
     "sad_trombone": "sad_trombone.wav",
     "shimmer": "shimmer.wav",
     "slide_whistle": "slide_whistle.wav",
+    "snow_crunch": "snow_crunch.wav",
     "soft_impact": "soft_impact.wav",
     "sparkle": "sparkle.wav",
     "spring": "spring.wav",
@@ -195,6 +246,7 @@
     "whoosh": "whoosh.wav",
     "whoosh_soft": "whoosh_soft.wav",
     "wind_gust": "wind_gust.wav",
+    "wood_block": "wood_block.wav",
     "wood_tap": "wood_tap.wav",
     "zoom": "zoom.wav"
   }

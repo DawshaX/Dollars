@@ -125,9 +125,15 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         recipe = refs_mod.recipe_for(pillar)
     except Exception:
         recipe = {}
-    style_kw = {k: recipe[k] for k in ("look", "moves", "scenes", "music") if recipe.get(k)}
-    if slot.get("kind") == "long":         # الطويلة: المشهد هو اللي يحكم المظهر
+    style_kw = {k: recipe[k] for k in ("look", "moves", "scenes", "music", "palette") if recipe.get(k)}
+    if slot.get("kind") == "long":         # الطويلة: المشهد هو اللي يحكم المظهر (اللوحة والحركة بتفضل)
         style_kw.pop("look", None); style_kw.pop("scenes", None)
+    # عبارات بحث حقيقية (بلا مفتاح) للتخصص — بتدخل الوسوم والوصف
+    try:
+        pillar_key = {"sleep": "sleep", "focus": "focus", "satisfying": "satisfying", "story": "story"}.get(pillar, "satisfying")
+        style_kw["phrases"] = refs_mod.phrases_for(pillar_key)
+    except Exception:
+        pass
     t0 = time.time()
 
     if slot.get("kind") == "long" and pillar in ("sleep", "focus"):
@@ -148,7 +154,8 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         rec = ed.make("satisfying_short", seconds=secs if 15 <= secs <= 60 else 30, **style_kw)
         rec.update(pillar="satisfying", duration=dur)
 
-    rec["recipe"] = {k: recipe.get(k) for k in ("look", "moves", "scenes", "music", "mood", "matched")} if recipe else None
+    rec["recipe"] = {k: recipe.get(k) for k in
+                     ("look", "moves", "scenes", "music", "mood", "matched", "palette", "palette_source")} if recipe else None
     rec["slot"] = slot
     rec["seconds_spent"] = round(time.time() - t0, 1)
     rec["seed"] = seed

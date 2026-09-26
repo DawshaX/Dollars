@@ -138,7 +138,15 @@ def check_montage() -> list:
     rows.append((OK if long_ok else BAD, "الطويلة: مقدمة 12 ث + شاشة نهاية (تلزيق بلا إعادة ترميز)",
                  "editor.long_intro · editor.long_outro · editor._concat"))
     recs = [p for p in ("satisfying", "sleep", "story", "fireplace", "ocean", "kinetic", "focus", "cozy", "rain", "night", "space") if refs.RECIPES.get(p)]
-    rows.append((OK if len(recs) >= 8 else WARN, f"وصفات المرجع البصري: {len(recs)} نمط", "look · moves · scenes · music"))
+    rows.append((OK if len(recs) >= 8 else WARN, f"وصفات المرجع البصري: {len(recs)} نمط",
+                 "look · moves · scenes · music · palette"))
+    from engine import grade
+    pal_ok = all(callable(getattr(grade, k, None)) for k in ("split_tone",))
+    trans = "crossfade" in open("engine/editor.py", encoding="utf-8").read()
+    rows.append((OK if (pal_ok and trans) else BAD, "تدرّج ألوان المرجع + انتقالات بين المقاطع",
+                 "grade.split_tone · render_shots(transition=…)"))
+    phrases = refs.phrases_for("sleep")
+    rows.append((OK if phrases else WARN, f"عبارات بحث حقيقية: {len(phrases)}", " · ".join(phrases[:3]) or "—"))
     return rows
 
 

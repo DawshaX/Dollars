@@ -60,3 +60,35 @@ def test_board_document_marks_reference_only(tmp_path, monkeypatch):
     d = refs.board("rain on window", limit=2)
     assert d["pinterest"] and "ممنوع" in d["rule"]
     assert (tmp_path / "refs.json").exists()
+
+
+def test_search_demand_parses_suggestions(monkeypatch):
+    """اقتراحات البحث الحقيقية: بنسأل يوتيوب «الناس بتكتب إيه؟» بلا مفتاح."""
+    import json as _json
+    fake = _json.dumps(["rain sounds", ["rain sounds", "rain sounds for sleeping", "rain sounds no ads"]]).encode()
+    monkeypatch.setattr(refs, "_get", lambda url, timeout=20: fake)
+    got = refs.youtube_suggest("rain sounds")
+    assert "rain sounds for sleeping" in got
+    d = refs.search_demand()
+    assert set(d["by_pillar"]) == {"sleep", "focus", "satisfying", "story"}
+    assert d["by_pillar"]["sleep"]
+
+
+def test_phrases_for_uses_stored_demand(tmp_path, monkeypatch):
+    monkeypatch.setattr(refs, "STATE", tmp_path)
+    (tmp_path / "trends.json").write_text(json.dumps(
+        {"search_demand": {"by_pillar": {"sleep": ["rain sounds", "no ads"]}}}), encoding="utf-8")
+    assert refs.phrases_for("sleep") == ["rain sounds", "no ads"]
+
+
+def test_palette_and_split_tone_from_reference():
+    """تحليل المراجع ⇒ لوحة ألوان ⇒ بتتطبّق فعلًا على الكادر."""
+    import numpy as np
+    from engine import grade
+    img = np.linspace(0.05, 0.95, 48, dtype=np.float32)[None, :, None].repeat(3, 2).repeat(48, 0)
+    cool = grade.split_tone(img, ["#0a1030", "#2a3a6b", "#9fc4ff"], strength=0.6)
+    warm = grade.split_tone(img, ["#2b1408", "#a05a28", "#ffd9a0"], strength=0.6)
+    cw = float((cool[:, :, 0] - cool[:, :, 2]).mean())
+    ww = float((warm[:, :, 0] - warm[:, :, 2]).mean())
+    assert cw < -0.02 and ww > 0.02, "اللوحة مش بتغيّر مزاج الألوان"
+    assert float(warm.std()) > 0.1, "التدرّج ضاع بعد التطبيق"

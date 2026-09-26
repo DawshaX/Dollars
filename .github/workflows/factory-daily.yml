@@ -36,6 +36,9 @@ jobs:
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY || secrets.PIXABAY_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || secrets.PEXELS }}
+          OPENVERSE_TOKEN: ${{ secrets.OPENVERSE_TOKEN || secrets.OPENVERSE }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python engine/factory.py --daily --catchup
       - uses: actions/upload-artifact@v4

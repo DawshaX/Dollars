@@ -373,18 +373,30 @@ class Fireplace(Scene):
                  + 0.04 * math.sin(TAU * 13 * u + 2.3))
         img = np.zeros((h, w, 3), np.float32)
         stone = roll_px(self.stone, self.ps * u * 0.0)
-        img += (stone * 0.055 * flick)[:, :, None] * np.array([1.0, 0.74, 0.48], np.float32)
+        heat_wall = np.exp(-(((self.xx - self.fire_cx) / (w * 0.34)) ** 2))
+        img += (stone * 0.05 * flick + heat_wall * 0.030 * flick)[:, :, None] * np.array([1.0, 0.74, 0.48], np.float32)
         tex = np.roll(np.roll(self.flame_tex, int(round(self.pfl_y * 2 * u)), axis=0),
                       int(round(self.pfl_x * u)), axis=1)
-        d = np.abs(self.xx - self.fire_cx) / (w * 0.16)
-        up = np.clip((self.fire_base - self.yy) / (h * 0.42), 0.0, 1.0)
-        core = np.exp(-(d ** 2) * (1.0 + 2.6 * up))
-        field = np.clip(core * up * (0.35 + 1.5 * tex) * 1.7, 0.0, 1.4)
-        field *= np.clip((self.fire_base - self.yy) / 8.0 + 1.0, 0.0, 1.0)
-        r = np.clip(field * 1.15, 0, 1)
-        g = np.clip((field - 0.35) * 1.25, 0, 1) ** 1.25
-        b = np.clip((field - 0.80) * 1.6, 0, 1) ** 1.8
-        img += np.stack([r, g, b], axis=2) * flick * 1.12
+        # ── لهب حقيقي: ألسنة متعددة بتتراقص، قاعدة ساخنة بيضاء والطرف أحمر خفيف
+        up = np.clip((self.fire_base - self.yy) / (h * 0.47), 0.0, 1.0)
+        tongues = np.zeros((h, w), np.float32)
+        for ox, wf, ph, sp in ((-0.62, 0.9, 0.0, 3.0), (-0.18, 1.15, 0.35, 4.0),
+                               (0.30, 1.0, 0.62, 3.0), (0.66, 0.8, 0.85, 2.0)):   # سرعات صحيحة = حلقة مثالية
+            wob = 0.045 * w * math.sin(TAU * sp * u + ph) + 0.02 * w * math.sin(TAU * 7.0 * u + ph * 2)
+            dx = (self.xx - (self.fire_cx + ox * w * 0.085 + wob)) / (w * 0.085 * wf)
+            taper = np.clip(1.0 - up * (0.85 + 0.25 * math.sin(TAU * 2.0 * u + ph)), 0.0, 1.0) ** 1.35
+            tongues += np.exp(-(dx ** 2) * 2.1) * taper * (0.75 + 0.5 * math.sin(TAU * 3.0 * u + ph))
+        # جمر القاعدة: محدود حوالين النار + مكسّر بالنسيج (مش شريط)
+        spread = np.exp(-(((self.xx - self.fire_cx) / (w * 0.17)) ** 2))
+        coals = (np.exp(-(((self.yy - self.fire_base) / (h * 0.048)) ** 2)) * spread
+                 * (0.25 + 0.95 * self.stone))
+        heat = np.clip(tongues * (0.40 + 1.15 * tex) * 1.25 + coals * (0.55 + 0.9 * tex), 0.0, 1.35)
+        heat *= np.clip((self.fire_base - self.yy) / 7.0 + 1.0, 0.0, 1.0)
+        r = np.clip(heat * 1.30, 0, 1)
+        g = np.clip((heat - 0.22) * 1.22, 0, 1) ** 1.12
+        b = np.clip((heat - 0.72) * 1.10, 0, 1) ** 1.7
+        field = heat
+        img += np.stack([r, g, b], axis=2) * flick * 1.05
         glow(img, self.fire_cx, self.fire_base - h * 0.10, w * 0.34, (1.0, 0.46, 0.14), 0.30 * flick, 2.0)
         ey = self.fire_base - np.mod(self.ev * t + self.ey, h * 0.42)
         ex = self.ex + 8.0 * np.sin(TAU * (self.efreq * u) + self.ep)

@@ -117,7 +117,7 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
     right = np.zeros(n, np.float32)
 
     # ── أرضية الأكوردات ──
-    if style in ("warm_pad", "night_drone", "dream_pulse"):
+    if style in ("warm_pad", "night_drone", "dream_pulse", "harp_mist", "cosmic_pad"):
         for b in range(int(math.ceil(gen / bar))):
             deg = prog[b % len(prog)]
             start = _n(b * bar)
@@ -134,10 +134,12 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
             del mix
 
     # ── لحن علوي (جرس/صندوق موسيقى) ──
-    if style in ("music_box", "lullaby_bell", "dream_pulse", "lofi_keys"):
+    if style in ("music_box", "lullaby_bell", "dream_pulse", "lofi_keys", "kalimba_dusk", "harp_mist"):
         shape = {"music_box": "pluck", "lullaby_bell": "bell", "dream_pulse": "sine",
-                 "lofi_keys": "tri"}[style]
-        step = bar / 4.0 if style != "dream_pulse" else bar / 3.0
+                 "lofi_keys": "tri", "kalimba_dusk": "pluck", "harp_mist": "bell"}[style]
+        step = {"dream_pulse": bar / 3.0, "kalimba_dusk": bar / 3.0, "harp_mist": bar / 2.0}.get(style, bar / 4.0)
+        if style == "harp_mist":                       # هارب: نغمتين متتاليتين خفيفتين
+            step = max(0.6, bar / 3.0)
         k = 0
         pos = 0.0
         while pos < gen - 0.1:
@@ -150,7 +152,8 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
                 tt = np.arange(seg, dtype=np.float32) / SR
                 tone = _note(f, tt, shape)
                 env = _env(seg, 0.006, 0.25, 0.0, dur * 0.6, sus=0.45)
-                amp = (0.30 if style == "music_box" else 0.24) * (0.7 + 0.5 * rng.random())
+                amp = (0.30 if style in ("music_box", "kalimba_dusk") else
+                       0.22 if style == "harp_mist" else 0.24) * (0.7 + 0.5 * rng.random())
                 pan = float(rng.uniform(-0.35, 0.35))
                 l = tone * env * amp * (1.0 - max(0.0, pan))
                 r = tone * env * amp * (1.0 + min(0.0, pan))
@@ -163,7 +166,7 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
                 break
 
     # ── نبض ناعم (درام خفيف بالكود) ──
-    if style in ("dream_pulse", "lofi_keys"):
+    if style in ("dream_pulse", "lofi_keys", "kalimba_dusk"):
         beat = bar / 2.0
         p = 0.0
         while p < gen - 0.05:
@@ -171,7 +174,8 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
             j = _n(p)
             if j + seg < n:
                 tt = np.arange(seg, dtype=np.float32) / SR
-                kick = np.sin(2 * math.pi * (52.0 * np.exp(-9 * tt) + 34.0) * tt) * np.exp(-7.0 * tt) * 0.22
+                kick = np.sin(2 * math.pi * (52.0 * np.exp(-9 * tt) + 34.0) * tt) * np.exp(-7.0 * tt)
+                kick *= 0.14 if style == "kalimba_dusk" else 0.22
                 left[j:j + seg] += kick
                 right[j:j + seg] += kick
             p += beat
@@ -181,8 +185,9 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
     for _ in range(3):                                    # تنعيم بسيط = هواء
         air = (air + np.roll(air, 1) + np.roll(air, -1)) / 3.0
     air /= (np.abs(air).max() + 1e-9)
-    left += air * 0.020
-    right += air * 0.026
+    air_amt = {"harp_mist": 0.028, "cosmic_pad": 0.032, "kalimba_dusk": 0.018}.get(style, 0.020)
+    left += air * air_amt
+    right += air * (air_amt * 1.3)
 
     stereo = np.stack([left, right], axis=1)
     stereo = _seamless(stereo, xfade=XFADE)[:want]
@@ -217,6 +222,9 @@ def STYLES() -> dict:
         "lofi_keys": "بيانو بطيء + نبض خفيف (ستادي ريلاكس)",
         "dream_pulse": "نبض حالم هادئ",
         "night_drone": "دْرون ليلي عميق (خلفية طويلة جدًا)",
+        "kalimba_dusk": "كاليمبا الغروب — دفء خشبي بإيقاع خفيف (قِصص/أجواء)",
+        "harp_mist": "هارب على الضباب — نغمات ناعمة متباعدة (تأمل/نوم)",
+        "cosmic_pad": "طبقات كونية — اتساع بلا نبض (فضاء/تأمل عميق)",
     }
 
 

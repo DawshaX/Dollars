@@ -96,6 +96,44 @@ def camera(frame: np.ndarray, move: str, k: float, seed: int = 0) -> np.ndarray:
     return np.asarray(img, dtype=np.uint8)
 
 
+def _montage_line(m: dict) -> str:
+    """سطر حقيقي في الوصف: الفيديو اتركّب إزاي (مقاطع · إضافات · مؤثرات · انتقالات · ألوان)."""
+    if not m:
+        return ""
+    bits = []
+    if m.get("assembled") is False:
+        return ""
+    if m.get("shots"):
+        bits.append(f"{m['shots']} shots")
+    elif m.get("beats"):
+        bits.append(f"{m['beats']} story beats")
+    if m.get("fx_layers"):
+        bits.append(f"{m['fx_layers']} visual-effect layers")
+    if m.get("sfx_cues"):
+        bits.append(f"{m['sfx_cues']} timed sound cues")
+    if m.get("camera_moves"):
+        bits.append("moving camera (" + ", ".join(m["camera_moves"][:3]) + ")")
+    if m.get("transition"):
+        bits.append(f"{m['transition']} transitions")
+    if m.get("music"):
+        bits.append("original music: " + str(m["music"]).replace("_", " "))
+    if m.get("palette"):
+        bits.append("colour palette from our visual-reference board")
+    if m.get("intro_seconds"):
+        bits.append(f"{int(m['intro_seconds'])}s intro and {int(m.get('outro_seconds', 0))}s end card")
+    return "🎬 Montage: " + " · ".join(bits) + "." if bits else ""
+
+
+def _mix(a: np.ndarray, b: np.ndarray, t: float) -> np.ndarray:
+    """دمج كادرين بنسبة t (0 = الأول · 1 = التاني) — للانتقالات الناعمة."""
+    t = float(np.clip(t, 0.0, 1.0))
+    if a is None:
+        return b
+    if b is None:
+        return a
+    return (a.astype(np.float32) * (1.0 - t) + b.astype(np.float32) * t).astype(np.uint8)
+
+
 def overlay(frame_u8: np.ndarray, sprite: Image.Image, cx: float, cy: float, scale: float,
             opacity: float = 1.0, rot: float = 0.0) -> np.ndarray:
     """يضع ملصق متحرك فوق الكادر (مع شفافية ودوران)."""
@@ -231,8 +269,12 @@ def _write_wav(path, stereo: np.ndarray, sr: int = 44100):
 
 def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                  out_w: int | None = None, out_h: int | None = None, crf: int = 21,
-                 progress: bool = False) -> pathlib.Path:
-    """يرندر الخطة كاملة بكاميرا + ملصقات + طقم الجودة السينمائي."""
+                 progress: bool = False, palette=None, transition: str = "crossfade",
+                 xfade: float = 0.45) -> pathlib.Path:
+    """
+    يرندر الخطة كاملة: كاميرا + إضافات بصرية + ملصقات + طقم الجودة + تدرّج ألوان المرجع
+    + **انتقالات بين المقاطع** (تلاشي متبادل ناعم) ⇒ مونتاج حقيقي مش قصّات جافة.
+    """
     out_path = pathlib.Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     frames_total = int(round(sum(s["dur"] for s in shots) * fps))
@@ -246,6 +288,8 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
     sprite_cache: dict = {}
     frames = 0
     start_at = 0.0
+    xf = max(0, int(round(float(xfade) * fps))) if transition in ("crossfade", "fade") else 0
+    tail = None                             # آخر كادر من المقطع السابق (للتلاشي الناعم)
     for si, sh in enumerate(shots):
         sc = visuals.make_scene(sh["scene"], w=w, h=h, fps=fps)
         if getattr(sc, "stateful", False):
@@ -261,6 +305,10 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
             fr = grade.apply(base, preset=look_sh, depth=depth,
                              sun_xy=getattr(sc, "sun_xy", (0.7, 0.25)), seed=si * 100 + i,
                              focus=0.8, aperture=0.5, max_blur=2.2)
+            pal = sh.get("palette") if isinstance(sh.get("palette"), list) else None
+            if pal or palette:
+                fr = grade.split_tone(fr, pal or palette, strength=float(sh.get("palette_strength", 0.42)),
+                                      protect=0.55)          # ألوان المرجع البصري
             fr = camera((np.clip(fr, 0, 1) * 255).astype(np.uint8), sh["move"], k, seed=si)
             if sh.get("fx"):                       # إضافات بصرية (ضوء · هالة · غبار · لمعات …)
                 fr = fx.apply_all(fr, sh["fx"], i / fps, seed=si * 31 + i)
@@ -279,6 +327,16 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                              px * w + 10 * math.sin(lt * 2.2),
                              py * h - h * 0.05 * u, float(st.get("scale", 0.22)) * (0.6 + 0.4 * pop),
                              opacity=min(1.0, (1.0 - u) * 2.2))
+            if xf:
+                if transition == "crossfade" and tail is not None and i < xf:
+                    fr = _mix(tail, fr, (i + 1) / float(xf))           # تلاشي: السابق يبهت والتالي يظهر
+                elif transition == "fade":
+                    if i < xf:                                          # صعود من الأسود
+                        fr = _mix(np.zeros_like(fr), fr, (i + 1) / float(xf))
+                    elif i >= n_frames - xf:                            # نزول للأسود
+                        fr = _mix(fr, np.zeros_like(fr), (i - (n_frames - xf) + 1) / float(xf))
+                if i == n_frames - 1:
+                    tail = fr.copy()                                     # كادر الربط للمقطع اللي بعده
             p.stdin.write(memoryview(np.ascontiguousarray(fr)))
             frames += 1
             if progress and frames % 240 == 0:
@@ -345,11 +403,13 @@ def long_format(hours: float) -> dict:
 
 
 def long_intro(out_dir, seconds: float = 12.0, seed: int = 5, moves=None, scenes=None,
-               look: str = "cinema_cool", out_w: int = 1920, out_h: int = 1080) -> pathlib.Path:
+               look: str = "cinema_cool", out_w: int = 1920, out_h: int = 1080,
+               palette=None, transition: str = "crossfade") -> pathlib.Path:
     """مقدمة مونتاج للطويلة: 3 مقاطع سريعة + كاميرا + إضافات + مؤثرات + موسيقى."""
     shots = plan_shots("ambience", seconds, seed=seed, moves=moves, scenes=scenes)
     silent = pathlib.Path(out_dir) / "_intro_silent.mp4"
-    render_shots(shots, silent, 480, 270, 30, look, out_w=out_w, out_h=out_h, crf=23)
+    render_shots(shots, silent, 480, 270, 30, look, out_w=out_w, out_h=out_h, crf=23,
+                 palette=palette, transition=transition)
     audio = mix_audio(sum(s["dur"] for s in shots), shots, ambient_name="calm_night",
                       music_style="warm_pad", music_gain=0.5)
     wav = pathlib.Path(out_dir) / "_intro.wav"
@@ -402,7 +462,8 @@ def long_outro(out_dir, seconds: float = 10.0, seed: int = 9,
 # ───────────────────────────── الأغلفة ─────────────────────────────
 
 def thumbnail(scene: str, texts: list, out_path, look: str | None = None,
-              sticker: str | None = None, at: float = 6.0, size=(1280, 720)) -> pathlib.Path:
+              sticker: str | None = None, at: float = 6.0, size=(1280, 720),
+              palette=None) -> pathlib.Path:
     """غلاف جاهز: كادر من المشهد + طقم الجودة + ملصق + نص كبير."""
     w, h = 480, 270
     sc = visuals.make_scene(scene, w=w, h=h, fps=30)
@@ -410,6 +471,8 @@ def thumbnail(scene: str, texts: list, out_path, look: str | None = None,
     depth = sc.depth(at) if hasattr(sc, "depth") else None
     fr = grade.apply(frame, preset=look or visuals.LOOKS.get(scene, "cinema_night"), depth=depth,
                      sun_xy=getattr(sc, "sun_xy", (0.7, 0.25)), focus=0.75, aperture=0.4, max_blur=2.0)
+    if palette:
+        fr = grade.split_tone(np.clip(fr, 0, 1), palette, strength=0.45, protect=0.55)
     img = Image.fromarray((np.clip(fr, 0, 1) * 255).astype(np.uint8)).resize(size, Image.LANCZOS).convert("RGBA")
     if sticker:
         sp = load_sticker(sticker)
@@ -470,8 +533,10 @@ class Editor:
         silent = self.out / f"{name}_silent.mp4"
         video = self.out / f"{name}.mp4"
         look = kw.get("look") or sp.get("look") or ("cinema_cool" if pillar == "ambience" else "satisfying")
+        transition = kw.get("transition", "crossfade")
         render_shots(shots, silent, sp["w"], sp["h"], sp["fps"], look,
-                     out_w=sp["ow"], out_h=sp["oh"], crf=21)
+                     out_w=sp["ow"], out_h=sp["oh"], crf=21,
+                     palette=kw.get("palette"), transition=transition)
         ambient_name = kw.get("audio") if pillar == "ambience" else None
         if pillar == "ambience" and not ambient_name:
             ambient_name = random.Random(seed).choice(["sleep_rain", "calm_night", "ocean", "fireplace"])
@@ -499,11 +564,14 @@ class Editor:
                             "fx": [x["kind"] for x in s.get("fx", [])],
                             "stickers": [x["name"] for x in s.get("stickers", [])]} for s in shots]
         md["montage"] = {"shots": len(shots), "music": style, "look": look,
+                         "transition": transition, "palette": kw.get("palette"),
                          "camera_moves": sorted({s["move"] for s in shots}),
                          "fx_layers": sum(len(s.get("fx", [])) for s in shots),
                          "sfx_cues": sum(len(s["cues"]) for s in shots)}
+        md["description"] = md.get("description", "") + "\n\n" + _montage_line(md["montage"])
         thumb = thumbnail(scene0, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg",
-                          look=look, sticker=random.Random(seed).choice(["star", "sparkle", "burst"]))
+                          look=look, sticker=random.Random(seed).choice(["star", "sparkle", "burst"]),
+                          palette=kw.get("palette"))
         files = meta.write_package(md, self.out)
         record = dict(kind=kind, video=str(video), thumbnail=str(thumb), meta=md,
                       meta_files=files, seconds=seconds, scene=scene0, shots=len(shots))
@@ -545,6 +613,7 @@ class Editor:
                          "fx_layers": sum(len(v) for v in st.fx_summary()),
                          "fx_by_beat": st.fx_summary(),
                          "scenes": sorted({b.get("scene") for b in getattr(st, "beats", []) if b.get("scene")})}
+        md["description"] = md.get("description", "") + "\n\n" + _montage_line(md["montage"])
         first_scene = (st.beats[0] or {}).get("scene") or "starfield"
         try:
             thumb = thumbnail(first_scene, (md.get("thumbnail_texts") or ["WORDLESS STORY"])[:2],
@@ -562,7 +631,7 @@ class Editor:
     # ── الطويلة (نوم) ──
     def _long(self, out_name: str | None, hours: float = 10.0, scene: str = "valley_lake",
               audio: str = "calm_night", look: str | None = None, loop_seconds: float = 40.0,
-              moves: list | None = None, **kw) -> dict:
+              moves: list | None = None, palette=None, **kw) -> dict:
         look = visuals.LOOKS.get(scene) or look or "cinema_cool"
         # دقّة الرندر: المشاهد 2D بتتطلع 960×540 (وبعدين 1080p) · المشاهد 3D غالية فبتفضل 480×270
         try:
@@ -589,7 +658,7 @@ class Editor:
         md_parts: dict = {}
         try:                                      # المونتاج أساسي: مقدمة + شاشة نهاية
             intro = long_intro(self.out, seed=self.seed + 3, moves=moves,
-                              out_w=fmt["w"], out_h=fmt["h"])
+                              out_w=fmt["w"], out_h=fmt["h"], palette=palette)
             outro = long_outro(self.out, seed=self.seed + 9, out_w=fmt["w"], out_h=fmt["h"])
             intro_dur = round(proc.duration(intro) or 12.0, 2)
             outro_dur = round(proc.duration(outro) or 10.0, 2)
@@ -622,7 +691,9 @@ class Editor:
                          "look": look, "music": "warm_pad", "body_loop_seconds": loop_seconds,
                          "body_reencoded": False, "scene": scene, "audio": audio,
                          "camera_moves": MOVES if not moves else list(moves)}
-        thumb = thumbnail(scene, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg", look=look)
+        md["description"] = md.get("description", "") + "\n\n" + _montage_line(md["montage"])
+        thumb = thumbnail(scene, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg", look=look,
+                          palette=palette)
         files = meta.write_package(md, self.out)
         record = dict(kind="sleep_long", video=str(video), thumbnail=str(thumb), meta=md,
                       meta_files=files, hours=hours, scene=scene, audio=audio)

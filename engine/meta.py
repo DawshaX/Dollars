@@ -129,8 +129,10 @@ def build(spec: dict) -> dict:
     hashtags = ([f"#{kw.replace(' ', '')}", "#shorts"] if kind == "short" else []) + \
                [f"#{h.replace(' ', '')}" for h in PILLAR_KW[pillar][:8]]
     hashtags = [h for h in dict.fromkeys(hashtags)][:MAX_HASHTAGS]
+    # عبارات البحث الحقيقية (من refs.search_demand) — بتزود الوسوم بكلمات الناس بتكتبها فعلًا
+    phrases = [str(x).lower() for x in (spec.get("phrases") or []) if x]
     tags = list(dict.fromkeys(
-        [kw.lower()] + PILLAR_TAGS[pillar] + [t.lower() for t in (spec.get("extra_tags") or [])]))
+        [kw.lower()] + phrases[:4] + PILLAR_TAGS[pillar] + [t.lower() for t in (spec.get("extra_tags") or [])]))
     # الوسوم ≤ 500 حرف
     picked, ln = [], 0
     for t in tags:
@@ -163,6 +165,8 @@ def build(spec: dict) -> dict:
         " ".join(hashtags),
         "",
         (" · ".join(PILLAR_KW[pillar][:10])) + ".",
+        ("🔎 People also search for: " + " · ".join(phrases[:5]) + ".") if phrases else "",
+        (f"🎬 Montage: {spec['montage_line']}" if spec.get("montage_line") else ""),
     ]
     description = "\n".join(l for l in desc_lines)
     thumb_texts = {

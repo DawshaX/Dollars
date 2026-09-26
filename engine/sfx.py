@@ -570,6 +570,154 @@ def twinkle_run(dur: float = 1.6) -> np.ndarray:
     return _norm(out, 0.8)
 
 
+
+# ───────────────── الجيل الثالث: طبيعة + أدوات دافئة (مخزون محلي إضافي) ─────────────────
+
+def cricket_field(dur: float = 2.6, seed: int = 3) -> np.ndarray:
+    """صراصير الليل: نقرات معدنية سريعة على خلفية هواء دافئ."""
+    n = int(dur * SR); t = np.arange(n) / SR
+    rng = np.random.default_rng(seed)
+    out = _band(_noise(n, seed + 1), 120, 1200) * 0.06
+    pos = 0.0
+    while pos < dur - 0.05:
+        chirp = 0.06 + rng.random() * 0.05
+        seg = int(chirp * SR)
+        tt = np.arange(seg) / SR
+        y = (np.sin(2 * np.pi * (4200 + rng.random() * 900) * tt) * np.exp(-60 * tt) * 0.5)
+        for k in range(3):                                   # ثلاث نقرات
+            j = int(pos * SR) + k * int(0.022 * SR)
+            m = min(seg, n - j)
+            if m > 0:
+                out[j:j + m] += y[:m] * (0.9 - 0.2 * k)
+        pos += 0.24 + rng.random() * 0.3
+    return _norm(_fade_edges(out), 0.62)
+
+
+def owl_night(dur: float = 1.9, base: float = 380.0) -> np.ndarray:
+    """بومة ليل: «هو-هو» ناعمتين."""
+    out = np.zeros(int(dur * SR), np.float32)
+    for i, (at, f) in enumerate(((0.0, base), (0.52, base * 0.92))):
+        seg = int(0.42 * SR); t = np.arange(seg) / SR
+        env = np.exp(-7.0 * t) * (1 - np.exp(-40 * t))
+        y = (np.sin(2 * np.pi * f * t) + 0.35 * np.sin(2 * np.pi * f * 2 * t)) * env * 0.45
+        j = int(at * SR); m = min(seg, out.size - j)
+        out[j:j + m] += y[:m]
+    return _norm(_fade_edges(out), 0.72)
+
+
+def frog_pond(dur: float = 1.4, base: float = 150.0) -> np.ndarray:
+    """ضفدعة: نغمة منخفضة بتتنفّخ وتنزل."""
+    t = _t(dur); k = np.clip(t / dur, 0, 1)
+    f = base * (1 + 0.5 * np.sin(np.pi * k))
+    x = np.sin(2 * np.pi * f * t) * np.sin(np.pi * k) * 0.7
+    x += 0.2 * _band(_noise(int(dur * SR), 21), 200, 900) * np.exp(-4 * t)
+    return _norm(_fade_edges(x), 0.7)
+
+
+def brook_water(dur: float = 3.0, seed: int = 5) -> np.ndarray:
+    """جدول ماء: خرير متغيّر (مناسب للأجواء والقِصص)."""
+    n = int(dur * SR)
+    x = _band(_noise(n, seed), 350, 5200) * 0.5
+    t = np.arange(n) / SR
+    x *= 0.75 + 0.25 * np.sin(2 * np.pi * 0.6 * t) + 0.12 * np.sin(2 * np.pi * 2.3 * t)
+    return _norm(_fade_edges(x), 0.6)
+
+
+def leaves_rustle(dur: float = 1.6, seed: int = 7) -> np.ndarray:
+    """حفيف ورق شجر (خطوة في حديقة)."""
+    n = int(dur * SR)
+    x = _band(_noise(n, seed), 900, 7000)
+    env = np.exp(-np.linspace(0, 3.0, n)) * (0.6 + 0.4 * np.abs(np.sin(np.linspace(0, 9, n))))
+    return _norm(_fade_edges(x * env), 0.55)
+
+
+def snow_crunch(dur: float = 0.9, seed: int = 11) -> np.ndarray:
+    """خطوة على ثلج ناعم."""
+    n = int(dur * SR)
+    x = _band(_noise(n, seed), 700, 9000) * np.exp(-np.linspace(0, 5.5, n))
+    t = np.arange(n) / SR
+    x += 0.25 * np.sin(2 * np.pi * 90 * t) * np.exp(-18 * t)
+    return _norm(_fade_edges(x), 0.6)
+
+
+def kettle_whistle(dur: float = 1.5, base: float = 1720.0) -> np.ndarray:
+    """صفّارة شاي (لحظات دافية)."""
+    t = _t(dur); k = np.clip(t / dur, 0, 1)
+    f = base * (1 + 0.06 * np.sin(2 * np.pi * 5.0 * t))
+    x = np.sin(2 * np.pi * f * t) + 0.3 * np.sin(2 * np.pi * f * 2 * t) * 0.4
+    x *= np.clip(1 - k, 0, 1) ** 0.6 * (1 - np.exp(-30 * t))
+    return _norm(_fade_edges(x), 0.6)
+
+
+def clock_chime(dur: float = 1.8, base: float = 523.25) -> np.ndarray:
+    """جرس ساعة: نغمة + رنّة معدنية."""
+    t = _t(dur)
+    x = (np.sin(2 * np.pi * base * t) * np.exp(-2.6 * t)
+         + 0.4 * np.sin(2 * np.pi * base * 2.76 * t) * np.exp(-4.2 * t)
+         + 0.2 * np.sin(2 * np.pi * base * 5.4 * t) * np.exp(-6.0 * t))
+    return _norm(_fade_edges(x), 0.72)
+
+
+def door_creak_soft(dur: float = 1.1) -> np.ndarray:
+    """صرير باب هادي (توتر لطيف في القِصص)."""
+    n = int(dur * SR); t = np.arange(n) / SR
+    k = np.clip(t / dur, 0, 1)
+    f = 210 + 260 * k + 40 * np.sin(2 * np.pi * 6.5 * t)
+    x = np.sin(2 * np.pi * f * t) * (0.5 + 0.5 * np.sin(2 * np.pi * 3.0 * t)) * (1 - k) ** 0.7
+    x += 0.15 * _band(_noise(n, 33), 300, 2400) * (1 - k)
+    return _norm(_fade_edges(x), 0.55)
+
+
+def fabric_swish(dur: float = 0.5, seed: int = 13) -> np.ndarray:
+    """سحبة قماش (حركة شخصية)."""
+    n = int(dur * SR)
+    x = _band(_noise(n, seed), 250, 3500)
+    env = np.sin(np.pi * np.linspace(0, 1, n)) ** 0.8
+    return _norm(_fade_edges(x * env), 0.5)
+
+
+def quill_write(dur: float = 1.3, seed: int = 17) -> np.ndarray:
+    """قلم بيكتب (لمشاهد الدفاتر/الهارمونوغراف)."""
+    n = int(dur * SR)
+    x = _band(_noise(n, seed), 1200, 8000)
+    env = 0.35 + 0.65 * (np.sin(np.linspace(0, 40, n)) ** 12)
+    return _norm(_fade_edges(x * env), 0.45)
+
+
+def harp_gliss(dur: float = 1.4, base: float = 262.0) -> np.ndarray:
+    """مرور سريع على أوتار الهارب (سحري)."""
+    out = np.zeros(int(dur * SR), np.float32)
+    notes = [base * (2 ** (i / 12)) for i in (0, 4, 7, 12, 16, 19, 24, 28)]
+    step = dur / len(notes)
+    for i, f in enumerate(notes):
+        seg = int(min(1.1, dur) * SR); t = np.arange(seg) / SR
+        y = (np.sin(2 * np.pi * f * t) * np.exp(-3.4 * t) * 0.4)
+        j = int(i * step * SR); m = min(seg, out.size - j)
+        out[j:j + m] += y[:m]
+    return _norm(out, 0.78)
+
+
+def marimba_roll(dur: float = 1.2, base: float = 392.0) -> np.ndarray:
+    """دقّات ماريمبا دافية (لحظات مرحة)."""
+    out = np.zeros(int(dur * SR), np.float32)
+    notes = [base, base * 1.5, base * 2.0, base * 1.5]
+    step = dur / len(notes)
+    for i, f in enumerate(notes):
+        seg = int(0.5 * SR); t = np.arange(seg) / SR
+        y = (np.sin(2 * np.pi * f * t) + 0.4 * np.sin(2 * np.pi * f * 4.0 * t)) * np.exp(-9.0 * t) * 0.5
+        j = int(i * step * SR); m = min(seg, out.size - j)
+        out[j:j + m] += y[:m]
+    return _norm(out, 0.8)
+
+
+def wood_block(dur: float = 0.2, base: float = 780.0) -> np.ndarray:
+    """طقّة خشب جافّة (إيقاع لطيف)."""
+    t = _t(dur)
+    x = (np.sin(2 * np.pi * base * t) * np.exp(-40 * t)
+         + 0.5 * np.sin(2 * np.pi * base * 1.62 * t) * np.exp(-55 * t))
+    return _norm(_fade_edges(x), 0.7)
+
+
 SFX = {
     # انتقالات
     "whoosh": whoosh, "swipe": swipe, "zoom": zoom, "glitch": glitch,
@@ -591,6 +739,11 @@ SFX = {
     "ui_open": ui_open, "ui_close": ui_close, "ui_tick": ui_tick, "whoosh_soft": whoosh_soft,
     "beam": beam, "lullaby_note": lullaby_note, "magic_up": magic_up, "warm_hum": warm_hum,
     "thunder_far": thunder_far, "rain_drop": rain_drop, "bubble_pop": bubble_pop, "twinkle_run": twinkle_run,
+    # الجيل الثالث (طبيعة + أدوات دافئة)
+    "cricket_field": cricket_field, "owl_night": owl_night, "frog_pond": frog_pond, "brook_water": brook_water,
+    "leaves_rustle": leaves_rustle, "snow_crunch": snow_crunch, "kettle_whistle": kettle_whistle,
+    "clock_chime": clock_chime, "door_creak_soft": door_creak_soft, "fabric_swish": fabric_swish,
+    "quill_write": quill_write, "harp_gliss": harp_gliss, "marimba_roll": marimba_roll, "wood_block": wood_block,
 }
 
 USES = {
@@ -598,11 +751,15 @@ USES = {
     "comedy": ["boing", "spring", "slide_whistle", "sad_trombone", "error", "bubble", "pop"],
     "celebration": ["tada", "magic", "sparkle", "coin", "cork", "appear", "cymbal", "success"],
     "world": ["thud", "drum", "heartbeat", "tick", "water", "paper", "click", "ding", "bell"],
+    "nature": ["cricket_field", "owl_night", "frog_pond", "brook_water", "leaves_rustle", "snow_crunch",
+               "wind_gust", "rain_drop", "thunder_far", "fire_crackle"],
     "atmosphere": ["vinyl", "fire_crackle", "wind_gust", "thunder_far", "rain_drop", "warm_hum"],
+    "home": ["kettle_whistle", "clock_chime", "door_creak_soft", "fabric_swish", "quill_write", "wood_block",
+             "page_turn", "match_strike"],
     "magic": ["shimmer", "swell", "beam", "magic_up", "twinkle_run", "reverse_swell", "downlifter"],
     "ui_soft": ["ui_open", "ui_close", "ui_tick", "glass_tap", "wood_tap", "coin_drop", "page_turn",
                 "match_strike", "bubble_pop", "chime_soft", "lullaby_note", "whoosh_soft", "soft_impact",
-                "sub_hit", "tape_stop"],
+                "sub_hit", "tape_stop", "clock_chime", "wood_block", "marimba_roll", "harp_gliss"],
 }
 
 # الأنسب لكل نوع فيديو (يستخدمه المجمّع تلقائيًا)
@@ -610,10 +767,12 @@ RECOMMENDED = {
     "sleep": [],
     "story": ["bell", "appear", "boing", "sparkle", "magic", "slide_whistle", "sad_trombone", "tada",
               "chime_soft", "lullaby_note", "beam", "page_turn", "magic_up", "twinkle_run", "warm_hum",
-              "glass_tap", "wood_tap", "rain_drop", "match_strike"],
+              "glass_tap", "wood_tap", "rain_drop", "match_strike", "harp_gliss", "marimba_roll",
+              "owl_night", "frog_pond", "quill_write", "clock_chime"],
     "satisfying": ["bubble", "pop", "click", "sparkle", "ding", "swipe",
                    "ui_tick", "glass_tap", "wood_tap", "coin_drop", "bubble_pop", "shimmer", "whoosh_soft",
-                   "soft_impact", "ui_open", "ui_close"],
+                   "soft_impact", "ui_open", "ui_close", "wood_block", "leaves_rustle", "brook_water",
+                   "snow_crunch", "fabric_swish", "kettle_whistle"],
     "short_comedy": ["boing", "spring", "record_stop", "error", "slide_whistle", "whoosh", "pop",
                      "tape_stop", "sub_hit", "downlifter", "vinyl", "swell", "reverse_swell"],
 }

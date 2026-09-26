@@ -60,7 +60,7 @@
     "storm"
   ],
   "sfx": {
-    "count": 60,
+    "count": 74,
     "uses": {
       "transition": [
         "whoosh",
@@ -102,6 +102,18 @@
         "ding",
         "bell"
       ],
+      "nature": [
+        "cricket_field",
+        "owl_night",
+        "frog_pond",
+        "brook_water",
+        "leaves_rustle",
+        "snow_crunch",
+        "wind_gust",
+        "rain_drop",
+        "thunder_far",
+        "fire_crackle"
+      ],
       "atmosphere": [
         "vinyl",
         "fire_crackle",
@@ -109,6 +121,16 @@
         "thunder_far",
         "rain_drop",
         "warm_hum"
+      ],
+      "home": [
+        "kettle_whistle",
+        "clock_chime",
+        "door_creak_soft",
+        "fabric_swish",
+        "quill_write",
+        "wood_block",
+        "page_turn",
+        "match_strike"
       ],
       "magic": [
         "shimmer",
@@ -134,7 +156,11 @@
         "whoosh_soft",
         "soft_impact",
         "sub_hit",
-        "tape_stop"
+        "tape_stop",
+        "clock_chime",
+        "wood_block",
+        "marimba_roll",
+        "harp_gliss"
       ]
     },
     "recommended": {
@@ -158,7 +184,13 @@
         "glass_tap",
         "wood_tap",
         "rain_drop",
-        "match_strike"
+        "match_strike",
+        "harp_gliss",
+        "marimba_roll",
+        "owl_night",
+        "frog_pond",
+        "quill_write",
+        "clock_chime"
       ],
       "satisfying": [
         "bubble",
@@ -176,7 +208,13 @@
         "whoosh_soft",
         "soft_impact",
         "ui_open",
-        "ui_close"
+        "ui_close",
+        "wood_block",
+        "leaves_rustle",
+        "brook_water",
+        "snow_crunch",
+        "fabric_swish",
+        "kettle_whistle"
       ],
       "short_comedy": [
         "boing",
@@ -475,16 +513,19 @@
   },
   "stock": {
     "note": "المخزون المحلي — كله ملكنا (مولّد بالكود)",
-    "sfx_files": 60,
+    "sfx_files": 74,
     "music_styles": [
       "music_box",
       "lullaby_bell",
       "warm_pad",
       "lofi_keys",
       "dream_pulse",
-      "night_drone"
+      "night_drone",
+      "kalimba_dusk",
+      "harp_mist",
+      "cosmic_pad"
     ],
-    "music_previews": 6,
+    "music_previews": 9,
     "fx_kinds": 10,
     "stickers": 41,
     "memes": 6,
