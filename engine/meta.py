@@ -211,6 +211,45 @@ def build(spec: dict) -> dict:
         md["titles"] = [t if t.endswith("#shorts") else (t[:80] + " #shorts") for t in md["titles"]]
         md["chapters"] = []
         md["description"] = description.replace("⏱️ Chapters:", "").strip()
+    # ── النوع (الاستوديو): النوع بيحدّد العنوان والوصف والوسوم والبلايليست ──
+    gid = spec.get("genre")
+    if gid:
+        try:
+            from engine import genres as _g
+            g = _g.get(gid)
+            hint = spec.get("title_style") or spec.get("title_hint")
+            if hint:
+                h = hint if (kind != "short" or hint.rstrip().endswith("#shorts")) else hint.strip()[:80] + " #shorts"
+                md["titles"] = [h] + [x for x in md["titles"] if x != h]
+                md["titles"] = md["titles"][:3]
+            kw_t = spec.get("kw") or kw
+            intro = g["desc_intro"].format(kw=kw_t, dur=dur)
+            extra = []
+            if spec.get("lines"):
+                extra.append("What this covers:\n" + "\n".join(f"• {ln}" for ln in spec["lines"][:3]))
+            if spec.get("source"):
+                extra.append(f"Sources (verified):\n• {spec['source']}")
+            if gid == "space_nature":
+                extra.append("Imagery: public NASA / Wikimedia sources — animated in our studio.")
+            joined = "\n\n".join([intro] + extra)
+            tail = [ln for ln in md["description"].splitlines()
+                    if any(k in ln.lower() for k in ("disclos", "إفصاح", "generated", "مولّد",
+                                                     "license", "حقوق", "studio", "subscribe", "⏱️"))]
+            md["description"] = (joined + ("\n\n" + "\n".join(tail) if tail else ""))[:4900]
+            md["tags"] = _g.tags_for(gid, extra=[kw_t] if kw_t else [])
+            md["playlist"] = g["playlist"]
+            md["genre"] = gid
+            md["category_id"] = CATEGORY.get(g["pillar"], md.get("category_id", "10"))
+            md["pinned_comment"] = {
+                "facts": "Which one surprised you the most? Sources are in the description 🔍",
+                "story": "What should our little hero do next? 💙",
+                "satisfying": "Sound on 🔉 — which part was the most satisfying?",
+                "fun_memes": "Tag someone who does this every week 😅",
+                "space_nature": "Would you go? 🌍",
+            }.get(gid, md["pinned_comment"])
+        except Exception:
+            pass
+
     # ── الكوبي الذكي: عنوان مغناطيسي + كلمات طلب حقيقي + لغات الدنيا ──
     try:
         smart = _smart(spec) if spec.get("smart", True) else {}

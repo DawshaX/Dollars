@@ -313,6 +313,44 @@ def freesound(q: str, n: int = 5, license_cc0: bool = True) -> list[dict]:
             for r in (d.get("results") or [])]
 
 
+# ───────────────────────── حقائق موثّقة (مصادر حقيقية) ─────────────────────────
+
+def wikipedia_summary(title: str, lang: str = "en") -> dict:
+    """ملخّص حقيقي من ويكيبيديا + رابط المصدر (بلا مفتاح، بلا تأليف)."""
+    t = urllib.parse.quote(title.replace(" ", "_"))
+    d = _json(f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{t}") or {}
+    if not d.get("extract"):
+        return {}
+    return {"title": d.get("title"), "extract": d.get("extract"),
+            "url": ((d.get("content_urls") or {}).get("desktop") or {}).get("page")
+                   or f"https://{lang}.wikipedia.org/wiki/{t}",
+            "image": ((d.get("thumbnail") or {}).get("source")),
+            "image_page": ((d.get("originalimage") or {}).get("source"))}
+
+
+def wikipedia_onthisday(lang: str = "en", kind: str = "events") -> list[dict]:
+    """أحداث/مواليد/وفيات حقيقية حصلت في نفس اليوم ده (بتاريخ النهاردة) + مصادرها."""
+    from datetime import datetime, timezone
+    now = datetime.now(timezone.utc)
+    d = _json(f"https://{lang}.wikipedia.org/api/rest_v1/feed/onthisday/{kind}/{now.month}/{now.day}") or {}
+    out = []
+    for e in (d.get(kind) or []):
+        pages = e.get("pages") or [{}]
+        out.append({"text": e.get("text"), "year": e.get("year"),
+                    "url": (pages[0] or {}).get("content_urls", {}).get("desktop", {}).get("page"),
+                    "title": (pages[0] or {}).get("title"),
+                    "image": ((pages[0] or {}).get("thumbnail") or {}).get("source")})
+    return [o for o in out if o.get("text")]
+
+
+def wikipedia_search(q: str, n: int = 5, lang: str = "en") -> list[dict]:
+    """بحث في ويكيبيديا — عناوين حقيقية تصلح لفيديو حقائق."""
+    d = _json("https://" + f"{lang}.wikipedia.org/w/api.php?action=query&format=json&list=search"
+              f"&srsearch={urllib.parse.quote(q)}&srlimit={n}") or {}
+    return [{"title": r.get("title"), "snippet": (r.get("snippet") or "").replace('<span class="searchmatch">', "")
+             .replace("</span>", "")} for r in ((d.get("query") or {}).get("search") or [])]
+
+
 def reference_visuals(topic: str, per: int = 6) -> list[dict]:
     """مرجع بصري مجمّع: بيجرّب كل المصادر الحره ويرجّع اللي نجح (ترتيب بالأفضلية)."""
     out = []

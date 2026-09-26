@@ -78,9 +78,13 @@ def _plan(date_str: str | None = None) -> dict:
     p = STATE / f"plan_{date_str}.json"
     plan = _jload(p)
     if not plan:
-        brain = agent.Brain.load()
-        plan = agent.plan_day(brain, date_str, characters=agent.load_characters().get("characters"))
-        brain.save()
+        try:                                  # استوديو الأنواع (٨ أنواع متنوّعة + حارس التنوّع)
+            from engine import studio as _studio
+            plan = _studio.build_day(date_str)
+        except Exception as _e:
+            brain = agent.Brain.load()
+            plan = agent.plan_day(brain, date_str, characters=agent.load_characters().get("characters"))
+            brain.save()
     return plan
 
 
@@ -153,6 +157,34 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         pass
     t0 = time.time()
 
+    # ── الاستوديو: النوع بيحدّد المشهد والصوت واللوحة والانتقال + النص على الشاشة ──
+    gid = idea.get("genre")
+    gspec: dict = {}
+    if gid:
+        style_kw.update({k: idea[k] for k in ("scene", "audio", "palette", "transition")
+                         if idea.get(k)})
+        style_kw["scenes"] = [idea["scene"]]
+        text_policy = None
+        try:
+            from engine import genres as _g
+            text_policy = _g.get(gid).get("text_policy")
+        except Exception:
+            pass
+        texts = []
+        if idea.get("hook"):
+            texts.append({"at": 0.4, "dur": 2.6, "text": idea["hook"], "pos": "lower", "size": 0.06})
+        if text_policy == "en_lines" and idea.get("lines"):
+            step = max(4.0, (float(str(idea.get("duration", "45s")).replace("s", "")) or 45) / (len(idea["lines"]) + 1))
+            for i, ln in enumerate(idea["lines"][:3]):
+                texts.append({"at": 3.0 + i * step, "dur": step * 0.9, "text": ln, "pos": "lower", "size": 0.05})
+        if text_policy == "en_lines_label":
+            texts.append({"at": 2.0, "dur": 3.0, "text": "Imagery: NASA / Wikimedia (public sources)",
+                          "pos": "lower", "size": 0.038})
+        if texts:
+            style_kw["texts"] = texts
+        gspec = {k: idea[k] for k in ("genre", "kw", "topic", "lines", "source", "playlist",
+                                      "hook", "character", "thing") if idea.get(k)}
+        gspec["title_style"] = idea.get("title_style")
     if slot.get("kind") == "long" and pillar in ("sleep", "focus"):
         hours = float(str(dur).replace("h", "") or 10)
         hours = hours if hours in (3, 8, 10, 2, 4, 6, 12) else 8
@@ -161,15 +193,18 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         rec = ed.make("sleep_long", hours=hours, scene=scene, audio=audio, **style_kw)
         rec.update(pillar="sleep", duration=f"{int(hours)}h")
     elif pillar == "story":
-        rec = ed.make("story_short", seconds=float(str(dur).replace("m", "") or 2) * 60)
+        rec = ed.make("story_short", seconds=float(str(dur).replace("m", "") or 2) * 60,
+                      spec_extra=gspec, **{k: v for k, v in style_kw.items() if k in ("palette", "transition", "audio")})
         rec.update(pillar="story", duration=dur)
     elif pillar in ("focus", "sleep") or (slot.get("kind") == "short" and random.Random(seed).random() < 0.25):
         rec = ed.make("ambience_short", seconds=float(str(dur).replace("s", "") or 45),
-                      meta_pillar=("focus" if pillar == "focus" else "sleep"), **style_kw)
+                      meta_pillar=("focus" if pillar == "focus" else "sleep"),
+                      spec_extra=gspec, **style_kw)
         rec.update(pillar=("focus" if pillar == "focus" else "sleep"), duration=dur)
     else:
         secs = float(str(dur).replace("s", "") or 30)
-        rec = ed.make("satisfying_short", seconds=secs if 15 <= secs <= 60 else 30, **style_kw)
+        rec = ed.make("satisfying_short", seconds=secs if 15 <= secs <= 60 else 30,
+                      spec_extra=gspec, **style_kw)
         rec.update(pillar="satisfying", duration=dur)
 
     rec["recipe"] = {k: recipe.get(k) for k in
@@ -177,6 +212,15 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
     if style_kw.get("unlimited"):
         rec["unlimited"] = style_kw["unlimited"]          # رقم التركيبة من المخزون اللانهائي
     rec["slot"] = slot
+    if idea.get("sig"):
+        try:
+            from engine import variety as _v
+            ttl = ((rec.get("meta") or {}).get("titles") or [""])[0]
+            sg = dict(idea["sig"]); sg["title_shape"] = _v._shape(ttl)
+            _v.record(sg)
+            rec["variety"] = sg
+        except Exception:
+            pass
     rec["seconds_spent"] = round(time.time() - t0, 1)
     rec["seed"] = seed
     rec["produced_at"] = datetime.now(timezone.utc).isoformat()

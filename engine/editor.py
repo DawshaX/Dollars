@@ -318,10 +318,43 @@ def _write_wav(path, stereo: np.ndarray, sr: int = 44100):
     return path
 
 
+def _draw_text(frame: np.ndarray, text: str, pos: str = "lower", size: float = 0.055) -> np.ndarray:
+    """يرسم نص على الكادر (بالإنجليزية — عشان الحروف تطلع سليمة على كل الأجهزة)."""
+    try:
+        img = Image.fromarray(frame).convert("RGBA")
+        ov = Image.new("RGBA", img.size, (0, 0, 0, 0))
+        d = ImageDraw.Draw(ov)
+        w, h = img.size
+        f = _font(max(14, int(h * size)))
+        words, lines, cur = text.split(), [], ""
+        for wd in words:
+            t = (cur + " " + wd).strip()
+            if d.textlength(t, font=f) > w * 0.86 and cur:
+                lines.append(cur); cur = wd
+            else:
+                cur = t
+        lines.append(cur)
+        lh = int(h * size * 1.35)
+        total = lh * len(lines)
+        y0 = int(h * 0.78 - total / 2) if pos == "lower" else int((h - total) / 2)
+        for i, ln in enumerate(lines):
+            tw = d.textlength(ln, font=f)
+            x = int((w - tw) / 2)
+            y = y0 + i * lh
+            pad = int(h * 0.012)
+            d.rounded_rectangle([x - pad, y - pad // 2, x + tw + pad, y + lh - pad // 2],
+                                radius=int(h * 0.012), fill=(0, 0, 0, 120))
+            d.text((x + 2, y + 2), ln, font=f, fill=(0, 0, 0, 190))
+            d.text((x, y), ln, font=f, fill=(255, 255, 255, 240))
+        return np.asarray(Image.alpha_composite(img, ov).convert("RGB"))
+    except Exception:
+        return frame
+
+
 def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                  out_w: int | None = None, out_h: int | None = None, crf: int = 21,
                  progress: bool = False, palette=None, transition: str = "crossfade",
-                 xfade: float = 0.45) -> pathlib.Path:
+                 xfade: float = 0.45, texts: list | None = None) -> pathlib.Path:
     """
     يرندر الخطة كاملة: كاميرا + إضافات بصرية + ملصقات + طقم الجودة + تدرّج ألوان المرجع
     + **انتقالات بين المقاطع** (تلاشي متبادل ناعم) ⇒ مونتاج حقيقي مش قصّات جافة.
@@ -389,6 +422,14 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                         fr = _mix(fr, np.zeros_like(fr), (i - (n_frames - xf) + 1) / float(xf))
                 if i == n_frames - 1:
                     tail = fr.copy()                                     # كادر الربط للمقطع اللي بعده
+            if texts:                                     # نص الشاشة (حقائق موثّقة · شفافية المصدر)
+                t_now = start_at + (i / float(fps))
+                for tx in texts:
+                    at, dur = float(tx.get("at", 0)), float(tx.get("dur", 3))
+                    if at <= t_now < at + dur:
+                        fr = _draw_text(fr, str(tx.get("text", "")), pos=tx.get("pos", "lower"),
+                                        size=float(tx.get("size", 0.055)))
+                        break
             p.stdin.write(memoryview(np.ascontiguousarray(fr)))
             frames += 1
             if progress and frames % 240 == 0:
@@ -581,15 +622,16 @@ class Editor:
         seed = self.seed if seed is None else seed
         sp = dict(SPECS[kind])
         shots = plan_shots(pillar, seconds, seed=seed, moves=kw.get("moves"), scenes=kw.get("scenes"))
+        spec_extra = dict(kw.get("spec_extra") or {})
         name = out_name or f"{kind}_{seed}_{int(seconds)}s"
         silent = self.out / f"{name}_silent.mp4"
         video = self.out / f"{name}.mp4"
         look = kw.get("look") or sp.get("look") or ("cinema_cool" if pillar == "ambience" else "satisfying")
         transition = kw.get("transition", "crossfade")
-        render_shots(shots, silent, sp["w"], sp["h"], sp["fps"], look,
+        render_shots(shots, silent, sp["w"], sp["h"], sp["fps"], look, texts=kw.get("texts"),
                      out_w=sp["ow"], out_h=sp["oh"], crf=21,
                      palette=kw.get("palette"), transition=transition)
-        ambient_name = kw.get("audio") if pillar == "ambience" else None
+        ambient_name = kw.get("audio")
         if pillar == "ambience" and not ambient_name:
             want = (kw.get("meta_pillar") or "sleep")
             ambient_name = random.Random(seed).choice(
@@ -614,6 +656,7 @@ class Editor:
         spec = dict(pillar=kw.get("meta_pillar") or (pillar if pillar != "ambience" else "sleep"),
                     seconds=int(seconds),
                     kind="short", scene=scene0, duration_bucket=f"{int(seconds)}s")
+        spec.update(spec_extra)                     # نوع الفيديو · الكلمة · المصادر · البلايليست
         md = meta.build(spec)
         md["shot_list"] = [{"scene": s["scene"], "dur": s["dur"], "move": s["move"],
                             "sfx": [c["name"] for c in s["cues"]],
