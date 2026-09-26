@@ -33,7 +33,7 @@ def _good_rec(sandbox, hour=3, seed=999):
     """فيديو وهمي + بيانات كاملة تعدّي الفحص (زي اللي المصنع بيطلّعه فعلًا)."""
     from engine import meta
     vid = sandbox / "clip.mp4"
-    vid.write_bytes(b"\x00" * 20_000)          # أكبر من حد الملف التالف (١٠ كيلو) عشان يعدّي البوابة
+    vid.write_bytes(b"\x00" * 300_000)         # كبير ⇒ يعدّي بوابة الملف التالف (زي رندر حقيقي)
     return {"video": str(vid), "meta": meta.build({"pillar": "sleep", "kw": "Rain Sounds",
                                                    "hours": 8, "kind": "long"}),
             "thumbnail": None, "pillar": "sleep", "duration": "8h", "seed": seed,

@@ -20,6 +20,15 @@ def test_gate_blocks_missing_or_broken_file(tmp_path):
     assert ok is False
 
 
+def test_gate_publishes_big_unreadable_file(tmp_path, monkeypatch):
+    """ملف كبير بس الفحص مش قادر يقراه (بروب على ملف ضخم) ⇒ **ينشر** — عشان النشر مايتوقفش."""
+    monkeypatch.setattr(quality, "inspect",
+                        lambda video, **kw: {"checks": [("الأبعاد", False, "0x0")], "pass": False,
+                                             "resolution": "0x0", "motion": None, "black_ratio": None})
+    ok, rep = quality.gate(_video(tmp_path, size=300_000))
+    assert ok is True and rep["warnings"]
+
+
 def test_gate_publishes_with_warnings(tmp_path, monkeypatch):
     """فيديو سليم فيه ملاحظات (ثبات/أبعاد) ⇒ **ينشر** والملاحظات تتسجّل."""
     def fake_inspect(video, **kw):

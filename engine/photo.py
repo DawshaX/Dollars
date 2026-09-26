@@ -235,14 +235,18 @@ def _light_leak(w: int, h: int, i: int, total: int, strength: float = 0.22) -> n
 
 def reel_frames(paths: list[pathlib.Path], w: int, h: int, fps: int, seconds: float,
                 palette=None, look: str = "cinema_cool", seed: int = 7,
-                particles: float = 0.5, style: str = "cinema", calm: bool = False):
+                particles: float = 0.5, style: str = "cinema", calm: bool = False,
+                loop_back: bool = True):
     """
     يطلّع كادرات فيديو من صور حقيقية: تقريب/تحريك بطيء + جزيئات + تصحيح سينمائي.
     (generator — عشان الرندر يبقى على الهوا مباشرةً)
     """
     rng = np.random.default_rng(seed)
     total = int(seconds * fps)
-    per = max(1, total // max(1, len(paths)))
+    # 🔁 لوب ناعم: آخر ~٠.٩ ثانية بترجع لنفس الكادر الأول (يوتيوب بيعيد الشورت تلقائيًا)
+    back = max(4, int(0.9 * fps)) if (loop_back and not calm and total > 8 * fps) else 0
+    main_total = max(1, total - back)
+    per = max(1, main_total // max(1, len(paths)))
     trans = max(6, min(int(per * 0.22), int(0.9 * fps)))      # طول التلاشي بين الصور
     imgs = {}
     for p in paths:
@@ -262,7 +266,9 @@ def reel_frames(paths: list[pathlib.Path], w: int, h: int, fps: int, seconds: fl
     px = rng.integers(0, w, n_p); py = rng.integers(0, h, n_p)
     pv = rng.uniform(0.15, 0.8, n_p); pr = rng.uniform(0.4, 1.5, n_p)
 
-    for i in range(total):
+    first_fr = None
+    last_fr = None
+    for i in range(main_total):
         idx = min(len(paths) - 1, i // per)
         t = (i % per) / max(1, per)                     # 0..1 جوه الصورة
         im = imgs[paths[idx]]
@@ -271,13 +277,13 @@ def reel_frames(paths: list[pathlib.Path], w: int, h: int, fps: int, seconds: fl
             dirx = 1 if (idx % 2 == 0) else -1
             panx = dirx * (im.width - w) * 0.30 * t
             pany = -0.16 * (im.height - h) * t
-            drift = 0.006 * im.height * math.sin(2 * math.pi * (i / float(max(1, total))) * 1.2)
+            drift = 0.006 * im.height * math.sin(2 * math.pi * (i / float(max(1, main_total))) * 1.2)
         else:
             zoom = 1.03 + 0.16 * t                      # تقريب واضح (حركة محسوسة)
             dirx = 1 if (idx % 2 == 0) else -1
             panx = dirx * (im.width - w) * 0.62 * (0.10 + 0.90 * t)
             pany = -0.45 * (im.height - h) * (0.10 + 0.90 * t)
-            drift = 0.012 * im.height * math.sin(2 * math.pi * (i / float(max(1, total))) * 3.0)
+            drift = 0.012 * im.height * math.sin(2 * math.pi * (i / float(max(1, main_total))) * 3.0)
         cw, ch = max(w, int(w * zoom)), max(h, int(h * zoom))
         left = int(min(max(0, (im.width - cw) / 2 + panx), im.width - cw))
         top = int(min(max(0, (im.height - ch) / 2 + pany + drift), im.height - ch))
@@ -318,12 +324,21 @@ def reel_frames(paths: list[pathlib.Path], w: int, h: int, fps: int, seconds: fl
             fr = fr * breath
             fr = grade.vignette(fr, amount=0.26, softness=1.5)
             if style == "cinema":
-                fr = np.clip(fr + _light_leak(w, h, i, total, 0.16), 0, 1)
+                fr = np.clip(fr + _light_leak(w, h, i, main_total, 0.16), 0, 1)
             fr = grade.grain(fr, amount=(0.004 if calm else 0.008), seed=i)
             fr = np.clip(fr, 0, 1)
         except Exception:
             pass
+        if i == 0:
+            first_fr = fr.copy()
+        last_fr = fr
         yield fr
+    # 🔁 لقطة الرجوع: ندمج آخر كادر مع أول كادر بنعومة ⇒ إعادة التشغيل تبان حلقة واحدة
+    if back and first_fr is not None and last_fr is not None:
+        for j in range(back):
+            u = (j + 1) / float(back)
+            a = u * u * (3.0 - 2.0 * u)                 # ease in-out ناعم
+            yield last_fr * (1.0 - a) + first_fr * a
 
 
 def _mix(a: np.ndarray, b: np.ndarray, t: float) -> np.ndarray:
@@ -383,7 +398,7 @@ def thumb_from_photo(paths: list[pathlib.Path], texts: list[str], out_path,
 def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 720, h: int = 1280,
                 fps: int = 30, palette=None, look: str = "cinema_cool", seed: int = 7,
                 texts: list | None = None, crf: int = 21, calm: bool = False,
-                intros: bool = False) -> pathlib.Path:
+                intros: bool = False, loop_back: bool | None = None) -> pathlib.Path:
     """يرندر الصور الحقيقية كفيديو كامل (مع النص على الشاشة لو موجود)."""
     from engine.editor import _draw_text
     out_path = pathlib.Path(out_path)
@@ -394,8 +409,10 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
            "-g", str(fps * 2), "-movflags", "+faststart", str(out_path)]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
     i = 0
+    if loop_back is None:
+        loop_back = not calm                            # الشورتس: لوب سلس · الطويلة: عادي
     for fr in reel_frames(paths, w, h, fps, seconds, palette=palette, look=look, seed=seed,
-                          calm=calm):
+                          calm=calm, loop_back=loop_back):
         t_now = i / float(fps)
         if texts:
             for tx in texts:

@@ -48,7 +48,13 @@ def gate(video, kind: str = "short", seconds: float | None = None, loop: bool = 
     unreadable = (not rep.get("motion") and not rep.get("black_ratio")
                   and rep.get("resolution") in (None, "0x0"))
     if unreadable:
-        fatal.append("الفيديو مش مقروء")
+        # ملف صغير ومش مقروء ⇒ تالف فعلًا (مايتنشرش).
+        # ملف **كبير** ومش مقروء ⇒ غالبًا مشكلة أداة/بروب على ملف ضخم (زي طويلة ١٠ ساعات)
+        # ⇒ ملاحظة مش رفض، عشان النشر مايتوقفش بالغلط (زي ما حصل قبل كده).
+        if p.stat().st_size < 200_000:
+            fatal.append("الفيديو مش مقروء (ملف تالف)")
+        else:
+            warnings.append("الفحص مش قادر يقرا الفيديو (حجمه كبير — بننشر)")
     if strict:
         fatal += warnings
     return (not fatal), {**rep, "warnings": warnings, "fatal": fatal,

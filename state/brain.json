@@ -2,9 +2,9 @@
   "version": 3,
   "weights": {
     "pillar": {
-      "sleep": 5.6879,
+      "sleep": 6.4428,
       "satisfying": 1.145,
-      "story": 0.2982,
+      "story": 0.2611,
       "focus": 0.9862
     },
     "scene": {
