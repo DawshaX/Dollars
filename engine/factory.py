@@ -238,6 +238,15 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
     q = _jload(STATE / "queue.json", {"items": []}) or {"items": []}
     items = q["items"][:limit] if limit else list(q["items"])
     lines, done = [], 0
+    try:                                     # نسأل قبل ما نصرف ٥ دقايق رندر على الفاضي
+        left = publish.remaining_capacity()
+        if publish.usable_projects() and left <= 0:
+            _say("⛔ الحصة اليومية خلصت على كل المشاريع — مش بنرندر عشان ما نضيّعش وقت. "
+                 "الطابور زي ما هو وهينزل لوحده أول ما الحصة ترجع.")
+            return {"processed": 0, "remaining": len(items), "lines": ["⛔ الحصة خلصت"], "stopped": "quota"}
+        _say(f"♻️ تفريغ الطابور: {len(items)} عنصر · سعة النشر المتبقية النهاردة: {left} رفعة")
+    except Exception:
+        pass
     _say(f"♻️ تفريغ الطابور: {len(items)} عنصر · رندر + نشر عنصر عنصر")
     for n, it in enumerate(items, 1):
         slot = it.get("slot")

@@ -173,6 +173,16 @@ def pick_project() -> dict | None:
     return None
 
 
+def remaining_capacity() -> int:
+    """كام رفعة لسه ينفع ننزلها النهاردة (مجموع المشاريع المؤهلة)."""
+    st = quota_state()
+    cap = 0
+    for c in usable_projects():
+        p = str(c.get("project", 1))
+        cap += max(0, DAILY_UPLOADS_PER_PROJECT - int(st["used"].get(p, 0)))
+    return cap
+
+
 def mark_upload(project: int, ok: bool = True) -> None:
     if not ok:
         return
@@ -183,7 +193,8 @@ def mark_upload(project: int, ok: bool = True) -> None:
 
 
 QUOTA_WORDS = ("quota", "exceeded", "rate limit", "ratelimit", "uploadlimitexceeded",
-               "dailylimitexceeded", "too many requests", "403")
+               "dailylimitexceeded", "too many requests", "403",
+               "الحصة", "الكوتة", "كوتة")            # بالعربي كمان عشان مايضيّعش وقت رندر
 
 
 def is_quota_error(err) -> bool:
@@ -400,8 +411,8 @@ def publish(video_path, md: dict, thumb_path=None) -> dict:
         c = pick_project()
         if c is None:
             raise PublishUnavailable(
-                "الحصة اليومية خلصت على كل المشاريع — الشغل هيتحفظ في الطابور وينزل تلقائي. "
-                f"({quota_report()['projects']})")
+                "quota: الحصة اليومية خلصت على كل مشاريع جوجل — الشغل هيتحفظ في الطابور "
+                f"وينزل تلقائي أول ما الحصة ترجع. ({quota_report()['projects']})")
         try:
             tok = access_token(c)
             res = upload(video_path, md, token=tok)
