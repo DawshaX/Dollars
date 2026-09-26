@@ -109,10 +109,57 @@ def pixabay_videos(q: str, per: int = 5) -> list[dict]:
     out = []
     for h in (d.get("hits") or []):
         v = (h.get("videos") or {})
-        best = v.get("large") or v.get("medium") or v.get("small") or {}
+        # 🎥 ‏720p/1080p كفاية للشورت الرأسي — والأخف أسرع بكتير في الديكود
+        best = v.get("medium") or v.get("small") or v.get("large") or {}
         out.append({"source": "pixabay", "id": str(h.get("id")), "tags": h.get("tags", ""),
                     "url": best.get("url"), "w": best.get("width"), "h": best.get("height"),
                     "seconds": best.get("duration"), "page": h.get("pageURL")})
+    return out
+
+
+def nasa_videos(q: str = "earth", per: int = 3) -> list[dict]:
+    """فيديو ناسا — ملكية عامة ١٠٠٪ (بلا مفتاح)."""
+    d = _json("https://images-api.nasa.gov/search?"
+              f"q={urllib.parse.quote(q)}&media_type=video&page_size={per}") or {}
+    out = []
+    for it in ((d.get("collection") or {}).get("items") or [])[:per]:
+        href = it.get("href")
+        if not href:
+            continue
+        man = _json(href) or []
+        mp4 = next((u for u in man if isinstance(u, str) and u.lower().endswith(".mp4")), None)
+        if not mp4:
+            continue
+        meta = (it.get("data") or [{}])[0]
+        out.append({"source": "nasa", "id": str(meta.get("nasa_id") or ""), "url": mp4,
+                    "page": f"https://images.nasa.gov/details-{meta.get('nasa_id')}",
+                    "seconds": None, "w": None, "h": None, "license": "public domain",
+                    "title": meta.get("title") or ""})
+    return out
+
+
+def archive_videos(q: str = "nature", per: int = 3) -> list[dict]:
+    """فيديو من Archive.org — أفلام ومواد **ملكية عامة** (بلا مفتاح)."""
+    import urllib.parse
+    qq = f'mediatype:movies AND ({q}) AND (licenseurl:*publicdomain* OR rights:*public domain*)'
+    d = _json("https://archive.org/advancedsearch.php?q=" + urllib.parse.quote(qq) +
+              "&fl[]=identifier&fl[]=title&rows=" + str(max(2, per)) + "&output=json") or {}
+    out = []
+    for doc in ((d.get("response") or {}).get("docs") or [])[:per]:
+        ident = doc.get("identifier")
+        if not ident:
+            continue
+        m = _json(f"https://archive.org/metadata/{ident}") or {}
+        files = [f for f in (m.get("files") or [])
+                 if str(f.get("name", "")).lower().endswith((".mp4", ".m4v"))
+                 and 1e5 < float(f.get("size") or 0) < 1.2e8]
+        if not files:
+            continue
+        f0 = sorted(files, key=lambda f: float(f.get("size") or 0))[0]
+        out.append({"source": "archive", "id": ident, "url":
+                    f"https://archive.org/download/{ident}/{urllib.parse.quote(f0['name'])}",
+                    "page": f"https://archive.org/details/{ident}", "seconds": None, "w": None, "h": None,
+                    "license": "public domain", "title": doc.get("title") or ""})
     return out
 
 
@@ -135,8 +182,10 @@ def pexels_videos(q: str, per: int = 5) -> list[dict]:
               headers={"Authorization": key}) or {}
     out = []
     for v in (d.get("videos") or []):
-        files = sorted(v.get("video_files") or [], key=lambda f: -(f.get("width") or 0))
-        pick = next((f for f in files if (f.get("width") or 0) >= 1280), files[0] if files else {})
+        files = sorted(v.get("video_files") or [], key=lambda f: (f.get("width") or 0))
+        # 🎥 نختار أصغر نسخة مقبولة الدقة (960–1920) — مش الـ4K (ديكوده بطيء جدًا)
+        pick = (next((f for f in files if 960 <= (f.get("width") or 0) <= 1920), None)
+                or (files[-1] if files else {}))
         out.append({"source": "pexels", "id": str(v.get("id")), "url": pick.get("link"),
                     "w": pick.get("width"), "h": pick.get("height"),
                     "seconds": v.get("duration"), "page": v.get("url")})

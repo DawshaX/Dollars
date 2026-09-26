@@ -751,9 +751,10 @@ class Editor:
                           music_gain=0.5 if pillar == "ambience" else 0.62)
         wav = self.out / f"{name}.wav"
         _write_wav(wav, audio)
+        _vdur = proc.duration(silent) or seconds      # ⏱️ مدة الفيديو بالظبط
         subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
                         "-i", str(silent), "-i", str(wav), "-c:v", "copy", "-c:a", "aac",
-                        "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(video)], check=True)
+                        "-b:a", "192k", "-t", f"{_vdur:.3f}", "-movflags", "+faststart", str(video)], check=True)
         silent.unlink(missing_ok=True)
         wav.unlink(missing_ok=True)
         # بيانات + غلاف
@@ -854,7 +855,8 @@ class Editor:
     # ── الطويلة (نوم) ──
     def _long(self, out_name: str | None, hours: float = 10.0, scene: str = "valley_lake",
               audio: str = "calm_night", look: str | None = None, loop_seconds: float = 40.0,
-              moves: list | None = None, palette=None, photos: list | None = None, **kw) -> dict:
+              moves: list | None = None, palette=None, photos: list | None = None,
+              videos: list | None = None, **kw) -> dict:
         look = visuals.LOOKS.get(scene) or look or "cinema_cool"
         # دقّة الرندر: المشاهد 2D بتتطلع 960×540 (وبعدين 1080p) · المشاهد 3D غالية فبتفضل 480×270
         try:
@@ -867,7 +869,19 @@ class Editor:
         fmt = long_format(hours)
         body_seconds = 60.0 if photos else 40.0          # حلقة الصور أطول = تنوّع أكتر للنوم
         used_photos = 0
-        if photos:                                       # 🖼️ الجسم من صور حقيقية (حركة هادية)
+        used_clips = 0
+        if videos:                                       # 🎥 حلقة من **مقاطع فيديو حقيقية** (حركة حقيقية، بلا حقوق)
+            try:
+                from engine import clips as _clips
+                _clips.render_reel(list(videos), loop, seconds=body_seconds, w=fmt["w"], h=fmt["h"],
+                                   fps=30, palette=palette, look=look or "cinema_cool",
+                                   seed=self.seed, calm=True, crf=23)
+                used_clips = len(videos)
+                used_photos = 0
+            except Exception as _e:
+                print(f"⚠️ مقاطع الطويلة اتعذّرت ({type(_e).__name__}) — صور/مشهد مولّد بدلًا منها", flush=True)
+                used_clips = 0
+        if photos and not used_clips:                                       # 🖼️ الجسم من صور حقيقية (حركة هادية)
             try:
                 from engine import photo as _photo
                 _photo.render_reel(list(photos), loop, seconds=body_seconds, w=fmt["w"], h=fmt["h"],
@@ -876,11 +890,11 @@ class Editor:
                 used_photos = len(photos)
             except Exception as _e:
                 print(f"⚠️ صور الطويلة اتعذّرت ({type(_e).__name__}) — هنستخدم المشهد المولّد", flush=True)
-        if not used_photos:
+        if not used_photos and not used_clips:
             sc = visuals.make_scene(scene, w=rw, h=rh, fps=30)
             visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=fmt["w"], out_h=fmt["h"],
                            crf=23, maxrate=fmt["maxrate"], cinema=look)   # سقف حجم: قابلة للرفع
-        wav = ambient.make(audio, body_seconds if used_photos else min(loop_seconds, sc.loop_seconds),
+        wav = ambient.make(audio, (body_seconds if (used_photos or used_clips) else min(loop_seconds, sc.loop_seconds)),
                            self.out / f"{audio}.wav")
         name = out_name or f"{scene}_{int(hours)}h"
         video = self.out / f"{name}.mp4"
@@ -932,12 +946,26 @@ class Editor:
         md["montage"] = {"assembled": assembled, "out_size": [fmt["w"], fmt["h"]],
                          "maxrate": fmt["maxrate"], "size_cap_mb": fmt["cap_mb"], **md_parts,
                          "look": look, "music": "warm_pad", "real_photos": used_photos,
+                         "real_clips": used_clips,
                          "body_loop_seconds": body_seconds if used_photos else loop_seconds,
                          "body_reencoded": False, "scene": scene, "audio": audio,
                          "camera_moves": MOVES if not moves else list(moves)}
         md["description"] = md.get("description", "") + "\n\n" + _montage_line(md["montage"])
         thumb = None
-        if photos:                                       # 🖼️ غلاف من صورة حقيقية
+        if videos and used_clips:                        # 🖼️ غلاف من كادر حقيقي في المقطع
+            try:
+                from engine import clips as _clips
+                from engine import photo as _photo
+                for _v in videos:
+                    _pj = _clips.poster(_v, self.out / f"{pathlib.Path(_v).stem}_poster.jpg")
+                    if _pj:
+                        thumb = _photo.thumb_from_photo([_pj], md["thumbnail_texts"][:2],
+                                                        self.out / f"{name}_thumb.jpg",
+                                                        w=1280, h=720, palette=palette)
+                        break
+            except Exception:
+                thumb = None
+        if not thumb and photos:                         # 🖼️ غلاف من صورة حقيقية
             try:
                 from engine import photo as _photo
                 thumb = _photo.thumb_from_photo(list(photos), md["thumbnail_texts"][:2],
@@ -951,7 +979,7 @@ class Editor:
         files = meta.write_package(md, self.out)
         record = dict(kind="sleep_long", video=str(video), thumbnail=str(thumb), meta=md,
                       meta_files=files, hours=hours, scene=scene, audio=audio,
-                      photos=used_photos)
+                      photos=used_photos, clips=used_clips, real_clips=bool(used_clips))
         self.log.append(record)
         return record
 

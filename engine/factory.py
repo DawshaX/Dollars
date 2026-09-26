@@ -34,6 +34,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from engine import agent, editor, meta, photo, publish, visuals  # noqa: E402
+from engine import clips
 
 # ── حماية من تعارض الأسماء: مجلد السكربت بيتحط أول مسار الاستيراد لما تشغّل الملف
 #    مباشرة (python engine/factory.py)، وده كان بيخلي `engine/copy.py` يحجب مكتبة
@@ -158,10 +159,11 @@ def _image_query(idea: dict) -> str:
 
 
 def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
-                        force_stage: bool = False) -> dict:
-    """فيديو من **صور حقيقية** (NASA · Wikimedia · Pixabay · Pexels) بحركة سينمائية + نص على الشاشة.
+                        force_stage: bool = False, clips_first: bool = True) -> dict:
+    """فيديو من **مقاطع فيديو حقيقية متحركة** أو — لو مالقيناش — صور حقيقية.
 
-    ده بيستخدم لكل أنواع المحتوى اللي طبيعتها صور حقيقية: الحقائق · الفضاء والطبيعة · وبكground للحكايات.
+    الأولوية: مقطع فيديو حر (Pexels · Pixabay · NASA · Wikimedia) = حركة حقيقية بلا حقوق.
+    الاحتياطي: صور حقيقية بنفس محرّك الاستوديو (مفيش فشل لو مصدر وقع).
     """
     import subprocess
     from engine import proc
@@ -170,7 +172,26 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     style = "illustration" if gid == "story" else "photo"
     min_color = 0.0 if gid in ("space_nature", "story") else 0.055    # الحقائق: صور ملوّنة حقيقية
     items, paths = photo.pick(topic, genre=gid, want=5, min_color=min_color, style=style)
-    if not paths:
+    # 🎥 الفيديو الحقيقي المتحرك أولًا (بلا حقوق · بلا علامة مائية)
+    clip_items, clip_paths = [], []
+    if clips_first and seconds >= 12:
+        try:
+            from engine import clips as _clips
+            clip_items = _clips.collect(topic, genre=gid, n=8)   # بنجرب اكتر ونختار الصالح
+            clip_paths = []
+            for _it in clip_items:
+                if len(clip_paths) >= 5:
+                    break
+                _p = _clips.download(_it)
+                if _p:
+                    clip_paths.append(_p)
+            if len(clip_paths) < 2:            # مش كفاية ⇒ صور حقيقية بدلًا منها
+                clip_paths = []
+        except Exception as _ce:
+            print(f"   ⚠️ مقاطع الفيديو اتعذّرت ({str(_ce)[:60]}) — صور حقيقية بدلًا منها", flush=True)
+            clip_items, clip_paths = [], []
+    use_clips = len(clip_paths) >= 2
+    if not use_clips and not paths:
         raise RuntimeError("مفيش صور حرة متاحة للموضوع ده — نجرب غيره")
     out_dir = pathlib.Path(out_dir or (WORK / f"{date.today().isoformat()}_photo"))
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -192,8 +213,13 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     if gid == "story":                    # الحكاية بلا كلام: من غير سطور حقيقة
         texts = [tx for tx in texts if tx.get("text") == idea.get("hook")]
     silent = out_dir / f"photo_{seed}.mp4"
-    photo.render_reel(paths, silent, seconds=seconds, w=720, h=1280, fps=30, palette=pal,
-                      seed=seed, texts=texts)
+    if use_clips:
+        from engine import clips as _clips
+        _clips.render_reel(clip_paths, silent, seconds=seconds, w=720, h=1280, fps=30, palette=pal,
+                           look="cinema_cool", seed=seed, texts=texts)
+    else:
+        photo.render_reel(paths, silent, seconds=seconds, w=720, h=1280, fps=30, palette=pal,
+                          seed=seed, texts=texts)
     # الصوت: صوت من صنعنا + موسيقى (نفس منظومة المصنع)
     from engine import editor as _ed
     audio = _ed.mix_audio(seconds, [], ambient_name=idea.get("audio"),
@@ -201,9 +227,10 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
     video = out_dir / f"{gid}_{seed}.mp4"
+    _vdur = proc.duration(silent) or seconds          # ⏱️ مدة الفيديو بالظبط (مش -shortest)
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
                     "-i", str(silent), "-i", str(wav), "-c:v", "copy", "-c:a", "aac",
-                    "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(video)], check=True)
+                    "-b:a", "192k", "-t", f"{_vdur:.3f}", "-movflags", "+faststart", str(video)], check=True)
     silent.unlink(missing_ok=True); wav.unlink(missing_ok=True)
     from engine import meta
     md = meta.build({**(idea.get("md_spec") or {}), **(idea.get("spec_extra") or {}), "genre": gid,
@@ -211,7 +238,7 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      "kind": "short", "seconds": int(seconds), "kw": idea.get("kw"),
                      "lines": lines, "source": idea.get("source"),
                      "title_style": idea.get("title_style"), "scene": idea.get("scene")})
-    cr = photo.credits(items)
+    cr = clips.credits(clip_items) if use_clips else photo.credits(items)
     if cr:
         md["description"] = (md["description"] + "\n\nCredits:\n" + "\n".join(cr))[:4900]
     # 🗣️ ترجمة حقيقية على الفيديو (يوتيوب يترجمها تلقائيًا لكل اللغات)
@@ -223,9 +250,11 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
             md["captions_lang"] = "en"
     except Exception:
         pass
-    md["sources"] = [it.get("page") for it in items if it.get("page")]
-    md["shot_list"] = [{"scene": f"photo:{it.get('source')}", "dur": round(seconds / max(1, len(paths)), 2),
-                        "move": "kenburns", "sfx": [], "fx": []} for it in items[:len(paths)]]
+    md["sources"] = [(it.get("page") if use_clips else it.get("page")) for it in (clip_items if use_clips else items) if it.get("page")]
+    md["shot_list"] = [{"scene": f"{'clip' if use_clips else 'photo'}:{it.get('source')}",
+                        "dur": round(seconds / max(1, len(clip_paths if use_clips else paths)), 2),
+                        "move": ("camera" if use_clips else "kenburns"), "sfx": [], "fx": []}
+                       for it in (clip_items if use_clips else items)[:len(clip_paths if use_clips else paths)]]
     # 🖼️ الغلاف: من أقوى صورة + نص قصير (زي أغلفة القنوات الكبيرة)
     thumb = None
     try:
@@ -234,13 +263,25 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
             "space_nature": [(idea.get("kw") or "").upper()[:20], f"{int(seconds)}s BLACK SCREEN"],
             "story": ["A WORDLESS STORY", (idea.get("thing") or "")[:22]],
         }.get(gid, [(idea.get("kw") or idea.get("topic") or "")[:22].upper(), f"{int(seconds)}s"])
-        thumb = photo.thumb_from_photo(paths, ttexts, out_dir / f"{gid}_{seed}_thumb.jpg", palette=pal)
+        _tph = paths
+        if use_clips:                                  # غلاف من كادر حقيقي في الفيديو
+            try:
+                from engine import clips as _clips
+                for _cp in clip_paths:
+                    _pj = _clips.poster(_cp, out_dir / f"poster_{_cp.stem}.jpg")
+                    if _pj:
+                        _tph = [_pj]
+                        break
+            except Exception:
+                _tph = paths
+        thumb = photo.thumb_from_photo(_tph, ttexts, out_dir / f"{gid}_{seed}_thumb.jpg", palette=pal)
     except Exception:
         thumb = None
-    return {"kind": "photo_short", "video": str(video), "meta": md, "pillar": md.get("pillar"),
-            "thumbnail": str(thumb) if thumb else None,
-            "duration": f"{int(seconds)}s", "scene": f"photo:{topic}", "audio": idea.get("audio"),
-            "palette": idea.get("palette"), "genre": gid, "photos": len(paths),
+    return {"kind": ("clip_short" if use_clips else "photo_short"), "video": str(video), "meta": md,
+            "pillar": md.get("pillar"), "thumbnail": str(thumb) if thumb else None,
+            "duration": f"{int(seconds)}s", "scene": f"{'clip' if use_clips else 'photo'}:{topic}",
+            "audio": idea.get("audio"), "palette": idea.get("palette"), "genre": gid,
+            "photos": len(paths), "clips": len(clip_paths), "real_clips": bool(use_clips),
             "credits": cr}
 
 
@@ -415,9 +456,26 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         hours = hours if hours in (3, 8, 10, 2, 4, 6, 12) else 8
         scene = idea.get("scene") or "valley_lake"
         audio = random.Random(seed).choice(["calm_night", "sleep_rain", "ocean", "fireplace", "focus"])
-        # 🖼️ الطويلة كمان من صور حقيقية (حركة هادية · بلا نصوص · حلقة ٦٠ ثانية)
-        longs_photos = []
+        # 🎥 الأولوية: **مقاطع فيديو حقيقية** للطويلة (حركة حقيقية · حلقة ٦٠ ثانية)
+        long_videos = []
         if scene != "black_screen":
+            try:
+                _vq = _image_query({"genre": ("focus_study" if pillar == "focus" else "sleep_ambience"),
+                                    "kw": idea.get("kw") or idea.get("topic") or "nature"})
+                _vi = clips.collect(_vq, genre=("focus_study" if pillar == "focus" else "sleep_ambience"),
+                                    n=6)
+                for _it in _vi:
+                    if len(long_videos) >= 5:
+                        break
+                    _p = clips.download(_it)
+                    if _p:
+                        long_videos.append(_p)
+            except Exception as _ve:
+                _say(f"   ⚠️ مقاطع الطويلة اتعذّرت ({str(_ve)[:60]}) — صور بدلًا منها")
+                long_videos = []
+        # 🖼️ البديل: صور حقيقية (حركة هادية · بلا نصوص · حلقة ٦٠ ثانية)
+        longs_photos = []
+        if scene != "black_screen" and not long_videos:
             try:
                 _qi = _image_query({"genre": ("focus_study" if pillar == "focus" else "sleep_ambience"),
                                     "kw": idea.get("kw") or idea.get("topic") or "nature"})
@@ -427,7 +485,7 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
                 _say(f"   ⚠️ صور الطويلة اتعذّرت ({str(_le)[:60]})")
                 longs_photos = []
         rec = ed.make("sleep_long", hours=hours, scene=scene, audio=audio,
-                      photos=longs_photos[:8] or None, **style_kw)
+                      videos=long_videos or None, photos=longs_photos[:8] or None, **style_kw)
         rec.update(pillar="sleep", duration=f"{int(hours)}h")
     elif pillar == "story":
         rec = ed.make("story_short", seconds=max(20.0, min(_dur_seconds(dur, 60.0), 120.0)),
