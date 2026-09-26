@@ -39,6 +39,23 @@ STATE = ROOT / "state"
 WORK = ROOT / "work"
 
 
+def _dur_seconds(dur, default: float = 45.0) -> float:
+    """يحوّل أي صيغة مدة ("90s" · "2m" · "3h" · 90) لثواني — بلا انفجار."""
+    try:
+        t = str(dur or "").strip().lower()
+        if not t:
+            return default
+        if t.endswith("h"):
+            return float(t[:-1]) * 3600
+        if t.endswith("m"):
+            return float(t[:-1]) * 60
+        if t.endswith("s"):
+            return float(t[:-1])
+        return float(t)
+    except Exception:
+        return default
+
+
 def _say(text: str) -> None:
     """بث حي: السجل العادي + Issue «سجل المصنع». أي فشل هنا مايوقفش الشغل."""
     print(text, flush=True)
@@ -174,7 +191,7 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         if idea.get("hook"):
             texts.append({"at": 0.4, "dur": 2.6, "text": idea["hook"], "pos": "lower", "size": 0.06})
         if text_policy == "en_lines" and idea.get("lines"):
-            step = max(4.0, (float(str(idea.get("duration", "45s")).replace("s", "")) or 45) / (len(idea["lines"]) + 1))
+            step = max(4.0, _dur_seconds(idea.get("duration"), 45.0) / (len(idea["lines"]) + 1))
             for i, ln in enumerate(idea["lines"][:3]):
                 texts.append({"at": 3.0 + i * step, "dur": step * 0.9, "text": ln, "pos": "lower", "size": 0.05})
         if text_policy == "en_lines_label":
@@ -193,16 +210,16 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         rec = ed.make("sleep_long", hours=hours, scene=scene, audio=audio, **style_kw)
         rec.update(pillar="sleep", duration=f"{int(hours)}h")
     elif pillar == "story":
-        rec = ed.make("story_short", seconds=float(str(dur).replace("m", "") or 2) * 60,
+        rec = ed.make("story_short", seconds=max(20.0, min(_dur_seconds(dur, 60.0), 120.0)),
                       spec_extra=gspec, **{k: v for k, v in style_kw.items() if k in ("palette", "transition", "audio")})
         rec.update(pillar="story", duration=dur)
     elif pillar in ("focus", "sleep") or (slot.get("kind") == "short" and random.Random(seed).random() < 0.25):
-        rec = ed.make("ambience_short", seconds=float(str(dur).replace("s", "") or 45),
+        rec = ed.make("ambience_short", seconds=_dur_seconds(dur, 45.0),
                       meta_pillar=("focus" if pillar == "focus" else "sleep"),
                       spec_extra=gspec, **style_kw)
         rec.update(pillar=("focus" if pillar == "focus" else "sleep"), duration=dur)
     else:
-        secs = float(str(dur).replace("s", "") or 30)
+        secs = _dur_seconds(dur, 30.0)
         rec = ed.make("satisfying_short", seconds=secs if 15 <= secs <= 60 else 30,
                       spec_extra=gspec, **style_kw)
         rec.update(pillar="satisfying", duration=dur)
