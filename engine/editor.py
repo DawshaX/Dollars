@@ -66,6 +66,51 @@ def load_sticker(name: str) -> Image.Image | None:
     return Image.open(p).convert("RGBA")
 
 
+# ── مكتبة الملصقات: ثيمات من الملفات اللي عندنا فعلًا (مفيش اسم وهمي) ──
+STICKER_THEMES = {
+    "sleep": ["moon", "cloud", "zzz", "rain_cloud", "snowflake", "star", "sleep", "bomi_sleep", "koko_sleep",
+              "nono_sleepy", "lazo_sleep", "leaf", "droplet", "butterfly"],
+    "story": ["nono_happy", "nono_love", "nono_sad", "nono_shock", "nono_sleepy", "koko_happy", "koko_sleep",
+              "bomi_auto", "bomi_sleep", "lazo_auto", "lazo_sleep", "bubble", "heart", "heart_broken",
+              "speech", "thought", "question", "exclaim", "laugh", "anger", "gift", "crown"],
+    "satisfying": ["sparkle", "burst", "check", "star", "gem", "droplet", "ring", "speed_lines", "badge_new",
+                   "crown", "flame", "gift"],
+    "focus": ["check", "note", "paper_man", "paper_man_facepalm", "sun", "leaf", "gem", "badge_new"],
+    "warm": ["flame", "heart", "gift", "note", "sun", "leaf", "butterfly", "crown", "star", "bubble"],
+    "ambience": ["rain_cloud", "moon", "cloud", "leaf", "snowflake", "star", "droplet", "butterfly"],
+    "space": ["star", "moon", "ring", "gem", "sparkle", "cloud", "sun"],
+    "craft": ["note", "check", "paper_man", "speed_lines", "sparkle", "badge_new", "crown", "gem"],
+}
+
+
+def _sticker_files() -> list[str]:
+    """أسماء الملصقات الحقيقية على الديسك (بدون index.json)."""
+    if not STICKERS.exists():
+        return []
+    return sorted(f.stem for f in STICKERS.glob("*.png"))
+
+
+def sticker_pool(pillar: str | None = None, seed: int = 0) -> list[str]:
+    """الملصقات المناسبة للعمود — وبترجع كل الموجود لو الثيم مش متعرّف."""
+    have = set(_sticker_files())
+    if not have:
+        return []
+    keys = [pillar or ""]
+    if pillar == "sleep" or pillar == "ambience":
+        keys += ["ambience"]
+    if pillar not in STICKER_THEMES:
+        keys += ["warm", "story", "satisfying"]
+    pool, seen = [], set()
+    for k in keys:
+        for n in STICKER_THEMES.get(k or "", []):
+            if n in have and n not in seen:
+                pool.append(n); seen.add(n)
+    if not pool:
+        pool = sorted(have)
+    rot = int(seed) % max(1, len(pool))          # دوران بالمحصول: مكتبة أوسع عبر الفيديوهات
+    return pool[rot:] + pool[:rot]
+
+
 def camera(frame: np.ndarray, move: str, k: float, seed: int = 0) -> np.ndarray:
     """حركة كاميرا بالقصّ والتكبير — بتحسّ إن المشهد مصوّر بكاميرا حقيقية."""
     h, w = frame.shape[:2]
@@ -111,6 +156,8 @@ def _montage_line(m: dict) -> str:
         bits.append(f"{m['fx_layers']} visual-effect layers")
     if m.get("sfx_cues"):
         bits.append(f"{m['sfx_cues']} timed sound cues")
+    if m.get("sticker_count"):
+        bits.append(f"{m['sticker_count']} animated stickers")
     if m.get("camera_moves"):
         bits.append("moving camera (" + ", ".join(m["camera_moves"][:3]) + ")")
     if m.get("transition"):
@@ -190,12 +237,16 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
         if rng.random() < 0.35 and not first:
             cues.append(dict(name=rng.choice(["impact", "bass_drop", "pop"]), at=0.0, gain=0.55))
         stickers = []
-        if rng.random() < 0.30:
-            stickers.append(dict(name=rng.choice(sfx.__dict__ and ["sparkle", "star", "burst", "heart",
-                                                                  "check"]),
-                                 at=round(dur * 0.35, 2), dur=min(1.6, dur * 0.5),
-                                 scale=rng.uniform(0.16, 0.30),
-                                 pos=rng.choice([(0.72, 0.30), (0.28, 0.72), (0.5, 0.78), (0.75, 0.68)])))
+        spool = sticker_pool(pillar, seed)
+        n_st = 1 + int(dur >= 5.0)                 # المقاطع الطويلة تاخد ملصقين
+        for _j in range(n_st if (spool and rng.random() < 0.45) else 0):
+            stickers.append(dict(name=rng.choice(spool),
+                                 at=round(rng.uniform(0.15, 0.6) * dur, 2),
+                                 dur=min(1.6, max(0.7, dur * 0.45)),
+                                 scale=rng.uniform(0.14, 0.28),
+                                 rot=rng.uniform(-0.18, 0.18),
+                                 pos=rng.choice([(0.72, 0.30), (0.28, 0.72), (0.5, 0.78), (0.75, 0.68),
+                                                 (0.22, 0.26), (0.5, 0.22)])))
         shots.append(dict(scene=scene, dur=dur, move=move, cues=cues, stickers=stickers,
                           look=rng.choice(["satisfying", "dream"])))
         t += dur
@@ -326,7 +377,8 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                 fr = overlay(fr, sprite_cache[st["name"]],
                              px * w + 10 * math.sin(lt * 2.2),
                              py * h - h * 0.05 * u, float(st.get("scale", 0.22)) * (0.6 + 0.4 * pop),
-                             opacity=min(1.0, (1.0 - u) * 2.2))
+                             opacity=min(1.0, (1.0 - u) * 2.2),
+                             rot=float(st.get("rot", 0.0)) * math.sin(lt * 2.4))
             if xf:
                 if transition == "crossfade" and tail is not None and i < xf:
                     fr = _mix(tail, fr, (i + 1) / float(xf))           # تلاشي: السابق يبهت والتالي يظهر
@@ -571,10 +623,12 @@ class Editor:
                          "transition": transition, "palette": kw.get("palette"),
                          "camera_moves": sorted({s["move"] for s in shots}),
                          "fx_layers": sum(len(s.get("fx", [])) for s in shots),
-                         "sfx_cues": sum(len(s["cues"]) for s in shots)}
+                         "sfx_cues": sum(len(s["cues"]) for s in shots),
+                         "sticker_count": sum(len(s.get("stickers", [])) for s in shots),
+                         "stickers": sorted({x["name"] for s in shots for x in s.get("stickers", [])})}
         md["description"] = md.get("description", "") + "\n\n" + _montage_line(md["montage"])
         thumb = thumbnail(scene0, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg",
-                          look=look, sticker=random.Random(seed).choice(["star", "sparkle", "burst"]),
+                          look=look, sticker=(sticker_pool(spec.get("pillar"), seed) or ["star"])[0],
                           palette=kw.get("palette"))
         files = meta.write_package(md, self.out)
         record = dict(kind=kind, video=str(video), thumbnail=str(thumb), meta=md,
@@ -612,6 +666,8 @@ class Editor:
         md["video_desc"] = getattr(st, "video_desc", None)
         md["story_id"] = st.id
         md["montage"] = {"beats": len(getattr(st, "beats", [])), "assembled": True,
+                         "sticker_count": getattr(st, "_last_stickers", 0),
+                         "stickers": getattr(st, "_last_sticker_names", []),
                          "music": getattr(st, "music", None), "ambient": getattr(st, "ambient", None),
                          "look": kw.get("look"),
                          "fx_layers": sum(len(v) for v in st.fx_summary()),
@@ -672,8 +728,15 @@ class Editor:
             parts_sum = round(intro_dur + (proc.duration(body) or 0.0) + outro_dur, 2)
             if joined and abs(joined - parts_sum) > 1.0:
                 print(f"⚠️ فرق في التلزيق: {joined:.2f} ث مقابل {parts_sum:.2f} ث", flush=True)
+            _ish = plan_shots("ambience", intro_dur or 12.0, seed=self.seed + 3, moves=moves)
             md_parts = dict(intro_seconds=intro_dur, outro_seconds=outro_dur,
-                            assembled_seconds=round(joined, 2) if joined else None)
+                            assembled_seconds=round(joined, 2) if joined else None,
+                            intro_shots=len(_ish),
+                            intro_fx_layers=sum(len(sh.get("fx", [])) for sh in _ish),
+                            intro_sfx_cues=sum(len(sh["cues"]) for sh in _ish),
+                            sticker_count=sum(len(sh.get("stickers", [])) for sh in _ish),
+                            stickers=sorted({x["name"] for sh in _ish for x in sh.get("stickers", [])}),
+                            transition="crossfade")
             for p in (intro, body, outro):
                 p.unlink(missing_ok=True)
         except Exception as e:                    # لو حصل أي عارض: الفيديو الأساسي يكفي

@@ -92,3 +92,40 @@ def test_palette_and_split_tone_from_reference():
     ww = float((warm[:, :, 0] - warm[:, :, 2]).mean())
     assert cw < -0.02 and ww > 0.02, "اللوحة مش بتغيّر مزاج الألوان"
     assert float(warm.std()) > 0.1, "التدرّج ضاع بعد التطبيق"
+
+
+# ─────────── الملصقات الحقيقية: مكتبة كاملة بتتستخدم فعلًا في كل فيديو ───────────
+
+def test_sticker_pool_is_real_files_only():
+    from engine import editor
+    files = set(editor._sticker_files())
+    assert len(files) >= 40, f"المكتبة صغيرة: {len(files)}"
+    for pillar in ["sleep", "ambience", "story", "satisfying", "focus", "warm", "space", "craft", "مجهول"]:
+        pool = editor.sticker_pool(pillar)
+        assert pool, f"مفيش ملصقات للعمود {pillar}"
+        assert set(pool) <= files, f"اسم وهمي في {pillar}: {set(pool) - files}"
+
+
+def test_sticker_pool_rotates_between_renders():
+    from engine import editor
+    a = editor.sticker_pool("satisfying", 0)
+    b = editor.sticker_pool("satisfying", 1)
+    assert a != b, "المكتبة مش بتلف — نفس الملصقات كل مرة"
+
+
+def test_plan_shots_uses_real_stickers_everywhere():
+    from engine import editor
+    files = set(editor._sticker_files())
+    for pillar in ["satisfying", "ambience", "story", "focus"]:
+        shots = editor.plan_shots(pillar, 30.0, seed=5)
+        names = {x["name"] for s in shots for x in s.get("stickers", [])}
+        assert names, f"مفيش ملصقات في خطة {pillar}"
+        assert names <= files, f"ملصق وهمي في {pillar}: {names - files}"
+        assert all(x.get("dur", 0) >= 0.7 and x.get("at", -1) >= 0 for s in shots for x in s.get("stickers", []))
+
+
+def test_montage_line_reports_stickers():
+    from engine import editor
+    line = editor._montage_line(dict(shots=4, sticker_count=4, stickers=["gem", "flame"]))
+    assert "4 animated stickers" in line
+    assert editor._montage_line(dict(shots=2, sticker_count=0)) .find("stickers") == -1

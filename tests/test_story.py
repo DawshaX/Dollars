@@ -81,6 +81,10 @@ def test_render_produces_video_with_audio(tmp_path):
     probe = __import__("subprocess").run([visuals.FFMPEG, "-hide_banner", "-i", str(out)],
                                         capture_output=True).stderr.decode("utf-8", "ignore")
     assert "Audio: aac" in probe
+    # الملصقات جزء من المونتاج في القصة كمان (ملفات حقيقية بس)
+    from engine import editor as _ed
+    assert st._last_stickers >= 1, "القصة اترسمت بلا ملصقات"
+    assert st._last_sticker_names and set(st._last_sticker_names) <= set(_ed._sticker_files())
 
 
 def test_transitions_render_without_error():

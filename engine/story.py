@@ -209,6 +209,13 @@ class Story:
         for b in self.beats:
             beat_at.append(acc)
             acc += float(b.get("dur", 2.0))
+        # ملصقات القصة: ثيم القصة (شخصيات + رموز) — لكل بيت ملصق بحركة pop
+        import zlib as _z
+        from .editor import load_sticker, overlay as _overlay, sticker_pool as _spool
+        _sp = _spool("story", _z.crc32(self.id.encode("utf-8")) % 9973)
+        st_cache: dict = {}
+        st_count = 0
+
         # مشاهد وكاميرات (تُبنى مرّة لكل بيت)
         cache = {}
         fx_cache: dict = {}
@@ -267,6 +274,33 @@ class Story:
             if fx_cache.get(bi):
                 frame = fx_mod.apply_all((np.clip(frame, 0, 1) * 255).astype(np.uint8),
                                          fx_cache[bi], local, seed=i) / 255.0
+            # ملصقات متحركة (طبقة تركيب حقيقية فوق الكادر)
+            if _sp:
+                if bi not in st_cache:
+                    import random as _rr
+                    r2 = _rr.Random(int(_z.crc32(self.id.encode("utf-8")) % 99991) + int(bi) * 31)
+                    nm = beat.get("sticker") or r2.choice(_sp)
+                    st_cache[bi] = dict(
+                        name=nm,
+                        at=round(dur * r2.uniform(0.35, 0.55), 2),
+                        dur=min(1.7, max(0.8, dur * 0.5)),
+                        scale=r2.uniform(0.14, 0.24),
+                        pos=r2.choice([(0.74, 0.28), (0.26, 0.70), (0.5, 0.24), (0.76, 0.70), (0.5, 0.80)]),
+                        rot=r2.uniform(-0.16, 0.16))
+                    st_count += 1
+                st = st_cache[bi]
+                if st["at"] <= local <= st["at"] + st["dur"]:
+                    u = (local - st["at"]) / max(st["dur"], 1e-3)
+                    pop = min(1.0, u * 6.0) if u < 0.5 else 1.0
+                    spr = st.get("sprite")
+                    if spr is None:
+                        st["sprite"] = spr = load_sticker(st["name"])
+                    frame = _overlay((np.clip(frame, 0, 1) * 255).astype(np.uint8), spr,
+                                     st["pos"][0] * w + 9 * math.sin(local * 2.1),
+                                     st["pos"][1] * h - h * 0.05 * u,
+                                     st["scale"] * (0.6 + 0.4 * pop),
+                                     opacity=min(1.0, (1.0 - u) * 2.4),
+                                     rot=st["rot"] * math.sin(local * 2.3)) / 255.0
             # انتقال للخروج
             tr = beat.get("transition", "none")
             if tr != "none" and local > dur - 0.45:
@@ -277,6 +311,8 @@ class Story:
         err = proc_.stderr.read().decode("utf-8", "ignore") if proc_.stderr else ""
         if proc_.wait() != 0:
             raise RuntimeError(f"ffmpeg فشل: {err[:400]}")
+        self._last_stickers = st_count
+        self._last_sticker_names = sorted({v["name"] for v in st_cache.values()})
 
     # ── بيانات يوتيوب ──
     def metadata(self) -> dict:
