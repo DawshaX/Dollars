@@ -53,6 +53,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python engine/factory.py --hourly --catchup --count ${{ github.event.inputs.count || 1 }}
       - name: حفظ الفيديوهات كأرشيف (٣ أيام)
+        if: always()          # 📦 نرفع اللي اترندر حتى لو خطوة النشر رجعت بملاحظة
         uses: actions/upload-artifact@v4
         with:
           name: dollars-hour
@@ -64,6 +65,7 @@ jobs:
           retention-days: 3
           if-no-files-found: ignore
       - name: حفظ ذاكرة المصنع (السجل + الطابور)
+        if: always()          # 💾 حالة المصنع تتسجّل دايمًا (حتى لو الحصة خلصت)
         run: |
           git config user.name "Dollars Factory"
           git config user.email "factory@dawshax.local"

@@ -754,13 +754,17 @@ def main(argv=None):
     else:
         kinds = [("short", 1)]
     total = 0
+    stopped_quota = False
     for kind, cnt in kinds:
         out = run(kind, cnt, force_stage=a.force_stage, out_dir=a.out, catchup=a.catchup)
         total += out["slots"]
+        stopped_quota = stopped_quota or (out.get("stopped") == "quota")
         for line in out["lines"]:
             print("•", line)
     print("\n" + report_text())
-    return 0 if total else 1
+    # ⛔ الحصة خلصت = توقف سليم (مش فشل) ⇒ كود خروج 0 عشان خطوات حفظ ال
+    #    الذاكرة/الأرشيف تشتغل، والسير ميبانش أحمر من غير سبب.
+    return 0 if (total or stopped_quota) else 1
 
 
 if __name__ == "__main__":
