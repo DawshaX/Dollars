@@ -479,16 +479,19 @@ def publish_or_stage(rec: dict, force_stage: bool = False) -> dict:
         if serious:
             return {"published": False, "reason": f"الفحص رفض النشر: {serious}"}
 
-    # 🚦 بوابة الجودة: الفيديو البايظ **مايتنشرش** (بس بنحفظه في الطابور عشان يتراجع)
+    # 🩺 الفحص الطبي للفيديو: **بيتحذّر مش بيمنع** — الاستثناء الوحيد: ملف تالف
     quality_block = None
     try:
         from engine import quality
         passed, qrep = quality.gate(video, kind=("long" if rec.get("kind") == "long" else "short"),
-                                    seconds=None, strict=True)
-        rec["quality"] = {"pass": passed, "failed": qrep.get("failed") or qrep.get("error")}
+                                    seconds=None)
+        warn = qrep.get("warnings") or []
+        rec["quality"] = {"pass": passed, "warnings": warn, "fatal": qrep.get("fatal") or []}
         if not passed:
-            quality_block = f"🚦 بوابة الجودة رفضت النشر: {qrep.get('failed') or qrep.get('error')}"
+            quality_block = f"🚦 الفيديو تالف — مايتنشرش: {qrep.get('fatal') or qrep.get('error')}"
             _say(f"   {quality_block}")
+        elif warn:
+            _say(f"   🩺 ملاحظات جودة (بتنشر عادي): {warn}")
     except Exception as _e:
         rec["quality"] = {"pass": None, "error": str(_e)[:120]}
 
@@ -541,7 +544,13 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
     q["items"] = items
     for n, it in enumerate(items, 1):
         slot = it.get("slot")
-        if not slot:
+        if not slot:                                        # 📦 وصفة ناقصة ⇒ أرشيف (مش حذف)
+            _say(f"[{n}/{len(items)}] 📦 «{it.get('title')}» من غير وصفة — اتنقل لأرشيف الطابور")
+            sk = _jload(STATE / "queue_skipped.json", {"items": []}) or {"items": []}
+            sk["items"].append({**it, "skipped_at": datetime.now(timezone.utc).isoformat(),
+                                "reason": "وصفة ناقصة (من غير slot)"})
+            _jdump(STATE / "queue_skipped.json", sk)
+            q["items"] = [x for x in q["items"] if x is not it]
             continue
         it["tries"] = int(it.get("tries") or 0) + 1
         if it["tries"] > 3:                                 # 🔁 حد منطقي: بعد 3 محاولات نأرشفة (مش حذف)
@@ -732,7 +741,7 @@ def main(argv=None):
         for line in out["lines"]:
             print("•", line)
         print(f"\nاتنفّذ: {out['processed']} · فاضل في الطابور: {out['remaining']}")
-        return 0 if out["processed"] else 1
+        return 0            # ✅ التفريغ نجح كخطوة حتى لو مفيش نشر (الحصة مثلًا) — الحفظ لازم يشتغل
     kinds = []
     if a.daily:
         kinds = [("long", max(1, a.count))]

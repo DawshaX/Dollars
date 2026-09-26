@@ -21,18 +21,35 @@ def inspect(video, kind: str = "short", seconds: float | None = None, loop: bool
 
 
 def gate(video, kind: str = "short", seconds: float | None = None, loop: bool = False,
-         texts: bool = False, strict: bool = True) -> tuple[bool, dict]:
-    """يرجّع (يعدّي؟, التقرير). الافتراضي strict=True: أي فشل = إيقاف النشر."""
+         texts: bool = False, strict: bool = False) -> tuple[bool, dict]:
+    """يرجّع (ينفع ينشر؟, التقرير).
+
+    سياسة ٢٦/٩ (بعد حادثة إيقاف النشر): البوابة **بتحذّر مش بتمنع**.
+    السبب: فيديوهات النوم الطويلة بتبان «ساكنة» و«أبعادها مختلفة» وده **مقصود**
+    (شاشة سودة/نجوم بتتحرك ببطء)، ورفضها أوقف النشر بالغلط ١٠ مرات في ساعة.
+
+    تمنع النشر في حالة واحدة بس: **الملف نفسه تالف** (مش موجود · صفر بايت · مش فيديو).
+    strict=True (للفحص اليدوي): أي ملاحظة تبقى مانعة — للاستخدام في tools/video_doctor.
+    """
+    p = pathlib.Path(video)
+    if not p.exists() or p.stat().st_size < 10_000:
+        return False, {"error": "ملف الفيديو مش موجود أو تالف", "checks": [], "pass": False,
+                       "fatal": ["الملف تالف"], "warnings": []}
     try:
         rep = inspect(video, kind=kind, seconds=seconds, loop=loop, texts=texts)
     except Exception as e:
-        return (not strict), {"error": f"{type(e).__name__}: {e}", "checks": [], "pass": False}
+        # مش قادرين نفحص (مشكلة أداة) ⇒ مانوقفش النشر — الفيديو اترندر فعلًا
+        return True, {"error": f"{type(e).__name__}: {e}", "checks": [], "pass": False,
+                      "warnings": [f"الفحص اتخطى: {type(e).__name__}"], "fatal": []}
     if not rep.get("checks"):
-        return (not strict), rep
-    # فيديو مقروء = فيه أبعاد حقيقية وحركة اتقاست. لو لأ، يبقى الرندر نفسه بايظ
-    # (مش مشكلة جودة محتوى) — ماينفعش نمنع النشر بسبب ملف مش رندر أصلي.
-    if not rep.get("motion") and not rep.get("black_ratio") and rep.get("resolution") in (None, "0x0"):
-        rep["unreadable"] = True
-        return True, {**rep, "note": "الفيديو مش مقروء (مش ناتج الرندر) — ما وقفناش النشر"}
-    bad = [n for n, ok, _d in rep.get("checks", []) if not ok]
-    return (not bad), {**rep, "failed": bad}
+        return True, {**rep, "warnings": ["الفحص مرجّعش نتايج"], "fatal": []}
+    warnings = [n for n, ok, _d in rep.get("checks", []) if not ok]
+    fatal: list = []
+    unreadable = (not rep.get("motion") and not rep.get("black_ratio")
+                  and rep.get("resolution") in (None, "0x0"))
+    if unreadable:
+        fatal.append("الفيديو مش مقروء")
+    if strict:
+        fatal += warnings
+    return (not fatal), {**rep, "warnings": warnings, "fatal": fatal,
+                         "failed": (fatal or warnings)}

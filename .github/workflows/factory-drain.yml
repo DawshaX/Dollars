@@ -60,6 +60,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python engine/factory.py --render-queue --limit ${{ github.event.inputs.limit || 2 }}
       - name: حفظ الذاكرة (الطابور + السجل)
+        if: always()                    # 💾 حتى لو الرفع/الرندر فشل — حالة الطابور تتسجّل دايمًا
         run: |
           git config user.name "Dollars Factory"
           git config user.email "factory@dawshax.local"
