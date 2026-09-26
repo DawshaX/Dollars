@@ -1,0 +1,28 @@
+name: 🩺 دكتور الرفع
+# بيشخّص سبب رفض يوتيوب للرفع في ثواني — ويجرب رفع فيديو اختباري صغير ويحذفه فورًا
+on:
+  workflow_dispatch:
+  push:
+    paths: ['tools/upload_doctor.py']
+permissions:
+  contents: read
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: أدوات
+        run: pip install -q numpy pillow imageio-ffmpeg
+      - name: تشخيص الرفع
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+        run: python tools/upload_doctor.py

@@ -145,6 +145,19 @@ def is_quota_error(err) -> bool:
     return any(w in t for w in QUOTA_WORDS)
 
 
+def _body(err) -> str:
+    """نص رد يوتيوب (سبب الرفض الحقيقي) عشان نعرف نصلّح بدل التخمين."""
+    try:
+        raw = err.read()[:1200].decode("utf-8", "replace")
+        d = json.loads(raw)
+        e = (d.get("error") or {})
+        reason = " · ".join(x.get("reason", "") for x in e.get("errors", []) or []) or e.get("status", "")
+        msg = e.get("message", raw)
+        return f"{reason} — {msg}"[:600]
+    except Exception:
+        return "(مفيش تفاصيل)"
+
+
 def available(probe: bool = False) -> dict:
     c = creds()
     missing = [k for k, v in c.items() if not v]
@@ -210,8 +223,11 @@ def upload(video_path, md: dict, token: str | None = None, chunk: int = 8 * 1024
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json; charset=UTF-8",
                  "X-Upload-Content-Length": str(size), "X-Upload-Content-Type": "video/mp4"},
         method="POST")
-    with urllib.request.urlopen(init, timeout=60) as r:
-        session = r.headers["Location"]
+    try:
+        with urllib.request.urlopen(init, timeout=60) as r:
+            session = r.headers["Location"]
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"يوتيوب رفض بيانات الفيديو — HTTP {e.code}: {_body(e)}") from None
     with open(video_path, "rb") as fh:
         sent = 0
         while sent < size:
@@ -222,7 +238,14 @@ def upload(video_path, md: dict, token: str | None = None, chunk: int = 8 * 1024
                          "Content-Range": f"bytes {sent}-{sent + len(data) - 1}/{size}"})
             try:
                 with urllib.request.urlopen(req, timeout=timeout) as r2:
-                    result = json.load(r2)
+                    if r2.status in (308, 204):           # شريحة وسطانية — لسه فيه باقي
+                        sent += len(data)
+                        continue
+                    raw = r2.read()
+                    if not raw.strip():                   # مفيش رد = لسه فيه باقي
+                        sent += len(data)
+                        continue
+                    result = json.loads(raw)
                     vid = result["id"]
                     return {"id": vid, "url": f"https://youtu.be/{vid}", "bytes": size}
             except urllib.error.HTTPError as e:
@@ -230,7 +253,10 @@ def upload(video_path, md: dict, token: str | None = None, chunk: int = 8 * 1024
                     time.sleep(3)
                     fh.seek(sent)
                     continue
-                raise
+                if e.code in (308,):                      # شريحة اتقبلت، كمّل الباقي
+                    sent += len(data)
+                    continue
+                raise RuntimeError(f"يوتيوب رفض الرفع — HTTP {e.code}: {_body(e)}") from None
             sent += len(data)
     raise RuntimeError("الرفع وقف قبل ما يكمّل")
 
