@@ -11,6 +11,7 @@ on:
         default: "1"
 permissions:
   contents: write
+  issues: write
 concurrency:
   group: factory-hour
   cancel-in-progress: false
@@ -31,6 +32,7 @@ jobs:
           python -m pip install --quiet numpy pillow imageio-ffmpeg
       - name: إنتاج شورت (مونتاج كامل + غلاف + بيانات) ونشره لو القناة مربوطة
         env:
+          LIVE_ISSUE: '1'
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}

@@ -22,8 +22,26 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import socket
+
+socket.setdefaulttimeout(120)            # مفيش طلب يعلّق أكتر من دقيقتين
 
 from datetime import datetime, timezone
+
+try:                                     # البث الحي (اختياري — مايوقفش الشغل لو غاب)
+    from engine import live as _live
+except Exception:                        # pragma: no cover
+    _live = None
+
+
+def _say(text: str) -> None:
+    if _live is not None:
+        try:
+            _live.say(text)
+            return
+        except Exception:
+            pass
+    print(text, flush=True)
 
 
 def _jload(path, default=None):
@@ -261,6 +279,7 @@ def put_video(video_path, body: dict, token: str | None = None, chunk: int = 8 *
         f"{UPLOAD_URL}?uploadType=resumable{extra_query}",
         data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
         headers=hdrs, method="POST")
+    _say(f"   ⬆️ بنبدأ جلسة الرفع على يوتيوب ({size/1024/1024:.1f} ميجا)…")
     try:
         with urllib.request.urlopen(init, timeout=60) as r:
             session = r.headers["Location"]
@@ -268,6 +287,7 @@ def put_video(video_path, body: dict, token: str | None = None, chunk: int = 8 *
         raise RuntimeError(f"يوتيوب رفض بيانات الفيديو — HTTP {e.code}: {_body(e)}") from None
     with open(video_path, "rb") as fh:
         sent = 0
+        retries = 0
         while sent < size:
             data = fh.read(chunk)
             req = urllib.request.Request(
@@ -281,13 +301,19 @@ def put_video(video_path, body: dict, token: str | None = None, chunk: int = 8 *
                         continue
                     raw = r2.read()
                     if not raw.strip():                   # مفيش رد = لسه فيه باقي
+                        _say(f"   ⏳ شريحة {sent//chunk + 1} وصلت — بنكمّل الباقي")
                         sent += len(data)
                         continue
                     result = json.loads(raw)
                     vid = result["id"]
+                    _say(f"   ✅ يوتيوب استقبل الفيديو: {vid}")
                     return {"id": vid, "url": f"https://youtu.be/{vid}", "bytes": size}
             except urllib.error.HTTPError as e:
-                if e.code in (500, 502, 503, 504):        # خطأ مؤقت ⇒ نعيد نفس الشريحة
+                if e.code in (500, 502, 503, 504):        # خطأ مؤقت ⇒ نعيد نفس الشريحة (بس مش للأبد)
+                    retries += 1
+                    if retries > 5:
+                        raise RuntimeError(f"يوتيوب رافض يستقبل الملف ({e.code}) بعد ٥ محاولات") from None
+                    _say(f"   🔁 الشريحة رجعت {e.code} — محاولة {retries}/5")
                     time.sleep(3)
                     fh.seek(sent)
                     continue

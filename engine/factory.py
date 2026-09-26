@@ -39,6 +39,16 @@ STATE = ROOT / "state"
 WORK = ROOT / "work"
 
 
+def _say(text: str) -> None:
+    """بث حي: السجل العادي + Issue «سجل المصنع». أي فشل هنا مايوقفش الشغل."""
+    print(text, flush=True)
+    try:
+        from engine import live
+        live.say(text, file=False)
+    except Exception:
+        pass
+
+
 def _jload(p, default=None):
     try:
         return json.loads(pathlib.Path(p).read_text(encoding="utf-8"))
@@ -228,13 +238,21 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
     q = _jload(STATE / "queue.json", {"items": []}) or {"items": []}
     items = q["items"][:limit] if limit else list(q["items"])
     lines, done = [], 0
-    for it in items:
+    _say(f"♻️ تفريغ الطابور: {len(items)} عنصر · رندر + نشر عنصر عنصر")
+    for n, it in enumerate(items, 1):
         slot = it.get("slot")
         if not slot:
             continue
         try:
+            _say(f"[{n}/{len(items)}] 🎬 بنرندر: {it.get('title')}")
+            t0 = time.time()
             rec = produce(slot, out_dir=out_dir, seed=it.get("seed"))
+            _say(f"[{n}/{len(items)}] ✅ الرندر خلص في {time.time() - t0:.0f} ثانية — بنرفع على يوتيوب")
             res = publish_or_stage(rec, force_stage=force_stage)
+            if res.get("published"):
+                _say(f"[{n}/{len(items)}] 🎉 اتنشر: {res.get('url')}")
+            else:
+                _say(f"[{n}/{len(items)}] ⏸️ محصلش نشر: {res.get('reason')}")
             record(rec, res)
             done += 1
             lines.append(f"↻ {it.get('title')} → " + (f"نُشر {res.get('url')}" if res.get("published") else f"لسه في الطابور ({res.get('reason')})"))
@@ -246,6 +264,7 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
                 _log(lines)
                 return {"processed": done, "remaining": len(q["items"]), "lines": lines, "stopped": "quota"}
         except Exception as e:
+            _say(f"[{n}/{len(items)}] ❌ خطأ: {type(e).__name__}: {str(e)[:300]}")
             lines.append(f"❌ فشل إعادة إنتاج «{it.get('title')}»: {type(e).__name__}: {e}")
     _jdump(STATE / "queue.json", q)
     _log(lines or ["الطابور فاضي — مفيش حاجة تعاد"])
