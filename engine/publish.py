@@ -445,23 +445,28 @@ def upload_captions(video_id: str, srt_text: str, language: str = "en", name: st
                     token: str | None = None) -> bool:
     """يرفع ملف ترجمة على الفيديو (يوتيوب يعرضه + يترجمه تلقائيًا لكل اللغات)."""
     token = token or access_token()
-    boundary = "dollars-boundary-7f3a"
-    meta = json.dumps({"snippet": {"videoId": video_id, "language": language, "name": name,
-                                   "isDraft": False}})
+    boundary = "dollars_boundary_7f3a"
+    srt = srt_text.replace("\r\n", "\n").replace("\n", "\r\n")     # CRLF إلزامي في الملفات
+    if not srt.endswith("\r\n"):
+        srt += "\r\n"
+    meta = json.dumps({"snippet": {"videoId": video_id, "language": language, "name": name}})
     body = (
-        f"--{boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{meta}\r\n"
-        f"--{boundary}\r\nContent-Type: application/octet-stream\r\n\r\n{srt_text}\r\n"
+        f"--{boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n"
+        f"Content-Transfer-Encoding: binary\r\n\r\n{meta}\r\n"
+        f"--{boundary}\r\nContent-Type: application/octet-stream\r\n"
+        f"Content-Transfer-Encoding: binary\r\n\r\n{srt}"
         f"--{boundary}--\r\n"
     ).encode("utf-8")
     url = f"{API}/captions?part=snippet&uploadType=multipart"
     req = urllib.request.Request(url, data=body, method="POST", headers={
         "Authorization": f"Bearer {token}",
-        "Content-Type": f"multipart/related; boundary={boundary}"})
+        # 🐞 يوتيوب بيرفض الـboundary من غير تنصيص (كان بيرجّع 400: Unable to parse number)
+        "Content-Type": f'multipart/related; boundary="{boundary}"'})
     try:
         with urllib.request.urlopen(req, timeout=90) as r:
             return r.status in (200, 201)
     except urllib.error.HTTPError as e:
-        _say(f"   ⚠️ الترجمة ما اترفعتش: HTTP {e.code} — {_body(e)[:160]}")
+        _say(f"   ⚠️ الترجمة ما اترفعتش: HTTP {e.code} — {_body(e)[:200]}")
         return False
 
 

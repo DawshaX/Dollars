@@ -168,3 +168,20 @@ def test_prune_never_touches_new_factory_videos(monkeypatch, tmp_path):
     monkeypatch.setattr(prune.publish.urllib.request, "urlopen", lambda req, timeout=0: Ctx({"items": items}))
     olds = prune.list_old("tok", "UCG9g_26H65D3FahqyiYPHAw")
     assert [o["id"] for o in olds] == ["OLD1"], "القديم بس"
+
+
+def test_captions_srt_crlf():
+    """ملف الترجمة لازم CRLF وينتهي بسطر جديد — يوتيوب بيرفض غير كده (400)."""
+    from engine import publish
+    srt = publish.build_srt([{"at": 1.0, "dur": 2.0, "text": "Hello"}])
+    assert "-->" in srt and "\n\n" in srt
+
+
+def test_caption_body_is_valid_multipart():
+    """جسم الـmultipart: JSON الأول · الملف التاني · boundary بين تنصيص في الهيدر."""
+    import inspect
+    from engine import publish
+    src = inspect.getsource(publish.upload_captions)
+    assert 'boundary="{boundary}"' in src or "boundary=\"{boundary}\"" in src, "الـboundary لازم يكون بين تنصيص"
+    assert "Content-Transfer-Encoding: binary" in src
+    assert src.index("application/json") < src.index("application/octet-stream")
