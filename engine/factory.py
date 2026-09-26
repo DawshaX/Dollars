@@ -35,6 +35,17 @@ sys.path.insert(0, str(ROOT))
 
 from engine import agent, editor, meta, photo, publish, visuals  # noqa: E402
 
+# ── حماية من تعارض الأسماء: مجلد السكربت بيتحط أول مسار الاستيراد لما تشغّل الملف
+#    مباشرة (python engine/factory.py)، وده كان بيخلي `engine/copy.py` يحجب مكتبة
+#    بايثون الأساسية `copy` ⇒ انهيار عند الاستيراد. بنشيل مجلد السكربت من المسار.
+def _fix_path_shadow():
+    import pathlib as _p, sys as _s
+    here = _p.Path(__file__).resolve().parent
+    _s.path[:] = [q for q in _s.path if _p.Path(q or ".").resolve() != here]
+
+
+_fix_path_shadow()
+
 QUEUE_CAP = 72                  # أقصى عدد وصفات محفوظة في الطابور
 STATE = ROOT / "state"
 WORK = ROOT / "work"

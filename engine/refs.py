@@ -23,6 +23,17 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
+# ── حماية من تعارض الأسماء: مجلد السكربت بيتحط أول مسار الاستيراد لما تشغّل الملف
+#    مباشرة (python engine/factory.py)، وده كان بيخلي `engine/copy.py` يحجب مكتبة
+#    بايثون الأساسية `copy` ⇒ انهيار عند الاستيراد. بنشيل مجلد السكربت من المسار.
+def _fix_path_shadow():
+    import pathlib as _p, sys as _s
+    here = _p.Path(__file__).resolve().parent
+    _s.path[:] = [q for q in _s.path if _p.Path(q or ".").resolve() != here]
+
+
+_fix_path_shadow()
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 STATE = ROOT / "state"
 REFS = ROOT / "docs" / "refs"
