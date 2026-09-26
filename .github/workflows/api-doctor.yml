@@ -1,0 +1,51 @@
+name: 🩺 دكتور الـAPIs
+# بيجرّب كل مساعد بنداء حقيقي ويقول شغال ولا لأ — والنتيجة بتتحفظ في docs/APIS.md
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 5 * * *'
+permissions:
+  contents: write
+jobs:
+  doctor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: فحص كل الـAPIs
+        env:
+          PIXABAY_KEY: ${{ secrets.PIXABAY_KEY }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          PEXELS: ${{ secrets.PEXELS }}
+          OPENVERSE_TOKEN: ${{ secrets.OPENVERSE_TOKEN }}
+          OPENVERSE: ${{ secrets.OPENVERSE }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+          NASA: ${{ secrets.NASA }}
+          GNEWS_API_KEY: ${{ secrets.GNEWS_API_KEY }}
+          CURRENTS_API_KEY: ${{ secrets.CURRENTS_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FREESOUND_ID: ${{ secrets.FREESOUND_ID }}
+          FREESOUND_SECRET: ${{ secrets.FREESOUND_SECRET }}
+          RESTCOUNTRIES_KEY: ${{ secrets.RESTCOUNTRIES_KEY }}
+          RESTCOUNTRIES: ${{ secrets.RESTCOUNTRIES }}
+          LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: |
+          python tools/api_doctor.py | tee /tmp/apis.txt
+          {
+            echo "# 🧰 مساعدو المصنع (فحص حقيقي $(date -u '+%Y-%m-%d %H:%M') UTC)"
+            echo
+            echo '```'
+            cat /tmp/apis.txt
+            echo '```'
+          } > docs/APIS.md
+      - name: حفظ التقرير
+        run: |
+          git config user.name "Dollars Factory"; git config user.email "factory@dawshax.local"
+          git add docs/APIS.md; git diff --cached --quiet || git commit -m "🧰 تقرير فحص الـAPIs"
+          for i in 1 2 3; do git pull --rebase --autostash -q origin main 2>/dev/null || true; git push -q origin HEAD:main && break || sleep 5; done
