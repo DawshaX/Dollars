@@ -487,6 +487,18 @@
       "name": "Riva",
       "type": "قطة صحراوية",
       "origin": "auto"
+    },
+    {
+      "id": "mopo_auto",
+      "name": "Mopo",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "peno_auto",
+      "name": "Peno",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
     }
   ],
   "stories": [
