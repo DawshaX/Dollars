@@ -10,10 +10,10 @@
    "thing": "the rain that would not stop",
    "ambient": "sleep_rain",
    "look": "cinema_night",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "a little clay creature meets a storm on a night lake, then finds warmth — hand-animated cutout characters over living 3D scenery",
    "pinned_comment": "Where should Nono go next? Rain, snow or space? 🌙 (Every comment decides the next story.)",
@@ -162,10 +162,10 @@
    "thing": "the little star that fell",
    "ambient": "calm_night",
    "look": "cinema_cool",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "a cloud cat finds a fallen star and carries it home across desert, space and snow — hand-animated cutout characters over living 3D scenery",
    "pinned_comment": "Koko found the star 🌟 — should we follow it to the moon next?",
@@ -315,10 +315,10 @@
    "thing": "a spark that got lost",
    "ambient": "fire",
    "look": "cinema_warm",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "a curious clay creature finds a lonely spark in a cold night and carries it home",
    "pinned_comment": "Would you keep the spark or set it free? 🔥 (Your comment writes the next story.)",
@@ -471,10 +471,10 @@
    "thing": "a star that fell too low",
    "ambient": "calm_night",
    "look": "cinema_night",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "a small traveller climbs a night hill to put a fallen star back in the sky",
    "pinned_comment": "Which constellation should Lazo visit next? ✨ (Every comment decides the next story.)",
@@ -627,10 +627,10 @@
    "thing": "a shell that sings",
    "ambient": "waves",
    "look": "cinema_cool",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "Nono follows a singing shell across the shore and finds the sea singing back",
    "pinned_comment": "What should Nono listen to next — the ocean, the wind or the rain? 🐚",
@@ -783,10 +783,10 @@
    "thing": "the first snowflake of winter",
    "ambient": "wind",
    "look": "cinema_cool",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "Koko catches the season's first snowflake and shares it with everyone on the hill",
    "pinned_comment": "Who should Koko share the snow with next? ❄️",
@@ -933,10 +933,10 @@
    "thing": "a lantern that went out",
    "ambient": "room_tone",
    "look": "cinema_warm",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "the paper man walks through a dark house to relight a lantern and light the way home",
    "pinned_comment": "Where should the paper man carry the lantern? 🏮",
@@ -1075,10 +1075,10 @@
    "thing": "a red balloon in the wind",
    "ambient": "wind",
    "look": "cinema_cool",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "video_desc": "a balloon slips away on the wind and Nono learns that letting go can be a gift",
    "pinned_comment": "Should Nono chase the balloon or wave goodbye? 🎈",
@@ -1224,10 +1224,10 @@
    "thing": "a butterfly that would not sit still",
    "ambient": "wind",
    "look": "cinema_cool",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "music": "glass_garden",
    "video_desc": "a cloud kitten chases a paper butterfly through a raked sand garden and a candle-lit desk — wordless, gentle and hand-cut",
@@ -1387,10 +1387,10 @@
    "thing": "a letter with no name on it",
    "ambient": "room_tone",
    "look": "cinema_warm",
-   "fps": 24,
+   "fps": 30,
    "size": [
-    960,
-    540
+    720,
+    1280
    ],
    "music": "warm_pad",
    "video_desc": "a paper man writes a letter by candlelight, loses it to the wind and finds it again — wordless paper-craft animation with living 3D rooms",

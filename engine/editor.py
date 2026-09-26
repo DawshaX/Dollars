@@ -114,20 +114,26 @@ def sticker_pool(pillar: str | None = None, seed: int = 0) -> list[str]:
 def camera(frame: np.ndarray, move: str, k: float, seed: int = 0) -> np.ndarray:
     """حركة كاميرا بالقصّ والتكبير — بتحسّ إن المشهد مصوّر بكاميرا حقيقية."""
     h, w = frame.shape[:2]
-    if move == "still":
-        return frame
-    z = 1.0
+    z = 1.05                                   # أساس: في دائمًا هامش بسيط للحركة
     dx = dy = 0.0
     if move == "zoom_in":
-        z = 1.0 + 0.16 * k
+        z = 1.0 + 0.24 * k
     elif move == "zoom_out":
-        z = 1.16 - 0.16 * k
+        z = 1.24 - 0.24 * k
     elif move in ("pan_left", "pan_right"):
-        z = 1.12
-        dx = (0.06 if move == "pan_right" else -0.06) * (k - 0.5)
+        z = 1.16
+        dx = (0.09 if move == "pan_right" else -0.09) * (k - 0.5)
+        dy = 0.02 * math.sin(k * 3.1)          # تنفّس رأسي بسيط
     elif move == "drift_up":
-        z = 1.10
-        dy = -0.05 * (k - 0.5)
+        z = 1.14
+        dy = -0.075 * (k - 0.5)
+    elif move == "drift_down":
+        z = 1.14
+        dy = 0.075 * (k - 0.5)
+    elif move == "still":
+        z = 1.03                               # مش ساكنة تمامًا: انزياح ناعم جدًا
+        dx = 0.006 * math.sin(k * 2.0)
+        dy = 0.005 * math.cos(k * 1.6)
     elif move == "shake":
         z = 1.06
         a = (1.0 - k) ** 2
@@ -139,6 +145,39 @@ def camera(frame: np.ndarray, move: str, k: float, seed: int = 0) -> np.ndarray:
     crop = frame[y0:y0 + ch, x0:x0 + cw]
     img = Image.fromarray(crop).resize((w, h), Image.BILINEAR)
     return np.asarray(img, dtype=np.uint8)
+
+
+def atmosphere(frame: np.ndarray, t: float, seed: int = 0) -> np.ndarray:
+    """طبقة جو سينمائية: ضوء بيمشي + ذرات عائمة ⇒ الإطار دايمًا حيّ (مش صورة ثابتة)."""
+    h, w = frame.shape[:2]
+    fr = frame.astype(np.float32) / 255.0
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    rng = np.random.default_rng(seed % 9973)
+    # ضوء ناعم بيدور ببطء حوالين الكادر
+    cx = (0.5 + 0.34 * math.sin(t * 0.16 + seed)) * w
+    cy = (0.42 + 0.20 * math.cos(t * 0.11 + seed * 0.7)) * h
+    d2 = (xx - cx) ** 2 + (yy - cy) ** 2
+    glow = np.exp(-d2 / (2.0 * (0.52 * max(w, h)) ** 2)) * (0.055 + 0.028 * math.sin(t * 0.5))
+    # ذرات عائمة (غبار/بريق)
+    n = 90
+    px = rng.uniform(0, w, n).astype(np.float32)
+    py = rng.uniform(0, h, n)
+    sp = rng.uniform(0.25, 1.0, n).astype(np.float32)
+    rad = rng.uniform(1.2, 3.4, n).astype(np.float32)
+    motes = np.zeros((h, w), np.float32)
+    for i in range(n):
+        mx = (px[i] + 16.0 * sp[i] * math.sin(t * 0.35 + i)) % w
+        my = (py[i] - 13.0 * sp[i] * t * 0.35) % h
+        r = rad[i]
+        x0, x1 = int(max(0, mx - r)), int(min(w, mx + r + 1))
+        y0, y1 = int(max(0, my - r)), int(min(h, my + r + 1))
+        if x1 <= x0 or y1 <= y0:
+            continue
+        sub_y, sub_x = np.mgrid[y0:y1, x0:x1].astype(np.float32)
+        dd = (sub_x - mx) ** 2 + (sub_y - my) ** 2
+        motes[y0:y1, x0:x1] += np.exp(-dd / (2 * r * r)) * (0.30 * sp[i])
+    out = fr * (1.0 + glow[..., None]) + motes[..., None] * 0.32
+    return (np.clip(out, 0, 1) * 255).astype(np.uint8)
 
 
 def _montage_line(m: dict) -> str:
@@ -202,7 +241,8 @@ def overlay(frame_u8: np.ndarray, sprite: Image.Image, cx: float, cy: float, sca
 # ───────────────────────────── بناء المونتاج ─────────────────────────────
 
 def plan_shots(pillar: str, seconds: float, seed: int = 7,
-               moves: list | None = None, scenes: list | None = None) -> list:
+               moves: list | None = None, scenes: list | None = None,
+               loop_tail: bool = False) -> list:
     """
     خطة القصّ: مقاطع بأطوال مختلفة (3-9 ث) + حركة + مؤثرات + ملصقات.
     القاعدة: أول ثانية لازم تخطف العين (حركة قوية + مؤثر).
@@ -223,8 +263,9 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
     rest = [m for m in (moves or []) if m in MOVES] or list(MOVES)
     shots, t = [], 0.0
     first = True
-    while t < seconds - 0.5:
-        dur = min(rng.choice([3.0, 4.0, 5.0, 6.0, 7.5]), max(1.5, seconds - t))
+    stop_at = seconds - (1.8 if loop_tail else 0.5)   # نحجز آخر لقطة لرجوع سلس للبداية
+    while t < stop_at:
+        dur = min(rng.choice([3.0, 4.0, 5.0, 6.0, 7.5]), max(1.5, stop_at - t))
         pool = [x for x in scenes if not shots or x != shots[-1]["scene"]] or list(scenes)
         scene = rng.choice(pool)               # ما نكررش نفس المشهد ورا بعضه
         move = rng.choice(opens if first else rest)
@@ -255,6 +296,19 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
     plans = fx.plan(random.Random(seed + 77), pillar_key, len(shots))     # إضافات بصرية لكل مقطع
     for sh, pl in zip(shots, plans):
         sh["fx"] = pl
+    if loop_tail and shots:                    # loop back shot: same frame as the opening one
+        tail = max(1.2, seconds - t)
+        back = {"zoom_in": "zoom_out", "zoom_out": "zoom_in", "pan_left": "pan_right",
+                "pan_right": "pan_left", "drift_up": "drift_down", "drift_down": "drift_up"
+                }.get(shots[0]["move"], shots[0]["move"])
+        shots.append(dict(scene=shots[0]["scene"], dur=tail, move=back, cues=[], stickers=[],
+                          look=shots[0].get("look"), fx=[], loop_back=True))
+    if shots:                                   # المدة بالظبط (مفيش نص ثانية ناقص)
+        total = sum(x["dur"] for x in shots)
+        if total < seconds - 0.05:
+            shots[-1]["dur"] = round(shots[-1]["dur"] + (seconds - total), 3)
+        elif total > seconds + 0.05 and shots[-1]["dur"] - (total - seconds) >= 1.0:
+            shots[-1]["dur"] = round(shots[-1]["dur"] - (total - seconds), 3)
     return shots
 
 
@@ -301,9 +355,20 @@ def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
             right[:m] += bed[:m, 1] * music_gain
         except Exception:
             pass
+    # ── معايرة صوت احترافية: نستهدف إحساس صوت ثابت (RMS) مع سقف يمنع التشويه ──
     peak = max(float(np.abs(left).max()), float(np.abs(right).max()), 1e-6)
-    k = min(1.0, 0.92 / peak)
-    return np.stack([np.clip(left * k, -1, 1), np.clip(right * k, -1, 1)], axis=1)
+    k_peak = min(1.0, 0.97 / peak)
+    left, right = left * k_peak, right * k_peak
+    rms = float(np.sqrt((np.concatenate([left, right]) ** 2).mean()) + 1e-9)
+    target = 10 ** (-17.0 / 20.0)                 # ≈ ‎-17 dB RMS (مستوى يوتيوب المريح)
+    gain = target / rms
+    gain = float(np.clip(gain, 0.5, 14.0))        # حدود آمنة (مفيش رفع هستيري لمقطع ساكت)
+    left, right = left * gain, right * gain
+    limiter_peak = max(float(np.abs(left).max()), float(np.abs(right).max()), 1e-6)
+    if limiter_peak > 0.985:                      # limiter ناعم بدل القصّ الحاد
+        left = np.tanh(left / 0.985) * 0.985
+        right = np.tanh(right / 0.985) * 0.985
+    return np.stack([np.clip(left, -1, 1), np.clip(right, -1, 1)], axis=1)
 
 
 def _write_wav(path, stereo: np.ndarray, sr: int = 44100):
@@ -318,25 +383,57 @@ def _write_wav(path, stereo: np.ndarray, sr: int = 44100):
     return path
 
 
-def _draw_text(frame: np.ndarray, text: str, pos: str = "lower", size: float = 0.055) -> np.ndarray:
-    """يرسم نص على الكادر (بالإنجليزية — عشان الحروف تطلع سليمة على كل الأجهزة)."""
+def _draw_text(frame: np.ndarray, text: str, pos: str = "lower", size: float = 0.055,
+               strict: bool = False) -> np.ndarray:
+    """يرسم نص على الكادر (بالإنجليزية — عشان الحروف تطلع سليمة على كل الأجهزة).
+
+    ⚠️ الكادر ممكن يكون uint8 (0..255) أو float (0..1) — بنتعامل مع الاتنين،
+    وكنا بنرجع الكادر من غير نص لو حصل خطأ **من غير ما نعرف** (باج حقيقي اتصحّح).
+    """
+    src_uint8 = getattr(frame, "dtype", None) == np.uint8
+    work = frame
+    if not src_uint8:
+        work = (np.clip(np.asarray(frame, dtype=np.float32), 0, 1) * 255).astype(np.uint8)
     try:
-        img = Image.fromarray(frame).convert("RGBA")
+        img = Image.fromarray(work).convert("RGBA")
         ov = Image.new("RGBA", img.size, (0, 0, 0, 0))
         d = ImageDraw.Draw(ov)
         w, h = img.size
         f = _font(max(14, int(h * size)))
-        words, lines, cur = text.split(), [], ""
-        for wd in words:
-            t = (cur + " " + wd).strip()
-            if d.textlength(t, font=f) > w * 0.86 and cur:
-                lines.append(cur); cur = wd
-            else:
-                cur = t
-        lines.append(cur)
+
+        def _wrap_now(txt: str, font) -> list:
+            """يلفّ النص + **يكسر الكلمات الطويلة** (روابط) عشان ما تخرجش بره الشاشة."""
+            out, cur2 = [], ""
+            for wd in str(txt).split():
+                while d.textlength(wd, font=font) > w * 0.86 and len(wd) > 8:
+                    cut = len(wd)
+                    while cut > 4 and d.textlength(wd[:cut], font=font) > w * 0.86:
+                        cut -= 1
+                    if cur2:
+                        out.append(cur2); cur2 = ""
+                    out.append(wd[:cut]); wd = wd[cut:]
+                t2 = (cur2 + " " + wd).strip()
+                if d.textlength(t2, font=font) > w * 0.86 and cur2:
+                    out.append(cur2); cur2 = wd
+                else:
+                    cur2 = t2
+            if cur2:
+                out.append(cur2)
+            return out or [""]
+
+        lines = _wrap_now(text, f)
+        # لو النص طويل: نصغّر الخط تدريجيًا لحد ما يدخل في ٣٤٪ من الشاشة (مايتقطعش)
+        for _try in range(4):
+            lh = int(h * size * 1.35)
+            if lh * len(lines) <= h * 0.34 or size < 0.030:
+                break
+            size *= 0.88
+            f = _font(max(13, int(h * size)))
+            lines = _wrap_now(text, f)
         lh = int(h * size * 1.35)
         total = lh * len(lines)
-        y0 = int(h * 0.78 - total / 2) if pos == "lower" else int((h - total) / 2)
+        y0 = int(min(h * 0.80 - total / 2, h - total - h * 0.04)) if pos == "lower" else int((h - total) / 2)
+        y0 = max(int(h * 0.06), y0)
         for i, ln in enumerate(lines):
             tw = d.textlength(ln, font=f)
             x = int((w - tw) / 2)
@@ -346,8 +443,12 @@ def _draw_text(frame: np.ndarray, text: str, pos: str = "lower", size: float = 0
                                 radius=int(h * 0.012), fill=(0, 0, 0, 120))
             d.text((x + 2, y + 2), ln, font=f, fill=(0, 0, 0, 190))
             d.text((x, y), ln, font=f, fill=(255, 255, 255, 240))
-        return np.asarray(Image.alpha_composite(img, ov).convert("RGB"))
-    except Exception:
+        out = np.asarray(Image.alpha_composite(img, ov).convert("RGB"))
+        return out if src_uint8 else (out.astype(np.float32) / 255.0)
+    except Exception as e:
+        if strict:
+            raise
+        print(f"⚠️ النص ما اترسمش ({type(e).__name__}: {e}) — «{text[:30]}»", flush=True)
         return frame
 
 
@@ -394,6 +495,9 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                 fr = grade.split_tone(fr, pal or palette, strength=float(sh.get("palette_strength", 0.42)),
                                       protect=0.55)          # ألوان المرجع البصري
             fr = camera((np.clip(fr, 0, 1) * 255).astype(np.uint8), sh["move"], k, seed=si)
+            if sh.get("atmosphere", True):       # moving atmosphere: no dead frame
+                _t_atmo = (i / fps) if sh.get("loop_back") else (start_at + i / fps)
+                fr = atmosphere(fr, _t_atmo, seed=si * 17 + 3)
             if sh.get("fx"):                       # إضافات بصرية (ضوء · هالة · غبار · لمعات …)
                 fr = fx.apply_all(fr, sh["fx"], i / fps, seed=si * 31 + i)
             # ملصقات متحركة: بتظهر بحركة «pop» وتطير لفوق بنعومة
@@ -621,7 +725,8 @@ class Editor:
                seconds: float = 30.0, seed: int | None = None, **kw) -> dict:
         seed = self.seed if seed is None else seed
         sp = dict(SPECS[kind])
-        shots = plan_shots(pillar, seconds, seed=seed, moves=kw.get("moves"), scenes=kw.get("scenes"))
+        shots = plan_shots(pillar, seconds, seed=seed, moves=kw.get("moves"), scenes=kw.get("scenes"),
+                           loop_tail=(pillar == "satisfying"))
         spec_extra = dict(kw.get("spec_extra") or {})
         name = out_name or f"{kind}_{seed}_{int(seconds)}s"
         silent = self.out / f"{name}_silent.mp4"
@@ -696,16 +801,30 @@ class Editor:
             st = random.Random(self.seed).choice(stories)
         if kw.get("music") and not getattr(st, "music", None):
             st.music = kw["music"]                 # موسيقى الوصفة لما القصة مالهاش تعريف
+        if kw.get("vertical", True):               # 📱 الشورتس لازم تبقى رأسية (ضمان صريح)
+            st.w, st.h = 720, 1280
+            if int(getattr(st, "fps", 30) or 30) < 30:
+                st.fps = 30
         full = pathlib.Path(out_name) if out_name else self.out / f"{st.id}_full.mp4"
         full.parent.mkdir(parents=True, exist_ok=True)
-        st.render(full, verbose=False, cinema=kw.get("look") or None)
+        _title = getattr(st, "title", None) or ""
+        _en = str(getattr(st, "kw", "") or "").split(" — ")[0].strip()   # 🇬🇧 الإنجليزي (قناة إنجليزية)
+        _card_text = _en or _title
+        _cards = []
+        if _card_text:                                 # 🏷️ كارت العنوان (٣.٤ ث) — القصة نفسها بلا كلام
+            _cards.append({"at": 0.5, "dur": 3.2, "text": _card_text, "pos": "center", "size": 0.062})
+        st.render(full, verbose=False, cinema=kw.get("look") or None, texts=_cards)
         # بيانات يوتيوب كاملة (عنوان · وصف · وسوم · إفصاح AI) + المونتاج
-        _extra = dict(kw.get("spec_extra") or {})
-        md = meta.build(dict(**_extra, pillar="story", kind="short", kw=getattr(st, "kw", None),
-                             seconds=round(st.duration), scene=(st.beats[0] or {}).get("scene"),
-                             character=getattr(st, "hero_name", None),
-                             thing=getattr(st, "thing", None),
-                             duration_bucket=f"{int(round(st.duration))}s"))
+        # 🔑 ندخل بيانات النوع (spec_extra) **بعد** الأساس عشان مفاتيح زي kw ما تتعارضش
+        spec_story = dict(pillar="story", kind="short", kw=getattr(st, "kw", None),
+                          seconds=round(st.duration), scene=(st.beats[0] or {}).get("scene"),
+                          character=getattr(st, "hero_name", None),
+                          thing=getattr(st, "thing", None),
+                          duration_bucket=f"{int(round(st.duration))}s")
+        for _k, _v in (kw.get("spec_extra") or {}).items():
+            if _v not in (None, "", []) and _k not in spec_story:
+                spec_story[_k] = _v
+        md = meta.build(spec_story)
         md["title"] = getattr(st, "title", st.id)
         md["video_desc"] = getattr(st, "video_desc", None)
         md["story_id"] = st.id
@@ -735,7 +854,7 @@ class Editor:
     # ── الطويلة (نوم) ──
     def _long(self, out_name: str | None, hours: float = 10.0, scene: str = "valley_lake",
               audio: str = "calm_night", look: str | None = None, loop_seconds: float = 40.0,
-              moves: list | None = None, palette=None, **kw) -> dict:
+              moves: list | None = None, palette=None, photos: list | None = None, **kw) -> dict:
         look = visuals.LOOKS.get(scene) or look or "cinema_cool"
         # دقّة الرندر: المشاهد 2D بتتطلع 960×540 (وبعدين 1080p) · المشاهد 3D غالية فبتفضل 480×270
         try:
@@ -746,10 +865,23 @@ class Editor:
         rw, rh = (480, 270) if is3d else (960, 540)
         loop = self.out / f"{scene}_loop.mp4"
         fmt = long_format(hours)
-        sc = visuals.make_scene(scene, w=rw, h=rh, fps=30)
-        visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=fmt["w"], out_h=fmt["h"],
-                       crf=23, maxrate=fmt["maxrate"], cinema=look)   # سقف حجم: الطويلة تفضل قابلة للرفع
-        wav = ambient.make(audio, min(loop_seconds, sc.loop_seconds), self.out / f"{audio}.wav")
+        body_seconds = 60.0 if photos else 40.0          # حلقة الصور أطول = تنوّع أكتر للنوم
+        used_photos = 0
+        if photos:                                       # 🖼️ الجسم من صور حقيقية (حركة هادية)
+            try:
+                from engine import photo as _photo
+                _photo.render_reel(list(photos), loop, seconds=body_seconds, w=fmt["w"], h=fmt["h"],
+                                   fps=30, palette=palette, look=look or "cinema_cool",
+                                   seed=self.seed, calm=True, crf=23)
+                used_photos = len(photos)
+            except Exception as _e:
+                print(f"⚠️ صور الطويلة اتعذّرت ({type(_e).__name__}) — هنستخدم المشهد المولّد", flush=True)
+        if not used_photos:
+            sc = visuals.make_scene(scene, w=rw, h=rh, fps=30)
+            visuals.encode(sc, min(loop_seconds, sc.loop_seconds), loop, out_w=fmt["w"], out_h=fmt["h"],
+                           crf=23, maxrate=fmt["maxrate"], cinema=look)   # سقف حجم: قابلة للرفع
+        wav = ambient.make(audio, body_seconds if used_photos else min(loop_seconds, sc.loop_seconds),
+                           self.out / f"{audio}.wav")
         name = out_name or f"{scene}_{int(hours)}h"
         video = self.out / f"{name}.mp4"
         body = self.out / f"{name}_body.mp4"
@@ -799,15 +931,27 @@ class Editor:
                                                if " " in c else c for c in md["chapters"]]
         md["montage"] = {"assembled": assembled, "out_size": [fmt["w"], fmt["h"]],
                          "maxrate": fmt["maxrate"], "size_cap_mb": fmt["cap_mb"], **md_parts,
-                         "look": look, "music": "warm_pad", "body_loop_seconds": loop_seconds,
+                         "look": look, "music": "warm_pad", "real_photos": used_photos,
+                         "body_loop_seconds": body_seconds if used_photos else loop_seconds,
                          "body_reencoded": False, "scene": scene, "audio": audio,
                          "camera_moves": MOVES if not moves else list(moves)}
         md["description"] = md.get("description", "") + "\n\n" + _montage_line(md["montage"])
-        thumb = thumbnail(scene, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg", look=look,
-                          palette=palette)
+        thumb = None
+        if photos:                                       # 🖼️ غلاف من صورة حقيقية
+            try:
+                from engine import photo as _photo
+                thumb = _photo.thumb_from_photo(list(photos), md["thumbnail_texts"][:2],
+                                                self.out / f"{name}_thumb.jpg", w=1280, h=720,
+                                                palette=palette)
+            except Exception:
+                thumb = None
+        if not thumb:
+            thumb = thumbnail(scene, md["thumbnail_texts"][:2], self.out / f"{name}_thumb.jpg", look=look,
+                              palette=palette)
         files = meta.write_package(md, self.out)
         record = dict(kind="sleep_long", video=str(video), thumbnail=str(thumb), meta=md,
-                      meta_files=files, hours=hours, scene=scene, audio=audio)
+                      meta_files=files, hours=hours, scene=scene, audio=audio,
+                      photos=used_photos)
         self.log.append(record)
         return record
 

@@ -174,7 +174,7 @@ class Story:
 
     # ── الرندر ──
     def render(self, out_path, verbose: bool = True, cinema: str | None = None,
-               audio_gain: float = 1.0) -> pathlib.Path:
+               audio_gain: float = 1.0, texts: list | None = None) -> pathlib.Path:
         problems = self.validate()
         if problems:
             raise ValueError("القصة فيها مشاكل:\n- " + "\n- ".join(problems))
@@ -184,7 +184,7 @@ class Story:
         wav = out_path.with_suffix(".wav")
         _write_wav(wav, audio)
         silent = out_path.with_name(out_path.stem + "_silent.mp4")
-        self._render_video(silent, cinema=cinema, verbose=verbose)
+        self._render_video(silent, cinema=cinema, verbose=verbose, texts=texts)
         subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
                         "-i", str(silent), "-i", str(wav), "-c:v", "copy",
                         "-c:a", "aac", "-b:a", "192k", "-shortest",
@@ -195,7 +195,8 @@ class Story:
             print(f"🎬 {out_path.name} · {self.duration:.1f} ث · {out_path.stat().st_size/1e6:.1f} ميجا")
         return out_path
 
-    def _render_video(self, path, cinema: str | None = None, verbose: bool = True):
+    def _render_video(self, path, cinema: str | None = None, verbose: bool = True,
+                      texts: list | None = None):
         fps, w, h = self.fps, self.w, self.h
         frames = int(round(self.duration * fps))
         cmd = [proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-f", "rawvideo",
@@ -216,7 +217,8 @@ class Story:
         st_cache: dict = {}
         st_count = 0
 
-        # مشاهد وكاميرات (تُبنى مرّة لكل بيت)
+        # 🏷️ كارت العنوان: نص على الشاشة (بيظهر أول ثواني وبينطفي بنعومة)
+        from .editor import _draw_text as _dt
         cache = {}
         fx_cache: dict = {}
         for i in range(frames):
@@ -306,7 +308,18 @@ class Story:
             if tr != "none" and local > dur - 0.45:
                 k = (local - (dur - 0.45)) / 0.45
                 frame = _blend_transition(frame, tr, k, t, w, h, fps, seed=i)
-            proc_.stdin.write(memoryview((np.clip(frame, 0, 1) * 255 + 0.5).astype(np.uint8)))
+            if texts:                                  # 🏷️ النص **آخر** خطوة (فوق كل الإضافات)
+                for _tx in texts:
+                    _at, _du = float(_tx.get("at", 0)), float(_tx.get("dur", 3))
+                    if _at <= t < _at + _du:
+                        _fade = min(1.0, (t - _at) / 0.6, max(0.0, (_at + _du - t) / 0.6))
+                        if _fade > 0.05:
+                            frame = _dt(frame, str(_tx.get("text", "")), pos=_tx.get("pos", "center"),
+                                        size=float(_tx.get("size", 0.058)))
+                        break
+            if getattr(frame, "dtype", None) != np.uint8:
+                frame = (np.clip(frame, 0, 1) * 255 + 0.5).astype(np.uint8)
+            proc_.stdin.write(memoryview(np.ascontiguousarray(frame)))
         proc_.stdin.close()
         err = proc_.stderr.read().decode("utf-8", "ignore") if proc_.stderr else ""
         if proc_.wait() != 0:

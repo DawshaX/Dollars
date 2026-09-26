@@ -34,26 +34,67 @@ STORY_TOPICS = [
     ("the painter of rainbows", "rainbow sky landscape"),
     ("the paper plane journey", "paper plane sky clouds"),
     ("the sleepy train", "train window night journey"),
+    ("the little astronaut", "astronaut space illustration"),
+    ("the kite and the wind", "kite sky clouds painting"),
+    ("the garden that listened", "garden flowers morning illustration"),
+    ("the star that was shy", "stars night sky soft"),
+    ("the turtle who carried rain", "turtle ocean illustration"),
+    ("the door in the tree", "tree door forest fantasy"),
+    ("the clockmaker's gift", "clockmaker workshop vintage"),
+    ("the whale who sang alone", "whale underwater soft light"),
+    ("the mountain that smiled", "mountain sunrise painting"),
+    ("the boy who drew clouds", "drawing clouds sketchbook"),
+    ("the lighthouse and the storm", "lighthouse storm waves painting"),
+    ("the tiny gardener", "seedling hands soil macro"),
+    ("the moon who waited", "moonrise over hills painting"),
+    ("the river that remembered", "river stones water painting"),
+    ("the bird who lost its song", "bird branch watercolor"),
 ]
 
 TOPICS = {
-    "sleep_ambience": ["Rain Sounds", "Heavy Rain on a Window", "Ocean Waves", "Fireplace Crackling",
-                       "Thunderstorm at Night", "Snowfall at Night", "Night Train Ride",
-                       "Forest at Night", "Beach at Midnight", "Lake at Dusk", "Wind in the Pines"],
+    "sleep_ambience": [
+        "Rain Sounds", "Heavy Rain on a Window", "Ocean Waves", "Fireplace Crackling",
+        "Thunderstorm at Night", "Snowfall at Night", "Night Train Ride", "Forest at Night",
+        "Beach at Midnight", "Lake at Dusk", "Wind in the Pines", "Gentle Rain on a Tent",
+        "Distant Thunder Rolls", "Rain on a Tin Roof", "Cabin Fireplace and Rain",
+        "Ocean Waves at Sunrise", "Desert Wind at Night", "Waterfall in the Forest",
+        "Snow Falling in a Quiet Village", "Crackling Campfire and Crickets",
+        "Rain on Leaves", "Boat Rocking on Calm Water", "Mountain Stream", "Meadow at Dusk",
+        "Rain on a Balcony in the City", "Fog over the Lake", "Old Ship at Anchor",
+        "Thunder Far Away", "Warm Fire and Rain", "Night Wind Through Bamboo"],
     "focus_study": ["Brown Noise", "Rain on the Window", "Quiet Library", "Soft Cafe Ambience",
-                    "Snow Day Study", "Deep Focus Noise"],
-    "story": [t for t, _q in STORY_TOPICS],
+                    "Snow Day Study", "Deep Focus Noise", "Pink Noise", "White Noise",
+                    "Rainy Study Session", "Coffee Shop Murmur", "Night Study Desk",
+                    "Clock and Rain", "Train Compartment Focus", "Silent Library at Dawn",
+                    "Wind and Pages", "Keyboard and Rain", "Hearth and Homework"],
+    "story": [t for t, _q in STORY_TOPICS],   # ٢٧ حكاية (قصيرة وطويلة)
     "satisfying": ["Kinetic Sand", "Soap Cutting", "Ice Crushing", "Magnetic Beads",
                    "Water Rings", "Perfect Cuts", "Hydraulic Press", "Bubble Wrap",
-                   "Glass and Sand", "Rolling Dominoes"],
+                   "Glass and Sand", "Rolling Dominoes", "Liquid Marble Pour", "Sand Raking",
+                   "Wax Seals", "Chocolate Breaking", "Slime Stretch", "Layered Resin",
+                   "Ball Bearings in Motion", "Powder Pressing", "Paint Swirl Pour",
+                   "Precision Slicing", "Slow Foam Rising", "Copper and Salt",
+                   "Ink in Water", "Dry Ice Fog", "Sand Cutting Glass"],
     "space_nature": ["The Carina Nebula", "Earth From Orbit", "Aurora Over Iceland",
                      "The Deep Ocean Floor", "Glacier Calving", "Saturn's Rings",
-                     "Volcano at Night", "The Grand Canyon at Dawn"],
+                     "Volcano at Night", "The Grand Canyon at Dawn",
+                     "The Milky Way Core", "Jupiter's Great Red Spot", "Comet Tails",
+                     "Sahara Dunes at Sunset", "Icelandic Lava Fields", "Ancient Redwoods",
+                     "The Northern Lights Over a Lake", "Antarctic Ice Shelves",
+                     "Nile River from Space", "Coral Reef at Night", "The Himalayas at Dawn",
+                     "Desert Bloom After Rain", "Tornado Alley Skies", "Bioluminescent Bay"],
     "fun_memes": ["the Monday morning", "the gym in January", "the group project",
                   "the Wi-Fi dies", "the last slice of pizza", "the alarm clock",
-                  "the parking spot", "the phone at 1%"],
+                  "the parking spot", "the phone at 1%", "the printer jams",
+                  "the video call background", "the shopping list you forget",
+                  "the umbrella you left", "the queue that picks the wrong line",
+                  "the microwave timer", "the meeting that could be an email",
+                  "the charger that never fits", "the sock that disappears"],
     "calm_wellness": ["Breathe With Me", "Slow Down", "Before Sleep", "Reset Your Day",
-                      "Two Minutes of Calm"],
+                      "Two Minutes of Calm", "Box Breathing", "4-7-8 Breathing",
+                      "Morning Reset", "After Work Wind Down", "Quiet the Mind",
+                      "Steady Breath at the Ocean", "Breathe With the Rain",
+                      "One Minute at a Time"],
     "facts": [],          # بتُجاب من ويكيبيديا/ناسا (حقائق موثّقة بمصادر)
 }
 
@@ -93,6 +134,11 @@ def _topic(gid: str, rng: random.Random) -> dict:
     else:
         out["image_query"] = kw
     return out
+
+
+LONG_SLEEP_TOPICS = ["Rain Sounds", "Ocean Waves", "Fireplace Crackling", "Thunderstorm at Night",
+                     "Snowfall at Night", "Night Forest", "Beach at Midnight", "Mountain Stream",
+                     "Desert Wind", "Night Train"]
 
 
 def _kw_for_meta(gid: str, topic: str) -> str:
@@ -165,12 +211,17 @@ def build_day(date_str: str | None = None, shorts: int = 24, longs: tuple = (3, 
 
     # الطويلة: أنواع ومشاهد مختلفة عن بعض وعن الشورتس
     long_genres = ["sleep_ambience", "sleep_ambience", "focus_study", "space_nature"]
+    long_pool = list(LONG_SLEEP_TOPICS); rng.shuffle(long_pool)
     long_hours = [3, 8, 10, 12]
     for i, hrs in enumerate(longs):
         gid = long_genres[i % len(long_genres)]
         hour = long_hours[i % len(long_hours)]
         slot = _slot(hour, f"{date_str}T{hour:02d}:00:00Z", "long", gid, rng)
         slot["idea"]["duration"] = f"{hrs}h"
+        if gid == "sleep_ambience" and long_pool:          # موضوع مختلف لكل طويلة
+            k = long_pool.pop()
+            slot["idea"]["kw"] = k
+            slot["idea"]["topic"] = k
         slots.append(slot)
         variety.record(slot["idea"]["sig"])
 
