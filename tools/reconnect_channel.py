@@ -30,7 +30,11 @@ SCOPES = [
     "https://www.googleapis.com/auth/youtube.force-ssl",    # العنوان/الوصف/الفصول/التعليقات
     "https://www.googleapis.com/auth/youtube.readonly",     # قراءة القناة والإحصائيات
 ]
-REDIRECT = os.environ.get("REDIRECT_URI") or "http://localhost:8085/"   # أي بورت شغّال لعملاء سطح المكتب
+# العنوان المسجّل فعلًا على تطبيق جوجل بتاعنا (اتأكدنا منه باختبار حقيقي عند جوجل):
+#   https://8899-ivfx0jnsfhm4lb21x07io-ae1265fb.sg1.manus.computer/callback  ✅ مقبول
+#   https://developers.google.com/oauthplayground                            ✅ مقبول
+#   أي عنوان localhost                                                       ❌ مرفوض (redirect_uri_mismatch)
+REDIRECT = os.environ.get("REDIRECT_URI") or "https://8899-ivfx0jnsfhm4lb21x07io-ae1265fb.sg1.manus.computer/callback"
 
 
 # ───────────────────────── أدوات صغيرة ─────────────────────────
