@@ -1,0 +1,32 @@
+{
+  "main_channel": "UCG9g_26H65D3FahqyiYPHAw",
+  "checked_at": "2026-09-26T03:47:28.526969+00:00",
+  "projects": {
+    "1": {
+      "project": 1,
+      "configured": true,
+      "ok": true,
+      "channel_id": "UCG9g_26H65D3FahqyiYPHAw",
+      "channel_title": "xDaw NoVa"
+    },
+    "2": {
+      "project": 2,
+      "configured": true,
+      "ok": true,
+      "channel_id": "UCG9g_26H65D3FahqyiYPHAw",
+      "channel_title": "xDaw NoVa"
+    },
+    "3": {
+      "project": 3,
+      "configured": false
+    },
+    "4": {
+      "project": 4,
+      "configured": false
+    }
+  },
+  "usable": [
+    "1",
+    "2"
+  ]
+}
