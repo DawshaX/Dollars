@@ -6,3 +6,15 @@
    ✅ يوتيوب استقبل الفيديو: XSewNuy1LHs
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (5.6 ميجا)…
    ✅ يوتيوب استقبل الفيديو: ATmi2znPn3s
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (5.5 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: -tCCdLv-puc
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (17.9 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: CdFAtnxYoW0
+   ⚠️ الترجمة ما اترفعتش: HTTP 400 — parseError — Invalid JSON payload received. Unable to parse number.
+--dollars-boundary-7
+^
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (17.9 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: HT-nztIrzH4
+   ⚠️ الترجمة ما اترفعتش: HTTP 400 — parseError — Invalid JSON payload received. Unable to parse number.
+--dollars-boundary-7
+^

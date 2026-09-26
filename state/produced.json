@@ -644,19 +644,64 @@
       "reason": "🚦 بوابة الجودة رفضت النشر: ['الأبعاد', 'مفيش ثبات طويل']",
       "seconds_spent": 613.7,
       "at": "2026-09-26T14:11:39.957364+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 11,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_11/paper_man_help_full.mp4",
+      "title": "Paper Man and a lantern that went out — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/-tCCdLv-puc",
+      "reason": null,
+      "seconds_spent": 246.6,
+      "at": "2026-09-26T14:29:29.412931+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 12,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:nature close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_12/satisfying_113996.mp4",
+      "title": "Kinetic Sand — oddly satisfying (60s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/CdFAtnxYoW0",
+      "reason": null,
+      "seconds_spent": 143.7,
+      "at": "2026-09-26T14:32:03.219059+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 13,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:nature close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_13/satisfying_587321.mp4",
+      "title": "Kinetic Sand — oddly satisfying (60s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/HT-nztIrzH4",
+      "reason": null,
+      "seconds_spent": 139.9,
+      "at": "2026-09-26T14:34:38.245547+00:00"
     }
   ],
   "stats": {
-    "total": 43,
-    "published": 4,
+    "total": 46,
+    "published": 7,
     "staged": 38,
     "by_pillar": {
       "focus": 5,
-      "satisfying": 18,
+      "satisfying": 20,
       "sleep": 14,
-      "story": 6
+      "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-26T14:12:07.811718+00:00"
+  "updated": "2026-09-26T14:34:53.048666+00:00"
 }
