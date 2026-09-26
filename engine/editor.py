@@ -114,20 +114,26 @@ def sticker_pool(pillar: str | None = None, seed: int = 0) -> list[str]:
 def camera(frame: np.ndarray, move: str, k: float, seed: int = 0) -> np.ndarray:
     """حركة كاميرا بالقصّ والتكبير — بتحسّ إن المشهد مصوّر بكاميرا حقيقية."""
     h, w = frame.shape[:2]
-    if move == "still":
-        return frame
-    z = 1.0
+    z = 1.05                                   # أساس: في دائمًا هامش بسيط للحركة
     dx = dy = 0.0
     if move == "zoom_in":
-        z = 1.0 + 0.16 * k
+        z = 1.0 + 0.24 * k
     elif move == "zoom_out":
-        z = 1.16 - 0.16 * k
+        z = 1.24 - 0.24 * k
     elif move in ("pan_left", "pan_right"):
-        z = 1.12
-        dx = (0.06 if move == "pan_right" else -0.06) * (k - 0.5)
+        z = 1.16
+        dx = (0.09 if move == "pan_right" else -0.09) * (k - 0.5)
+        dy = 0.02 * math.sin(k * 3.1)          # تنفّس رأسي بسيط
     elif move == "drift_up":
-        z = 1.10
-        dy = -0.05 * (k - 0.5)
+        z = 1.14
+        dy = -0.075 * (k - 0.5)
+    elif move == "drift_down":
+        z = 1.14
+        dy = 0.075 * (k - 0.5)
+    elif move == "still":
+        z = 1.03                               # مش ساكنة تمامًا: انزياح ناعم جدًا
+        dx = 0.006 * math.sin(k * 2.0)
+        dy = 0.005 * math.cos(k * 1.6)
     elif move == "shake":
         z = 1.06
         a = (1.0 - k) ** 2
@@ -139,6 +145,39 @@ def camera(frame: np.ndarray, move: str, k: float, seed: int = 0) -> np.ndarray:
     crop = frame[y0:y0 + ch, x0:x0 + cw]
     img = Image.fromarray(crop).resize((w, h), Image.BILINEAR)
     return np.asarray(img, dtype=np.uint8)
+
+
+def atmosphere(frame: np.ndarray, t: float, seed: int = 0) -> np.ndarray:
+    """طبقة جو سينمائية: ضوء بيمشي + ذرات عائمة ⇒ الإطار دايمًا حيّ (مش صورة ثابتة)."""
+    h, w = frame.shape[:2]
+    fr = frame.astype(np.float32) / 255.0
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    rng = np.random.default_rng(seed % 9973)
+    # ضوء ناعم بيدور ببطء حوالين الكادر
+    cx = (0.5 + 0.34 * math.sin(t * 0.16 + seed)) * w
+    cy = (0.42 + 0.20 * math.cos(t * 0.11 + seed * 0.7)) * h
+    d2 = (xx - cx) ** 2 + (yy - cy) ** 2
+    glow = np.exp(-d2 / (2.0 * (0.52 * max(w, h)) ** 2)) * (0.055 + 0.028 * math.sin(t * 0.5))
+    # ذرات عائمة (غبار/بريق)
+    n = 90
+    px = rng.uniform(0, w, n).astype(np.float32)
+    py = rng.uniform(0, h, n)
+    sp = rng.uniform(0.25, 1.0, n).astype(np.float32)
+    rad = rng.uniform(1.2, 3.4, n).astype(np.float32)
+    motes = np.zeros((h, w), np.float32)
+    for i in range(n):
+        mx = (px[i] + 16.0 * sp[i] * math.sin(t * 0.35 + i)) % w
+        my = (py[i] - 13.0 * sp[i] * t * 0.35) % h
+        r = rad[i]
+        x0, x1 = int(max(0, mx - r)), int(min(w, mx + r + 1))
+        y0, y1 = int(max(0, my - r)), int(min(h, my + r + 1))
+        if x1 <= x0 or y1 <= y0:
+            continue
+        sub_y, sub_x = np.mgrid[y0:y1, x0:x1].astype(np.float32)
+        dd = (sub_x - mx) ** 2 + (sub_y - my) ** 2
+        motes[y0:y1, x0:x1] += np.exp(-dd / (2 * r * r)) * (0.30 * sp[i])
+    out = fr * (1.0 + glow[..., None]) + motes[..., None] * 0.32
+    return (np.clip(out, 0, 1) * 255).astype(np.uint8)
 
 
 def _montage_line(m: dict) -> str:
@@ -202,7 +241,8 @@ def overlay(frame_u8: np.ndarray, sprite: Image.Image, cx: float, cy: float, sca
 # ───────────────────────────── بناء المونتاج ─────────────────────────────
 
 def plan_shots(pillar: str, seconds: float, seed: int = 7,
-               moves: list | None = None, scenes: list | None = None) -> list:
+               moves: list | None = None, scenes: list | None = None,
+               loop_tail: bool = False) -> list:
     """
     خطة القصّ: مقاطع بأطوال مختلفة (3-9 ث) + حركة + مؤثرات + ملصقات.
     القاعدة: أول ثانية لازم تخطف العين (حركة قوية + مؤثر).
@@ -223,8 +263,9 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
     rest = [m for m in (moves or []) if m in MOVES] or list(MOVES)
     shots, t = [], 0.0
     first = True
-    while t < seconds - 0.5:
-        dur = min(rng.choice([3.0, 4.0, 5.0, 6.0, 7.5]), max(1.5, seconds - t))
+    stop_at = seconds - (1.8 if loop_tail else 0.5)   # نحجز آخر لقطة لرجوع سلس للبداية
+    while t < stop_at:
+        dur = min(rng.choice([3.0, 4.0, 5.0, 6.0, 7.5]), max(1.5, stop_at - t))
         pool = [x for x in scenes if not shots or x != shots[-1]["scene"]] or list(scenes)
         scene = rng.choice(pool)               # ما نكررش نفس المشهد ورا بعضه
         move = rng.choice(opens if first else rest)
@@ -255,6 +296,19 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
     plans = fx.plan(random.Random(seed + 77), pillar_key, len(shots))     # إضافات بصرية لكل مقطع
     for sh, pl in zip(shots, plans):
         sh["fx"] = pl
+    if loop_tail and shots:                    # loop back shot: same frame as the opening one
+        tail = max(1.2, seconds - t)
+        back = {"zoom_in": "zoom_out", "zoom_out": "zoom_in", "pan_left": "pan_right",
+                "pan_right": "pan_left", "drift_up": "drift_down", "drift_down": "drift_up"
+                }.get(shots[0]["move"], shots[0]["move"])
+        shots.append(dict(scene=shots[0]["scene"], dur=tail, move=back, cues=[], stickers=[],
+                          look=shots[0].get("look"), fx=[], loop_back=True))
+    if shots:                                   # المدة بالظبط (مفيش نص ثانية ناقص)
+        total = sum(x["dur"] for x in shots)
+        if total < seconds - 0.05:
+            shots[-1]["dur"] = round(shots[-1]["dur"] + (seconds - total), 3)
+        elif total > seconds + 0.05 and shots[-1]["dur"] - (total - seconds) >= 1.0:
+            shots[-1]["dur"] = round(shots[-1]["dur"] - (total - seconds), 3)
     return shots
 
 
@@ -405,6 +459,9 @@ def render_shots(shots: list, out_path, w: int, h: int, fps: int, look: str,
                 fr = grade.split_tone(fr, pal or palette, strength=float(sh.get("palette_strength", 0.42)),
                                       protect=0.55)          # ألوان المرجع البصري
             fr = camera((np.clip(fr, 0, 1) * 255).astype(np.uint8), sh["move"], k, seed=si)
+            if sh.get("atmosphere", True):       # moving atmosphere: no dead frame
+                _t_atmo = (i / fps) if sh.get("loop_back") else (start_at + i / fps)
+                fr = atmosphere(fr, _t_atmo, seed=si * 17 + 3)
             if sh.get("fx"):                       # إضافات بصرية (ضوء · هالة · غبار · لمعات …)
                 fr = fx.apply_all(fr, sh["fx"], i / fps, seed=si * 31 + i)
             # ملصقات متحركة: بتظهر بحركة «pop» وتطير لفوق بنعومة
@@ -632,7 +689,8 @@ class Editor:
                seconds: float = 30.0, seed: int | None = None, **kw) -> dict:
         seed = self.seed if seed is None else seed
         sp = dict(SPECS[kind])
-        shots = plan_shots(pillar, seconds, seed=seed, moves=kw.get("moves"), scenes=kw.get("scenes"))
+        shots = plan_shots(pillar, seconds, seed=seed, moves=kw.get("moves"), scenes=kw.get("scenes"),
+                           loop_tail=(pillar == "satisfying"))
         spec_extra = dict(kw.get("spec_extra") or {})
         name = out_name or f"{kind}_{seed}_{int(seconds)}s"
         silent = self.out / f"{name}_silent.mp4"

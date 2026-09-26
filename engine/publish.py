@@ -423,6 +423,48 @@ def delete_video(video_id: str, token: str) -> int:
         raise RuntimeError(f"المسح فشل — HTTP {e.code}: {_body(e)}") from None
 
 
+def _srt_ts(sec: float) -> str:
+    h = int(sec // 3600); m = int((sec % 3600) // 60); s2 = sec % 60
+    return f"{h:02d}:{m:02d}:{s2:06.3f}".replace(".", ",")
+
+
+def build_srt(cues: list[dict]) -> str:
+    """يصنع ملف ترجمة SRT من سطور النص (بداية/مدة لكل سطر)."""
+    out, n = [], 0
+    for c in cues:
+        txt = str(c.get("text", "")).strip()
+        if not txt:
+            continue
+        n += 1
+        at = float(c.get("at", 0)); dur = float(c.get("dur", 3))
+        out.append(f"{n}\n{_srt_ts(at)} --> {_srt_ts(at + dur)}\n{txt}\n")
+    return "\n".join(out)
+
+
+def upload_captions(video_id: str, srt_text: str, language: str = "en", name: str = "Subtitles",
+                    token: str | None = None) -> bool:
+    """يرفع ملف ترجمة على الفيديو (يوتيوب يعرضه + يترجمه تلقائيًا لكل اللغات)."""
+    token = token or access_token()
+    boundary = "dollars-boundary-7f3a"
+    meta = json.dumps({"snippet": {"videoId": video_id, "language": language, "name": name,
+                                   "isDraft": False}})
+    body = (
+        f"--{boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{meta}\r\n"
+        f"--{boundary}\r\nContent-Type: application/octet-stream\r\n\r\n{srt_text}\r\n"
+        f"--{boundary}--\r\n"
+    ).encode("utf-8")
+    url = f"{API}/captions?part=snippet&uploadType=multipart"
+    req = urllib.request.Request(url, data=body, method="POST", headers={
+        "Authorization": f"Bearer {token}",
+        "Content-Type": f"multipart/related; boundary={boundary}"})
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            return r.status in (200, 201)
+    except urllib.error.HTTPError as e:
+        _say(f"   ⚠️ الترجمة ما اترفعتش: HTTP {e.code} — {_body(e)[:160]}")
+        return False
+
+
 def set_thumbnail(video_id: str, image_path, token: str | None = None) -> bool:
     token = token or access_token()
     img = pathlib.Path(image_path).read_bytes()
@@ -528,6 +570,12 @@ def publish(video_path, md: dict, thumb_path=None) -> dict:
         res["thumbnail"] = set_thumbnail(res["id"], thumb_path, token=tok)
     if md.get("playlist"):
         res["playlist"] = add_to_playlist(res["id"], md["playlist"], token=tok)
+    if md.get("captions_srt"):                        # 🗣️ ترجمة حقيقية على الفيديو
+        try:
+            res["captions"] = upload_captions(res["id"], md["captions_srt"],
+                                              language=md.get("captions_lang", "en"), token=tok)
+        except Exception as _e:
+            res["captions"] = False
     record(res, md)                       # نسجّل الفيديو (وبصمته) عشان العقل يتعلم من أرقامه بعدين
     notify(f"🎬 Dollars · نُشر: {md['titles'][0]}\n{res['url']}")
     return res

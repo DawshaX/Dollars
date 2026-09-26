@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 import random
 import sys
 import time
@@ -56,6 +57,61 @@ def _dur_seconds(dur, default: float = 45.0) -> float:
         return default
 
 
+# كلمات بحث بصرية دقيقة للمواضيع اللي اسمها مش بيدي صورة حلوة
+QUERY_HINTS = {
+    "brown noise": "cozy study room rain window night",
+    "pink noise": "soft curtain light calm room",
+    "white noise": "soft light curtain rain",
+    "deep focus noise": "study desk lamp rain window",
+    "fireplace crackling": "fireplace flames logs cozy",
+    "thunderstorm at night": "thunderstorm lightning night sky",
+    "rain sounds": "rain window night drops",
+    "heavy rain on a window": "rain drops window glass",
+    "ocean waves": "ocean waves sunset",
+    "snowfall at night": "snow falling street lamp night",
+    "night train ride": "train window night lights",
+    "forest at night": "forest night mist trees",
+    "beach at midnight": "beach night stars water",
+    "lake at dusk": "lake sunset calm water",
+    "wind in the pines": "pine forest mist wind",
+    "mountain stream": "mountain stream rocks water",
+    "quiet library": "library books warm light",
+    "soft cafe ambience": "cafe window rain warm light",
+    "box breathing": "calm ocean sunrise breathing",
+    "4-7-8 breathing": "calm sky clouds slow",
+    "before sleep": "bedroom night lamp calm",
+    "two minutes of calm": "calm lake morning fog",
+    "kinetic sand": "kinetic sand textured close up",
+    "soap cutting": "soap bars texture close up",
+    "ice crushing": "ice cubes crystal close up",
+    "magnetic beads": "metal beads texture macro",
+    "water rings": "water surface ripples close up",
+    "hydraulic press": "metal workshop machinery close up",
+    "bubble wrap": "bubbles texture close up macro",
+    "glass and sand": "sand glass macro texture",
+    "rolling dominoes": "dominoes line colorful close up",
+}
+
+
+def _image_query(idea: dict) -> str:
+    """كلمات بحث **بصرية** للصور: نشيل الكلمات اللي مش ليها معنى في البحث ونضيف سياق النوع."""
+    q = (idea.get("image_query") or "").strip()
+    if q:
+        return q
+    t = (idea.get("topic") or idea.get("kw") or "nature").strip()
+    hint = QUERY_HINTS.get(t.lower())
+    if hint:
+        return hint
+    t = re.sub(r"\b(sounds?|noise|ambien\w+|session|study|focus|video)\b", " ", t, flags=re.I)
+    t = re.sub(r"\s+", " ", t).strip() or "nature"
+    ctx = {"sleep_ambience": "night nature calm", "focus_study": "rain window desk",
+           "satisfying": "close up texture", "calm_wellness": "soft calm nature",
+           "fun_memes": "funny animal", "story": "illustration",
+           "facts": "", "space_nature": ""}.get(idea.get("genre") or "", "")
+    words = f"{t} {ctx}".split()
+    return " ".join(words[:6])            # بحث أنضف: ٦ كلمات بحد أقصى
+
+
 def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                         force_stage: bool = False) -> dict:
     """فيديو من **صور حقيقية** (NASA · Wikimedia · Pixabay · Pexels) بحركة سينمائية + نص على الشاشة.
@@ -67,9 +123,27 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     gid = idea.get("genre") or "facts"
     topic = idea.get("image_query") or idea.get("topic") or idea.get("kw") or "nature"
     style = "illustration" if gid == "story" else "photo"
-    items = photo.collect(topic, genre=gid, n=6, style=style)
     min_color = 0.0 if gid in ("space_nature", "story") else 0.055    # الحقائق: صور ملوّنة حقيقية
-    paths = [p for p in (photo.download(it, min_color=min_color) for it in items) if p]
+    # بحث على مراحل: لو الصور قليلة، بنقصّ الاستعلام أو بنجرب صيغة تانية ⇒ مفيش فيديو بصورة واحدة
+    variants, seen = [], set()
+    base = str(topic).strip()
+    for q in (base, " ".join(base.split()[:3]), " ".join(base.split()[:2]),
+              " ".join(base.split()[:1]) + " nature"):
+        if q and q.lower() not in seen:
+            seen.add(q.lower()); variants.append(q)
+    items, paths = [], []
+    for q in variants:
+        try:
+            got = photo.collect(q, genre=gid, n=6, style=style)
+        except Exception:
+            continue
+        for it in got:
+            key = (it.get("url") or it.get("page") or "")[:120]
+            if key and key not in {((x.get("url") or x.get("page") or "")[:120]) for x in items}:
+                items.append(it)
+        paths = [p for p in (photo.download(it, min_color=min_color) for it in items) if p]
+        if len(paths) >= 4:                # كفاية: ٤ صور = ريل متنوّع
+            break
     if not paths:
         raise RuntimeError("مفيش صور حرة متاحة للموضوع ده — نجرب غيره")
     out_dir = pathlib.Path(out_dir or (WORK / f"{date.today().isoformat()}_photo"))
@@ -104,13 +178,23 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                     "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(video)], check=True)
     silent.unlink(missing_ok=True); wav.unlink(missing_ok=True)
     from engine import meta
-    md = meta.build({**(idea.get("md_spec") or {}), "genre": gid, "pillar": g["pillar"] if (g := _g.get(gid)) else idea.get("pillar"),
+    md = meta.build({**(idea.get("md_spec") or {}), **(idea.get("spec_extra") or {}), "genre": gid,
+                     "pillar": g["pillar"] if (g := _g.get(gid)) else idea.get("pillar"),
                      "kind": "short", "seconds": int(seconds), "kw": idea.get("kw"),
                      "lines": lines, "source": idea.get("source"),
                      "title_style": idea.get("title_style"), "scene": idea.get("scene")})
     cr = photo.credits(items)
     if cr:
         md["description"] = (md["description"] + "\n\nCredits:\n" + "\n".join(cr))[:4900]
+    # 🗣️ ترجمة حقيقية على الفيديو (يوتيوب يترجمها تلقائيًا لكل اللغات)
+    try:
+        from engine import publish as _pb
+        cue_src = [tx for tx in texts if tx.get("text") and tx.get("dur", 0) >= 1.2]
+        if cue_src:
+            md["captions_srt"] = _pb.build_srt(cue_src)
+            md["captions_lang"] = "en"
+    except Exception:
+        pass
     md["sources"] = [it.get("page") for it in items if it.get("page")]
     md["shot_list"] = [{"scene": f"photo:{it.get('source')}", "dur": round(seconds / max(1, len(paths)), 2),
                         "move": "kenburns", "sfx": [], "fx": []} for it in items[:len(paths)]]
@@ -121,7 +205,7 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
             "facts": ["3 FACTS", (idea.get("kw") or "")[:22]],
             "space_nature": [(idea.get("kw") or "").upper()[:20], f"{int(seconds)}s BLACK SCREEN"],
             "story": ["A WORDLESS STORY", (idea.get("thing") or "")[:22]],
-        }.get(gid, [(idea.get("kw") or "")[:22], "NEW"])
+        }.get(gid, [(idea.get("kw") or idea.get("topic") or "")[:22].upper(), f"{int(seconds)}s"])
         thumb = photo.thumb_from_photo(paths, ttexts, out_dir / f"{gid}_{seed}_thumb.jpg", palette=pal)
     except Exception:
         thumb = None
@@ -278,7 +362,25 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         gspec = {k: idea[k] for k in ("genre", "kw", "topic", "lines", "source", "playlist",
                                       "hook", "character", "thing") if idea.get(k)}
         gspec["title_style"] = idea.get("title_style")
-    if slot.get("kind") == "long" and pillar in ("sleep", "focus"):
+    # 🖼️ الأساس بقى **صور حقيقية** لكل الشورتس (ناسا · ويكيميديا · بيكسابي · بيكسلز)
+    #    ولو مالقيناش صور للموضوع، بنرجع تلقائيًا للمشاهد المولّدة (مفيش فشل).
+    photo_rec = None
+    if slot.get("kind") == "short" and pillar != "story":
+        try:
+            _idea = dict(idea)
+            _idea["genre"] = gid or {"focus": "focus_study", "sleep": "sleep_ambience"}.get(pillar, "satisfying")
+            _idea["image_query"] = _image_query(_idea)
+            _idea.setdefault("spec_extra", gspec)
+            photo_rec = produce_photo_short(_idea, _dur_seconds(dur, 30.0), out_dir, seed)
+        except Exception as _pe:
+            _say(f"   ⚠️ مفيش صور حقيقية ({str(_pe)[:70]}) — مشهد مولّد بدلًا منها")
+            photo_rec = None
+
+    if photo_rec is not None:
+        rec = photo_rec
+        rec.update(pillar=("focus" if pillar == "focus" else "sleep" if pillar == "sleep" else "satisfying"),
+                   duration=dur)
+    elif slot.get("kind") == "long" and pillar in ("sleep", "focus"):
         for k in ("scene", "audio", "scenes"):        # الطويلة بتاخد المشهد والصوت ببارامتراتها
             style_kw.pop(k, None)
         hours = float(str(dur).replace("h", "") or 10)
@@ -348,7 +450,23 @@ def publish_or_stage(rec: dict, force_stage: bool = False) -> dict:
         if serious:
             return {"published": False, "reason": f"الفحص رفض النشر: {serious}"}
 
-    ok = publish.available()
+    # 🚦 بوابة الجودة: الفيديو البايظ **مايتنشرش** (بس بنحفظه في الطابور عشان يتراجع)
+    quality_block = None
+    try:
+        from engine import quality
+        passed, qrep = quality.gate(video, kind=("long" if rec.get("kind") == "long" else "short"),
+                                    seconds=None, strict=True)
+        rec["quality"] = {"pass": passed, "failed": qrep.get("failed") or qrep.get("error")}
+        if not passed:
+            quality_block = f"🚦 بوابة الجودة رفضت النشر: {qrep.get('failed') or qrep.get('error')}"
+            _say(f"   {quality_block}")
+    except Exception as _e:
+        rec["quality"] = {"pass": None, "error": str(_e)[:120]}
+
+    if quality_block:
+        ok = {"ok": False, "reason": quality_block}
+    else:
+        ok = publish.available()
     if ok["ok"] and not force_stage:
         try:
             res = publish.publish(video, md, thumb_path=rec.get("thumbnail"))
@@ -363,6 +481,7 @@ def publish_or_stage(rec: dict, force_stage: bool = False) -> dict:
         "title": (md.get("titles") or [pathlib.Path(video).stem])[0],
         "pillar": rec.get("pillar"), "duration": rec.get("duration"),
         "reason": ok["reason"] if not ok["ok"] else "تم التخطّي بأمر",
+        "quality": rec.get("quality"),
     })
     _jdump(STATE / "queue.json", q)
     return {"published": False, "staged": True, "reason": ok["reason"],
