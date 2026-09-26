@@ -35,9 +35,10 @@ SCOPES = [
 #   https://developers.google.com/oauthplayground                            ✅ مقبول
 #   أي عنوان localhost                                                       ❌ مرفوض (redirect_uri_mismatch)
 # العنوان المسجّل فعلًا على عميل المصنع (اتأكدنا من جوجل نفسها بماسح كامل):
-#   https://developers.google.com/oauthplayground   ✅ مقبول
+#   https://dawshax.github.io/youtube/callback/     ✅ مقبول (الافتراضي دلوقتي)
+#   https://developers.google.com/oauthplayground   ✅ مقبول (احتياطي)
 #   أي localhost أو دومين بيئات قديمة أو صفحتنا    ❌ مرفوض (لحد ما يتضاف من Cloud Console)
-REDIRECT = os.environ.get("REDIRECT_URI") or "https://developers.google.com/oauthplayground"
+REDIRECT = os.environ.get("REDIRECT_URI") or "https://dawshax.github.io/youtube/callback/"   # صفحتنا الحقيقية (مسجّلة ومقبولة عند جوجل ✅)
 
 
 # ───────────────────────── أدوات صغيرة ─────────────────────────
@@ -218,6 +219,23 @@ def mode_url(cid: str) -> int:
              "5) ابعته فورًا هنا أو على تلجرام\n\n"
              "⏱️ الكود بيموت بعد 10 دقايق — لازم تبعته على طول.")
     print(telegram("🔗 **لينك الربط النهائي** (اضغط عليه من الموبايل):\n" + link + steps))
+    # نكتب اللينك في ملف بالمستودع — client_id مش سر (بيظهر في كل لينك OAuth)، والسر مش موجود هنا.
+    pat = env("GH_PAT", "FG_TOKEN")
+    repo = env("REPO", default="DawshaX/Dollars")
+    if (os.environ.get("PUBLISH_LINK") or "").strip() in ("1", "true", "yes") and pat:
+        import base64 as _b64
+        body = {"message": "🔗 لينك الربط الحالي (بيتولّد أوتوماتيك)", "branch": "main",
+                "content": _b64.b64encode((link + "\n").encode()).decode()}
+        st_g, cur = http(f"https://api.github.com/repos/{repo}/contents/docs/consent_link.txt", headers=gh(pat))
+        if st_g == 200:
+            try:
+                body["sha"] = json.loads(cur)["sha"]
+            except Exception:
+                pass
+        st_p, _ = http(f"https://api.github.com/repos/{repo}/contents/docs/consent_link.txt",
+                       data=json.dumps(body).encode(), method="PUT",
+                       headers={**gh(pat), "Content-Type": "application/json"})
+        print("حفظ اللينك في المستودع:", "✅" if st_p in (200, 201) else f"❌ {st_p}")
     # فحص تلقائي: هل جوجل بتقبل العنوان مع العميل ده؟ (بنختبر من غير ما نستهلك أي كود)
     ok, note = check_link(cid)
     print(("✅ الفحص: جوجل قبلت اللينك ده — ماشي صح" if ok else
