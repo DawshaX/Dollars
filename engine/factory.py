@@ -266,6 +266,8 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
                                       "hook", "character", "thing") if idea.get(k)}
         gspec["title_style"] = idea.get("title_style")
     if slot.get("kind") == "long" and pillar in ("sleep", "focus"):
+        for k in ("scene", "audio", "scenes"):        # الطويلة بتاخد المشهد والصوت ببارامتراتها
+            style_kw.pop(k, None)
         hours = float(str(dur).replace("h", "") or 10)
         hours = hours if hours in (3, 8, 10, 2, 4, 6, 12) else 8
         scene = idea.get("scene") or "valley_lake"
