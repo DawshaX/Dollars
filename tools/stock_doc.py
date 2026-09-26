@@ -17,6 +17,14 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from engine import fx, music, sfx, stock, visuals  # noqa: E402
+try:
+    from engine import unlimited as _unl  # noqa: E402
+except Exception:  # pragma: no cover
+    _unl = None
+try:
+    from engine import unlimited as _unl  # noqa: E402
+except Exception:
+    _unl = None
 
 DOC = ROOT / "docs" / "STOCK.md"
 
@@ -33,6 +41,7 @@ def live_counts() -> dict:
         "memes": r["memes"],
         "brand": r["brand"],
         "total": r["total_assets"],
+        "space": (sum(_unl.space_size(x) for x in ("satisfying", "sleep", "focus", "story")) if _unl else 0),
     }
 
 
@@ -52,8 +61,8 @@ def render_table(c: dict) -> str:
         f"| قوالب ميمز | **{c['memes']}** | `assets/memes/*.png` | رسم بالكود |",
         f"| هوية القناة | **{c['brand']}** | `assets/brand/*.png` | بانر · صورة · endcard · watermark |",
         "",
-        f"**المجموع: {c['total']} ملف جاهز** + مخزون لا نهائي (الموسيقى والإضافات والمشاهد بتتحسب "
-        "لحظة الطلب).",
+        f"**المجموع: {c['total']} ملف جاهز** + مخزون لا نهائي: **{c.get('space', 0):,}** تركيبة محسوبة "
+        "(`engine/unlimited.py` — الموسيقى والإضافات والمشاهد بتتحسب لحظة الطلب).",
     ]
     return "\n".join(rows)
 

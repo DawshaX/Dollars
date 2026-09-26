@@ -126,6 +126,13 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
     except Exception:
         recipe = {}
     style_kw = {k: recipe[k] for k in ("look", "moves", "scenes", "music", "palette") if recipe.get(k)}
+    # ♾️ المخزون اللانهائي: كل فيديو بياخد تركيبة جديدة (حركة · انتقال · لوحة · مشهد إضافي · نمط موسيقى)
+    try:
+        from engine import unlimited as uq
+        style_kw = uq.enrich(style_kw, pillar, advance=(slot.get("force") is not True))
+    except Exception as _e:
+        uq = None
+        recipe["unlimited"] = None
     if slot.get("kind") == "long":         # الطويلة: المشهد هو اللي يحكم المظهر (اللوحة والحركة بتفضل)
         style_kw.pop("look", None); style_kw.pop("scenes", None)
     # عبارات بحث حقيقية (بلا مفتاح) للتخصص — بتدخل الوسوم والوصف
@@ -157,6 +164,8 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
 
     rec["recipe"] = {k: recipe.get(k) for k in
                      ("look", "moves", "scenes", "music", "mood", "matched", "palette", "palette_source")} if recipe else None
+    if style_kw.get("unlimited"):
+        rec["unlimited"] = style_kw["unlimited"]          # رقم التركيبة من المخزون اللانهائي
     rec["slot"] = slot
     rec["seconds_spent"] = round(time.time() - t0, 1)
     rec["seed"] = seed
