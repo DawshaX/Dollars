@@ -1,28 +1,6 @@
 {
   "sig": [
     {
-      "genre": "sleep_ambience",
-      "scene": "train_window",
-      "palette": "deep_blue",
-      "transition": "fade",
-      "audio": "snow",
-      "montage": "تنفّس بطيء",
-      "title_shape": "W W W W — W W W W W W | W W",
-      "mark": "Night Train Ride",
-      "hour": 3
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "snow_night",
-      "palette": "warm_ember",
-      "transition": "fade",
-      "audio": "snow",
-      "montage": "طويل هادي",
-      "title_shape": "W W W — W W W W W W | W W",
-      "mark": "Ocean Waves",
-      "hour": 8
-    },
-    {
       "genre": "focus_study",
       "scene": "desk_window",
       "palette": "deep_blue",
@@ -659,6 +637,28 @@
       "title_shape": "W W W — W W W W W W (W W W)",
       "mark": "Aurora Over Iceland",
       "hour": 12
+    },
+    {
+      "genre": "facts",
+      "scene": "earth_from_space",
+      "palette": "cosmic",
+      "transition": "xfade_soft",
+      "audio": "curious",
+      "montage": "سؤال ← جواب",
+      "title_shape": "W W: W W W (W W) #W",
+      "mark": "Black hole",
+      "hour": 1
+    },
+    {
+      "genre": "satisfying",
+      "scene": "sand_table",
+      "palette": "clean_bright",
+      "transition": "xfade_soft",
+      "audio": "asmr_soft",
+      "montage": "قطع سريع على الإيقاع",
+      "title_shape": "W W W… W W W #W #W",
+      "mark": "Glass and Sand",
+      "hour": 2
     }
   ]
 }
