@@ -374,19 +374,34 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 150.8,
       "at": "2026-09-25T23:18:56.325870+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "starfield",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_00/ambience_short_818596_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 274.3,
+      "at": "2026-09-26T00:36:52.051467+00:00"
     }
   ],
   "stats": {
-    "total": 25,
+    "total": 26,
     "published": 0,
-    "staged": 25,
+    "staged": 26,
     "by_pillar": {
       "focus": 5,
       "satisfying": 13,
-      "sleep": 5,
+      "sleep": 6,
       "story": 2
     }
   },
   "created": null,
-  "updated": "2026-09-25T23:18:56.327486+00:00"
+  "updated": "2026-09-26T00:36:52.053464+00:00"
 }
