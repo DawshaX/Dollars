@@ -67,3 +67,11 @@ def test_notify_is_quiet_without_keys(monkeypatch):
     monkeypatch.delenv("TELEGRAM_BOT_TOKEN", raising=False)
     monkeypatch.delenv("TELEGRAM_CHAT_ID", raising=False)
     assert publish.notify("test") is False
+
+
+def test_never_send_broken_audio_language():
+    """درس غالي: defaultAudioLanguage="zxx" بيرفض الرفع كله — لازم يتشال للأبد."""
+    md = meta.build({"pillar": "sleep", "kw": "Rain Sounds", "kind": "short"})
+    sn = publish._snippet(md)
+    assert "defaultAudioLanguage" not in sn
+    assert "zxx" not in __import__("json").dumps(sn)

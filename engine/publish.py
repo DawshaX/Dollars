@@ -193,7 +193,8 @@ def _snippet(md: dict) -> dict:
         "tags": md.get("tags", [])[:35],
         "categoryId": str(md.get("category_id", "10")),
         "defaultLanguage": md.get("default_language", "en"),
-        "defaultAudioLanguage": "zxx",          # مفيش كلام — فهم بالصورة
+        # ⚠️ ممنوع نبعت defaultAudioLanguage="zxx": يوتيوب بيرفض الرفع كله (INVALID_REQUEST_METADATA).
+        # سيبناها فاضية = «مفيش لغة كلام» وهو ده الافتراضي الآمن للفيديوهات الصامتة.
     }
 
 
