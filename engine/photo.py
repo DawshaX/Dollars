@@ -37,6 +37,11 @@ FREE_OK = ("cc0", "public domain", "pd", "no known copyright", "pixabay", "pexel
 NEEDS_CREDIT = ("cc by", "cc-by", "attribution")
 
 
+def _words(text: str) -> set:
+    import re as _re
+    return {w for w in _re.findall(r"[a-z0-9]+", (text or "").lower()) if len(w) > 2}
+
+
 def _ok_license(text: str) -> tuple[bool, bool]:
     t = (text or "").lower()
     if not t:
@@ -74,15 +79,22 @@ def collect(topic: str, genre: str = "facts", n: int = 6, prefer: tuple = (),
     if len(out) < n:
         out += providers.openverse_images(topic, per=max(2, n - len(out)))
 
+    # 🎯 الملاءمة: المصادر الموسوعية بترجّع حاجات بعيدة — لازم كلمة من الاستعلام تبان في العنوان
+    qwords = {w for w in _words(topic) if len(w) > 3}
     clean = []
     for it in out:
         ok, credit = _ok_license(it.get("license", ""))
         if not ok or not it.get("url"):
             continue
-        clean.append({**it, "needs_credit": credit,
+        src = (it.get("source") or "").lower()
+        if src in ("wikimedia", "openverse") and qwords:
+            tw = _words(f"{it.get('title') or ''} {it.get('page') or ''}")
+            if not (qwords & tw):
+                continue                                   # مش عن الموضوع ⇒ مرفوض
+        clean.append({**it, "needs_credit": credit, "relevance": len(qwords & _words(it.get("title") or "")),
                       "credit": it.get("source", "") + (f" · {it.get('license')}" if it.get("license") else "")})
     seen, uniq = set(), []
-    for it in clean:
+    for it in sorted(clean, key=lambda x: -int(x.get("relevance") or 0)):
         k = it.get("url")
         if k in seen:
             continue

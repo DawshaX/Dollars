@@ -184,7 +184,11 @@ BAD_IMAGE_WORDS = ("legend", "diagram", "chart", "infographic", "poster", "sketc
                    "text graphic", "logo", "icon",
                    # صور أقمار صناعية/خرايط عليها كتابة — شكلها توضيحي مش فوتوغرافي
                    "from space", "satellite", "iss ", "spacecraft", "orbiter", "landsat",
-                   "modis", "topographic", "map", "cross-section", "cutaway")
+                   "modis", "topographic", "map", "cross-section", "cutaway",
+                   # أغلفة مجلات · لوحات ألوان · بطاقات اختبار · عيّنات متاحف (شكلها وحش)
+                   "cover", "magazine", "colorchecker", "color checker", "test card", "swatch",
+                   "calibration", "specimen", "herbarium", "manuscript", "coin", "stamp",
+                   "engraving", "lithograph", "postcard", "advertisement", "catalog")
 
 
 def _nice_image(title: str, desc: str = "") -> bool:
