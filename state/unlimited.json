@@ -1,5 +1,5 @@
 {
- "index": 14,
+ "index": 17,
  "used": [
   0,
   1,
@@ -14,9 +14,13 @@
   10,
   11,
   12,
-  13
+  13,
+  14,
+  15,
+  16
  ],
  "by_pillar": {
-  "satisfying": 14
+  "satisfying": 16,
+  "story": 1
  }
 }
