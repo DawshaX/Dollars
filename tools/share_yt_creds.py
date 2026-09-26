@@ -80,8 +80,12 @@ def main() -> int:
         print("⏭️ مفيش اعتماد كامل في المشروع ده — مفيش حاجة تتنقل.")
         return 0
     print(f"🔎 بنتأكد إن الاعتماد ده بتاع قناتنا ({want})…")
-    tok = access_token(cid, csec, rt)
-    ch = my_channel(tok)
+    try:
+        tok = access_token(cid, csec, rt)
+        ch = my_channel(tok)
+    except Exception as e:
+        print(f"⚠️ الاعتماد ده مش شغال ({type(e).__name__}: {str(e)[:150]}) — مش هننسخ حاجة.")
+        return 0
     print(f"   القناة اللي بيرجعها جوجل: {ch['title']} · {ch['id']}")
     if ch["id"] != want:
         print("🚫 دي مش قناتنا — مش هننسخ حاجة (حماية من النشر على قناة غلط).")
