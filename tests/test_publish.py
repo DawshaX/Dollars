@@ -57,7 +57,7 @@ def test_snippet_and_status_follow_youtube_rules():
     sn = publish._snippet(md)
     st = publish._status(md)
     assert len(sn["title"]) <= 100
-    assert sn["categoryId"] == "10" and sn["defaultAudioLanguage"] == "zxx"
+    assert sn["categoryId"] == "10" and "defaultAudioLanguage" not in sn
     assert st["selfDeclaredMadeForKids"] is False        # مهم للإعلانات
     assert st["privacyStatus"] == "public"
     assert st["embeddable"] is True
