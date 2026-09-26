@@ -20,15 +20,29 @@ from engine import genres, variety
 STATE = pathlib.Path("state")
 
 # ── مواضيع حقيقية لكل نوع (كلها من كلمات طلب حقيقي أو مصادر موثّقة) ──────────
+# كل حكاية: (العنوان السردي، كلمة بحث الصور الحقيقية/الرسومات)
+STORY_TOPICS = [
+    ("the little rain cloud", "rain cloud sky watercolor"),
+    ("the lost paper boat", "paper boat water river"),
+    ("the lighthouse keeper", "lighthouse night sea"),
+    ("the seed that waited", "sprout growing soil macro"),
+    ("the moon's reflection", "moon reflection water night"),
+    ("the tiny fox", "fox forest animal illustration"),
+    ("the old clock", "old clock vintage macro"),
+    ("the bridge of lanterns", "lanterns night bridge festival"),
+    ("the whale and the star", "whale ocean night illustration"),
+    ("the painter of rainbows", "rainbow sky landscape"),
+    ("the paper plane journey", "paper plane sky clouds"),
+    ("the sleepy train", "train window night journey"),
+]
+
 TOPICS = {
     "sleep_ambience": ["Rain Sounds", "Heavy Rain on a Window", "Ocean Waves", "Fireplace Crackling",
                        "Thunderstorm at Night", "Snowfall at Night", "Night Train Ride",
                        "Forest at Night", "Beach at Midnight", "Lake at Dusk", "Wind in the Pines"],
     "focus_study": ["Brown Noise", "Rain on the Window", "Quiet Library", "Soft Cafe Ambience",
                     "Snow Day Study", "Deep Focus Noise"],
-    "story": ["the little rain cloud", "the lost paper boat", "the lighthouse keeper",
-              "the seed that waited", "the moon's reflection", "the tiny fox", "the old clock",
-              "the bridge of lanterns", "the whale and the star", "the painter of rainbows"],
+    "story": [t for t, _q in STORY_TOPICS],
     "satisfying": ["Kinetic Sand", "Soap Cutting", "Ice Crushing", "Magnetic Beads",
                    "Water Rings", "Perfect Cuts", "Hydraulic Press", "Bubble Wrap",
                    "Glass and Sand", "Rolling Dominoes"],
@@ -43,7 +57,8 @@ TOPICS = {
     "facts": [],          # بتُجاب من ويكيبيديا/ناسا (حقائق موثّقة بمصادر)
 }
 
-CHARACTERS = ["Pip", "Kiki", "Nori", "Filo", "Momo", "Bubu"]
+CHARACTERS = ["Pip", "Kiki", "Nori", "Filo", "Momo", "Bubu", "Bomi", "Koko"]
+
 STRUCTURES = ["بداية هادية ← حركة ← استقرار", "سؤال ← كشف ← راحة",
               "٣ مقاطع متساوية", "تصاعد ← ذروة ← تنفّس", "لقطة واحدة مستمرة"]
 
@@ -73,7 +88,10 @@ def _topic(gid: str, rng: random.Random) -> dict:
     kw = rng.choice(pool)
     out = {"topic": kw}
     if gid == "story":
-        out.update({"thing": kw, "character": rng.choice(CHARACTERS)})
+        pair = next((p for p in STORY_TOPICS if p[0] == kw), (kw, kw))
+        out.update({"thing": pair[0], "image_query": pair[1], "character": rng.choice(CHARACTERS)})
+    else:
+        out["image_query"] = kw
     return out
 
 
@@ -120,6 +138,7 @@ def _slot(hour: int, at: str, kind: str, gid: str, rng: random.Random) -> dict:
         "hook": rng.choice(g["hooks_en"]), "thumb": rng.choice(g["thumb_styles"]),
         "structure": rng.choice(STRUCTURES), "kw": kw, "topic": topic.get("topic", ""),
         "character": topic.get("character"), "thing": topic.get("thing"),
+        "image_query": topic.get("image_query") or topic.get("topic", ""),
         "lines": topic.get("lines") or [], "source": topic.get("source"),
         "playlist": g["playlist"], "title_style": title,
         "signature": json.dumps(sig, ensure_ascii=False, sort_keys=True), "sig": sig,

@@ -65,7 +65,7 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     import subprocess
     from engine import photo, proc
     gid = idea.get("genre") or "facts"
-    topic = idea.get("topic") or idea.get("kw") or "nature"
+    topic = idea.get("image_query") or idea.get("topic") or idea.get("kw") or "nature"
     style = "illustration" if gid == "story" else "photo"
     items = photo.collect(topic, genre=gid, n=6, style=style)
     paths = [p for p in (photo.download(it) for it in items) if p]

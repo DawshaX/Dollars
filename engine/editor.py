@@ -700,7 +700,8 @@ class Editor:
         full.parent.mkdir(parents=True, exist_ok=True)
         st.render(full, verbose=False, cinema=kw.get("look") or None)
         # بيانات يوتيوب كاملة (عنوان · وصف · وسوم · إفصاح AI) + المونتاج
-        md = meta.build(dict(pillar="story", kind="short", kw=getattr(st, "kw", None),
+        _extra = dict(kw.get("spec_extra") or {})
+        md = meta.build(dict(**_extra, pillar="story", kind="short", kw=getattr(st, "kw", None),
                              seconds=round(st.duration), scene=(st.beats[0] or {}).get("scene"),
                              character=getattr(st, "hero_name", None),
                              thing=getattr(st, "thing", None),
