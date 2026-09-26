@@ -80,7 +80,7 @@ def _plan(date_str: str | None = None) -> dict:
     if not plan:
         try:                                  # استوديو الأنواع (٨ أنواع متنوّعة + حارس التنوّع)
             from engine import studio as _studio
-            plan = _studio.build_day(date_str)
+            plan = _studio.build_day(date_str, state_dir=STATE)
         except Exception as _e:
             brain = agent.Brain.load()
             plan = agent.plan_day(brain, date_str, characters=agent.load_characters().get("characters"))

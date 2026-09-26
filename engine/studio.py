@@ -130,7 +130,7 @@ def _slot(hour: int, at: str, kind: str, gid: str, rng: random.Random) -> dict:
 
 
 def build_day(date_str: str | None = None, shorts: int = 24, longs: tuple = (3, 8, 10, 12),
-              write: bool = True) -> dict:
+              write: bool = True, state_dir=None) -> dict:
     """خطة اليوم: شورت كل ساعة (بنوع مناسب للوقت) + الطويلة + حكاية."""
     date_str = date_str or date.today().isoformat()
     rng = random.Random(f"studio|{date_str}")
@@ -163,8 +163,9 @@ def build_day(date_str: str | None = None, shorts: int = 24, longs: tuple = (3, 
         "best_long_hours_seen": list(long_hours), "slots": slots,
     }
     if write:
-        STATE.mkdir(parents=True, exist_ok=True)
-        (STATE / f"plan_{date_str}.json").write_text(
+        d = pathlib.Path(state_dir) if state_dir else STATE
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"plan_{date_str}.json").write_text(
             json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
     return plan
 
