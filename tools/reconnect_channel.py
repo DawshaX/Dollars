@@ -163,6 +163,8 @@ def mode_url(cid: str) -> int:
     print("🔗 PART3OF3: " + link[2 * n // 3:])
     print(telegram("🔗 لينك موافقة جوجل لربط القناة بتوكن دائم (اضغط عليه من الموبايل):\n" + link))
     print("\n— خطوات صاحب القناة —")
+    print("0) مهم: بعد الموافقة المتصفح هيقول «الصفحة مش موجودة» أو يحمّل للأبد — عادي جدًا.")
+    print("   مفيش أي مشكلة: **العنوان في شريط العنوان فيه الكود**. انسخ العنوان كامل وابعته.")
     print("1) Google Cloud Console → APIs & Services → OAuth consent screen → زرار «PUBLISH APP»")
     print(f"   رابط مباشر: https://console.cloud.google.com/apis/credentials/consent?project={proj}")
     print(f"   (رقم المشروع: {proj}) — ده اللي بيمنع التوكن إنه يموت كل 7 أيام.")
