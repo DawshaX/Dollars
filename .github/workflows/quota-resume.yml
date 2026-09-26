@@ -1,0 +1,39 @@
+name: ⏰ استئناف النشر بعد تجدد الحصة
+# منتصف الليل بتوقيت المحيط الهادئ = ٧ صباحًا بتوقيت مصر: الحصة بتتجدد ⇒ نبلّغ وننشر على طول
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '2 7 * * *'
+    - cron: '32 7 * * *'
+permissions:
+  contents: read
+jobs:
+  resume:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: إشعار التجدد + إطلاق النشر
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python -c "
+          from engine import publish
+          cap = publish.remaining_capacity()
+          publish.notify(f'🌅 حصة يوتيوب اتجدّدت — النشر رجع شغال تلقائيًا.\nالسعة النهاردة: {cap} رفعة (وزيادة مع كل مشروع جوجل جديد).')
+          print('capacity', cap)
+          "
+      - name: إطلاق تفريغ الطابور
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -o /dev/null -w "dispatch: %{http_code}\n" -X POST \
+            -H "Authorization: token $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/factory-drain.yml/dispatches" \
+            -d '{"ref":"main","inputs":{"limit":"6"}}'

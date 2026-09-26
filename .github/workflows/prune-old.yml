@@ -1,0 +1,57 @@
+name: 🧹 مسح الفيديوهات القديمة
+# يمسح القديم على دفعات لحد ما القناة تبقى نضيفة — ويبلّغ على تليجرام
+on:
+  workflow_dispatch:
+    inputs:
+      batch:
+        description: 'أقصى عدد فيديوهات تمسح في اللفة دي'
+        type: string
+        default: '150'
+  schedule:
+    - cron: '41 * * * *'          # كل ساعة (بتسحب من حصة مشروع المسح بس)
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: factory-prune
+  cancel-in-progress: false
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: أدوات
+        run: python -m pip install --quiet numpy pillow imageio-ffmpeg
+      - name: مسح دفعة قديمة
+        env:
+          LIVE_ISSUE: '1'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+          YOUTUBE_CLIENT_ID_3: ${{ secrets.YOUTUBE_CLIENT_ID_3 }}
+          YOUTUBE_CLIENT_SECRET_3: ${{ secrets.YOUTUBE_CLIENT_SECRET_3 }}
+          YOUTUBE_REFRESH_TOKEN_3: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3 }}
+          YOUTUBE_CLIENT_ID_4: ${{ secrets.YOUTUBE_CLIENT_ID_4 }}
+          YOUTUBE_CLIENT_SECRET_4: ${{ secrets.YOUTUBE_CLIENT_SECRET_4 }}
+          YOUTUBE_REFRESH_TOKEN_4: ${{ secrets.YOUTUBE_REFRESH_TOKEN_4 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python -c "
+          from engine import publish, prune
+          publish.set_role(2, 'prune')      # مشروع ٢ مخصّص للمسح (والنشر بمشروع ١)
+          import json; print(json.dumps(prune.run(batch=${{ github.event.inputs.batch || 150 }}), ensure_ascii=False))
+          "
+      - name: حفظ النتيجة
+        run: |
+          git config user.name "Dollars Factory"; git config user.email "factory@dawshax.local"
+          git add state 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "🧹 دفعة مسح قديم ($(date -u +%H:%M) UTC)"
+          for i in 1 2 3; do git pull --rebase --autostash -q origin main 2>/dev/null || true; git push -q origin HEAD:main && break || sleep 5; done

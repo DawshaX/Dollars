@@ -101,7 +101,12 @@ def all_projects(max_projects: int = 4) -> list[dict]:
 
 PROJECTS_FILE = pathlib.Path("state/youtube_projects.json")
 QUOTA_FILE = pathlib.Path("state/youtube_quota.json")
-DAILY_UPLOADS_PER_PROJECT = 6      # ١٠٠٠٠ وحدة ÷ ١٦٠٠ = ٦ رفعات (قانون يوتيوب نفسه)
+ROLES_FILE = pathlib.Path("state/quota_roles.json")
+NOTICE_FILE = pathlib.Path("state/quota_notice.json")
+DAILY_UNITS = 10_000               # حصة كل مشروع جوجل في اليوم (من جوجل نفسه)
+UPLOAD_UNITS = 1_600               # تكلفة رفعة
+DELETE_UNITS = 50                  # تكلفة مسح فيديو
+DAILY_UPLOADS_PER_PROJECT = DAILY_UNITS // UPLOAD_UNITS        # ٦ رفعات
 
 
 def my_channel(token: str) -> dict:
@@ -136,11 +141,43 @@ def _today() -> str:
 
 
 def quota_state() -> dict:
+    """وحدات مستهلكة النهاردة لكل مشروع. يوم جديد = تصفير تلقائي (منتصف الليل بتوقيت المحيط الهادئ)."""
     d = _jload(QUOTA_FILE, {}) or {}
-    if d.get("date") != _today():                 # يوم جديد ⇒ عدّاد جديد
-        d = {"date": _today(), "used": {}}
-    d.setdefault("used", {})
+    if d.get("date") != _today():
+        d = {"date": _today(), "units": {}}
+    if "units" not in d:                          # توافق مع الشكل القديم (رفعات)
+        d["units"] = {k: int(v) * UPLOAD_UNITS for k, v in (d.get("used") or {}).items()}
+    d.pop("used", None)
     return d
+
+
+def units_used(project: int) -> int:
+    return int(quota_state()["units"].get(str(int(project)), 0))
+
+
+def units_left(project: int) -> int:
+    return max(0, DAILY_UNITS - units_used(project))
+
+
+def mark_units(project: int, units: int) -> None:
+    st = quota_state()
+    p = str(int(project))
+    st["units"][p] = int(st["units"].get(p, 0)) + int(units)
+    _jdump(QUOTA_FILE, st)
+
+
+def roles() -> dict:
+    return _jload(ROLES_FILE, {}) or {}
+
+
+def role_of(project: int) -> str:
+    return str(roles().get(str(int(project)), "publish"))
+
+
+def set_role(project: int, role: str) -> None:
+    r = roles()
+    r[str(int(project))] = role
+    _jdump(ROLES_FILE, r)
 
 
 def _quota_save(d: dict) -> None:
@@ -151,45 +188,46 @@ def _quota_save(d: dict) -> None:
 
 
 def quota_report() -> dict:
-    """كام رفعة استُخدمت النهاردة لكل مشروع وكام فاضل."""
-    st = quota_state()
+    """حالة الحصة النهاردة لكل مشروع: وحدات مستهلكة · رفعات باقية · مسح متاح · الدور."""
     out = {}
     for c in usable_projects() or [creds(1)]:
         p = c.get("project", 1)
-        used = int(st["used"].get(str(p), 0))
-        out[str(p)] = {"used": used, "cap": DAILY_UPLOADS_PER_PROJECT,
-                       "left": max(0, DAILY_UPLOADS_PER_PROJECT - used),
+        used = units_used(p)
+        out[str(p)] = {"used_units": used, "units_cap": DAILY_UNITS,
+                       "uploads_left": units_left(p) // UPLOAD_UNITS,
+                       "deletes_left": units_left(p) // DELETE_UNITS,
+                       "role": role_of(p),
                        "ready": all((c["client_id"], c["client_secret"], c["refresh_token"]))}
-    return {"date": st["date"], "projects": out}
+    return {"date": quota_state()["date"], "projects": out}
 
 
 def pick_project() -> dict | None:
     """يختار مشروع عنده حصة فاضلة النهاردة (التبادل بين المشاريع)."""
-    st = quota_state()
     for c in usable_projects() or []:
-        p = str(c.get("project", 1))
-        if int(st["used"].get(p, 0)) < DAILY_UPLOADS_PER_PROJECT:
+        p = c.get("project", 1)
+        if role_of(p) == "prune":                 # مشروع محجوز للمسح ⇒ مش بنرفع بيه
+            continue
+        if units_left(p) >= UPLOAD_UNITS:
             return c
     return None
 
 
 def remaining_capacity() -> int:
-    """كام رفعة لسه ينفع ننزلها النهاردة (مجموع المشاريع المؤهلة)."""
-    st = quota_state()
-    cap = 0
-    for c in usable_projects():
-        p = str(c.get("project", 1))
-        cap += max(0, DAILY_UPLOADS_PER_PROJECT - int(st["used"].get(p, 0)))
-    return cap
+    """كام رفعة لسه ينفع ننزلها النهاردة (مجموع المشاريع المؤهلة للنشر)."""
+    return sum(units_left(c.get("project", 1)) // UPLOAD_UNITS
+               for c in usable_projects() if role_of(c.get("project", 1)) != "prune")
+
+
+def prune_projects() -> list[dict]:
+    """المشاريع المخصّصة للمسح (أو أي مشروع مؤهّل لو مفيش تخصيص)."""
+    projs = usable_projects() or []
+    mine = [c for c in projs if role_of(c.get("project", 1)) == "prune"]
+    return mine or projs
 
 
 def mark_upload(project: int, ok: bool = True) -> None:
-    if not ok:
-        return
-    st = quota_state()
-    p = str(int(project))
-    st["used"][p] = int(st["used"].get(p, 0)) + 1
-    _quota_save(st)
+    if ok:
+        mark_units(project, UPLOAD_UNITS)
 
 
 QUOTA_WORDS = ("quota", "exceeded", "rate limit", "ratelimit", "uploadlimitexceeded",
@@ -200,6 +238,34 @@ QUOTA_WORDS = ("quota", "exceeded", "rate limit", "ratelimit", "uploadlimitexcee
 def is_quota_error(err) -> bool:
     t = str(err).lower()
     return any(w in t for w in QUOTA_WORDS)
+
+
+def quota_stop_notice() -> None:
+    """يقول على تليجرام إن الحصة خلصت (مرة واحدة في اليوم) — الشغل بيفضل محفوظ في الطابور."""
+    st = _jload(NOTICE_FILE, {}) or {}
+    if st.get("stopped_on") == _today():
+        return
+    st["stopped_on"] = _today()
+    st["pending_resume"] = True
+    _jdump(NOTICE_FILE, st)
+    left = remaining_capacity()
+    notify("⛔ الأداة وقفت مؤقتًا: حصة يوتيوب اليومية خلصت على كل المشاريع.\n"
+           "مفيش حاجة ضاعت — كل الشغل في الطابور وبيتحفظ.\n"
+           "⏰ هيرجع ينشر لوحده أول ما الحصة تتجدّد (منتصف الليل بتوقيت المحيط الهادئ = "
+           "٧ صباحًا بتوقيت مصر) وهبلغك على طول.\n"
+           f"السعة المتبقية دلوقتي: {left} رفعة")
+
+
+def quota_resume_notice() -> None:
+    """يقول على تليجرام إن الحصة رجعت والنشر اشتغل تاني."""
+    st = _jload(NOTICE_FILE, {}) or {}
+    if not st.get("pending_resume"):
+        return
+    st["pending_resume"] = False
+    st["resumed_on"] = _today()
+    _jdump(NOTICE_FILE, st)
+    notify(f"✅ الحصة اتجدّدت — النشر رجع شغال تلقائيًا.\n"
+           f"السعة النهاردة: {remaining_capacity()} رفعة")
 
 
 def _body(err) -> str:
@@ -336,6 +402,19 @@ def put_video(video_path, body: dict, token: str | None = None, chunk: int = 8 *
     raise RuntimeError("الرفع وقف قبل ما يكمّل")
 
 
+def delete_video(video_id: str, token: str) -> int:
+    """مسح فيديو من القناة (٥٠ وحدة من الحصة)."""
+    req = urllib.request.Request(f"{API}/videos?id={video_id}", method="DELETE",
+                                 headers={"Authorization": f"Bearer {token}"})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return r.status
+    except urllib.error.HTTPError as e:
+        if e.code == 404:                      # اتمسح خلاص
+            return 404
+        raise RuntimeError(f"المسح فشل — HTTP {e.code}: {_body(e)}") from None
+
+
 def set_thumbnail(video_id: str, image_path, token: str | None = None) -> bool:
     token = token or access_token()
     img = pathlib.Path(image_path).read_bytes()
@@ -410,6 +489,10 @@ def publish(video_path, md: dict, thumb_path=None) -> dict:
     while True:
         c = pick_project()
         if c is None:
+            try:
+                quota_stop_notice()
+            except Exception:
+                pass
             raise PublishUnavailable(
                 "quota: الحصة اليومية خلصت على كل مشاريع جوجل — الشغل هيتحفظ في الطابور "
                 f"وينزل تلقائي أول ما الحصة ترجع. ({quota_report()['projects']})")
@@ -417,6 +500,10 @@ def publish(video_path, md: dict, thumb_path=None) -> dict:
             tok = access_token(c)
             res = upload(video_path, md, token=tok)
             mark_upload(c.get("project", 1), True)
+            try:
+                quota_resume_notice()
+            except Exception:
+                pass
             res["project"] = c.get("project", 1)
             break
         except Exception as e:

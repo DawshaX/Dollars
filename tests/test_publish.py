@@ -37,15 +37,18 @@ def test_extra_projects_are_discovered_and_rotate(monkeypatch, tmp_path):
     monkeypatch.setenv("YOUTUBE_CLIENT_SECRET_2", "s2")
     monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN_2", "r2")
     (tmp_path / "prj.json").write_text('{"usable": ["2"]}', encoding="utf-8")   # اتأكد إنه على قناتنا
+    monkeypatch.setattr(publish, "ROLES_FILE", tmp_path / "roles.json")
     assert [c["project"] for c in publish.all_projects()] == [1, 2]
+    assert publish.remaining_capacity() == 12, "مشروعان = ١٢ رفعة/يوم"
     for _ in range(6):                              # نستهلك المشروع الأول بالكامل
         publish.mark_upload(1, True)
     assert publish.pick_project()["project"] == 2   # بيتحوّل للتاني لوحده
     rep = publish.quota_report()
-    assert rep["projects"]["1"]["left"] == 0 and rep["projects"]["2"]["left"] == 6
+    assert rep["projects"]["1"]["uploads_left"] == 0 and rep["projects"]["2"]["uploads_left"] == 6
     for _ in range(6):
         publish.mark_upload(2, True)
     assert publish.pick_project() is None, "لما الحصة تخلص في الكل لازم يوقف"
+    assert publish.remaining_capacity() == 0
 
 
 def test_quota_errors_are_detected():
@@ -95,3 +98,73 @@ def test_only_same_channel_projects_are_used(monkeypatch, tmp_path):
     assert [c["project"] for c in publish.usable_projects()] == [1], "من غير تحقق: الأساسي بس"
     (tmp_path / "projects.json").write_text('{"usable": ["2"]}', encoding="utf-8")
     assert [c["project"] for c in publish.usable_projects()] == [1, 2], "المتحقق بس"
+
+
+def test_prune_role_reserves_project_for_deleting(monkeypatch, tmp_path):
+    """مشروع محجوز للمسح: مبنرفعش بيه، وبنسحب منه ٥٠ وحدة لكل فيديو قديم."""
+    monkeypatch.setattr(publish, "QUOTA_FILE", tmp_path / "q.json")
+    monkeypatch.setattr(publish, "ROLES_FILE", tmp_path / "roles.json")
+    monkeypatch.setattr(publish, "PROJECTS_FILE", tmp_path / "prj.json")
+    monkeypatch.setenv("YOUTUBE_CLIENT_ID", "id1")
+    monkeypatch.setenv("YOUTUBE_CLIENT_SECRET", "s1")
+    monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN", "r1")
+    monkeypatch.setenv("YOUTUBE_CLIENT_ID_2", "id2")
+    monkeypatch.setenv("YOUTUBE_CLIENT_SECRET_2", "s2")
+    monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN_2", "r2")
+    (tmp_path / "prj.json").write_text('{"usable": ["2"]}', encoding="utf-8")
+    publish.set_role(2, "prune")
+    assert publish.role_of(2) == "prune" and publish.role_of(1) == "publish"
+    assert [c["project"] for c in publish.prune_projects()] == [2]
+    publish.mark_units(2, publish.DELETE_UNITS * 3)
+    rep = publish.quota_report()
+    assert rep["projects"]["2"]["deletes_left"] == 200 - 3, "٣ مسح = ١٥٠ وحدة"
+    assert publish.remaining_capacity() == 6, "المشروع المحجوز مش بيتحسب للنشر"
+    publish.mark_units(1, publish.DAILY_UNITS)
+    assert publish.pick_project() is None
+
+
+def test_quota_stop_and_resume_notices_are_sent_once(monkeypatch, tmp_path):
+    monkeypatch.setattr(publish, "NOTICE_FILE", tmp_path / "notice.json")
+    monkeypatch.setattr(publish, "QUOTA_FILE", tmp_path / "q.json")
+    monkeypatch.setattr(publish, "PROJECTS_FILE", tmp_path / "prj.json")
+    monkeypatch.setenv("YOUTUBE_CLIENT_ID", "a")
+    monkeypatch.setenv("YOUTUBE_CLIENT_SECRET", "b")
+    monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN", "c")
+    sent = []
+    monkeypatch.setattr(publish, "notify", lambda t: sent.append(t) or True)
+    publish.quota_stop_notice(); publish.quota_stop_notice()
+    assert len(sent) == 1 and "الحصة" in sent[0] or "حصة" in sent[0]
+    publish.quota_resume_notice(); publish.quota_resume_notice()
+    assert len(sent) == 2, "رسالة الرجوع تتبعت مرة واحدة بس"
+
+
+def test_prune_never_touches_new_factory_videos(monkeypatch, tmp_path):
+    """أهم قاعدة: المكنسة تمسح القديم بس — الجديد ممنوع تمامًا."""
+    from engine import prune
+    monkeypatch.setattr(prune, "STATE", tmp_path / "prune.json")
+    pub = tmp_path / "published.json"
+    pub.write_text('{"videos": [{"video_id": "NEW1", "title": "جديد"}]}', encoding="utf-8")
+    monkeypatch.setattr(prune.pathlib, "Path", lambda *a: pub if a and a[0] == "state/published.json" else pathlib.Path(*a))
+    keep = prune._keep_ids()
+    assert "NEW1" in keep, "فيديوهات المصنع الجديد لازم تتحفظ من المسح"
+
+    class FakeResp:
+        status = 204
+
+    def fake_urlopen(req, timeout=0):
+        return FakeResp()
+
+    items = [{"contentDetails": {"videoId": "OLD1"},
+              "snippet": {"title": "قديم", "publishedAt": "2026-09-17T10:00:00Z"}},
+             {"contentDetails": {"videoId": "NEW1"},
+              "snippet": {"title": "جديد", "publishedAt": "2026-09-26T04:00:00Z"}}]
+
+    class Ctx:
+        def __init__(self, d): self.d = d
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return __import__("json").dumps(self.d).encode()
+
+    monkeypatch.setattr(prune.publish.urllib.request, "urlopen", lambda req, timeout=0: Ctx({"items": items}))
+    olds = prune.list_old("tok", "UCG9g_26H65D3FahqyiYPHAw")
+    assert [o["id"] for o in olds] == ["OLD1"], "القديم بس"
