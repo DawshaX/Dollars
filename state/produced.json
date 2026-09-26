@@ -419,19 +419,34 @@
       "reason": "الرفع فشل: HTTPError: HTTP Error 400: Bad Request",
       "seconds_spent": 328.6,
       "at": "2026-09-26T03:37:55.070406+00:00"
+    },
+    {
+      "date": "2026-09-25",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "harmonograph",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-25_00/ambience_short_321626_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": true,
+      "url": "https://youtu.be/GAuFYa4k56E",
+      "reason": null,
+      "seconds_spent": 327.3,
+      "at": "2026-09-26T03:55:53.978675+00:00"
     }
   ],
   "stats": {
-    "total": 28,
-    "published": 0,
+    "total": 29,
+    "published": 1,
     "staged": 27,
     "by_pillar": {
       "focus": 5,
       "satisfying": 14,
-      "sleep": 7,
+      "sleep": 8,
       "story": 2
     }
   },
   "created": null,
-  "updated": "2026-09-26T03:37:55.292561+00:00"
+  "updated": "2026-09-26T03:56:00.400645+00:00"
 }
