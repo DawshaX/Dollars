@@ -4141,6 +4141,326 @@
       },
       "seed": 495213,
       "added": "2026-09-26T04:56:49.421773+00:00"
+    },
+    {
+      "at": "2026-09-26T09:54:31.785170+00:00",
+      "slot": {
+        "hour": 3,
+        "at": "2026-09-26T03:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=60s|hook=حركة كاميرا سريعة|hour=23|kind=short|pillar=sleep|scene=black|structure=مشهد ليلي ← نجوم|thumb=شاشة سوداء + نص واضح",
+          "pillar": "sleep",
+          "kind": "short",
+          "duration": "60s",
+          "scene": "black",
+          "structure": "مشهد ليلي ← نجوم",
+          "hook": "حركة كاميرا سريعة",
+          "thumb": "شاشة سوداء + نص واضح",
+          "hour": 23,
+          "character": null,
+          "predicted": 2.486,
+          "why": "لأن sleep و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 125579,
+      "kind": "photo_short",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "pillar": "sleep",
+      "duration": "60s",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['مفيش ثبات طويل']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "مفيش ثبات طويل"
+        ]
+      }
+    },
+    {
+      "at": "2026-09-26T09:56:48.518512+00:00",
+      "slot": {
+        "hour": 4,
+        "at": "2026-09-26T04:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=45s|hook=ظهور شخصية|hour=18|kind=short|pillar=satisfying|scene=stinger_ink|structure=مقارنة سرعات|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "45s",
+          "scene": "stinger_ink",
+          "structure": "مقارنة سرعات",
+          "hook": "ظهور شخصية",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 18,
+          "character": null,
+          "predicted": 1.737,
+          "why": "لأن satisfying و45s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 702840,
+      "kind": "photo_short",
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['مفيش ثبات طويل']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "مفيش ثبات طويل"
+        ]
+      }
+    },
+    {
+      "at": "2026-09-26T09:57:37.231304+00:00",
+      "slot": {
+        "hour": 5,
+        "at": "2026-09-26T05:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=15s|hook=قبل/بعد|hour=23|kind=short|pillar=satisfying|scene=stinger_ink|structure=دورات متكرّرة مريحة|thumb=شاشة سوداء + نص واضح",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "15s",
+          "scene": "stinger_ink",
+          "structure": "دورات متكرّرة مريحة",
+          "hook": "قبل/بعد",
+          "thumb": "شاشة سوداء + نص واضح",
+          "hour": 23,
+          "character": null,
+          "predicted": 1.758,
+          "why": "لأن satisfying و15s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 441715,
+      "kind": "photo_short",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['مفيش ثبات طويل']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "مفيش ثبات طويل"
+        ]
+      }
+    },
+    {
+      "at": "2026-09-26T10:00:36.750226+00:00",
+      "slot": {
+        "hour": 6,
+        "at": "2026-09-26T06:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=60s|hook=سؤال في أول ثانية|hour=1|kind=short|pillar=sleep|scene=starfield|structure=بداية هادية ← ثبات|thumb=شاشة سوداء + نص واضح",
+          "pillar": "sleep",
+          "kind": "short",
+          "duration": "60s",
+          "scene": "starfield",
+          "structure": "بداية هادية ← ثبات",
+          "hook": "سؤال في أول ثانية",
+          "thumb": "شاشة سوداء + نص واضح",
+          "hour": 1,
+          "character": null,
+          "predicted": 2.436,
+          "why": "لأن sleep و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 654278,
+      "kind": "photo_short",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "pillar": "sleep",
+      "duration": "60s",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['مفيش ثبات طويل']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "مفيش ثبات طويل"
+        ]
+      }
+    },
+    {
+      "at": "2026-09-26T10:15:47.134420+00:00",
+      "slot": {
+        "hour": 7,
+        "at": "2026-09-26T07:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=4m|hook=صمت مفاجئ|hour=22|kind=short|pillar=story|scene=starfield|structure=خوف ← شجاعة ← مكافأة|thumb=مشهد طبيعي + رقم مدة",
+          "pillar": "story",
+          "kind": "short",
+          "duration": "4m",
+          "scene": "starfield",
+          "structure": "خوف ← شجاعة ← مكافأة",
+          "hook": "صمت مفاجئ",
+          "thumb": "مشهد طبيعي + رقم مدة",
+          "hour": 22,
+          "character": "peno_auto",
+          "predicted": 1.623,
+          "why": "لأن story و4m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 582196,
+      "kind": "story_short",
+      "title": "Nono and a shell that sings — a wordless story #shorts",
+      "pillar": "story",
+      "duration": "4m",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['الأبعاد']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "الأبعاد"
+        ]
+      }
+    },
+    {
+      "at": "2026-09-26T10:17:01.087002+00:00",
+      "slot": {
+        "hour": 8,
+        "at": "2026-09-26T08:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=3m|hook=عدّاد|hour=22|kind=short|pillar=story|scene=sand_table|structure=صداقة ← عقبة ← لقاء|thumb=مشهد طبيعي + رقم مدة",
+          "pillar": "story",
+          "kind": "short",
+          "duration": "3m",
+          "scene": "sand_table",
+          "structure": "صداقة ← عقبة ← لقاء",
+          "hook": "عدّاد",
+          "thumb": "مشهد طبيعي + رقم مدة",
+          "hour": 22,
+          "character": "paper_man",
+          "predicted": 1.63,
+          "why": "لأن story و3m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 806951,
+      "kind": "story_short",
+      "title": "Koko and a butterfly that would not sit still — a wordless story #shorts",
+      "pillar": "story",
+      "duration": "3m",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['الأبعاد']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "الأبعاد"
+        ]
+      }
+    },
+    {
+      "at": "2026-09-26T10:18:04.084848+00:00",
+      "slot": {
+        "hour": 9,
+        "at": "2026-09-26T09:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=15s|hook=لقطة قريبة جدًا|hour=18|kind=short|pillar=satisfying|scene=stinger_ink|structure=حركة واحدة كاملة|thumb=شخصية كبيرة + سطر قصير",
+          "pillar": "satisfying",
+          "kind": "short",
+          "duration": "15s",
+          "scene": "stinger_ink",
+          "structure": "حركة واحدة كاملة",
+          "hook": "لقطة قريبة جدًا",
+          "thumb": "شخصية كبيرة + سطر قصير",
+          "hour": 18,
+          "character": null,
+          "predicted": 1.744,
+          "why": "لأن satisfying و15s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 785567,
+      "kind": "photo_short",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['مفيش ثبات طويل']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "مفيش ثبات طويل"
+        ]
+      }
+    },
+    {
+      "at": "2026-09-26T10:20:32.866138+00:00",
+      "slot": {
+        "hour": 10,
+        "at": "2026-09-26T10:00:00Z",
+        "kind": "short",
+        "idea": {
+          "signature": "duration=4m|hook=عدّاد|hour=18|kind=short|pillar=story|scene=starfield|structure=صداقة ← عقبة ← لقاء|thumb=قبل/بعد مقسوم",
+          "pillar": "story",
+          "kind": "short",
+          "duration": "4m",
+          "scene": "starfield",
+          "structure": "صداقة ← عقبة ← لقاء",
+          "hook": "عدّاد",
+          "thumb": "قبل/بعد مقسوم",
+          "hour": 18,
+          "character": "bomi_auto",
+          "predicted": 1.587,
+          "why": "لأن story و4m وقبل/بعد مقسوم أوزانهم أعلى عندنا دلوقتي",
+          "sfx": [
+            "whoosh",
+            "sparkle",
+            "boing"
+          ],
+          "status": "idea"
+        },
+        "date": "2026-09-26"
+      },
+      "seed": 823987,
+      "kind": "story_short",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "pillar": "story",
+      "duration": "4m",
+      "reason": "🚦 بوابة الجودة رفضت النشر: ['الأبعاد']",
+      "quality": {
+        "pass": false,
+        "failed": [
+          "الأبعاد"
+        ]
+      }
     }
   ],
   "studio": true,
