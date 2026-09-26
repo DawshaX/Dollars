@@ -30,7 +30,7 @@ SCOPES = [
     "https://www.googleapis.com/auth/youtube.force-ssl",    # العنوان/الوصف/الفصول/التعليقات
     "https://www.googleapis.com/auth/youtube.readonly",     # قراءة القناة والإحصائيات
 ]
-REDIRECT = "http://localhost"
+REDIRECT = os.environ.get("REDIRECT_URI") or "http://localhost:8085/"   # أي بورت شغّال لعملاء سطح المكتب
 
 
 # ───────────────────────── أدوات صغيرة ─────────────────────────
@@ -151,8 +151,13 @@ def telegram(text: str) -> str:
 
 def mode_url(cid: str) -> int:
     proj = cid.split("-", 1)[0] if "-" in cid else "(مجهول)"
-    print("🔗 لينك الموافقة (افتحه في متصفح الحساب اللي بيدير القناة):\n")
-    print(auth_link(cid))
+    link = auth_link(cid)
+    n = len(link)
+    # نقسم اللينك 3 أجزاء: GitHub بيخفي أي سر حرفيًا في اللوج، والتقسيم بيخلي اللينك يوصلك كامل
+    print("🔗 PART1OF3: " + link[: n // 3])
+    print("🔗 PART2OF3: " + link[n // 3: 2 * n // 3])
+    print("🔗 PART3OF3: " + link[2 * n // 3:])
+    print(telegram("🔗 لينك موافقة جوجل لربط القناة بتوكن دائم (اضغط عليه من الموبايل):\n" + link))
     print("\n— خطوات صاحب القناة —")
     print("1) Google Cloud Console → APIs & Services → OAuth consent screen → زرار «PUBLISH APP»")
     print(f"   رابط مباشر: https://console.cloud.google.com/apis/credentials/consent?project={proj}")
@@ -171,6 +176,11 @@ def mode_token(cid: str, csec: str, raw_code: str, pat: str, copy_to: str, repo:
     if not code:
         print("❌ مفيش كود — ابعت العنوان اللي ظهر بعد الموافقة")
         return 2
+    if raw_code.strip().startswith("1//"):            # المالك جاب refresh token جاهز (Playground) — نقبله
+        rt, ch = raw_code.strip(), channel_of("")
+        st_ok = True
+        print("📺 توكن جاهز:", json.dumps(ch, ensure_ascii=False))
+        return _install(cid, csec, rt, ch, pat, copy_to, repo)
     st, tok = exchange(cid, csec, code)
     if st != 200 or "refresh_token" not in tok:
         err = str(tok)[:220]
@@ -181,6 +191,10 @@ def mode_token(cid: str, csec: str, raw_code: str, pat: str, copy_to: str, repo:
     rt = tok["refresh_token"]
     ch = channel_of(tok.get("access_token", ""))
     print("📺 القناة اللي التوكن بيوصلها:", json.dumps(ch, ensure_ascii=False))
+    return _install(cid, csec, rt, ch, pat, copy_to, repo)
+
+
+def _install(cid: str, csec: str, rt: str, ch: dict, pat: str, copy_to: str, repo: str) -> int:
     results = []
     if pat:
         for name, val in (("YOUTUBE_CLIENT_ID", cid), ("YOUTUBE_CLIENT_SECRET", csec),
