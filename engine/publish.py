@@ -335,9 +335,16 @@ def _status(md: dict) -> dict:
 
 def upload(video_path, md: dict, token: str | None = None, chunk: int = 8 * 1024 * 1024,
            timeout: int = 600) -> dict:
-    """رفع بالبيانات اللي المصنع بيبنيها."""
-    return put_video(video_path, {"snippet": _snippet(md), "status": _status(md)},
-                     token=token, chunk=chunk, timeout=timeout)
+    """رفع بالبيانات اللي المصنع بيبنيها (+ ترجمات لو موجودة = يوتيوب لكل الكون)."""
+    body = {"snippet": _snippet(md), "status": _status(md)}
+    loc = {k: v for k, v in (md.get("localizations") or {}).items()
+           if isinstance(v, dict) and v.get("title")}
+    part = "&part=snippet,status"
+    if loc:
+        body["localizations"] = loc
+        part += ",localizations"
+    return put_video(video_path, body, token=token, chunk=chunk, timeout=timeout,
+                     extra_query=part)
 
 
 def put_video(video_path, body: dict, token: str | None = None, chunk: int = 8 * 1024 * 1024,

@@ -69,7 +69,16 @@ def list_old(token: str, channel_id: str, page: int = 50, max_pages: int = 20) -
 
 
 def run(batch: int = 120, dry: bool = False, notify: bool = True) -> dict:
-    """يمسح لحد batch فيديو قديم، موزّعين على المشاريع المخصّصة للمسح بحسب حصتها."""
+    """يمسح لحد batch فيديو قديم — **مقفول تمامًا** لحد ما صاحب القناة يوافق بنفسه.
+
+    🔒 القفل: مفيش مسح أبدًا من غير PRUNE_APPROVED=1 (موافقة صريحة). ده حماية مطلقة
+    بعد الطلب الواضح: «متتعملش حاجة من غير ما تسأل».
+    """
+    import os as _os
+    if _os.environ.get("PRUNE_APPROVED") != "1":
+        return {"ok": False, "locked": True, "deleted": 0,
+                "reason": "🔒 المسح مقفول — محتاج موافقة صريحة من صاحب القناة (PRUNE_APPROVED=1)"}
+
     projs = publish.prune_projects()
     if not projs:
         return {"ok": False, "reason": "مفيش مشروع متاح للمسح"}

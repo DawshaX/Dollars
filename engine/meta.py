@@ -93,6 +93,15 @@ def _fmt_dur(hours=None, minutes=None, seconds=None) -> str:
     return f"{seconds} seconds"
 
 
+def _smart(spec: dict) -> dict:
+    """بيانات من الكوبي الذكي (عنوان/وصف/وسوم/ترجمات) — لو المساعدين متاحين."""
+    try:
+        from engine import copy as _copy
+        return _copy.enrich(spec)
+    except Exception:
+        return {}
+
+
 def build(spec: dict) -> dict:
     """
     spec: pillar · kw (كلمة مفتاحية إنجليزية) · hours/minutes/seconds · scene · character · hook ·
@@ -202,6 +211,39 @@ def build(spec: dict) -> dict:
         md["titles"] = [t if t.endswith("#shorts") else (t[:80] + " #shorts") for t in md["titles"]]
         md["chapters"] = []
         md["description"] = description.replace("⏱️ Chapters:", "").strip()
+    # ── الكوبي الذكي: عنوان مغناطيسي + كلمات طلب حقيقي + لغات الدنيا ──
+    try:
+        smart = _smart(spec) if spec.get("smart", True) else {}
+    except Exception:
+        smart = {}
+    if smart:
+        for t in smart.get("titles", []):
+            if kind == "short" and not t.rstrip().endswith("#shorts"):
+                t = t.strip()[:80] + " #shorts"
+            if 12 <= len(t) <= MAX_TITLE and not t.isupper():
+                md["titles"] = [t] + [x for x in md["titles"] if x != t]
+        md["titles"] = md["titles"][:3]
+        real_tags = [t for t in smart.get("tags", []) if t and t.lower() != kw.lower()]
+        if real_tags:                                    # كلمات الطلب الحقيقي في المقدمة
+            merged = real_tags + [t for t in md["tags"] if t not in real_tags]
+            total, picked = 0, []
+            for t in merged:
+                if total + len(t) + 1 > MAX_TAGS_CHARS - 20:
+                    break
+                picked.append(t); total += len(t) + 1
+            md["tags"] = picked[:35]
+        if smart.get("description") and len(smart["description"]) > 120:
+            keep = [ln for ln in md["description"].splitlines()
+                    if any(k in ln.lower() for k in ("disclos", "إفصاح", "generated", "مولّد",
+                                                     "license", "حقوق", "studio", "subscribe"))]
+            md["description"] = (smart["description"] + ("\n\n" + "\n".join(keep[:6]) if keep else "")
+                                 )[:4900]
+        if smart.get("hook"):
+            md["hook"] = smart["hook"]
+        if smart.get("localizations"):
+            md["localizations"] = smart["localizations"]
+        if smart.get("suggests"):
+            md["search_demand"] = smart["suggests"][:12]
     return md
 
 

@@ -1,4 +1,4 @@
-name: 🧹 مسح الفيديوهات القديمة
+name: 🧹 مسح الفيديوهات القديمة (🔒 مقفول — بموافقة صريحة بس)
 # يمسح القديم على دفعات لحد ما القناة تبقى نضيفة — ويبلّغ على تليجرام
 on:
   workflow_dispatch:
@@ -7,8 +7,10 @@ on:
         description: 'أقصى عدد فيديوهات تمسح في اللفة دي'
         type: string
         default: '150'
-  schedule:
-    - cron: '41 * * * *'          # كل ساعة (بتسحب من حصة مشروع المسح بس)
+      approved:
+        description: 'اكتب 1 لو انت موافق بنفسك على المسح (غير كده مش هيمسح حاجة)'
+        type: string
+        default: '0'
 permissions:
   contents: write
   issues: write
@@ -28,6 +30,7 @@ jobs:
       - name: مسح دفعة قديمة
         env:
           LIVE_ISSUE: '1'
+          PRUNE_APPROVED: ${{ github.event.inputs.approved == '1' && '1' || '0' }}
           QUOTA_LEDGER: state/quota_prune.json
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
@@ -46,9 +49,9 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           python -c "
-          from engine import publish, prune
-          publish.set_role(2, 'prune')      # مشروع ٢ مخصّص للمسح (والنشر بمشروع ١)
-          import json; print(json.dumps(prune.run(batch=${{ github.event.inputs.batch || 150 }}), ensure_ascii=False))
+          import json
+          from engine import prune
+          print(json.dumps(prune.run(batch=${{ github.event.inputs.batch || 150 }}), ensure_ascii=False))
           "
       - name: حفظ النتيجة
         run: |

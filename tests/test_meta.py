@@ -65,3 +65,24 @@ def test_write_package_produces_files(tmp_path):
     txt = (tmp_path / "rain-sounds.meta.txt").read_text(encoding="utf-8")
     assert "العنوان (A)" in txt and "=== الوصف ===" in txt and "أول تعليق مثبّت" in txt
     assert json.loads((tmp_path / "rain-sounds.meta.json").read_text(encoding="utf-8"))["pillar"] == "sleep"
+
+
+def test_smart_copy_merges_without_breaking_rules(monkeypatch):
+    """الكوبي الذكي يزوّد عنوان/وسوم/ترجمات — ومن غير ما يكسر قواعد يوتيوب."""
+    from engine import meta, copy as _copy
+    monkeypatch.setattr(meta, "_smart", lambda spec: {
+        "titles": ["Rain that Actually Helps You Sleep in Minutes"],
+        "tags": ["rain sounds for sleeping no ads", "rain sounds 8 hours"],
+        "description": "وصف ذكي " * 200,
+        "hook": "Rain that actually helps",
+        "localizations": {"es": {"title": "Lluvia para dormir", "description": "d"}},
+        "suggests": ["rain sounds for sleeping no ads"],
+    })
+    md = meta.build({"pillar": "sleep", "kw": "Rain Sounds", "seconds": 60, "kind": "short"})
+    assert md["titles"][0].startswith("Rain that Actually") and md["titles"][0].endswith("#shorts")
+    assert "rain sounds for sleeping no ads" in md["tags"]
+    assert sum(len(t) + 1 for t in md["tags"]) <= 500
+    assert md["localizations"]["es"]["title"] == "Lluvia para dormir"
+    assert md["hook"]
+    assert ("disclos" in md["description"].lower()) or ("إفصاح" in md["description"]), "الإفصاح لازم يفضل موجود"
+    assert md["search_demand"]
