@@ -1,0 +1,35 @@
+name: 🗓️ خطة الاستوديو اليومية
+# كل يوم 00:05 UTC: يبني خطة ٢٤ شورت + ٤ طويلة بأنواع متنوّعة (حارس التنوّع) ويحطها في الطابور
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '5 0 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: studio-plan
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: أدوات
+        run: python -m pip install --quiet numpy pillow imageio-ffmpeg
+      - name: بناء خطة اليوم وبكرة + تحديث الطابور
+        env:
+          PIXABAY_KEY: ${{ secrets.PIXABAY_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          OPENVERSE_TOKEN: ${{ secrets.OPENVERSE_TOKEN }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python tools/refresh_plan.py
+      - name: حفظ الخطة والطابور
+        run: |
+          git config user.name "Dollars Factory"; git config user.email "factory@dawshax.local"
+          git add state; git diff --cached --quiet || git commit -m "🗓️ خطة الاستوديو ($(date -u +%F))"
+          for i in 1 2 3; do git pull --rebase --autostash -q origin main 2>/dev/null || true; git push -q origin HEAD:main && break || sleep 5; done
