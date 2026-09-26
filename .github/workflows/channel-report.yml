@@ -1,0 +1,69 @@
+name: 🔎 فحص القناة — آخر المرفوعات والحصة
+
+# بيقرا القناة بتوكن الرفع نفسه (من غير أي مفتاح زيادة) ويطبع:
+#   • آخر المرفوعات (العنوان · وقت النشر · الحالة · المشاهدات)
+#   • كام رفعة حصلت في آخر ٢٤ ساعة
+#   • حالتها (عام / خاص / مجدول)
+# كده أي حد يشوف الحقيقة من غير ما يفتح الاستوديو، واللوج مافيهوش أي سر.
+on:
+  workflow_dispatch:
+    inputs:
+      count:
+        description: 'عدد المرفوعات اللي تتعرض'
+        type: string
+        default: '12'
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 🔎 اقرا القناة
+        env:
+          CID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          CSEC: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          RT: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          N: ${{ inputs.count || 12 }}
+        run: |
+          python - <<'PY'
+          import json, os, urllib.parse, urllib.request, datetime
+          def tok():
+              d = urllib.parse.urlencode({"client_id": os.environ["CID"], "client_secret": os.environ["CSEC"],
+                                          "refresh_token": os.environ["RT"],
+                                          "grant_type": "refresh_token"}).encode()
+              return json.loads(urllib.request.urlopen("https://oauth2.googleapis.com/token", data=d, timeout=40).read())["access_token"]
+          at = tok()
+          H = {"Authorization": "Bearer " + at}
+          def get(url):
+              return json.loads(urllib.request.urlopen(urllib.request.Request(url, headers=H), timeout=40).read())
+          ch = get("https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,contentDetails&mine=true")
+          it = ch["items"][0]
+          print("📺", it["snippet"]["title"], "|", it["snippet"].get("customUrl"), "|", it["id"])
+          print("👥 مشتركين:", it["statistics"]["subscriberCount"], "| 🎬 فيديوهات:", it["statistics"]["videoCount"],
+                "| 👁️ إجمالي مشاهدات:", it["statistics"].get("viewCount"))
+          up = it["contentDetails"]["relatedPlaylists"]["uploads"]
+          n = int(os.environ.get("N", "12"))
+          pl = get(f"https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId={up}&maxResults={n}")
+          ids = [x["contentDetails"]["videoId"] for x in pl.get("items", [])]
+          vids = get("https://www.googleapis.com/youtube/v3/videos?part=snippet,status,statistics,contentDetails&id=" + ",".join(ids))
+          now = datetime.datetime.now(datetime.timezone.utc)
+          day = 0
+          print("\n— آخر المرفوعات —")
+          for v in vids.get("items", []):
+              sn, st = v["snippet"], v["status"]
+              pub = sn["publishedAt"].replace("T", " ")[:16]
+              try:
+                  age = (now - datetime.datetime.fromisoformat(sn["publishedAt"].replace("Z", "+00:00"))).total_seconds() / 3600
+                  if age <= 24: day += 1
+              except Exception:
+                  age = -1
+              print(f"  {pub} | {st.get('privacyStatus'):8s} | 👁️ {v['statistics'].get('viewCount','0'):>6s} | {sn['title'][:62]}")
+              print(f"      https://youtu.be/{v['id']}")
+          print(f"\n✅ رفعات آخر ٢٤ ساعة: {day}")
+          PY
