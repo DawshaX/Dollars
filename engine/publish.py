@@ -81,8 +81,36 @@ def all_projects(max_projects: int = 4) -> list[dict]:
     return out
 
 
+PROJECTS_FILE = pathlib.Path("state/youtube_projects.json")
 QUOTA_FILE = pathlib.Path("state/youtube_quota.json")
 DAILY_UPLOADS_PER_PROJECT = 6      # ١٠٠٠٠ وحدة ÷ ١٦٠٠ = ٦ رفعات (قانون يوتيوب نفسه)
+
+
+def my_channel(token: str) -> dict:
+    """القناة اللي التوكن ده بيوصلها فعلاً (من عند جوجل نفسه)."""
+    req = urllib.request.Request(f"{API}/channels?part=snippet,id&mine=true",
+                                 headers={"Authorization": f"Bearer {token}"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        it = ((json.load(r).get("items") or [{}]))[0]
+    return {"id": it.get("id", ""), "title": ((it.get("snippet") or {}).get("title", ""))}
+
+
+def usable_projects() -> list[dict]:
+    """المشاريع المسموح النشر بيها: الأساسي + أي مشروع اتأكد إنه على **نفس القناة**.
+
+    ملف state/youtube_projects.json بيتكتب من tools/verify_projects.py بعد ما يسأل جوجل.
+    من غير الملف: بنشتغل بالمشروع الأساسي بس (أمان).
+    """
+    projs = all_projects()
+    if not projs:
+        return []
+    try:
+        rep = _jload(PROJECTS_FILE, {}) or {}
+        usable = {str(x) for x in (rep.get("usable") or [])}
+    except Exception:
+        usable = set()
+    out = [c for c in projs if c.get("project") == 1 or str(c.get("project")) in usable]
+    return out
 
 
 def _today() -> str:
@@ -108,7 +136,7 @@ def quota_report() -> dict:
     """كام رفعة استُخدمت النهاردة لكل مشروع وكام فاضل."""
     st = quota_state()
     out = {}
-    for c in all_projects() or [creds(1)]:
+    for c in usable_projects() or [creds(1)]:
         p = c.get("project", 1)
         used = int(st["used"].get(str(p), 0))
         out[str(p)] = {"used": used, "cap": DAILY_UPLOADS_PER_PROJECT,
@@ -120,7 +148,7 @@ def quota_report() -> dict:
 def pick_project() -> dict | None:
     """يختار مشروع عنده حصة فاضلة النهاردة (التبادل بين المشاريع)."""
     st = quota_state()
-    for c in all_projects() or []:
+    for c in usable_projects() or []:
         p = str(c.get("project", 1))
         if int(st["used"].get(p, 0)) < DAILY_UPLOADS_PER_PROJECT:
             return c

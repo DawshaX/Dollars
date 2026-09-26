@@ -29,12 +29,14 @@ def test_credentials_read_from_env(monkeypatch):
 def test_extra_projects_are_discovered_and_rotate(monkeypatch, tmp_path):
     """كل مشروع جوجل إضافي = حصة زيادة ⇒ النظام لازم يشوفه ويستعمله بالتبادل."""
     monkeypatch.setattr(publish, "QUOTA_FILE", tmp_path / "q.json")
+    monkeypatch.setattr(publish, "PROJECTS_FILE", tmp_path / "prj.json")
     monkeypatch.setenv("YOUTUBE_CLIENT_ID", "id1")
     monkeypatch.setenv("YOUTUBE_CLIENT_SECRET", "s1")
     monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN", "r1")
     monkeypatch.setenv("YOUTUBE_CLIENT_ID_2", "id2")
     monkeypatch.setenv("YOUTUBE_CLIENT_SECRET_2", "s2")
     monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN_2", "r2")
+    (tmp_path / "prj.json").write_text('{"usable": ["2"]}', encoding="utf-8")   # اتأكد إنه على قناتنا
     assert [c["project"] for c in publish.all_projects()] == [1, 2]
     for _ in range(6):                              # نستهلك المشروع الأول بالكامل
         publish.mark_upload(1, True)
@@ -75,3 +77,21 @@ def test_never_send_broken_audio_language():
     sn = publish._snippet(md)
     assert "defaultAudioLanguage" not in sn
     assert "zxx" not in __import__("json").dumps(sn)
+
+
+def test_only_same_channel_projects_are_used(monkeypatch, tmp_path):
+    """مشروع لقناة تانية ممنوع يتنشر بيه — لازم يتجاهله النظام."""
+    monkeypatch.setattr(publish, "PROJECTS_FILE", tmp_path / "projects.json")
+    monkeypatch.setattr(publish, "QUOTA_FILE", tmp_path / "q.json")
+    monkeypatch.setenv("YOUTUBE_CLIENT_ID", "id1")
+    monkeypatch.setenv("YOUTUBE_CLIENT_SECRET", "s1")
+    monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN", "r1")
+    monkeypatch.setenv("YOUTUBE_CLIENT_ID_2", "id2")
+    monkeypatch.setenv("YOUTUBE_CLIENT_SECRET_2", "s2")
+    monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN_2", "r2")
+    monkeypatch.setenv("YOUTUBE_CLIENT_ID_3", "id3")
+    monkeypatch.setenv("YOUTUBE_CLIENT_SECRET_3", "s3")
+    monkeypatch.setenv("YOUTUBE_REFRESH_TOKEN_3", "r3")
+    assert [c["project"] for c in publish.usable_projects()] == [1], "من غير تحقق: الأساسي بس"
+    (tmp_path / "projects.json").write_text('{"usable": ["2"]}', encoding="utf-8")
+    assert [c["project"] for c in publish.usable_projects()] == [1, 2], "المتحقق بس"
