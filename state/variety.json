@@ -1,28 +1,6 @@
 {
   "sig": [
     {
-      "genre": "sleep_ambience",
-      "scene": "ocean_night",
-      "palette": "midnight",
-      "transition": "slide",
-      "audio": "storm",
-      "montage": "تنفّس بطيء",
-      "title_shape": "W W W W W W | W W W W W | W W",
-      "mark": "Lake at Dusk",
-      "hour": 3
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "beach_night",
-      "palette": "warm_ember",
-      "transition": "crossfade",
-      "audio": "calm_night",
-      "montage": "طويل هادي",
-      "title_shape": "W W W W W W W | W W W W W | W W",
-      "mark": "Warm Fire and Rain",
-      "hour": 8
-    },
-    {
       "genre": "focus_study",
       "scene": "cafe_soft",
       "palette": "cool_slate",
@@ -659,6 +637,28 @@
       "title_shape": "W W W W W W W | W W W",
       "mark": "The Carina Nebula",
       "hour": 12
+    },
+    {
+      "genre": "story",
+      "scene": "story_desert",
+      "palette": "story_warm",
+      "transition": "slide",
+      "audio": "story_gentle",
+      "montage": "مشهد ← مشهد بإيقاع",
+      "title_shape": "W'W W W W W W W — W W W W #W",
+      "mark": "the whale and the star",
+      "hour": 0
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "train_window",
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "snow",
+      "montage": "تنفّس بطيء",
+      "title_shape": "W W W W & W | W W | W W, W W",
+      "mark": "Night Train Ride",
+      "hour": 3
     }
   ]
 }
