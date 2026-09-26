@@ -56,12 +56,93 @@ def _env(*names: str) -> str | None:
     return None
 
 
-def creds() -> dict:
+def creds(project: int = 1) -> dict:
+    """بيانات اعتماد مشروع جوجل رقم project (1 = الأساسي، 2/3/4 = مشاريع إضافية).
+
+    كل مشروع جوجل عنده **حصة يومية مستقلة** (١٠٠٠٠ وحدة = ~٦ رفعات)،
+    فكل مشروع إضافي بيزوّد سقف النشر اليومي — ودي طريقة «بلا حد» الحقيقية.
+    """
+    suf = "" if int(project) == 1 else f"_{int(project)}"
     return {
-        "client_id": _env("YOUTUBE_CLIENT_ID", "YT_CLIENT_ID"),
-        "client_secret": _env("YOUTUBE_CLIENT_SECRET", "YT_CLIENT_SECRET"),
-        "refresh_token": _env("YOUTUBE_REFRESH_TOKEN", "YT_REFRESH_TOKEN"),
+        "project": int(project),
+        "client_id": _env(f"YOUTUBE_CLIENT_ID{suf}", f"YT_CLIENT_ID{suf}"),
+        "client_secret": _env(f"YOUTUBE_CLIENT_SECRET{suf}", f"YT_CLIENT_SECRET{suf}"),
+        "refresh_token": _env(f"YOUTUBE_REFRESH_TOKEN{suf}", f"YT_REFRESH_TOKEN{suf}"),
     }
+
+
+def all_projects(max_projects: int = 4) -> list[dict]:
+    """كل المشاريع المضبوطة عندنا (اللي عندها المفاتيح التلاتة كاملة)."""
+    out = []
+    for i in range(1, int(max_projects) + 1):
+        c = creds(i)
+        if all((c["client_id"], c["client_secret"], c["refresh_token"])):
+            out.append(c)
+    return out
+
+
+QUOTA_FILE = pathlib.Path("state/youtube_quota.json")
+DAILY_UPLOADS_PER_PROJECT = 6      # ١٠٠٠٠ وحدة ÷ ١٦٠٠ = ٦ رفعات (قانون يوتيوب نفسه)
+
+
+def _today() -> str:
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def quota_state() -> dict:
+    d = _jload(QUOTA_FILE, {}) or {}
+    if d.get("date") != _today():                 # يوم جديد ⇒ عدّاد جديد
+        d = {"date": _today(), "used": {}}
+    d.setdefault("used", {})
+    return d
+
+
+def _quota_save(d: dict) -> None:
+    try:
+        _jdump(QUOTA_FILE, d)
+    except Exception:
+        pass
+
+
+def quota_report() -> dict:
+    """كام رفعة استُخدمت النهاردة لكل مشروع وكام فاضل."""
+    st = quota_state()
+    out = {}
+    for c in all_projects() or [creds(1)]:
+        p = c.get("project", 1)
+        used = int(st["used"].get(str(p), 0))
+        out[str(p)] = {"used": used, "cap": DAILY_UPLOADS_PER_PROJECT,
+                       "left": max(0, DAILY_UPLOADS_PER_PROJECT - used),
+                       "ready": all((c["client_id"], c["client_secret"], c["refresh_token"]))}
+    return {"date": st["date"], "projects": out}
+
+
+def pick_project() -> dict | None:
+    """يختار مشروع عنده حصة فاضلة النهاردة (التبادل بين المشاريع)."""
+    st = quota_state()
+    for c in all_projects() or []:
+        p = str(c.get("project", 1))
+        if int(st["used"].get(p, 0)) < DAILY_UPLOADS_PER_PROJECT:
+            return c
+    return None
+
+
+def mark_upload(project: int, ok: bool = True) -> None:
+    if not ok:
+        return
+    st = quota_state()
+    p = str(int(project))
+    st["used"][p] = int(st["used"].get(p, 0)) + 1
+    _quota_save(st)
+
+
+QUOTA_WORDS = ("quota", "exceeded", "rate limit", "ratelimit", "uploadlimitexceeded",
+               "dailylimitexceeded", "too many requests", "403")
+
+
+def is_quota_error(err) -> bool:
+    t = str(err).lower()
+    return any(w in t for w in QUOTA_WORDS)
 
 
 def available(probe: bool = False) -> dict:
@@ -221,11 +302,32 @@ def notify(text: str) -> bool:
 
 
 def publish(video_path, md: dict, thumb_path=None) -> dict:
-    """كل حاجة مرة واحدة: رفع + غلاف + بلايليست + إشعار."""
+    """كل حاجة مرة واحدة: رفع + غلاف + بلايليست + إشعار — **بينوّع بين مشاريع جوجل**."""
     if not available()["ok"]:
         raise PublishUnavailable(available()["reason"])
-    tok = access_token()
-    res = upload(video_path, md, token=tok)
+    tried, last_err = [], None
+    while True:
+        c = pick_project()
+        if c is None:
+            raise PublishUnavailable(
+                "الحصة اليومية خلصت على كل المشاريع — الشغل هيتحفظ في الطابور وينزل تلقائي. "
+                f"({quota_report()['projects']})")
+        try:
+            tok = access_token(c)
+            res = upload(video_path, md, token=tok)
+            mark_upload(c.get("project", 1), True)
+            res["project"] = c.get("project", 1)
+            break
+        except Exception as e:
+            if is_quota_error(e):
+                mark_upload(c.get("project", 1), True)       # نحسبها مستهلكة ونروح لمشروع تاني
+                tried.append(c.get("project", 1))
+                last_err = e
+                continue
+            raise
+    if tried:
+        md = dict(md or {})
+        md["projects_tried"] = tried
     if thumb_path:
         res["thumbnail"] = set_thumbnail(res["id"], thumb_path, token=tok)
     if md.get("playlist"):

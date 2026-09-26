@@ -29,6 +29,11 @@ jobs:
           CID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           CSEC: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           RT: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          CID2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          CSEC2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          RT2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+          CID3: ${{ secrets.YOUTUBE_CLIENT_ID_3 }}
+          CID4: ${{ secrets.YOUTUBE_CLIENT_ID_4 }}
           N: ${{ inputs.count || 12 }}
         run: |
           python - <<'PY'
@@ -66,4 +71,22 @@ jobs:
               print(f"  {pub} | {st.get('privacyStatus'):8s} | 👁️ {v['statistics'].get('viewCount','0'):>6s} | {sn['title'][:62]}")
               print(f"      https://youtu.be/{v['id']}")
           print(f"\n✅ رفعات آخر ٢٤ ساعة: {day}")
+          print("\n— مشاريع جوجل المضبوطة (سقف النشر اليومي) —")
+          projs = [("1", os.environ.get("CID"), os.environ.get("RT")),
+                   ("2", os.environ.get("CID2"), os.environ.get("RT2")),
+                   ("3", os.environ.get("CID3"), None), ("4", os.environ.get("CID4"), None)]
+          cap = 0
+          for num, cid, rt in projs:
+              state = "✅" if (cid and rt) else "⚪ (مش مضبوط)"
+              if cid and rt:
+                  cap += 6
+              print(f"   مشروع {num}: {state}")
+          print(f"   سقف النشر اليومي الحالي: ~{cap} رفعة/يوم")
+          try:
+              import json as _j, pathlib as _p
+              qf = _p.Path("state/youtube_quota.json")
+              if qf.exists():
+                  print("   مستخدم النهاردة:", _j.loads(qf.read_text(encoding='utf-8')).get("used"))
+          except Exception as _e:
+              print("   (مفيش سجل حصة بعد)")
           PY

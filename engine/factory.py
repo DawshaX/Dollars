@@ -359,10 +359,22 @@ def main(argv=None):
     ap.add_argument("--out", default=None)
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--render-queue", action="store_true", help="يعيد إنتاج الطابور وينشره (لبعد ربط القناة)")
+    ap.add_argument("--quota", action="store_true", help="يعرض حصة النشر اليومية لكل مشروع جوجل")
     ap.add_argument("--limit", type=int, default=None)
     a = ap.parse_args(argv)
     if a.status:
         print(report_text())
+        return 0
+    if a.quota:
+        from engine import publish as _pb
+        rep = _pb.quota_report()
+        print(f"📊 حصة النشر اليومية — {rep['date']}")
+        total_left = 0
+        for num, info in rep["projects"].items():
+            mark = "✅" if info["ready"] else "⚪ (مش مضبوط)"
+            print(f"  • مشروع {num}: مستخدم {info['used']}/{info['cap']} · فاضل {info['left']}  {mark}")
+            total_left += info["left"] if info["ready"] else 0
+        print(f"\n  السقف اليومي المتاح: ~{total_left} رفعة")
         return 0
     if a.render_queue:
         out = render_queue(force_stage=a.force_stage, limit=a.limit, out_dir=a.out)
