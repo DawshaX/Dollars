@@ -34,7 +34,10 @@ SCOPES = [
 #   https://8899-ivfx0jnsfhm4lb21x07io-ae1265fb.sg1.manus.computer/callback  ✅ مقبول
 #   https://developers.google.com/oauthplayground                            ✅ مقبول
 #   أي عنوان localhost                                                       ❌ مرفوض (redirect_uri_mismatch)
-REDIRECT = os.environ.get("REDIRECT_URI") or "https://8899-ivfx0jnsfhm4lb21x07io-ae1265fb.sg1.manus.computer/callback"
+# العنوان المسجّل فعلًا على عميل المصنع (اتأكدنا من جوجل نفسها بماسح كامل):
+#   https://developers.google.com/oauthplayground   ✅ مقبول
+#   أي localhost أو دومين بيئات قديمة أو صفحتنا    ❌ مرفوض (لحد ما يتضاف من Cloud Console)
+REDIRECT = os.environ.get("REDIRECT_URI") or "https://developers.google.com/oauthplayground"
 
 
 # ───────────────────────── أدوات صغيرة ─────────────────────────
@@ -65,6 +68,49 @@ def gh(pat: str) -> dict:
 
 
 # ───────────────────────── جوجل ─────────────────────────
+
+def check_link(cid: str, redirect: str | None = None) -> tuple[bool, str]:
+    """فحص أمين: نطلب من جوجل من غير متابعة التحويل، ونفكّ تشفير الخطأ لو موجود.
+
+    ملاحظة مهمة: صفحة خطأ جوجل بتغطّي السبب في باراميتر base64 — فمجرد البحث عن كلمة
+    «mismatch» في الرد **مش كفاية** (كانت بتقول ✅ غلط). هنا بنفكّ التشفير ونتأكد.
+    """
+    import base64
+    import re as _re
+    red = redirect or REDIRECT
+    q = urllib.parse.urlencode({"client_id": cid, "redirect_uri": red, "response_type": "code",
+                                "scope": SCOPES[0], "access_type": "offline", "prompt": "consent"})
+    url = "https://accounts.google.com/o/oauth2/v2/auth?" + q
+
+    class _NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, *a, **k):
+            return None
+
+    op = urllib.request.build_opener(_NoRedirect)
+    loc = ""
+    try:
+        with op.open(urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=30) as r:
+            code, loc = r.status, (r.headers.get("Location") or "")
+    except urllib.error.HTTPError as e:
+        code, loc = e.code, ((e.headers.get("Location") or "") if e.headers else "")
+    except Exception as e:
+        return False, f"مش قادر أفحص ({type(e).__name__})"
+    reason = ""
+    m = _re.search(r"authError=([^&]+)", loc)
+    if m:
+        try:
+            reason = base64.urlsafe_b64decode(m.group(1) + "==").decode("utf-8", "ignore")
+        except Exception:
+            reason = m.group(1)
+    blob = (loc + " " + reason).lower()
+    if "mismatch" in blob:
+        return False, f"العنوان مش مسجّل على العميل ده — لازم تضيف: {red}"
+    if "invalid_client" in blob:
+        return False, "العميل نفسه مرفوض (client_id غلط/مقفول)"
+    if "/signin/" in loc or "/v3/signin" in loc or code == 200:
+        return True, ""
+    return False, f"رد غير متوقع ({code}) {loc[:80]}"
+
 
 def auth_link(cid: str) -> str:
     q = urllib.parse.urlencode({
@@ -161,8 +207,31 @@ def mode_url(cid: str) -> int:
     print("🔗 PART1OF3: " + link[: n // 3])
     print("🔗 PART2OF3: " + link[n // 3: 2 * n // 3])
     print("🔗 PART3OF3: " + link[2 * n // 3:])
-    print(telegram("🔗 لينك موافقة جوجل لربط القناة بتوكن دائم (اضغط عليه من الموبايل):\n" + link))
-    print("\n— خطوات صاحب القناة —")
+    steps = ("\n\nالخطوات (٤٠ ثانية):\n"
+             "1) سجّل دخول بالحساب اللي بيدير القناة\n"
+             "2) اختار القناة xDaw NoVa\n"
+             "3) Allow / موافقة\n"
+             "4) هتفتح صفحة Google OAuth Playground:\n"
+             "   • لو ظهر فيها «Authorization code» → انسخه\n"
+             "   • لو ظهر «Refresh token» → انسخه\n"
+             "   • ولو الصفحة مش واضحة → انسخ **العنوان كامل** من شريط العنوان (الكود جواه)\n"
+             "5) ابعته فورًا هنا أو على تلجرام\n\n"
+             "⏱️ الكود بيموت بعد 10 دقايق — لازم تبعته على طول.")
+    print(telegram("🔗 **لينك الربط النهائي** (اضغط عليه من الموبايل):\n" + link + steps))
+    # فحص تلقائي: هل جوجل بتقبل العنوان مع العميل ده؟ (بنختبر من غير ما نستهلك أي كود)
+    ok, note = check_link(cid)
+    print(("✅ الفحص: جوجل قبلت اللينك ده — ماشي صح" if ok else
+           "❌ الفحص: جوجل رفضت العنوان للعميل ده — " + note))
+    if not ok:
+        print(telegram(
+            "⚠️ محتاج ضغطة واحدة منك (دقيقة واحدة):\n\n"
+            "افتح: https://console.cloud.google.com/apis/credentials?project=" + cid.split("-")[0] + "\n"
+            "1) اضغط على اسم الـ OAuth client (لو فيه أكتر من واحد، اعمل نفس الخطوة في كل واحد)\n"
+            "2) تحت «Authorized redirect URIs» اضغط ADD URI\n"
+            "3) الصق السطر ده بالحرف:\n" + str(REDIRECT) + "\n"
+            "4) SAVE\n\n"
+            "وبعدها مش هتحتاج تعمل حاجة — اللينك الجديد هيوصلك أوتوماتيك ✅"))
+        print("\n— خطوات صاحب القناة —")
     print("0) مهم: بعد الموافقة المتصفح هيقول «الصفحة مش موجودة» أو يحمّل للأبد — عادي جدًا.")
     print("   مفيش أي مشكلة: **العنوان في شريط العنوان فيه الكود**. انسخ العنوان كامل وابعته.")
     print("1) Google Cloud Console → APIs & Services → OAuth consent screen → زرار «PUBLISH APP»")
@@ -183,16 +252,30 @@ def mode_token(cid: str, csec: str, raw_code: str, pat: str, copy_to: str, repo:
         print("❌ مفيش كود — ابعت العنوان اللي ظهر بعد الموافقة")
         return 2
     if raw_code.strip().startswith("1//"):            # المالك جاب refresh token جاهز (Playground) — نقبله
-        rt, ch = raw_code.strip(), channel_of("")
-        st_ok = True
-        print("📺 توكن جاهز:", json.dumps(ch, ensure_ascii=False))
+        rt = raw_code.strip()
+        st, tok = http("https://oauth2.googleapis.com/token", data={
+            "client_id": cid, "client_secret": csec, "refresh_token": rt,
+            "grant_type": "refresh_token"})
+        if st != 200 or "access_token" not in tok:
+            print(f"❌ التوكن الجاهز مرفوض ({st}): {str(tok)[:200]}")
+            print("   غالبًا اتعمل بعميل تاني — استخدم لينك وضع «url» بدل كده.")
+            return 3
+        ch = channel_of(tok["access_token"])           # تأكيد حقيقي: القناة اللي التوكن بيوصلها
+        print("📺 التوكن شغّال — القناة:", json.dumps(ch, ensure_ascii=False))
         return _install(cid, csec, rt, ch, pat, copy_to, repo)
     st, tok = exchange(cid, csec, code)
     if st != 200 or "refresh_token" not in tok:
-        err = str(tok)[:220]
+        err = str(tok)[:260]
         print(f"❌ التبديل فشل ({st}): {err}")
-        if "invalid_grant" in err:
-            print("   السبب الغالب: الكود اتستخدم قبل كده أو عدّى عليه وقت — اعمل موافقة جديدة.")
+        low = err.lower()
+        if "invalid_grant" in low:
+            print("   السبب الغالب: الكود اتستخدم قبل كده أو عدّى عليه 10 دقايق — اعمل موافقة جديدة من لينك وضع «url».")
+        elif "unauthorized_client" in low:
+            print("   السبب: عميل جوجل اللي في الأسرار مختلف عن اللي طلعت بيه الموافقة.")
+            print("   الحل: استخدم لينك وضع «url» (بيتبني من نفس العميل اللي بيعمل التبديل) — سطر واحد وخلاص.")
+        elif "redirect_uri_mismatch" in low:
+            print(f"   السبب: العنوان {REDIRECT} مش مسجّل على العميل ده.")
+            print("   الحل: Google Cloud → Credentials → OAuth client → Authorized redirect URIs → أضفه ثم أعد المحاولة.")
         return 3
     rt = tok["refresh_token"]
     ch = channel_of(tok.get("access_token", ""))
@@ -218,6 +301,45 @@ def _install(cid: str, csec: str, rt: str, ch: dict, pat: str, copy_to: str, rep
     print(telegram(msg))
     print("\nالخلاصة:", "كله تمام ✅ التوكن الدائم محفوظ" if ok else "⚠️ راجع السطور اللي فوق")
     return 0 if ok else 1
+
+
+CANDIDATES = [
+    "http://localhost",
+    "http://localhost/",
+    "http://localhost:8085/",
+    "http://localhost:8899/callback",
+    "http://127.0.0.1:8899/callback",
+    "https://dawshax.github.io/youtube/callback/",
+    "https://dawshax.github.io/youtube/",
+    "https://8899-ivfx0jnsfhm4lb21x07io-ae1265fb.sg1.manus.computer/callback",
+    "https://developers.google.com/oauthplayground",
+    "urn:ietf:wg:oauth:2.0:oob",
+]
+
+
+def mode_scan(cid: str) -> int:
+    """يجرب كل عناوين التحويل المحتملة ويقول أيها **مقبول فعلًا** على العميل ده.
+
+    كده مفيش تخمين: بنعرف العنوان الصح من جوجل نفسها في تشغيل واحد.
+    """
+    good = []
+    for r in CANDIDATES:
+        ok, note = check_link(cid, r)
+        print(("✅ مقبول  " if ok else "❌ مرفوض  ") + r + ("" if ok else "   (" + note[:70] + ")"))
+        if ok:
+            good.append(r)
+    best = ""
+    for pref in ("https://dawshax.github.io/youtube/callback/", "http://localhost", "https://developers.google.com/oauthplayground"):
+        if pref in good:
+            best = pref
+            break
+    print("\nالنتيجة: " + (("العنوان المستخدم: " + best) if best else "مفيش عنوان مسجّل من القايمة — لازم تضيف واحد"))
+    print(telegram("🔎 فحص عناوين التحويل\n\n" + ("\n".join(good) if good else "مفيش عنوان مسجّل") +
+                   ("\n\nاللي هنستخدمه: " + best if best else
+                    "\n\nافتح https://console.cloud.google.com/apis/credentials?project=" + cid.split("-")[0] +
+                    "\nواختار الـ OAuth client، وفي «Authorized redirect URIs» اضغط ADD URI والصق:\n"
+                    "https://dawshax.github.io/youtube/callback/\nثم SAVE (كرّرها في كل العملا لو فيه أكتر من واحد)")))
+    return 0
 
 
 def mode_probe(pat: str, repo: str, copy_to: str) -> int:
@@ -252,6 +374,10 @@ def main() -> int:
         return mode_token(cid, csec, raw, pat, copy_to, repo)
     if act == "probe":
         return mode_probe(pat, repo, copy_to)
+    if act == "scan":
+        if not cid:
+            print("❌ ناقص YOUTUBE_CLIENT_ID"); return 2
+        return mode_scan(cid)
     print(f"وضع غير معروف: {act} (المتاح: url · token · probe)")
     return 2
 
