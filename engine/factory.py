@@ -68,7 +68,8 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     topic = idea.get("image_query") or idea.get("topic") or idea.get("kw") or "nature"
     style = "illustration" if gid == "story" else "photo"
     items = photo.collect(topic, genre=gid, n=6, style=style)
-    paths = [p for p in (photo.download(it) for it in items) if p]
+    min_color = 0.0 if gid in ("space_nature", "story") else 0.055    # الحقائق: صور ملوّنة حقيقية
+    paths = [p for p in (photo.download(it, min_color=min_color) for it in items) if p]
     if not paths:
         raise RuntimeError("مفيش صور حرة متاحة للموضوع ده — نجرب غيره")
     out_dir = pathlib.Path(out_dir or (WORK / f"{date.today().isoformat()}_photo"))
@@ -113,7 +114,19 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     md["sources"] = [it.get("page") for it in items if it.get("page")]
     md["shot_list"] = [{"scene": f"photo:{it.get('source')}", "dur": round(seconds / max(1, len(paths)), 2),
                         "move": "kenburns", "sfx": [], "fx": []} for it in items[:len(paths)]]
+    # 🖼️ الغلاف: من أقوى صورة + نص قصير (زي أغلفة القنوات الكبيرة)
+    thumb = None
+    try:
+        ttexts = {
+            "facts": ["3 FACTS", (idea.get("kw") or "")[:22]],
+            "space_nature": [(idea.get("kw") or "").upper()[:20], f"{int(seconds)}s BLACK SCREEN"],
+            "story": ["A WORDLESS STORY", (idea.get("thing") or "")[:22]],
+        }.get(gid, [(idea.get("kw") or "")[:22], "NEW"])
+        thumb = photo.thumb_from_photo(paths, ttexts, out_dir / f"{gid}_{seed}_thumb.jpg", palette=pal)
+    except Exception:
+        thumb = None
     return {"kind": "photo_short", "video": str(video), "meta": md, "pillar": md.get("pillar"),
+            "thumbnail": str(thumb) if thumb else None,
             "duration": f"{int(seconds)}s", "scene": f"photo:{topic}", "audio": idea.get("audio"),
             "palette": idea.get("palette"), "genre": gid, "photos": len(paths),
             "credits": cr}

@@ -301,9 +301,20 @@ def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
             right[:m] += bed[:m, 1] * music_gain
         except Exception:
             pass
+    # ── معايرة صوت احترافية: نستهدف إحساس صوت ثابت (RMS) مع سقف يمنع التشويه ──
     peak = max(float(np.abs(left).max()), float(np.abs(right).max()), 1e-6)
-    k = min(1.0, 0.92 / peak)
-    return np.stack([np.clip(left * k, -1, 1), np.clip(right * k, -1, 1)], axis=1)
+    k_peak = min(1.0, 0.97 / peak)
+    left, right = left * k_peak, right * k_peak
+    rms = float(np.sqrt((np.concatenate([left, right]) ** 2).mean()) + 1e-9)
+    target = 10 ** (-17.0 / 20.0)                 # ≈ ‎-17 dB RMS (مستوى يوتيوب المريح)
+    gain = target / rms
+    gain = float(np.clip(gain, 0.5, 14.0))        # حدود آمنة (مفيش رفع هستيري لمقطع ساكت)
+    left, right = left * gain, right * gain
+    limiter_peak = max(float(np.abs(left).max()), float(np.abs(right).max()), 1e-6)
+    if limiter_peak > 0.985:                      # limiter ناعم بدل القصّ الحاد
+        left = np.tanh(left / 0.985) * 0.985
+        right = np.tanh(right / 0.985) * 0.985
+    return np.stack([np.clip(left, -1, 1), np.clip(right, -1, 1)], axis=1)
 
 
 def _write_wav(path, stereo: np.ndarray, sr: int = 44100):

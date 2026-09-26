@@ -181,7 +181,10 @@ def wikimedia_images(q: str, per: int = 8) -> list[dict]:
 # صور ممنوعة: رسومات توضيحية · خرائط · أساطير · ملصقات (مش صور حلوة)
 BAD_IMAGE_WORDS = ("legend", "diagram", "chart", "infographic", "poster", "sketch", "map of",
                    "graph", "table", "schematic", "blueprint", "label", "annotated", "figure ",
-                   "text graphic", "logo", "icon")
+                   "text graphic", "logo", "icon",
+                   # صور أقمار صناعية/خرايط عليها كتابة — شكلها توضيحي مش فوتوغرافي
+                   "from space", "satellite", "iss ", "spacecraft", "orbiter", "landsat",
+                   "modis", "topographic", "map", "cross-section", "cutaway")
 
 
 def _nice_image(title: str, desc: str = "") -> bool:
