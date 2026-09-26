@@ -100,7 +100,8 @@ def all_projects(max_projects: int = 4) -> list[dict]:
 
 
 PROJECTS_FILE = pathlib.Path("state/youtube_projects.json")
-QUOTA_FILE = pathlib.Path("state/youtube_quota.json")
+# سجل الحصة: لكل ووركفلو سجله الخاص عشان مفيش تعارض (النشر بمشروع والمسح بمشروع تاني)
+QUOTA_FILE = pathlib.Path(os.environ.get("QUOTA_LEDGER") or "state/youtube_quota.json")
 ROLES_FILE = pathlib.Path("state/quota_roles.json")
 NOTICE_FILE = pathlib.Path("state/quota_notice.json")
 DAILY_UNITS = 10_000               # حصة كل مشروع جوجل في اليوم (من جوجل نفسه)

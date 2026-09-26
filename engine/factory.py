@@ -253,6 +253,11 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
         if not slot:
             continue
         try:
+            if publish.usable_projects() and publish.remaining_capacity() <= 0:
+                _say("⛔ الحصة خلصت — وقفنا قبل الرندر (مبنضيّعش وقت) والباقي هينزل لوحده.")
+                _jdump(STATE / "queue.json", q)
+                _log(lines + ["⛔ الحصة خلصت أثناء الدفعة"])
+                return {"processed": done, "remaining": len(q["items"]), "lines": lines, "stopped": "quota"}
             _say(f"[{n}/{len(items)}] 🎬 بنرندر: {it.get('title')}")
             t0 = time.time()
             rec = produce(slot, out_dir=out_dir, seed=it.get("seed"))

@@ -28,6 +28,7 @@ jobs:
       - name: مسح دفعة قديمة
         env:
           LIVE_ISSUE: '1'
+          QUOTA_LEDGER: state/quota_prune.json
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
