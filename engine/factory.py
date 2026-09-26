@@ -173,6 +173,17 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
     return rec
 
 
+QUOTA_WORDS = ("quota", "exceeded", "rateLimit", "dailyLimit", "uploadLimit", "too many requests")
+
+
+def quota_exhausted(res: dict) -> bool:
+    """هل الفشل سببه كوتة يوتيوب؟ (وقتها بنوقف بدل ما نرندر حاجات مش هتنشر)"""
+    if not res or res.get("published"):
+        return False
+    txt = str(res.get("reason") or "").lower()
+    return any(w.lower() in txt for w in QUOTA_WORDS)
+
+
 def publish_or_stage(rec: dict, force_stage: bool = False) -> dict:
     """
     ينشر لو القناة مربوطة، وإلا يحفظ في الطابور. بيرجّع سطر النتيجة.
@@ -229,6 +240,11 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
             lines.append(f"↻ {it.get('title')} → " + (f"نُشر {res.get('url')}" if res.get("published") else f"لسه في الطابور ({res.get('reason')})"))
             if res.get("published") and not force_stage:
                 q["items"].remove(it)
+            elif quota_exhausted(res):
+                lines.append("⛔ كوتة يوتيوب خلصت — وقفنا بدل ما نضيّع وقت. الباقي هينزل لوحده (كل ساعة).")
+                _jdump(STATE / "queue.json", q)
+                _log(lines)
+                return {"processed": done, "remaining": len(q["items"]), "lines": lines, "stopped": "quota"}
         except Exception as e:
             lines.append(f"❌ فشل إعادة إنتاج «{it.get('title')}»: {type(e).__name__}: {e}")
     _jdump(STATE / "queue.json", q)

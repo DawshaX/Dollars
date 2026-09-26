@@ -1,0 +1,60 @@
+name: ♻️ تفريغ الطابور — نشر تلقائي مستمر
+
+# ليه الحلقة دي؟
+# الطابور كان بيتفرّغ بأمر يدوي. من هنا ورايح بيتفرّغ **لوحده** كل ساعة:
+#   • ياخد عدد محدود من الطابور (افتراضي 2) ويعيد إنتاجه بنفس الوصفة والبذرة وينشره.
+#   • لو كوتة يوتيوب خلصت → الكود بيوقف فورًا (مفيش وقت مهدور) والباقي يفضل في الطابور بأمان.
+#   • مع النبضة الساعية (🏭 المصنع — كل ساعة) النتيجة: نشر مستمر بلا تدخل من حد.
+#
+# ملاحظة أمان: المستودع عام ⇒ دقايق Actions مجانية، فمفيش أي تكلفة على التفريغ.
+on:
+  schedule:
+    - cron: '26 * * * *'          # كل ساعة عند الدقيقة 26 (بعد نبضة الإنتاج)
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'أقصى عدد من الطابور في المرة دي'
+        type: string
+        default: '2'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: factory-publish          # نفس مجموعة النشر ⇒ مفيش تصادم مع حلقة النشر اليدوية
+  cancel-in-progress: false
+
+jobs:
+  drain:
+    runs-on: ubuntu-latest
+    timeout-minutes: 170
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: أدوات الرندر
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc 2>/dev/null || true
+          python -m pip install --quiet numpy pillow imageio-ffmpeg
+      - name: ♻️ فرّغ الطابور (رندر + نشر)
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python engine/factory.py --render-queue --limit ${{ github.event.inputs.limit || 2 }}
+      - name: حفظ الذاكرة (الطابور + السجل)
+        run: |
+          git config user.name "Dollars Factory"
+          git config user.email "factory@dawshax.local"
+          git add state 2>/dev/null || true
+          if git diff --cached --quiet; then echo "مفيش تغيير"; exit 0; fi
+          git commit -m "♻️ تفريغ الطابور: نشر تلقائي ($(date -u +%H:%M) UTC)"
+          for i in 1 2 3; do
+            git pull --rebase --autostash -q origin main 2>/dev/null || true
+            git push -q origin HEAD:main && break || sleep 5
+          done
