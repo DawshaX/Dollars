@@ -173,8 +173,9 @@ def test_prune_never_touches_new_factory_videos(monkeypatch, tmp_path):
 def test_captions_srt_crlf():
     """ملف الترجمة لازم CRLF وينتهي بسطر جديد — يوتيوب بيرفض غير كده (400)."""
     from engine import publish
-    srt = publish.build_srt([{"at": 1.0, "dur": 2.0, "text": "Hello"}])
-    assert "-->" in srt and "\n\n" in srt
+    srt = publish.build_srt([{"at": 1.0, "dur": 2.0, "text": "Hello"},
+                             {"at": 4.0, "dur": 2.0, "text": "World"}])
+    assert "-->" in srt and srt.endswith("\n") and "\n\n" in srt   # بلوكات منفصلة بسطر جديد
 
 
 def test_caption_body_is_valid_multipart():
