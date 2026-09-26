@@ -87,3 +87,19 @@ def test_long_video_is_built_without_reencode(tmp_path):
     m = rec["meta"]["montage"]                            # المونتاج مسجّل بالكامل
     assert m["assembled"] and m["intro_seconds"] == 12.0 and m["outro_seconds"] == 10.0
     assert m["body_reencoded"] is False and m["music"] == "warm_pad"
+
+
+def test_ambience_short_uses_the_real_pillar_for_metadata(tmp_path):
+    """شورت التركيز لازم يطلع عنوان «تركيز» وموسيقى/أجواء مناسبة — مش عنوان نوم."""
+    from engine import editor
+
+    ed = editor.Editor(str(tmp_path), seed=42)
+    rec = ed.make("ambience_short", seconds=6, meta_pillar="focus")
+    md = rec["meta"]
+    assert md["pillar"] == "focus"
+    assert any("Focus" in t or "Studying" in t or "Concentration" in t for t in md["titles"]), md["titles"]
+    assert not any("Sleeping" in t for t in md["titles"])
+
+    rec2 = ed.make("ambience_short", seconds=6, meta_pillar="sleep")
+    assert rec2["meta"]["pillar"] == "sleep"
+    assert any("Sleeping" in t for t in rec2["meta"]["titles"]), rec2["meta"]["titles"]

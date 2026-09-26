@@ -2,7 +2,7 @@
   "note": "ملصقات Dollars — مرسومة بالكود 100%، ملكية كاملة، بلا حقوق.",
   "license": "owned-generated",
   "size": 512,
-  "count": 41,
+  "count": 47,
   "uses": {
     "reaction": [
       "nono_happy",
@@ -27,7 +27,23 @@
       "droplet",
       "moon",
       "sun",
-      "cloud"
+      "cloud",
+      "gem",
+      "gift",
+      "leaf",
+      "snowflake",
+      "butterfly"
+    ],
+    "nature": [
+      "leaf",
+      "snowflake",
+      "butterfly",
+      "cloud",
+      "rain_cloud",
+      "sun",
+      "moon",
+      "droplet",
+      "smoke"
     ],
     "ui": [
       "question",
@@ -44,7 +60,10 @@
       "speech",
       "thought",
       "note",
-      "rain_cloud"
+      "rain_cloud",
+      "smoke",
+      "gift",
+      "gem"
     ]
   },
   "files": [
@@ -56,6 +75,7 @@
     "bomi_sleep.png",
     "bubble.png",
     "burst.png",
+    "butterfly.png",
     "check.png",
     "cloud.png",
     "cross.png",
@@ -63,6 +83,8 @@
     "droplet.png",
     "exclaim.png",
     "flame.png",
+    "gem.png",
+    "gift.png",
     "heart.png",
     "heart_broken.png",
     "koko_happy.png",
@@ -70,6 +92,7 @@
     "laugh.png",
     "lazo_auto.png",
     "lazo_sleep.png",
+    "leaf.png",
     "moon.png",
     "nono_happy.png",
     "nono_love.png",
@@ -82,6 +105,8 @@
     "question.png",
     "rain_cloud.png",
     "ring.png",
+    "smoke.png",
+    "snowflake.png",
     "sparkle.png",
     "speech.png",
     "speed_lines.png",

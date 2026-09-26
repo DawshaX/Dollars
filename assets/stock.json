@@ -1,8 +1,8 @@
 {
   "note": "المخزون المحلي الأساسي — كل ملف هنا ملكنا (مولّد بالكود) ⇒ صفر حقوق، صفر سرقة.",
-  "generated": "2026-09-25T23:44:49Z",
-  "sfx": 74,
-  "sfx_mb": 6.26,
+  "generated": "2026-09-26T00:04:44Z",
+  "sfx": 90,
+  "sfx_mb": 8.04,
   "music_previews": [
     "music_box",
     "lullaby_bell",
@@ -12,7 +12,10 @@
     "night_drone",
     "kalimba_dusk",
     "harp_mist",
-    "cosmic_pad"
+    "cosmic_pad",
+    "city_night",
+    "ocean_lullaby",
+    "glass_garden"
   ],
   "fx_kinds": [
     "light_leak",

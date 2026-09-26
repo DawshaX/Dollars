@@ -117,7 +117,8 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
     right = np.zeros(n, np.float32)
 
     # ── أرضية الأكوردات ──
-    if style in ("warm_pad", "night_drone", "dream_pulse", "harp_mist", "cosmic_pad"):
+    if style in ("warm_pad", "night_drone", "dream_pulse", "harp_mist", "cosmic_pad",
+                 "city_night", "ocean_lullaby", "glass_garden"):
         for b in range(int(math.ceil(gen / bar))):
             deg = prog[b % len(prog)]
             start = _n(b * bar)
@@ -134,10 +135,13 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
             del mix
 
     # ── لحن علوي (جرس/صندوق موسيقى) ──
-    if style in ("music_box", "lullaby_bell", "dream_pulse", "lofi_keys", "kalimba_dusk", "harp_mist"):
+    if style in ("music_box", "lullaby_bell", "dream_pulse", "lofi_keys", "kalimba_dusk", "harp_mist",
+                 "city_night", "glass_garden"):
         shape = {"music_box": "pluck", "lullaby_bell": "bell", "dream_pulse": "sine",
-                 "lofi_keys": "tri", "kalimba_dusk": "pluck", "harp_mist": "bell"}[style]
-        step = {"dream_pulse": bar / 3.0, "kalimba_dusk": bar / 3.0, "harp_mist": bar / 2.0}.get(style, bar / 4.0)
+                 "lofi_keys": "tri", "kalimba_dusk": "pluck", "harp_mist": "bell",
+                 "city_night": "bell", "glass_garden": "pluck"}[style]
+        step = {"dream_pulse": bar / 3.0, "kalimba_dusk": bar / 3.0, "harp_mist": bar / 2.0,
+                "glass_garden": bar / 6.0, "city_night": bar / 2.0}.get(style, bar / 4.0)
         if style == "harp_mist":                       # هارب: نغمتين متتاليتين خفيفتين
             step = max(0.6, bar / 3.0)
         k = 0
@@ -166,7 +170,7 @@ def bed(style: str = "warm_pad", seconds: float = 40.0, key: str = "calm",
                 break
 
     # ── نبض ناعم (درام خفيف بالكود) ──
-    if style in ("dream_pulse", "lofi_keys", "kalimba_dusk"):
+    if style in ("dream_pulse", "lofi_keys", "kalimba_dusk", "city_night"):
         beat = bar / 2.0
         p = 0.0
         while p < gen - 0.05:
@@ -225,6 +229,9 @@ def STYLES() -> dict:
         "kalimba_dusk": "كاليمبا الغروب — دفء خشبي بإيقاع خفيف (قِصص/أجواء)",
         "harp_mist": "هارب على الضباب — نغمات ناعمة متباعدة (تأمل/نوم)",
         "cosmic_pad": "طبقات كونية — اتساع بلا نبض (فضاء/تأمل عميق)",
+        "city_night": "ليل المدينة — أجراس بعيدة ومطر (أجواء)",
+        "ocean_lullaby": "تهويدة البحر — موج هادي (نوم/أجواء)",
+        "glass_garden": "جنينة زجاجية — نغمات صافية سريعة (مريح/زن)",
     }
 
 

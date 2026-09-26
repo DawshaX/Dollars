@@ -9,6 +9,9 @@
       "ocean",
       "aurora",
       "fireplace",
+      "candle_desk",
+      "bubble_lamp",
+      "neon_rain",
       "valley_lake",
       "snow_pines",
       "dunes_moon"
@@ -17,6 +20,8 @@
       "sand_table",
       "pendulum_wave",
       "harmonograph",
+      "zen_garden",
+      "bubble_lamp",
       "stinger_confetti",
       "stinger_glitch",
       "stinger_zoom",
@@ -31,9 +36,12 @@
     ],
     "all": [
       "aurora",
+      "bubble_lamp",
+      "candle_desk",
       "dunes_moon",
       "fireplace",
       "harmonograph",
+      "neon_rain",
       "ocean",
       "pendulum_wave",
       "planet_rings",
@@ -45,7 +53,8 @@
       "stinger_glitch",
       "stinger_ink",
       "stinger_zoom",
-      "valley_lake"
+      "valley_lake",
+      "zen_garden"
     ],
     "note": "كل مشهد حركة حقيقية (جزيئات · موج · لهب · كور) مش صورة ثابتة"
   },
@@ -60,8 +69,27 @@
     "storm"
   ],
   "sfx": {
-    "count": 74,
+    "count": 90,
     "uses": {
+      "cinema": [
+        "deep_boom",
+        "soft_choir",
+        "harp_gliss",
+        "chime_run",
+        "glass_chime_run",
+        "sparkle_shower",
+        "swell",
+        "reverse_swell",
+        "downlifter"
+      ],
+      "craft": [
+        "pen_scratch",
+        "type_char",
+        "paper_flip",
+        "page_turn",
+        "clock_chime",
+        "door_soft_close"
+      ],
       "transition": [
         "whoosh",
         "swipe",
@@ -112,7 +140,15 @@
         "wind_gust",
         "rain_drop",
         "thunder_far",
-        "fire_crackle"
+        "fire_crackle",
+        "sand_pour",
+        "stone_slide",
+        "wood_creak",
+        "leaf_rustle",
+        "water_drip",
+        "bird_chirp",
+        "cricket_night",
+        "water"
       ],
       "atmosphere": [
         "vinyl",
@@ -120,7 +156,11 @@
         "wind_gust",
         "thunder_far",
         "rain_drop",
-        "warm_hum"
+        "warm_hum",
+        "cricket_night",
+        "leaf_rustle",
+        "bird_chirp",
+        "snow_crunch"
       ],
       "home": [
         "kettle_whistle",
@@ -190,7 +230,14 @@
         "owl_night",
         "frog_pond",
         "quill_write",
-        "clock_chime"
+        "clock_chime",
+        "bird_chirp",
+        "cricket_night",
+        "water_drip",
+        "leaf_rustle",
+        "snow_crunch",
+        "paper_flip",
+        "soft_choir"
       ],
       "satisfying": [
         "bubble",
@@ -214,7 +261,12 @@
         "brook_water",
         "snow_crunch",
         "fabric_swish",
-        "kettle_whistle"
+        "kettle_whistle",
+        "sand_pour",
+        "glass_chime_run",
+        "sparkle_shower",
+        "stone_slide",
+        "harp_gliss"
       ],
       "short_comedy": [
         "boing",
@@ -229,12 +281,17 @@
         "downlifter",
         "vinyl",
         "swell",
-        "reverse_swell"
+        "reverse_swell",
+        "stone_slide",
+        "wood_creak",
+        "deep_boom",
+        "type_char",
+        "door_soft_close"
       ]
     }
   },
   "stickers": {
-    "count": 41,
+    "count": 47,
     "uses": {
       "reaction": [
         "nono_happy",
@@ -259,7 +316,23 @@
         "droplet",
         "moon",
         "sun",
-        "cloud"
+        "cloud",
+        "gem",
+        "gift",
+        "leaf",
+        "snowflake",
+        "butterfly"
+      ],
+      "nature": [
+        "leaf",
+        "snowflake",
+        "butterfly",
+        "cloud",
+        "rain_cloud",
+        "sun",
+        "moon",
+        "droplet",
+        "smoke"
       ],
       "ui": [
         "question",
@@ -276,7 +349,10 @@
         "speech",
         "thought",
         "note",
-        "rain_cloud"
+        "rain_cloud",
+        "smoke",
+        "gift",
+        "gem"
       ]
     }
   },
@@ -399,6 +475,18 @@
       "name": "Bomi",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "luta_auto",
+      "name": "Luta",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "riva_auto",
+      "name": "Riva",
+      "type": "قطة صحراوية",
+      "origin": "auto"
     }
   ],
   "stories": [
@@ -440,6 +528,16 @@
     {
       "id": "nono_balloon",
       "title": "نونو والبالونة",
+      "beats": 4
+    },
+    {
+      "id": "koko_zen",
+      "title": "كوكو والفراشة",
+      "beats": 4
+    },
+    {
+      "id": "paper_man_letter",
+      "title": "الرجل الورقي والرسالة",
       "beats": 4
     }
   ],
@@ -513,7 +611,7 @@
   },
   "stock": {
     "note": "المخزون المحلي — كله ملكنا (مولّد بالكود)",
-    "sfx_files": 74,
+    "sfx_files": 90,
     "music_styles": [
       "music_box",
       "lullaby_bell",
@@ -523,11 +621,14 @@
       "night_drone",
       "kalimba_dusk",
       "harp_mist",
-      "cosmic_pad"
+      "cosmic_pad",
+      "city_night",
+      "ocean_lullaby",
+      "glass_garden"
     ],
-    "music_previews": 9,
+    "music_previews": 12,
     "fx_kinds": 10,
-    "stickers": 41,
+    "stickers": 47,
     "memes": 6,
     "brand": 6
   },

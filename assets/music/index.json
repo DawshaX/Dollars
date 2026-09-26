@@ -9,7 +9,10 @@
     "night_drone": "دْرون ليلي عميق (خلفية طويلة جدًا)",
     "kalimba_dusk": "كاليمبا الغروب — دفء خشبي بإيقاع خفيف (قِصص/أجواء)",
     "harp_mist": "هارب على الضباب — نغمات ناعمة متباعدة (تأمل/نوم)",
-    "cosmic_pad": "طبقات كونية — اتساع بلا نبض (فضاء/تأمل عميق)"
+    "cosmic_pad": "طبقات كونية — اتساع بلا نبض (فضاء/تأمل عميق)",
+    "city_night": "ليل المدينة — أجراس بعيدة ومطر (أجواء)",
+    "ocean_lullaby": "تهويدة البحر — موج هادي (نوم/أجواء)",
+    "glass_garden": "جنينة زجاجية — نغمات صافية سريعة (مريح/زن)"
   },
   "files": {
     "music_box": "assets/music/music_box.wav",
@@ -20,7 +23,10 @@
     "night_drone": "assets/music/night_drone.wav",
     "kalimba_dusk": "assets/music/kalimba_dusk.wav",
     "harp_mist": "assets/music/harp_mist.wav",
-    "cosmic_pad": "assets/music/cosmic_pad.wav"
+    "cosmic_pad": "assets/music/cosmic_pad.wav",
+    "city_night": "assets/music/city_night.wav",
+    "ocean_lullaby": "assets/music/ocean_lullaby.wav",
+    "glass_garden": "assets/music/glass_garden.wav"
   },
   "sample_seconds": 6.0
 }
