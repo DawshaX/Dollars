@@ -2,9 +2,8 @@
 """
 🩺 دكتور الرفع — يشخّص سبب رفض يوتيوب للرفع في ثواني (بدون رندر مصنع كامل).
 
-- يعمل فيديو اختباري صغير (٢ ثانية) بنفس مواصفاتنا.
-- يجرّب يرفعه ببيانات كاملة. لو يوتيوب رفض، يطبع **سبب الرفض الحقيقي** (reason) ويجرّب بيانات مبسطة.
-- لو نجح: يمسح الفيديو الاختباري فورًا (عشان ميبقاش فيه حاجة وهمية على القناة).
+بيجرّب مصفوفة بيانات (من الأبسط للأكمل) على نفس الميكانيكا بالظبط،
+وكل محاولة ناجحة بتتمسح فورًا — عشان ميبقاش فيه أي حاجة وهمية على القناة.
 """
 from __future__ import annotations
 
@@ -13,7 +12,6 @@ import pathlib
 import subprocess
 import sys
 import urllib.error
-import urllib.parse
 import urllib.request
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
@@ -34,39 +32,54 @@ def tiny_video(path="work/doctor_test.mp4") -> pathlib.Path:
     return p
 
 
-FULL_MD = {
-    "titles": ["اختبار الرفع · Upload Doctor (تتجاب فورًا)"],
-    "description": "فيديو اختبار تلقائي للتأكد إن الرفع شغال — بيتحذف في نفس الدقيقة.",
-    "tags": ["test", "dollars factory", "اختبار"],
-    "category_id": "10",
-    "default_language": "en",
-    "upload_defaults": {"visibility": "private"},
-    "made_for_kids": False,
-    "thumbnail_texts": [],
-    "playlist": None,
-}
+TITLE = "Upload Doctor Test"
 
 
-def try_upload(label: str, md: dict, path) -> dict | None:
-    print(f"\n— محاولة: {label} —")
-    try:
-        res = publish.upload(path, md)
-        print("✅ نجح:", res["id"], res["url"])
-        return res
-    except Exception as e:
-        print("❌ فشل:", type(e).__name__, "|", str(e)[:700])
-        return None
+def variants() -> list[tuple[str, dict, str]]:
+    """(اسم، body، باراميترات إضافية) — من الأبسط للأكمل."""
+    return [
+        ("1) أسوأ احتمال: عنوان بس",
+         {"snippet": {"title": TITLE, "categoryId": "22"}}, ""),
+        ("2) + status (خصوصية خاصة)",
+         {"snippet": {"title": TITLE, "categoryId": "22"},
+          "status": {"privacyStatus": "private"}}, ""),
+        ("3) + الحقول اللي المصنع بيبعتها (license/embeddable/publicStats/للأطفال)",
+         {"snippet": {"title": TITLE, "categoryId": "22"},
+          "status": {"privacyStatus": "private", "selfDeclaredMadeForKids": False,
+                     "license": "youtube", "embeddable": True, "publicStatsViewable": True}}, ""),
+        ("4) + وصف ووسوم",
+         {"snippet": {"title": TITLE, "categoryId": "22", "description": "test desc",
+                      "tags": ["test", "doctor"]},
+          "status": {"privacyStatus": "private"}}, ""),
+        ("5) + categoryId 10 (مزيكا زي المصنع)",
+         {"snippet": {"title": TITLE, "categoryId": "10", "description": "test desc"},
+          "status": {"privacyStatus": "private"}}, ""),
+        ("6) + defaultLanguage en بس",
+         {"snippet": {"title": TITLE, "categoryId": "10", "defaultLanguage": "en"},
+          "status": {"privacyStatus": "private"}}, ""),
+        ("7) + defaultAudioLanguage zxx (زي المصنع بالظبط)",
+         {"snippet": {"title": TITLE, "categoryId": "10", "defaultLanguage": "en",
+                      "defaultAudioLanguage": "zxx"},
+          "status": {"privacyStatus": "private"}}, ""),
+        ("8) بيانات المصنع الكاملة على الميكانيكا دي",
+         {"snippet": publish._snippet({"titles": [TITLE], "description": "d", "tags": ["t"],
+                                       "category_id": "10", "default_language": "en"}),
+          "status": publish._status({"upload_defaults": {"visibility": "private"}})}, ""),
+        ("9) زي 8 بس من غير هيدر X-Upload-Content-*",
+         {"snippet": publish._snippet({"titles": [TITLE], "description": "d", "tags": ["t"],
+                                       "category_id": "10", "default_language": "en"}),
+          "status": publish._status({"upload_defaults": {"visibility": "private"}})}, "NOHDR"),
+    ]
 
 
 def delete(video_id: str, token: str) -> None:
-    req = urllib.request.Request(
-        f"{publish.API}/videos?id={video_id}",
-        headers={"Authorization": f"Bearer {token}"}, method="DELETE")
+    req = urllib.request.Request(f"{publish.API}/videos?id={video_id}",
+                                 headers={"Authorization": f"Bearer {token}"}, method="DELETE")
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
-            print(f"🧹 اتمسح الاختباري ({r.status})")
+            print(f"   🧹 اتمسح الاختباري ({r.status})")
     except Exception as e:
-        print("⚠️ ممسحناهوش:", type(e).__name__, str(e)[:200])
+        print("   ⚠️ ممسحناهوش:", type(e).__name__, str(e)[:200])
 
 
 def main() -> int:
@@ -74,31 +87,26 @@ def main() -> int:
     print("🎫 التوكن:", "✅ شغال" if ok["ok"] else "❌ " + ok["reason"])
     if not ok["ok"]:
         return 1
-    try:
-        token = publish.access_token()
-    except Exception as e:
-        print("❌ مش قادر أجيب access token:", e)
-        return 1
-
+    token = publish.access_token()
     path = tiny_video()
     print(f"🎞️ فيديو اختباري: {path} ({path.stat().st_size/1024:.0f} KB)")
-    print(f"📊 حصة النهاردة: {json.dumps(publish.quota_report()['projects'], ensure_ascii=False)}")
+    print("📊 الحصة:", json.dumps(publish.quota_report()["projects"], ensure_ascii=False))
 
-    res = try_upload("بيانات كاملة (زي المصنع)", dict(FULL_MD), path)
-    if res:
-        delete(res["id"], token)
-        print("\n🎉 الخلاصة: الرفع شغال تمام — المشكلة كانت في حاجة تانية.")
-        return 0
-
-    # مبسّط: من غير لغة صوت/لغة — لو نجح تبقى هي السبب
-    simple = {k: v for k, v in FULL_MD.items() if k not in ("default_language",)}
-    res = try_upload("بيانات مبسطة (من غير لغات)", dict(simple), path)
-    if res:
-        delete(res["id"], token)
-        print("\n🎯 السبب اتحدد: حقول اللغة هي اللي كانت بترفض الرفع.")
-        return 0
-    print("\n🛑 لسه مرفوض — شوف سبب الرفض (reason) اللي فوق.")
-    return 2
+    winner = None
+    for name, body, flag in variants():
+        kw = {"headers": {"X-Upload-Content-Length": None}} if False else {}
+        if flag == "NOHDR":
+            kw = {"headers": {"X-Upload-Content-Length": "", "X-Upload-Content-Type": ""}}
+        print(f"\n— {name} —")
+        try:
+            res = publish.put_video(path, body, token=token, **kw)
+            print("   ✅ نجح:", res["id"], res["url"])
+            winner = winner or name
+            delete(res["id"], token)
+        except Exception as e:
+            print("   ❌", str(e)[:400])
+    print("\n🎯 أول تركيبة نجحت:", winner or "مفيش — المشكلة في الميكانيكا نفسها (مش البيانات)")
+    return 0 if winner else 2
 
 
 if __name__ == "__main__":

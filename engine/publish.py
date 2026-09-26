@@ -210,19 +210,28 @@ def _status(md: dict) -> dict:
 
 def upload(video_path, md: dict, token: str | None = None, chunk: int = 8 * 1024 * 1024,
            timeout: int = 600) -> dict:
-    """رفع متقطّع (resumable) — لو النت قطع بيكمّل من مكانه."""
+    """رفع بالبيانات اللي المصنع بيبنيها."""
+    return put_video(video_path, {"snippet": _snippet(md), "status": _status(md)},
+                     token=token, chunk=chunk, timeout=timeout)
+
+
+def put_video(video_path, body: dict, token: str | None = None, chunk: int = 8 * 1024 * 1024,
+              timeout: int = 600, extra_query: str = "&part=snippet,status",
+              headers: dict | None = None) -> dict:
+    """رفع متقطّع (resumable) بالبيانات الخام — لو النت قطع بيكمّل من مكانه.
+
+    موحّد هنا عشان دكتور الرفع يجرّب بيانات مختلفة على **نفس الميكانيكا** بالظبط.
+    """
     video_path = pathlib.Path(video_path)
     size = video_path.stat().st_size
-    body = {"snippet": _snippet(md), "status": _status(md)}
-    if md.get("playlist"):
-        body["snippet"]["title"] = body["snippet"]["title"][:100]
     token = token or access_token()
+    hdrs = {"Authorization": f"Bearer {token}", "Content-Type": "application/json; charset=UTF-8",
+            "X-Upload-Content-Length": str(size), "X-Upload-Content-Type": "video/mp4"}
+    hdrs.update(headers or {})
     init = urllib.request.Request(
-        f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status",
-        data=json.dumps(body).encode("utf-8"),
-        headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json; charset=UTF-8",
-                 "X-Upload-Content-Length": str(size), "X-Upload-Content-Type": "video/mp4"},
-        method="POST")
+        f"{UPLOAD_URL}?uploadType=resumable{extra_query}",
+        data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
+        headers=hdrs, method="POST")
     try:
         with urllib.request.urlopen(init, timeout=60) as r:
             session = r.headers["Location"]
