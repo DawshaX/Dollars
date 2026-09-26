@@ -56,6 +56,69 @@ def _dur_seconds(dur, default: float = 45.0) -> float:
         return default
 
 
+def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
+                        force_stage: bool = False) -> dict:
+    """فيديو من **صور حقيقية** (NASA · Wikimedia · Pixabay · Pexels) بحركة سينمائية + نص على الشاشة.
+
+    ده بيستخدم لكل أنواع المحتوى اللي طبيعتها صور حقيقية: الحقائق · الفضاء والطبيعة · وبكground للحكايات.
+    """
+    import subprocess
+    from engine import photo, proc
+    gid = idea.get("genre") or "facts"
+    topic = idea.get("topic") or idea.get("kw") or "nature"
+    style = "illustration" if gid == "story" else "photo"
+    items = photo.collect(topic, genre=gid, n=6, style=style)
+    paths = [p for p in (photo.download(it) for it in items) if p]
+    if not paths:
+        raise RuntimeError("مفيش صور حرة متاحة للموضوع ده — نجرب غيره")
+    out_dir = pathlib.Path(out_dir or (WORK / f"{date.today().isoformat()}_photo"))
+    out_dir.mkdir(parents=True, exist_ok=True)
+    from engine import genres as _g
+    pal = _g.palette_hex(idea.get("palette"))
+    texts = []
+    if idea.get("hook"):
+        texts.append({"at": 0.4, "dur": 2.6, "text": idea["hook"], "pos": "lower", "size": 0.06})
+    style = idea.get("montage") or ""
+    lines = idea.get("lines") or []
+    step = max(4.0, seconds / (len(lines) + 1)) if lines else 0
+    for i, ln in enumerate(lines[:4]):
+        texts.append({"at": 3.0 + i * step, "dur": step * 0.9, "text": ln, "pos": "lower", "size": 0.048})
+    if gid in ("facts", "space_nature"):
+        texts.append({"at": max(1.0, seconds - 3.0), "dur": 3.0,
+                      "text": "Source: " + (idea.get("source") or "NASA / Wikimedia"), "pos": "lower", "size": 0.032})
+    if gid == "story":                    # الحكاية بلا كلام: من غير سطور حقيقة
+        texts = [tx for tx in texts if tx.get("text") == idea.get("hook")]
+    silent = out_dir / f"photo_{seed}.mp4"
+    photo.render_reel(paths, silent, seconds=seconds, w=720, h=1280, fps=30, palette=pal,
+                      seed=seed, texts=texts)
+    # الصوت: صوت من صنعنا + موسيقى (نفس منظومة المصنع)
+    from engine import editor as _ed
+    audio = _ed.mix_audio(seconds, [], ambient_name=idea.get("audio"),
+                          music_style=idea.get("music") or "dream_pulse", music_gain=0.5)
+    wav = out_dir / f"photo_{seed}.wav"
+    _ed._write_wav(wav, audio)
+    video = out_dir / f"{gid}_{seed}.mp4"
+    subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
+                    "-i", str(silent), "-i", str(wav), "-c:v", "copy", "-c:a", "aac",
+                    "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(video)], check=True)
+    silent.unlink(missing_ok=True); wav.unlink(missing_ok=True)
+    from engine import meta
+    md = meta.build({**(idea.get("md_spec") or {}), "genre": gid, "pillar": g["pillar"] if (g := _g.get(gid)) else idea.get("pillar"),
+                     "kind": "short", "seconds": int(seconds), "kw": idea.get("kw"),
+                     "lines": lines, "source": idea.get("source"),
+                     "title_style": idea.get("title_style"), "scene": idea.get("scene")})
+    cr = photo.credits(items)
+    if cr:
+        md["description"] = (md["description"] + "\n\nCredits:\n" + "\n".join(cr))[:4900]
+    md["sources"] = [it.get("page") for it in items if it.get("page")]
+    md["shot_list"] = [{"scene": f"photo:{it.get('source')}", "dur": round(seconds / max(1, len(paths)), 2),
+                        "move": "kenburns", "sfx": [], "fx": []} for it in items[:len(paths)]]
+    return {"kind": "photo_short", "video": str(video), "meta": md, "pillar": md.get("pillar"),
+            "duration": f"{int(seconds)}s", "scene": f"photo:{topic}", "audio": idea.get("audio"),
+            "palette": idea.get("palette"), "genre": gid, "photos": len(paths),
+            "credits": cr}
+
+
 def _say(text: str) -> None:
     """بث حي: السجل العادي + Issue «سجل المصنع». أي فشل هنا مايوقفش الشغل."""
     print(text, flush=True)

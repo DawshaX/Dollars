@@ -14,6 +14,33 @@ from __future__ import annotations
 import random
 
 # ── الأنواع (المفتاح = المعرّف) ──────────────────────────────────────────────
+# لوحات كل نوع (٣ ألوان هيكس) — bالوحة بتحدد هوية الألوان في الرندر
+PALETTE_HEX = {
+    "midnight": ["#05070f", "#101c33", "#39507a"],
+    "deep_blue": ["#06101f", "#12294a", "#5b86b8"],
+    "warm_ember": ["#140a06", "#5d2a12", "#ff9d4d"],
+    "cool_slate": ["#0c1218", "#26333d", "#8aa3b0"],
+    "paper_warm": ["#1a140d", "#5c4a33", "#e8d9bd"],
+    "cosmic": ["#080b1a", "#2a1f4d", "#c9a2ff"],
+    "earth_tone": ["#0f0d08", "#4a3b22", "#d8b071"],
+    "aurora": ["#04121a", "#0f4a52", "#7ef0c0"],
+    "story_warm": ["#1a0f0a", "#6b3a1f", "#ffcf8a"],
+    "story_dusk": ["#140d1a", "#3f2a53", "#e5a0c0"],
+    "story_dream": ["#0a0f1a", "#2a3a63", "#a9c7ff"],
+    "clean_bright": ["#1a1a1a", "#6e6e6e", "#f2f2f2"],
+    "pastel_soft": ["#2a2430", "#7a6a86", "#ffd9ea"],
+    "high_contrast": ["#000000", "#4a4a4a", "#ffffff"],
+    "vivid_pop": ["#1a0a1a", "#7a2a6a", "#ffe14d"],
+}
+
+
+def palette_hex(name: str | list | None) -> list:
+    """يحوّل اسم اللوحة لألوان هيكس (أو يرجّعها زي ما هي)."""
+    if isinstance(name, (list, tuple)):
+        return list(name)
+    return PALETTE_HEX.get(str(name), PALETTE_HEX["deep_blue"])
+
+
 GENRES: dict[str, dict] = {
     "sleep_ambience": {
         "ar": "نوم وأمبيانس", "pillar": "sleep", "kinds": ("long", "short"),

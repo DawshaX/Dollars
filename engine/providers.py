@@ -167,23 +167,46 @@ def wikimedia_images(q: str, per: int = 8) -> list[dict]:
     for p in pages.values():
         ii = (p.get("imageinfo") or [{}])[0]
         meta = ii.get("extmetadata") or {}
-        out.append({"source": "wikimedia", "id": str(p.get("pageid")), "title": p.get("title"),
+        title = p.get("title") or ""
+        low = title.lower()
+        if low.endswith((".svg", ".tif", ".tiff", ".gif", ".pdf")) or not _nice_image(title):
+            continue                                    # مش صورة فوتوغرافية أو فيها شرح/خريطة
+        out.append({"source": "wikimedia", "id": str(p.get("pageid")), "title": title,
                     "url": ii.get("thumburl") or ii.get("url"),
                     "license": ((meta.get("LicenseShortName") or {}).get("value") or ""),
                     "page": ii.get("descriptionurl")})
     return out
 
 
+# صور ممنوعة: رسومات توضيحية · خرائط · أساطير · ملصقات (مش صور حلوة)
+BAD_IMAGE_WORDS = ("legend", "diagram", "chart", "infographic", "poster", "sketch", "map of",
+                   "graph", "table", "schematic", "blueprint", "label", "annotated", "figure ",
+                   "text graphic", "logo", "icon")
+
+
+def _nice_image(title: str, desc: str = "") -> bool:
+    t = f"{title} {desc}".lower()
+    return not any(w in t for w in BAD_IMAGE_WORDS)
+
+
 def nasa_images(q: str = "nebula", per: int = 6) -> list[dict]:
-    """صور ناسا الرسمية (public domain) — من images-api.nasa.gov (مش محتاج مفتاح)."""
+    """صور ناسا الرسمية (public domain) — بفلتر جودة (بنرفض الرسومات التوضيحية والخرايط)."""
     url = f"https://images-api.nasa.gov/search?q={urllib.parse.quote(q)}&media_type=image"
     d = _json(url) or {}
-    out = []
-    for it in ((d.get("collection") or {}).get("items") or [])[:per]:
+    out, seen = [], set()
+    for it in ((d.get("collection") or {}).get("items") or []):
         data = (it.get("data") or [{}])[0]
+        title = data.get("title") or ""
         link = ((it.get("links") or [{}])[0]).get("href")
-        out.append({"source": "nasa", "id": data.get("nasa_id"), "title": data.get("title"),
+        if not link or not _nice_image(title, data.get("description") or ""):
+            continue
+        if data.get("nasa_id") in seen:
+            continue
+        seen.add(data.get("nasa_id"))
+        out.append({"source": "nasa", "id": data.get("nasa_id"), "title": title,
                     "url": link, "page": f"https://images.nasa.gov/details-{data.get('nasa_id')}"})
+        if len(out) >= per:
+            break
     return out
 
 
