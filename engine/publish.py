@@ -647,6 +647,16 @@ def publish(video_path, md: dict, thumb_path=None) -> dict:
                                               language=md.get("captions_lang", "en"), token=tok)
         except Exception as _e:
             res["captions"] = False
+    if _env("DOLLARS_GLOBALIZE") not in ("0", "false", "no"):
+        try:                              # 🌍 عناوين/أوصاف بلغات كتير + ترجمات على الفيديو
+            from engine import globalize as _gl
+            _g = _gl.globalize_video(res["id"], md["titles"][0], (md.get("description") or ""),
+                                     token=tok, srt=md.get("captions_srt"))
+            if _g.get("localized") or _g.get("captions"):
+                res["global"] = _g
+                print(f"🌍 عالمي: {_g['localized']} لغة (عنوان/وصف) · {_g['captions']} ملف ترجمة", flush=True)
+        except Exception as _e:
+            print(f"🌍 الترجمة العالمية اتعذّرت ({type(_e).__name__}) — بنكمل", flush=True)
     record(res, md)                       # نسجّل الفيديو (وبصمته) عشان العقل يتعلم من أرقامه بعدين
     notify(f"🎬 Dollars · نُشر: {md['titles'][0]}\n{res['url']}")
     return res

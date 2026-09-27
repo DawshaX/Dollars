@@ -241,3 +241,23 @@ def test_captions_retry_with_quoted_boundary_on_400(monkeypatch):
     first = {k.lower(): v for k, v in seen[0].header_items()}["content-type"]
     second = {k.lower(): v for k, v in seen[1].header_items()}["content-type"]
     assert "boundary=dollars" in first and 'boundary="dollars' in second, (first, second)
+
+
+def test_globalize_skips_without_llm_key(monkeypatch):
+    """🌍 من غير مفتاح ترجمة: مفيش كسر، والمصنع بيكمّل عادي."""
+    from engine import globalize
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    assert globalize.translate_fields("Ocean waves", "relaxing", ["ar"]) == {}
+    assert globalize.translate_srt("1\n00:00:00,000 --> 00:00:02,000\nHi\n", ["ar"]) == {}
+    r = globalize.globalize_video("x", "t", "d", "tok", srt=None)
+    assert r == {"localized": 0, "captions": 0}
+
+
+def test_globalize_srt_keeps_timings(monkeypatch):
+    from engine import globalize
+    srt = "1\n00:00:00,000 --> 00:00:02,000\nHello world\n"
+    monkeypatch.setattr(globalize, "_llm", lambda p, timeout=40: '{"lines": ["مرحبا بالعالم"]}')
+    monkeypatch.setenv("LLM_API_KEY", "x")
+    out = globalize.translate_srt(srt, ["ar"])
+    assert "ar" in out and "00:00:00,000 --> 00:00:02,000" in out["ar"] and "مرحبا" in out["ar"]

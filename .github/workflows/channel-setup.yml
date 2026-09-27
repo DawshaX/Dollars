@@ -1,0 +1,68 @@
+name: ⚙️ ضبط القناة للخوارزمية (وصف · كلمات · بلايليستات · فحص كامل)
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "تطبيق الوصف والكلمات المفتاحية والبلد واللغة؟"
+        required: false
+        default: "true"
+      playlists:
+        description: "إنشاء بلايليستات لكل نوع + توزيع الفيديوهات؟"
+        required: false
+        default: "true"
+      name:
+        description: "اسم القناة (سيبه فاضي = ما يتغيرش)"
+        required: false
+        default: ""
+permissions:
+  contents: write
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: فحص القناة الكامل (كل الفيديوهات + الأرقام)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+        run: python tools/channel_audit.py --telegram || echo "الفحص تعذّر — بنكمّل"
+      - name: ضبط هوية القناة (وصف · كلمات مفتاحية · بلد · لغة · بلايليستات)
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.apply }}" = "true" ]; then ARGS="$ARGS --apply"; fi
+          if [ "${{ github.event.inputs.playlists }}" = "true" ]; then ARGS="$ARGS --playlists"; fi
+          if [ -n "${{ github.event.inputs.name }}" ]; then ARGS="$ARGS --name \"${{ github.event.inputs.name }}\""; fi
+          eval python tools/channel_setup.py $ARGS
+      - name: حفظ نتائج الفحص
+        if: always()
+        run: |
+          git config user.name "Dollars SEO"
+          git config user.email "seo@dawshax.local"
+          git add state 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -qm "⚙️ ضبط القناة + فحص كامل (تشغيل تلقائي)"
+          git fetch -q origin main || true
+          git pull --rebase --autostash -q origin main || git merge -X ours --no-edit -q origin/main || true
+          python3 tools/merge_state.py origin/main >/dev/null 2>&1 || true
+          git add state 2>/dev/null || true
+          git diff --cached --quiet || git commit -qm "🔀 توحيد حالة المصنع (اتحاد)" || true
+          git push origin main || true

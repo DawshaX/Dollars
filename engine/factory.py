@@ -22,6 +22,7 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 import re
 import random
@@ -894,7 +895,7 @@ def report_text() -> str:
     return "\n".join(lines)
 
 
-def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None) -> dict:
+def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 120) -> dict:
     """🔁 وردية طويلة: بتنشر بنفسها كل ساعة من غير ما تحتاج كرون كل ساعة.
 
     السبب: جدولة جيت هوب بتتأخر/بتتشال ساعات كاملة، فالاعتماد عليها = نشر متقطع.
@@ -907,7 +908,7 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None) -> dict:
     while _t.time() < deadline:
         cycle += 1
         left_h = (deadline - _t.time()) / 3600.0
-        print(f"\n⏱️ وردية — دورة {cycle} · باقي {left_h:.2f} ساعة", flush=True)
+        print(f"\n⏱️ وردية — دورة {cycle} (كل {int(every_min)} دقيقة) · باقي {left_h:.2f} ساعة", flush=True)
         try:
             out = run("short", max(1, per_hour), out_dir=out_dir, catchup=True)
             for line in out["lines"]:
@@ -920,7 +921,8 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None) -> dict:
             print(f"⚠️ دورة فشلت ({type(e).__name__}: {str(e)[:90]}) — بنكمل الدورة الجاية", flush=True)
             done.append({"cycle": cycle, "error": type(e).__name__})
         now = _t.time()
-        nxt = (int(started // 3600) + cycle) * 3600 + 120      # كل ساعة + دقيقتين
+        _every = max(900, min(3600, int(every_min))) * 60      # ⏱️ كل ساعتين (أو ساعة لما نقرر)
+        nxt = started + cycle * _every
         wait = max(60.0, min(nxt - now, deadline - now))
         if now + wait >= deadline:
             break
@@ -948,10 +950,13 @@ def main(argv=None):
     ap.add_argument("--shift", action="store_true",
                     help="🔁 وردية متواصلة: بتنشر كل ساعة بنفسها (بتحل مشكلة تأخّر/إلغاء الكرون)")
     ap.add_argument("--hours", type=float, default=5.0, help="طول الوردية بالساعات (أقصى 5.5 لأمان جيت هوب)")
-    ap.add_argument("--per-hour", type=int, default=1, help="كام فيديو في الساعة جوه الوردية")
+    ap.add_argument("--per-hour", type=int, default=1, help="كام فيديو في الدورة")
+    ap.add_argument("--every-min", type=int, default=120,
+                    help="⏱️ كل كام دقيقة ينشر (دلوقتي ١٢٠ = فيديو كل ساعتين · ٦٠ = كل ساعة)")
     a = ap.parse_args(argv)
     if a.shift:
-        out = shift(hours=min(5.5, max(0.3, a.hours)), per_hour=max(1, a.per_hour), out_dir=a.out)
+        out = shift(hours=min(5.5, max(0.3, a.hours)), per_hour=max(1, a.per_hour),
+                    out_dir=a.out, every_min=int(os.environ.get("DOLLARS_EVERY_MIN") or a.every_min))
         print("\n" + report_text())
         print(f"\n🔁 الوردية خلصت: {out['cycles']} دورة · نشرت {out['published']} مرة · "
               f"مدة {out['hours']:.2f} ساعة")

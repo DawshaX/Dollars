@@ -25,18 +25,18 @@ from engine import publish  # noqa: E402
 API = "https://www.googleapis.com/youtube/v3"
 
 # 🎯 هوية القناة للنيتش (نوم · راحة · تركيز · ASMR · مُرضي للعين)
-DESC = """Calm loops, sleep sounds, ASMR and oddly satisfying moments — made to play in the background.
-New videos every day. 4K-ready vertical clips, real licensed footage and original sound design.
+DESC = """Daily short videos from around the world — oddly satisfying moments, ASMR, animals, nature,
+space, food, city life and quick facts. Original edits, real licensed footage, sound you can feel.
 
-🛏️ Sleep & rain sounds · 📚 Study & focus · 🎧 ASMR · ✨ Oddly satisfying · 🐾 Animals · 🌌 Space
+🌍 New videos every day · playlists for every mood
 
-All footage and music are used under free licenses (CC0 / CC-BY / public domain) with credit in the description.
-For business: dawshax@gmail.com
+Footage and music are used under free licenses (CC0 / CC-BY / public domain) — credited in every description.
+Subtitles in many languages. Business: dawshax@gmail.com
 """
 
-KEYWORDS = ("sleep sounds,rain sounds,study with me,focus music,asmr,oddly satisfying,"
-            "calm,relaxing,asmr no talking,background sounds,white noise,deep sleep,"
-            "nature sounds,lofi study,vertical shorts,black screen sleep")
+KEYWORDS = ("oddly satisfying,satisfying video,asmr,asmr no talking,animals,funny pets,nature relax,"
+            "space,science facts,food closeup,macro,slow motion,shorts,daily shorts,relaxing video,"
+            "nature sounds,water sounds,background video,ambience,vertical video,4k shorts")
 
 COUNTRY = "US"
 LANG = "en"

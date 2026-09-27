@@ -9,9 +9,13 @@ on:
         required: false
         default: "5"
       per_hour:
-        description: "كام فيديو في الساعة"
+        description: "كام فيديو في الدورة"
         required: false
         default: "1"
+      every_min:
+        description: "⏱️ كل كام دقيقة ينشر (120 = ساعتين · 60 = كل ساعة)"
+        required: false
+        default: "120"
 permissions:
   contents: write
   issues: write
@@ -33,7 +37,7 @@ jobs:
         run: |
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc 2>/dev/null || true
           python -m pip install --quiet numpy pillow imageio-ffmpeg
-      - name: 🔁 وردية: نشر كل ساعة بنفسها (بدون انتظار الكرون)
+      - name: "🔁 وردية: نشر كل ساعة بنفسها (بدون انتظار الكرون)"
         env:
           LIVE_ISSUE: '1'
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,10 +59,16 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || secrets.PEXELS }}
           OPENVERSE_TOKEN: ${{ secrets.OPENVERSE_TOKEN || secrets.OPENVERSE }}
           DOLLARS_LONG_CLIPS: '1'
+          DOLLARS_EVERY_MIN: ${{ github.event.inputs.every_min || 120 }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY || secrets.GROQ_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          LLM_API_BASE: ${{ secrets.LLM_API_BASE }}
         run: |
           python engine/factory.py --shift \
             --hours "${{ github.event.inputs.hours || 5 }}" \
-            --per-hour "${{ github.event.inputs.per_hour || 1 }}"
+            --per-hour "${{ github.event.inputs.per_hour || 1 }}" \
+            --every-min "${{ github.event.inputs.every_min || 120 }}"
       - name: حفظ الفيديوهات كأرشيف (٣ أيام)
         if: always()
         uses: actions/upload-artifact@v4
