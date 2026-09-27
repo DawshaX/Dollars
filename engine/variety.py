@@ -14,13 +14,25 @@
 """
 from __future__ import annotations
 
+import pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+
 import json
 import pathlib
 import random
 
 import numpy as np
 
-STATE = pathlib.Path("state/variety.json")
+def _state_path(rel: str = "") -> pathlib.Path:
+    """مسار الحالة (احترام DOLLARS_STATE — الاختبارات تشتغل في مجلد مؤقت)."""
+    import os as _os
+    base = (_os.environ.get("DOLLARS_STATE") or "").strip()
+    root = pathlib.Path(base) if base else (ROOT / "state")
+    return (root / rel) if rel else root
+
+
+STATE = _state_path("variety.json")
 WINDOW = 12          # نقارن بآخر ١٢ فيديو
 MIN_DIFF = 3         # لازم يختلف في ٣ أبعاد على الأقل
 

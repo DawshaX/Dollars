@@ -35,7 +35,15 @@ def _fix_path_shadow():
 _fix_path_shadow()
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-STATE = ROOT / "state"
+def _state_path(rel: str = "") -> pathlib.Path:
+    """مسار الحالة (احترام DOLLARS_STATE — الاختبارات تشتغل في مجلد مؤقت)."""
+    import os as _os
+    base = (_os.environ.get("DOLLARS_STATE") or "").strip()
+    root = pathlib.Path(base) if base else (ROOT / "state")
+    return (root / rel) if rel else root
+
+
+STATE = _state_path()
 REFS = ROOT / "docs" / "refs"
 sys.path.insert(0, str(ROOT))
 

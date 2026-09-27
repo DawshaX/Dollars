@@ -29,7 +29,15 @@ sys.path.insert(0, str(ROOT))
 
 from engine import editor, fx, music, visuals  # noqa: E402
 
-STATE = ROOT / "state" / "unlimited.json"
+def _state_path(rel: str = "") -> pathlib.Path:
+    """مسار الحالة (احترام DOLLARS_STATE — الاختبارات تشتغل في مجلد مؤقت)."""
+    import os as _os
+    base = (_os.environ.get("DOLLARS_STATE") or "").strip()
+    root = pathlib.Path(base) if base else (ROOT / "state")
+    return (root / rel) if rel else root
+
+
+STATE = _state_path("unlimited.json")
 
 # ── لوحات الألوان: كل مجموعة مبنيّة على «مرجع بصري» (Pinterest/Openverse) بنحلّلها بكسل ──
 PALETTES = {

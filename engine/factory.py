@@ -40,6 +40,12 @@ from engine import clips
 # ── حماية من تعارض الأسماء: مجلد السكربت بيتحط أول مسار الاستيراد لما تشغّل الملف
 #    مباشرة (python engine/factory.py)، وده كان بيخلي `engine/copy.py` يحجب مكتبة
 #    بايثون الأساسية `copy` ⇒ انهيار عند الاستيراد. بنشيل مجلد السكربت من المسار.
+def _state_dir() -> pathlib.Path:
+    """مجلد الحالة — قابل للتحويل بـDOLLARS_STATE (عشان الاختبارات ما تلوّثش الإنتاج)."""
+    _env = (os.environ.get("DOLLARS_STATE") or "").strip()
+    return pathlib.Path(_env) if _env else (pathlib.Path(__file__).resolve().parents[1] / "state")
+
+
 def _fix_path_shadow():
     import pathlib as _p, sys as _s
     here = _p.Path(__file__).resolve().parent
@@ -49,7 +55,8 @@ def _fix_path_shadow():
 _fix_path_shadow()
 
 QUEUE_CAP = 72                  # أقصى عدد وصفات محفوظة في الطابور
-STATE = ROOT / "state"
+# 📂 مجلد الحالة: DOLLARS_STATE يخلّي الاختبارات مستقلة (ما تلخبطش سجل الإنتاج)
+STATE = pathlib.Path(os.environ["DOLLARS_STATE"]) if (os.environ.get("DOLLARS_STATE") or "").strip() else ROOT / "state"
 WORK = ROOT / "work"
 
 
@@ -1029,6 +1036,26 @@ def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=
     lines, results = list(locals().get("lines_pre") or []), []
     if catchup and count > 1:
         lines.append(f"⏱️ تعويض: النهاردة فيه {count} دور مستحق ⇒ بنطلّعهم كلهم")
+    if not slots and kind == "short":
+        # 🎁 مفيش أدوار فاضلة في الخطة؟ مانوقفش: بنولّد فكرة جديدة **من النوع والطلب الحقيقي**
+        #    وننشرها. القاعدة: النشر الساعي مايتقطعش أبدًا (وده اللي المستخدم طلبه).
+        try:
+            from engine import studio as _st
+            from engine import genres as _gn
+            seed_hint = int(time.time() // 60) % 97
+            _now = datetime.now(timezone.utc)
+            _rng = random.Random(f"bonus|{_now.date()}|{_now.hour}|{seed_hint}")
+            from engine import genres as _gn2
+            try:
+                _gid = _gn2.weighted_pick(_now.hour, _rng)      # نوع مناسب للوقت (نفس منطق الخطة)
+            except Exception:
+                _gid = random.choice(list(_gn.GENRES.keys()))
+            _bonus = _st._slot(_now.hour, _now.replace(minute=0, second=0).isoformat(), "short", _gid, _rng)
+            slots = [_bonus]
+            lines.append(f"🎁 الخطة مالهاش أدوار فاضلة ⇒ فكرة جديدة على الطاير ({_gid})")
+            print(lines[-1], flush=True)
+        except Exception as _be:
+            lines.append(f"⚠️ توليد فكرة إضافية اتعذّر ({type(_be).__name__})")
     if not slots:
         lines.append(f"مفيش أدوار {kind} فاضلة في خطة النهاردة — العقل هيعمل خطة بكرة")
     for slot in slots:
