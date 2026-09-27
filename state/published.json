@@ -4477,6 +4477,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "FSAzhwusEjY",
+      "url": "https://youtu.be/FSAzhwusEjY",
+      "title": "When the Wi-Fi dies… #funny #shorts",
+      "published_at": "2026-09-27T15:42:49.675090+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "the Wi-Fi dies",
+        "genre": "fun_memes",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Fun & Memes"
     }
   ]
 }
