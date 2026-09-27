@@ -547,6 +547,18 @@
       "name": "Kibi",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "grino_auto",
+      "name": "Grino",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "lala_auto",
+      "name": "Lala",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
