@@ -26,7 +26,7 @@ import socket
 
 socket.setdefaulttimeout(120)            # مفيش طلب يعلّق أكتر من دقيقتين
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 try:                                     # البث الحي (اختياري — مايوقفش الشغل لو غاب)
     from engine import live as _live
