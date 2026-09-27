@@ -725,8 +725,10 @@ def record(res: dict, md: dict) -> pathlib.Path:
     p = pathlib.Path("state/published.json")
     d = _jload(p, {"videos": []}) or {"videos": []}
     ts = md.get("slot") or {}
-    d["videos"].append({
-        "video_id": res.get("id"), "url": res.get("url"), "title": md["titles"][0],
+    _vid = res.get("id")
+    # 🧹 ممنوع التكرار: لو الفيديو متسجل قبل كده، بنحدّث سطره (التكرار كان بينفخ الأرقام)
+    _row = {
+        "video_id": _vid, "url": res.get("url"), "title": md["titles"][0],
         "published_at": datetime.now(timezone.utc).isoformat(),
         "features": {"pillar": md.get("pillar"), "kind": md.get("kind"), "kw": md.get("kw"),
                      "genre": md.get("genre"), "hour": ts.get("hour"),
@@ -742,5 +744,10 @@ def record(res: dict, md: dict) -> pathlib.Path:
                                            + (["en"] if md.get("localizations_en") else [])))},
         "views": 0, "likes": 0, "comments": 0,
         "thumbnail": bool(md.get("thumbnail_texts")), "playlist": md.get("playlist"),
-    })
+    }
+    existing = next((i for i, v in enumerate(d["videos"]) if v.get("video_id") == _vid), None)
+    if existing is not None:
+        d["videos"][existing] = {**d["videos"][existing], **_row}      # تحديث مش إضافة
+    else:
+        d["videos"].append(_row)
     return _jdump(p, d)

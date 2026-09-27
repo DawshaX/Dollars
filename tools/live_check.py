@@ -93,13 +93,21 @@ def burst_check() -> str:
     except Exception:
         return "مفيش سجل"
     import collections, datetime
+    seen, uniq = set(), []
+    for v in pub:                          # 🧹 فريد بس (التكرار كان بيبالغ في الأرقام)
+        k = v.get("video_id") or v.get("url")
+        if k in seen:
+            continue
+        seen.add(k)
+        uniq.append(v)
+    pub = uniq
     c = collections.Counter(str(v.get("published_at"))[:13] for v in pub)
     today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
     th = sum(n for k, n in c.items() if k.startswith(today))
     top = c.most_common(3)
     worst = top[0][1] if top else 0
     return (f"النهاردة: {th} · أكتر ساعة: {worst} فيديو ({', '.join(k[5:] + '=' + str(n) for k, n in top)})"
-            + ("  ⚠️ دفع جماعي — بيتقرا سبام" if worst >= 5 else "  ✅ الإيقاع هادي"))
+            + ("  ⚠️ دفع جماعي — بيتقرا سبام" if worst >= 6 else "  ✅ الإيقاع هادي"))
 
 
 def commit_check() -> str:

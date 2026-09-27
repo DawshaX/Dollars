@@ -1051,6 +1051,7 @@ def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=
             except Exception:
                 _gid = random.choice(list(_gn.GENRES.keys()))
             _bonus = _st._slot(_now.hour, _now.replace(minute=0, second=0).isoformat(), "short", _gid, _rng)
+            _bonus["date"] = _now.date().isoformat()      # 🛡️ مطلوبة في سجل النشر (كانت KeyError: date)
             slots = [_bonus]
             lines.append(f"🎁 الخطة مالهاش أدوار فاضلة ⇒ فكرة جديدة على الطاير ({_gid})")
             print(lines[-1], flush=True)

@@ -13,11 +13,13 @@ from __future__ import annotations
 
 import json
 import pathlib
+import sys as _sys
 import re
 import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+_sys.path.insert(0, str(ROOT / "tools"))
 STATE = ROOT / "state"
 REMOTE = sys.argv[1] if len(sys.argv) > 1 else "origin/main"
 MARK = "<<<<<<<"
@@ -75,11 +77,22 @@ def merge_file(p: pathlib.Path) -> bool:
     else:
         try:
             ours = json.loads(raw)
-        except Exception:
-            return False
+        except Exception:                        # 🛠️ ملف تالف: نستخرج اللي ينفع منه (مفيش فقدان)
+            try:
+                import repair_state
+                ours = repair_state.salvage_to_dict(raw, p.name)
+            except Exception:
+                return False
         theirs = _git_show(REMOTE, rel)
         if theirs is None:
-            return False
+            try:                                  # الريموت تالف كذلك؟ نستخرج منه برضه
+                r = subprocess.run(["git", "show", f"{REMOTE}:{rel}"], cwd=ROOT, capture_output=True)
+                import repair_state
+                theirs = repair_state.salvage_to_dict(r.stdout.decode("utf-8", "ignore"), p.name)
+            except Exception:
+                theirs = None
+        if theirs is None:
+            theirs = {"videos": []} if "videos" in rel else {}
     merged = union(ours, theirs)
     new = json.dumps(merged, ensure_ascii=False, indent=2) + "\n"
     if new != raw:
@@ -124,6 +137,16 @@ def clean_markdown() -> int:
 
 def main() -> int:
     changed = clean_markdown()
+    try:                                    # 🛠️ الأول: أي JSON تالف يتصلّح (اتحاد بلا فقدان)
+        sys.path.insert(0, str(ROOT / "tools"))
+        import repair_state                 # noqa: WPS433
+        for _p in sorted(STATE.glob("*.json")):
+            res = repair_state.repair_file(_p)
+            if res.get("fixed"):
+                print(f"🛠️ {res['file']}: اتصلّح ({', '.join(res['problems'])})")
+                changed += 1
+    except Exception as e:
+        print(f"⚠️ إصلاح الحالة اتعذّر ({type(e).__name__})")
     for p in sorted(STATE.glob("*.json")):
         try:
             if merge_file(p):

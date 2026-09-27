@@ -309,3 +309,17 @@ def test_pin_comment_never_raises(monkeypatch):
     monkeypatch.setattr(publish.urllib.request, "urlopen", boom)
     monkeypatch.setattr(publish, "access_token", lambda *a, **k: "tok")
     assert publish.pin_comment("v", "hi") is False
+
+
+def test_record_dedupes_same_video(tmp_path, monkeypatch):
+    """🧹 الفيديو مايتسجلش مرتين (التكرار كان بينفخ أرقام التقارير)."""
+    import json
+    from engine import publish
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "state").mkdir(exist_ok=True)
+    md = {"titles": ["T #shorts"], "pillar": "satisfying", "kind": "short", "kw": "k"}
+    publish.record({"id": "AAA", "url": "https://youtu.be/AAA"}, md)
+    publish.record({"id": "AAA", "url": "https://youtu.be/AAA"}, md)
+    publish.record({"id": "BBB", "url": "https://youtu.be/BBB"}, md)
+    vids = json.loads((tmp_path / "state" / "published.json").read_text())["videos"]
+    assert len(vids) == 2 and {v["video_id"] for v in vids} == {"AAA", "BBB"}

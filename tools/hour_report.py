@@ -33,7 +33,15 @@ def build() -> str:
     now = datetime.now(timezone.utc)
     hour_ago = now - timedelta(hours=1)
     day_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-    pub = (_j("published.json", {}) or {}).get("videos", []) or []
+    pub_raw = (_j("published.json", {}) or {}).get("videos", []) or []
+    _seen_ids = set()                     # 🧹 عدّ الفيديوهات الفريدة (التكرار بينفخ الأرقام)
+    pub = []
+    for _v in pub_raw:
+        _id = _v.get("video_id") or (_v.get("url") or "")
+        if _id in _seen_ids:
+            continue
+        _seen_ids.add(_id)
+        pub.append(_v)
     last_h, today = [], []
     for v in pub:
         try:
@@ -70,7 +78,7 @@ def build() -> str:
         imp_txt = " · 🚀 الظهور: محتاج تفعيل خدمة التحليلات"
     L = [f"📈 تقرير Dollars — {now.strftime('%H:%M')} UTC",
          f"⏱️ آخر ساعة: {len(last_h)} فيديو" + (f" (آخرهم: {str(last_h[-1].get('title'))[:40]})" if last_h else ""),
-         f"📅 النهاردة: {len(today)} فيديو · إجمالي المنشور عندنا: {len(pub)}",
+         f"📅 النهاردة: {len(today)} فيديو فريد · سجلنا كله: {len(pub)}",
          f"👁️ مشاهدات المتقاسة: {views:,} · ❤️ {likes} · 💬 {comments}" + imp_txt,
          f"📺 القناة: {ch.get('subs', '؟')} مشترك · {ch.get('videos', '؟')} فيديو · "
          f"{ch.get('views', 0):,} مشاهدة كلية" if ch else "📺 القناة: مفيش أرقام لسه",
