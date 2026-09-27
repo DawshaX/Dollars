@@ -186,3 +186,58 @@ def test_caption_body_is_valid_multipart():
     assert 'boundary="{boundary}"' in src or "boundary=\"{boundary}\"" in src, "الـboundary لازم يكون بين تنصيص"
     assert "Content-Transfer-Encoding: binary" in src
     assert src.index("application/json") < src.index("application/octet-stream")
+
+
+def _fake_urlopen_factory(seen, statuses):
+    """سيرفر وهمي: يسجّل كل طلب ويرجّع الأكواد المطلوبة بالترتيب."""
+    import urllib.error
+
+    class R:
+        def __init__(self, code): self.status = code
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    state = {"i": 0}
+
+    def _open(req, timeout=90):
+        seen.append(req)
+        code = statuses[min(state["i"], len(statuses) - 1)]
+        state["i"] += 1
+        if code >= 400:
+            raise urllib.error.HTTPError(req.full_url, code, "err", {},
+                                         __import__("io").BytesIO(b'{"error": {"message": "x"}}'))
+        return R(code)
+    return _open
+
+
+def test_captions_use_the_upload_endpoint(monkeypatch):
+    """🐞 الباج الأصلي: كان بيبعت على /youtube/v3/captions بدل /upload/youtube/v3/captions
+    ⇒ جوجل تقرا الجسم كـJSON ⇒ «Invalid JSON payload received». الاختبار ده يمنع رجوعه."""
+    from engine import publish
+    seen = []
+    monkeypatch.setattr(publish.urllib.request, "urlopen", _fake_urlopen_factory(seen, [200]))
+    monkeypatch.setattr(publish, "access_token", lambda *a, **k: "T")
+    ok = publish.upload_captions("VID123", "1\r\n00:00:00,000 --> 00:00:01,000\r\nhi\r\n", "en")
+    assert ok is True
+    req = seen[0]
+    assert req.full_url.startswith("https://www.googleapis.com/upload/youtube/v3/captions"), req.full_url
+    assert "uploadType=multipart" in req.full_url and "part=snippet" in req.full_url
+    hdrs = {k.lower(): v for k, v in req.header_items()}
+    assert hdrs.get("content-type", "").startswith("multipart/related; boundary="), hdrs
+    body = req.data
+    assert b"--dollars_boundary_7f3a\r\n" in body, "الحدود لازم تكون في الجسم"
+    assert b'"videoId": "VID123"' in body or b'"videoId":"VID123"' in body
+    assert b"\r\n\r\n" in body, "فاصل CRLF مطلوب بين الهيدر والجسم"
+
+
+def test_captions_retry_with_quoted_boundary_on_400(monkeypatch):
+    """لو الصيغة الأولى اترفضت، بنجرب صيغة الحدود المتنصّصة (تلقائيًا)."""
+    from engine import publish
+    seen = []
+    monkeypatch.setattr(publish.urllib.request, "urlopen", _fake_urlopen_factory(seen, [400, 200]))
+    monkeypatch.setattr(publish, "access_token", lambda *a, **k: "T")
+    ok = publish.upload_captions("VID", "1\r\n00:00:00,000 --> 00:00:01,000\r\nhi\r\n", "en")
+    assert ok is True and len(seen) == 2, f"لازم محاولتين (حصل {len(seen)})"
+    first = {k.lower(): v for k, v in seen[0].header_items()}["content-type"]
+    second = {k.lower(): v for k, v in seen[1].header_items()}["content-type"]
+    assert "boundary=dollars" in first and 'boundary="dollars' in second, (first, second)
