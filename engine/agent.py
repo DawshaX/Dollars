@@ -26,6 +26,7 @@ from __future__ import annotations
 import json
 import math
 import pathlib
+import sys
 import random
 import statistics
 from datetime import date, datetime, timedelta, timezone
@@ -42,6 +43,8 @@ def _fix_path_shadow():
 _fix_path_shadow()
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:            # عشان `from engine import ...` يشتغل والنص بيتنفّذ مباشرة
+    sys.path.insert(0, str(ROOT))
 STATE = ROOT / "state"
 CONTENT = ROOT / "content"
 

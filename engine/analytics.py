@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import os
 import pathlib
+import sys
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -31,6 +32,8 @@ def _fix_path_shadow():
 _fix_path_shadow()
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:            # عشان `from engine import ...` يشتغل والنص بيتنفّذ مباشرة
+    sys.path.insert(0, str(ROOT))
 STATE = ROOT / "state"
 API = "https://www.googleapis.com/youtube/v3/videos"
 CHANNEL_API = "https://www.googleapis.com/youtube/v3/channels"
