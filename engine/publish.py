@@ -234,6 +234,12 @@ def extra_capacity() -> int:
     فالموديل مايصحّش يقفل المصنع. القرار النهائي دايمًا من رد يوتيوب نفسه.
     """
     projs = [c for c in (usable_projects() or []) if role_of(c.get("project", 1)) != "prune"]
+    if not projs:
+        return 0
+    # ⚠️ في الوضع المرن **مانمنعش** الرفع بناءً على تقديرنا — بنسيب يوتيوب يرد، وبعدين نوقف.
+    #    (الموديل الرسمي ٦ رفعات/مشروع اتفرض علينا غلط قبل كده فأوقف النشر وإحنا لسه قادرين نرفع.)
+    if SOFT_QUOTA:
+        return 99
     per = max(6, int(_env("DOLLARS_UPLOADS_PER_PROJECT_DAY") or 12))
     used = sum(units_used(c.get("project", 1)) // UPLOAD_UNITS for c in projs)
     return max(0, len(projs) * per - used)

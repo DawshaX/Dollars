@@ -238,6 +238,7 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     out_dir.mkdir(parents=True, exist_ok=True)
     from engine import genres as _g
     pal = _g.palette_hex(idea.get("palette"))
+    _stickers, _stickers_p, _hook, _hook_p = [], [], None, None   # 🧩 متاحة في كل المسارات
     texts = []
     _HK = _hook_text(idea, gid, seed)          # 🎯 هوك صالح للعرض (مش ملاحظة إنتاج عربية)
     if _HK:
@@ -308,8 +309,8 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
         _seg = max(1.2, min(seconds / float(len(clip_paths)), 7.0))
         for i in range(1, len(clip_paths)):
             _cues.append({"at": min(seconds - 0.6, i * _seg), "name": "whoosh", "gain": 0.33})
-    if use_clips and _stickers:
-        for sk in _stickers[:3]:
+    if use_clips and (_stickers or _stickers_p):
+        for sk in (_stickers or _stickers_p)[:3]:
             _cues.append({"at": float(sk["at"]), "name": "sparkle", "gain": 0.22})
     try:
         for _n in {c["name"] for c in _cues}:
@@ -351,7 +352,7 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      # 🧠 بصمات الإنتاج — العقل بيتعلم منها إيه اللي بيجيب مشاهدات
                      "music_credit": (_track or {}).get("title"),
                      "sfx_used": sorted(_sfx_files)[:4] or None,
-                     "overlays_used": bool(_stickers) or bool(_hook),
+                     "overlays_used": bool(_stickers_p) or bool(_hook_p),
                      "real_clips": bool(use_clips)})
     md["genre"] = gid                               # 🧠 النوع يتسجل غلشان العقل يربط النوع بالمشاهدات
     md["kind"] = md.get("kind") or "short"
@@ -948,9 +949,15 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
             for line in out["lines"]:
                 print("•", line)
             done.append({"cycle": cycle, "slots": out.get("slots"), "stopped": out.get("stopped")})
-            if out.get("stopped") == "quota":            # الحصة خلصت ⇒ نوقف الوردية بهدوء
-                print("⛔ الحصة خلصت — ننهي الوردية ونستأنف بعد التجديد", flush=True)
-                break
+            if out.get("stopped") == "quota":            # الحصة خلصت فعليًا من يوتيوب ⇒ ننام ونستأنف
+                _left_h = (deadline - _t.time()) / 3600.0
+                if _left_h < 0.8:
+                    print("⛔ الحصة خلصت — باقي وقت قليل فبننهي الوردية", flush=True)
+                    break
+                print(f"⛔ الحصة خلصت — نوم ٤٥ دقيقة وبعدها نجرب تاني (باقي {_left_h:.1f} ساعة)",
+                      flush=True)
+                _t.sleep(45 * 60)
+                continue
         except Exception as e:
             print(f"⚠️ دورة فشلت ({type(e).__name__}: {str(e)[:90]}) — بنكمل الدورة الجاية", flush=True)
             done.append({"cycle": cycle, "error": type(e).__name__})
