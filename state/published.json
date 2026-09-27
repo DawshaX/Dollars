@@ -2089,6 +2089,52 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Satisfying"
+    },
+    {
+      "video_id": "Z6DiCBGYkMQ",
+      "url": "https://youtu.be/Z6DiCBGYkMQ",
+      "title": "Sleep Sounds for Studying & Focus | 8 Hours | Deep Work, No Interruptions",
+      "published_at": "2026-09-27T05:46:00.702610+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "sXh99-A6kNo",
+      "url": "https://youtu.be/sXh99-A6kNo",
+      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
+      "published_at": "2026-09-27T06:07:32.246990+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }

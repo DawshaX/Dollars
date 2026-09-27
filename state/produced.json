@@ -854,19 +854,49 @@
       "reason": null,
       "seconds_spent": 573.3,
       "at": "2026-09-27T04:07:34.788290+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 8,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "8h",
+      "scene": "beach_night",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_08/beach_night_8h.mp4",
+      "title": "Sleep Sounds for Studying & Focus | 8 Hours | Deep Work, No Interruptions",
+      "published": true,
+      "url": "https://youtu.be/Z6DiCBGYkMQ",
+      "reason": null,
+      "seconds_spent": 1084.5,
+      "at": "2026-09-27T05:43:18.650137+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 10,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "cafe_soft",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_10/cafe_soft_10h.mp4",
+      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
+      "published": true,
+      "url": "https://youtu.be/sXh99-A6kNo",
+      "reason": null,
+      "seconds_spent": 1102.8,
+      "at": "2026-09-27T06:04:23.847894+00:00"
     }
   ],
   "stats": {
-    "total": 56,
-    "published": 16,
+    "total": 58,
+    "published": 18,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
       "satisfying": 25,
-      "sleep": 16,
+      "sleep": 18,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T04:07:42.968007+00:00"
+  "updated": "2026-09-27T06:07:32.562264+00:00"
 }
