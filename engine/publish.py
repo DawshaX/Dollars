@@ -567,6 +567,28 @@ def add_to_playlist(video_id: str, playlist: str, token: str | None = None) -> b
 TELEGRAM_STATE = pathlib.Path("state/telegram.json")
 
 
+def pin_comment(video_id: str, text: str, token: str | None = None) -> bool:
+    """📌 تعليق مثبّت على الفيديو (سؤال بسيط = ردود = إشارة تفاعل عند الخوارزمية).
+
+    التكلفة: ٥٠ وحدة من الحصة (رخيصة مقارنة بالرفع ١٦٠٠).
+    """
+    if not (video_id and text):
+        return False
+    tok = token or access_token()
+    body = json.dumps({"snippet": {"videoId": video_id,
+                                  "topLevelComment": {"snippet": {"textOriginal": text[:9000]}}}}).encode()
+    req = urllib.request.Request(f"{API}/commentThreads?part=snippet", data=body,
+                                 headers={"Authorization": f"Bearer {tok}",
+                                          "Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=45) as r:
+            return r.status in (200, 201)
+    except Exception as e:
+        if _env("DOLLARS_DEBUG"):
+            print(f"📌 التعليق اتعذّر ({type(e).__name__}: {str(e)[:90]} · {_body(e)[:60]})", flush=True)
+        return False
+
+
 def _tg_send(tok: str, chat, text: str) -> tuple[bool, str]:
     """يبعت رسالة ويرجّع (نجح؟, وصف الخطأ)."""
     url = f"https://api.telegram.org/bot{tok}/sendMessage"
@@ -672,6 +694,11 @@ def publish(video_path, md: dict, thumb_path=None) -> dict:
         res["thumbnail"] = set_thumbnail(res["id"], thumb_path, token=tok)
     if md.get("playlist"):
         res["playlist"] = add_to_playlist(res["id"], md["playlist"], token=tok)
+    if md.get("pinned_comment"):                      # 📌 سؤال مثبّت = تفاعل (ردود)
+        try:
+            res["pinned"] = pin_comment(res["id"], str(md["pinned_comment"]), token=tok)
+        except Exception:
+            res["pinned"] = False
     if md.get("captions_srt"):                        # 🗣️ ترجمة حقيقية على الفيديو
         try:
             res["captions"] = upload_captions(res["id"], md["captions_srt"],
@@ -706,6 +733,9 @@ def record(res: dict, md: dict) -> pathlib.Path:
                      "duration_bucket": md.get("duration_bucket") or ts.get("kind"),
                      "music": bool(md.get("music_credit")), "sfx": bool(md.get("sfx_used")),
                      "overlays": bool(md.get("overlays_used")), "clips": bool(md.get("real_clips")),
+                     # 🔁 اللفّ والهوك والتعليق المثبّت (بصمات بتتعلم منها لاحقًا)
+                     "loop": bool(md.get("loop_glue")), "hook": bool(md.get("hook_used")),
+                     "pinned": bool(md.get("pinned_comment")),
                      # 🌍 اللغة الأساسية + النسخ العالمية اللي اتنشرت مع الفيديو (للتحقق بعدين)
                      "lang": md.get("default_language") or "en",
                      "locales": sorted(set(list((md.get("localizations") or {}).keys())

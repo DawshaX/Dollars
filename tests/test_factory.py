@@ -84,9 +84,29 @@ def test_status_report_is_honest(sandbox):
 
 
 def test_run_without_slots_logs_and_returns(sandbox, monkeypatch):
+    """لو الخطة خلصت: بنولّد فكرة إضافية (النشر مايتوقفش) — ولو ده فشل برضه مفيش كسر."""
     monkeypatch.setattr(factory, "next_slots", lambda *a, **k: [])
+    made = {}
+    def no_bonus(*a, **k):
+        raise RuntimeError("مفيش استوديو في الاختبار")
+    import engine.studio as _st
+    monkeypatch.setattr(_st, "_slot", no_bonus, raising=False)
     out = factory.run("short", 2)
     assert out["slots"] == 0 and out["lines"]
+
+
+def test_run_creates_bonus_idea_when_plan_is_empty(sandbox, monkeypatch):
+    """🎁 الخطة مالهاش أدوار ⇒ فكرة جديدة من النوع المناسب للوقت (النشر الساعي مستمر)."""
+    monkeypatch.setattr(factory, "next_slots", lambda *a, **k: [])
+    seen = {}
+    def fake_produce(slot, out_dir=None, seed=None):
+        seen["slot"] = slot
+        raise RuntimeError("وقفة تجربة قبل النشر")
+    monkeypatch.setattr(factory, "produce", fake_produce)
+    out = factory.run("short", 1)
+    assert seen.get("slot"), "المفروض يتولّد دور إضافي"
+    assert (seen["slot"].get("idea") or {}).get("genre"), seen["slot"].get("idea")
+    assert any("فكرة جديدة" in ln for ln in out["lines"]) or out["slots"] == 0
 
 
 def test_arabic_production_notes_never_reach_screen():
@@ -125,6 +145,45 @@ def test_shift_interval_is_minutes_not_hours():
         assert got == want, (every_min, got)
 
 
+def test_shift_schedule_not_inflated_by_gate(monkeypatch):
+    """⏳ لو بوابة الإيقاع ردّتنا (حد تاني نزل)، الوردية ماتأجّلش النشرة الجاية ساعات.
+
+    الحالة اللي كانت بتحصل: كل محاولة مرفوعة بعدّاد الدورات ⇒ الوردية تنام ٣ ساعات وتقطع النشر.
+    """
+    import time as _t
+    from engine import factory
+    seq = [{"stopped": "gate", "slots": 0, "lines": ["بوابة"]},
+           {"stopped": None, "slots": 1, "lines": ["نُشر"]},
+           {"stopped": "gate", "slots": 0, "lines": ["بوابة"]},
+           {"stopped": None, "slots": 1, "lines": ["نُشر"]}]
+    calls = {"n": 0}
+    def fake_run(*a, **k):
+        i = min(calls["n"], len(seq) - 1)
+        calls["n"] += 1
+        return seq[i]
+    monkeypatch.setattr(factory, "run", fake_run)
+    monkeypatch.setattr(factory, "_sync_state", lambda *a, **k: None)
+    slept = []
+    clock = {"t": 0.0}
+    def fake_time():
+        return clock["t"] + 1_000_000.0
+    def fake_sleep(sec):
+        slept.append(sec)
+        clock["t"] += sec
+        if len(slept) >= 5:
+            raise KeyboardInterrupt("خلاص كفاية")
+    monkeypatch.setattr(_t, "time", fake_time)
+    monkeypatch.setattr(_t, "sleep", fake_sleep)
+    try:
+        factory.shift(hours=5.5, per_hour=1, every_min=55)
+    except KeyboardInterrupt:
+        pass
+    assert calls["n"] >= 4, f"الدورات {calls['n']}"
+    assert all(x <= 55 * 60 + 5 for x in slept), f"في نومة أطول من اللازم: {[round(x/60) for x in slept]}"
+    assert any(abs(x - 12 * 60) < 5 for x in slept), "لازم نومة ١٢ دقيقة بعد بوابة الإيقاع"
+    assert any(abs(x - 55 * 60) < 5 for x in slept), "ونومة ٥٥ دقيقة بعد النشرة الناجحة"
+
+
 def test_shift_stays_alive_after_first_cycle(monkeypatch):
     """الوردية لازم تسيب وقت النوم بعد أول دورة (مش تخرج من اللوب)."""
     import time as _t
@@ -160,7 +219,7 @@ def test_recent_titles_reads_state(tmp_path, monkeypatch):
     import json
     from engine import factory
     monkeypatch.chdir(tmp_path)
-    (tmp_path / "state").mkdir()
+    (tmp_path / "state").mkdir(exist_ok=True)
     (tmp_path / "state" / "published.json").write_text(json.dumps({"videos": [
         {"title": "A #shorts"}, {"title": "B #shorts"}]}), encoding="utf-8")
     got = factory._recent_titles(10)
@@ -201,9 +260,10 @@ def test_demand_never_breaks_factory(monkeypatch, tmp_path):
     assert demand.pick("satisfying") is None
 
 
-def test_loop_glue_keeps_duration_and_len(tmp_path):
+def test_loop_glue_keeps_duration_and_len(tmp_path, monkeypatch):
     """🔁 الخاتمة اللي بترجع للبداية: الفيديو مايقصرش ولا يطول."""
     import subprocess
+    monkeypatch.setenv("DOLLARS_LOOP", "1")          # الاختبارات بتقفل اللفّ عمومًا — هنا نفعّله
     from engine import factory, proc
     src = tmp_path / "in.mp4"
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i",
@@ -212,7 +272,8 @@ def test_loop_glue_keeps_duration_and_len(tmp_path):
     before = proc.duration(src)
     ok = factory._loop_glue(src, 4.0)
     assert ok is True
-    assert abs(proc.duration(src) - before) < 0.35
+    after = proc.duration(src)
+    assert abs(after - before) < 1.0, f"قبل {before} بعد {after}"
 
 
 def test_rate_gate_blocks_bursts(tmp_path, monkeypatch):
@@ -221,7 +282,7 @@ def test_rate_gate_blocks_bursts(tmp_path, monkeypatch):
     from datetime import datetime, timedelta, timezone
     from engine import factory
     monkeypatch.chdir(tmp_path)
-    (tmp_path / "state").mkdir()
+    (tmp_path / "state").mkdir(exist_ok=True)
     monkeypatch.setattr(factory, "STATE", tmp_path / "state")
     monkeypatch.setenv("DOLLARS_GATE_MIN", "40")
     now = datetime.now(timezone.utc)

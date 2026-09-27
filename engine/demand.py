@@ -25,7 +25,15 @@ import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-CACHE = ROOT / "state" / "demand.json"
+def _state_path(rel: str = "") -> pathlib.Path:
+    """مسار الحالة (احترام DOLLARS_STATE — الاختبارات تشتغل في مجلد مؤقت)."""
+    import os as _os
+    base = (_os.environ.get("DOLLARS_STATE") or "").strip()
+    root = pathlib.Path(base) if base else (ROOT / "state")
+    return (root / rel) if rel else root
+
+
+CACHE = _state_path("demand.json")
 SUGGEST = "https://suggestqueries.google.com/complete/search?client=youtube&ds=yt&hl={hl}&q={q}"
 
 # بذور كل نوع (اللي بنسأل بيها يوتيوب: «الناس بتدوّر على إيه؟»)

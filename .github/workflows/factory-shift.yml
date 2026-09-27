@@ -19,6 +19,7 @@ on:
 permissions:
   contents: write
   issues: write
+  actions: write        # 🔗 عشان الوردية تسلّم الشغل للي بعدها (تغطية ٢٤ ساعة بلا كرون)
 concurrency:
   group: factory-shift          # وردية واحدة في الوقت الواحد
   cancel-in-progress: false
@@ -87,6 +88,21 @@ jobs:
             work/**/*.txt
           retention-days: 3
           if-no-files-found: ignore
+      - name: 🔗 تسليم الوردية للي بعدها (تغطية ٢٤ ساعة حتى لو الكرون اتأخر)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          LIVE=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/factory-shift.yml/runs?per_page=20" \
+            | jq --arg cur "$GITHUB_RUN_ID" '[.workflow_runs[] | select((.status=="in_progress" or .status=="queued") and ((.id|tostring) != $cur))] | length')
+          echo "ورديات شغالة غير دي: $LIVE"
+          if [ "$LIVE" -gt 0 ]; then echo "✅ في وردية شغالة — مش محتاج تسليم"; exit 0; fi
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/factory-shift.yml/dispatches" \
+            -d '{"ref":"main","inputs":{"hours":"5.5","per_hour":"1","every_min":"55"}}')
+          echo "🔗 تسليم الوردية الجاية: HTTP $CODE"
       - name: حفظ ذاكرة المصنع (السجل + الطابور)
         if: always()
         run: |

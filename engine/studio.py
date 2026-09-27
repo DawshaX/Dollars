@@ -10,6 +10,10 @@
 """
 from __future__ import annotations
 
+import pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+
 import json
 import pathlib
 import random
@@ -17,7 +21,15 @@ from datetime import date, datetime, timedelta, timezone
 
 from engine import genres, variety
 
-STATE = pathlib.Path("state")
+def _state_path(rel: str = "") -> pathlib.Path:
+    """مسار الحالة (احترام DOLLARS_STATE — الاختبارات تشتغل في مجلد مؤقت)."""
+    import os as _os
+    base = (_os.environ.get("DOLLARS_STATE") or "").strip()
+    root = pathlib.Path(base) if base else (ROOT / "state")
+    return (root / rel) if rel else root
+
+
+STATE = _state_path()
 
 # ── مواضيع حقيقية لكل نوع (كلها من كلمات طلب حقيقي أو مصادر موثّقة) ──────────
 # كل حكاية: (العنوان السردي، كلمة بحث الصور الحقيقية/الرسومات)

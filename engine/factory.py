@@ -40,6 +40,12 @@ from engine import clips
 # ── حماية من تعارض الأسماء: مجلد السكربت بيتحط أول مسار الاستيراد لما تشغّل الملف
 #    مباشرة (python engine/factory.py)، وده كان بيخلي `engine/copy.py` يحجب مكتبة
 #    بايثون الأساسية `copy` ⇒ انهيار عند الاستيراد. بنشيل مجلد السكربت من المسار.
+def _state_dir() -> pathlib.Path:
+    """مجلد الحالة — قابل للتحويل بـDOLLARS_STATE (عشان الاختبارات ما تلوّثش الإنتاج)."""
+    _env = (os.environ.get("DOLLARS_STATE") or "").strip()
+    return pathlib.Path(_env) if _env else (pathlib.Path(__file__).resolve().parents[1] / "state")
+
+
 def _fix_path_shadow():
     import pathlib as _p, sys as _s
     here = _p.Path(__file__).resolve().parent
@@ -49,7 +55,8 @@ def _fix_path_shadow():
 _fix_path_shadow()
 
 QUEUE_CAP = 72                  # أقصى عدد وصفات محفوظة في الطابور
-STATE = ROOT / "state"
+# 📂 مجلد الحالة: DOLLARS_STATE يخلّي الاختبارات مستقلة (ما تلخبطش سجل الإنتاج)
+STATE = pathlib.Path(os.environ["DOLLARS_STATE"]) if (os.environ.get("DOLLARS_STATE") or "").strip() else ROOT / "state"
 WORK = ROOT / "work"
 
 
@@ -328,10 +335,11 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                           music_path=(_track or {}).get("path"), sfx_files=_sfx_files)
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
+    _looped = False
     try:                                    # 🔁 نخلي النهاية تلاقي البداية قبل ما نركّب الصوت
-        _loop_glue(silent, seconds)
+        _looped = bool(_loop_glue(silent, seconds))
     except Exception:
-        pass
+        _looped = False
     video = out_dir / f"{gid}_{seed}.mp4"
     _vdur = proc.duration(silent) or seconds          # ⏱️ مدة الفيديو بالظبط (مش -shortest)
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
@@ -359,6 +367,8 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      "overlays_used": bool(_stickers_p) or bool(_hook_p),
                      "real_clips": bool(use_clips)})
     md["genre"] = gid                               # 🧠 النوع يتسجل غلشان العقل يربط النوع بالمشاهدات
+    md["loop_glue"] = _looped                       # 🔁 بصمة اللفّ (عشان العقل يعرف تنفع ولا لأ)
+    md["hook_used"] = bool(_HK)                     # 🪝 بصمة الهوك (أول ثانية)
     md["kind"] = md.get("kind") or "short"
     if _lang == "ar":                       # 🌍 نسخة عربية أساسية (ترجمة حقيقية بالـLLM)
         try:
@@ -1026,6 +1036,26 @@ def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=
     lines, results = list(locals().get("lines_pre") or []), []
     if catchup and count > 1:
         lines.append(f"⏱️ تعويض: النهاردة فيه {count} دور مستحق ⇒ بنطلّعهم كلهم")
+    if not slots and kind == "short":
+        # 🎁 مفيش أدوار فاضلة في الخطة؟ مانوقفش: بنولّد فكرة جديدة **من النوع والطلب الحقيقي**
+        #    وننشرها. القاعدة: النشر الساعي مايتقطعش أبدًا (وده اللي المستخدم طلبه).
+        try:
+            from engine import studio as _st
+            from engine import genres as _gn
+            seed_hint = int(time.time() // 60) % 97
+            _now = datetime.now(timezone.utc)
+            _rng = random.Random(f"bonus|{_now.date()}|{_now.hour}|{seed_hint}")
+            from engine import genres as _gn2
+            try:
+                _gid = _gn2.weighted_pick(_now.hour, _rng)      # نوع مناسب للوقت (نفس منطق الخطة)
+            except Exception:
+                _gid = random.choice(list(_gn.GENRES.keys()))
+            _bonus = _st._slot(_now.hour, _now.replace(minute=0, second=0).isoformat(), "short", _gid, _rng)
+            slots = [_bonus]
+            lines.append(f"🎁 الخطة مالهاش أدوار فاضلة ⇒ فكرة جديدة على الطاير ({_gid})")
+            print(lines[-1], flush=True)
+        except Exception as _be:
+            lines.append(f"⚠️ توليد فكرة إضافية اتعذّر ({type(_be).__name__})")
     if not slots:
         lines.append(f"مفيش أدوار {kind} فاضلة في خطة النهاردة — العقل هيعمل خطة بكرة")
     for slot in slots:
@@ -1166,47 +1196,53 @@ def _recent_titles(limit: int = 300) -> list[str]:
 def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 120) -> dict:
     """🔁 وردية طويلة: بتنشر بنفسها كل ساعة من غير ما تحتاج كرون كل ساعة.
 
-    السبب: جدولة جيت هوب بتتأخر/بتتشال ساعات كاملة، فالاعتماد عليها = نشر متقطع.
-    الوردية دي بتشغل ساعة كاملة طالما فيها وقت ⇒ نشر منتظم مضمون + عدد رفعات أقل من الحصة.
+    الجدولة **مطلقة** (مش بعدّاد دورات): كل نشرة بتحدد موعد النشرة اللي بعدها من وقت
+    النشر الفعلي — عشان لو حد تاني نزل قبلي (بوابة الإيقاع) الوردية ماتأجّلش نفسها ساعات.
     """
     import time as _t
     started = _t.time()
     deadline = started + max(0.2, hours) * 3600.0
+    _every = max(15, min(60, int(every_min))) * 60        # ⏱️ ١٥–٦٠ دقيقة (كانت بتطلع ١٥ ساعة!)
     done, cycle = [], 0
+    next_at = started
     while _t.time() < deadline:
+        now = _t.time()
+        if now < next_at:                                # 😴 وقت النشرة لسه مجاش
+            _nap = min(next_at - now, max(0.0, deadline - now))
+            if _nap <= 1:
+                break
+            print(f"😴 نوم {_nap/60:.0f} دقيقة لحد النشرة الجاية", flush=True)
+            _t.sleep(_nap)
+            continue
         cycle += 1
         left_h = (deadline - _t.time()) / 3600.0
-        print(f"\n⏱️ وردية — دورة {cycle} (كل {int(every_min)} دقيقة) · باقي {left_h:.2f} ساعة", flush=True)
+        print(f"\n⏱️ وردية — دورة {cycle} (كل {int(_every/60)} دقيقة) · باقي {left_h:.2f} ساعة", flush=True)
+        stopped = None
         try:
             out = run("short", max(1, per_hour), out_dir=out_dir, catchup=True)
             for line in out["lines"]:
                 print("•", line)
-            done.append({"cycle": cycle, "slots": out.get("slots"), "stopped": out.get("stopped")})
-            if out.get("stopped") == "gate":             # ⏳ الإيقاع: حد تاني نزل قريب ⇒ نستنى شوية ونجرب
-                print("⏳ بوابة الإيقاع: بنستنى ١٢ دقيقة ونجرب تاني (عشان النشر مايتقطعش)", flush=True)
-                _t.sleep(12 * 60)
-                continue
-            if out.get("stopped") == "quota":            # الحصة خلصت فعليًا من يوتيوب ⇒ ننام ونستأنف
-                _left_h = (deadline - _t.time()) / 3600.0
-                if _left_h < 0.8:
-                    print("⛔ الحصة خلصت — باقي وقت قليل فبننهي الوردية", flush=True)
-                    break
-                print(f"⛔ الحصة خلصت — نوم ٤٥ دقيقة وبعدها نجرب تاني (باقي {_left_h:.1f} ساعة)",
-                      flush=True)
-                _t.sleep(45 * 60)
-                continue
+            stopped = out.get("stopped")
+            done.append({"cycle": cycle, "slots": out.get("slots"), "stopped": stopped})
         except Exception as e:
             print(f"⚠️ دورة فشلت ({type(e).__name__}: {str(e)[:90]}) — بنكمل الدورة الجاية", flush=True)
             done.append({"cycle": cycle, "error": type(e).__name__})
+            stopped = "error"
         now = _t.time()
-        _every = max(15, min(60, int(every_min))) * 60        # ⏱️ ١٥–٦٠ دقيقة (كانت بتطلع ١٥ ساعة!)
-        nxt = started + cycle * _every
-        wait = max(60.0, min(nxt - now, deadline - now))
-        if now + wait >= deadline:
-            break
-        _sync_state(str(cycle))                       # ☁️ نحفظ فورًا بعد كل دورة
-        print(f"😴 نوم {wait/60:.0f} دقيقة لحد الساعة الجاية", flush=True)
-        _t.sleep(wait)
+        if stopped == "quota":            # الحصة خلصت فعليًا من يوتيوب ⇒ ننام ونستأنف
+            left_h = (deadline - now) / 3600.0
+            if left_h < 0.8:
+                print("⛔ الحصة خلصت — باقي وقت قليل فبننهي الوردية", flush=True)
+                break
+            print(f"⛔ الحصة خلصت — نوم ٤٥ دقيقة وبعدها نجرب تاني (باقي {left_h:.1f} ساعة)", flush=True)
+            next_at = now + 45 * 60
+            continue
+        if stopped == "gate":             # ⏳ حد تاني نزل قريب ⇒ نجرب بعد شوية (بلا تأجيل للنشرة الجاية)
+            next_at = now + 12 * 60
+            print("⏳ بوابة الإيقاع: نجرب تاني بعد ١٢ دقيقة", flush=True)
+            continue
+        _sync_state(str(cycle))           # ☁️ نحفظ فورًا بعد كل نشرة ناجحة
+        next_at = now + _every            # ⏱️ النشرة الجاية بعد _every من النشر الفعلي
     return {"cycles": cycle, "published": sum(1 for d in done if d.get("slots")), "log": done,
             "hours": round((_t.time() - started) / 3600.0, 2)}
 
