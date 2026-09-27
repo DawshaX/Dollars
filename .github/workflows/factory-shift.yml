@@ -1,0 +1,91 @@
+name: 🔁 المصنع — وردية متواصلة (نشر كل ساعة مضمون)
+on:
+  schedule:
+    - cron: '5 */6 * * *'        # ٤ كِكات في اليوم بس — والوردية نفسها بتنشر كل ساعة جوّاها
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: "طول الوردية بالساعات (أقصى ٥.٥)"
+        required: false
+        default: "5"
+      per_hour:
+        description: "كام فيديو في الساعة"
+        required: false
+        default: "1"
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: factory-shift          # وردية واحدة في الوقت الواحد
+  cancel-in-progress: false
+jobs:
+  shift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: مساحة حرة + الأدوات
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc 2>/dev/null || true
+          python -m pip install --quiet numpy pillow imageio-ffmpeg
+      - name: 🔁 وردية: نشر كل ساعة بنفسها (بدون انتظار الكرون)
+        env:
+          LIVE_ISSUE: '1'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+          YOUTUBE_CLIENT_ID_3: ${{ secrets.YOUTUBE_CLIENT_ID_3 }}
+          YOUTUBE_CLIENT_SECRET_3: ${{ secrets.YOUTUBE_CLIENT_SECRET_3 }}
+          YOUTUBE_REFRESH_TOKEN_3: ${{ secrets.YOUTUBE_REFRESH_TOKEN_3 }}
+          YOUTUBE_CLIENT_ID_4: ${{ secrets.YOUTUBE_CLIENT_ID_4 }}
+          YOUTUBE_CLIENT_SECRET_4: ${{ secrets.YOUTUBE_CLIENT_SECRET_4 }}
+          YOUTUBE_REFRESH_TOKEN_4: ${{ secrets.YOUTUBE_REFRESH_TOKEN_4 }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          PIXABAY_API_KEY: ${{ secrets.PIXABAY_API_KEY || secrets.PIXABAY_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || secrets.PEXELS }}
+          OPENVERSE_TOKEN: ${{ secrets.OPENVERSE_TOKEN || secrets.OPENVERSE }}
+          DOLLARS_LONG_CLIPS: '1'
+        run: |
+          python engine/factory.py --shift \
+            --hours "${{ github.event.inputs.hours || 5 }}" \
+            --per-hour "${{ github.event.inputs.per_hour || 1 }}"
+      - name: حفظ الفيديوهات كأرشيف (٣ أيام)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dollars-shift
+          path: |
+            work/**/*.mp4
+            work/**/*.jpg
+            work/**/*.json
+            work/**/*.txt
+          retention-days: 3
+          if-no-files-found: ignore
+      - name: حفظ ذاكرة المصنع (السجل + الطابور)
+        if: always()
+        run: |
+          git config user.name "Dollars Factory"
+          git config user.email "factory@dawshax.local"
+          git add state 2>/dev/null || true
+          if git diff --cached --quiet; then echo "مفيش تغيير"; exit 0; fi
+          git commit -m "🔁 الوردية: نشر متواصل $(date -u +%Y-%m-%dT%H:%M) — سجل وطابور"
+          git fetch -q origin main || true
+          if ! git pull --rebase --autostash origin main; then
+            echo "⚠️ تعارض في الدمج — بنوحّد ملفات الحالة وبنكمّل"
+            git rebase --abort 2>/dev/null || true
+            git merge -X ours --no-edit origin/main 2>/dev/null || true
+          fi
+          python3 tools/merge_state.py origin/main >/dev/null 2>&1 || true
+          git add state 2>/dev/null || true
+          git diff --cached --quiet || git commit -qm "🔀 توحيد حالة المصنع (اتحاد)" || true
+          git push origin main

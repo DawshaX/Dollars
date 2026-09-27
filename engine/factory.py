@@ -894,6 +894,42 @@ def report_text() -> str:
     return "\n".join(lines)
 
 
+def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None) -> dict:
+    """🔁 وردية طويلة: بتنشر بنفسها كل ساعة من غير ما تحتاج كرون كل ساعة.
+
+    السبب: جدولة جيت هوب بتتأخر/بتتشال ساعات كاملة، فالاعتماد عليها = نشر متقطع.
+    الوردية دي بتشغل ساعة كاملة طالما فيها وقت ⇒ نشر منتظم مضمون + عدد رفعات أقل من الحصة.
+    """
+    import time as _t
+    started = _t.time()
+    deadline = started + max(0.2, hours) * 3600.0
+    done, cycle = [], 0
+    while _t.time() < deadline:
+        cycle += 1
+        left_h = (deadline - _t.time()) / 3600.0
+        print(f"\n⏱️ وردية — دورة {cycle} · باقي {left_h:.2f} ساعة", flush=True)
+        try:
+            out = run("short", max(1, per_hour), out_dir=out_dir, catchup=True)
+            for line in out["lines"]:
+                print("•", line)
+            done.append({"cycle": cycle, "slots": out.get("slots"), "stopped": out.get("stopped")})
+            if out.get("stopped") == "quota":            # الحصة خلصت ⇒ نوقف الوردية بهدوء
+                print("⛔ الحصة خلصت — ننهي الوردية ونستأنف بعد التجديد", flush=True)
+                break
+        except Exception as e:
+            print(f"⚠️ دورة فشلت ({type(e).__name__}: {str(e)[:90]}) — بنكمل الدورة الجاية", flush=True)
+            done.append({"cycle": cycle, "error": type(e).__name__})
+        now = _t.time()
+        nxt = (int(started // 3600) + cycle) * 3600 + 120      # كل ساعة + دقيقتين
+        wait = max(60.0, min(nxt - now, deadline - now))
+        if now + wait >= deadline:
+            break
+        print(f"😴 نوم {wait/60:.0f} دقيقة لحد الساعة الجاية", flush=True)
+        _t.sleep(wait)
+    return {"cycles": cycle, "published": sum(1 for d in done if d.get("slots")), "log": done,
+            "hours": round((_t.time() - started) / 3600.0, 2)}
+
+
 def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser(description="مصنع Dollars")
@@ -909,7 +945,17 @@ def main(argv=None):
     ap.add_argument("--render-queue", action="store_true", help="يعيد إنتاج الطابور وينشره (لبعد ربط القناة)")
     ap.add_argument("--quota", action="store_true", help="يعرض حصة النشر اليومية لكل مشروع جوجل")
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--shift", action="store_true",
+                    help="🔁 وردية متواصلة: بتنشر كل ساعة بنفسها (بتحل مشكلة تأخّر/إلغاء الكرون)")
+    ap.add_argument("--hours", type=float, default=5.0, help="طول الوردية بالساعات (أقصى 5.5 لأمان جيت هوب)")
+    ap.add_argument("--per-hour", type=int, default=1, help="كام فيديو في الساعة جوه الوردية")
     a = ap.parse_args(argv)
+    if a.shift:
+        out = shift(hours=min(5.5, max(0.3, a.hours)), per_hour=max(1, a.per_hour), out_dir=a.out)
+        print("\n" + report_text())
+        print(f"\n🔁 الوردية خلصت: {out['cycles']} دورة · نشرت {out['published']} مرة · "
+              f"مدة {out['hours']:.2f} ساعة")
+        return 0 if out["cycles"] else 1
     if a.status:
         print(report_text())
         return 0

@@ -1,0 +1,151 @@
+"""⚙️ ضبط القناة للخوارزمية — Dollars Studio
+
+    python tools/channel_setup.py                     # يعرض الحالة الحالية بس
+    python tools/channel_setup.py --apply             # يطبّق الوصف + الكلمات المفتاحية + البلد + اللغة
+    python tools/channel_setup.py --apply --name "NoVa Calm"
+    python tools/channel_setup.py --playlists         # ينشئ بلايليستات لكل نوع + يحط الفيديوهات
+
+بيحتاج توكن القناة (نفس مفاتيح النشر) — من غير مشروع جوجل جديد.
+"""
+from __future__ import annotations
+
+import json
+import pathlib
+import sys
+import urllib.parse
+import urllib.request
+
+sys.path[:] = [q for q in sys.path if pathlib.Path(q or ".").resolve() != pathlib.Path(__file__).resolve().parent]
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from engine import publish  # noqa: E402
+
+API = "https://www.googleapis.com/youtube/v3"
+
+# 🎯 هوية القناة للنيتش (نوم · راحة · تركيز · ASMR · مُرضي للعين)
+DESC = """Calm loops, sleep sounds, ASMR and oddly satisfying moments — made to play in the background.
+New videos every day. 4K-ready vertical clips, real licensed footage and original sound design.
+
+🛏️ Sleep & rain sounds · 📚 Study & focus · 🎧 ASMR · ✨ Oddly satisfying · 🐾 Animals · 🌌 Space
+
+All footage and music are used under free licenses (CC0 / CC-BY / public domain) with credit in the description.
+For business: dawshax@gmail.com
+"""
+
+KEYWORDS = ("sleep sounds,rain sounds,study with me,focus music,asmr,oddly satisfying,"
+            "calm,relaxing,asmr no talking,background sounds,white noise,deep sleep,"
+            "nature sounds,lofi study,vertical shorts,black screen sleep")
+
+COUNTRY = "US"
+LANG = "en"
+
+
+def _req(method: str, path: str, token: str, body: dict | None = None, params: dict | None = None) -> dict:
+    url = f"{API}/{path}"
+    if params:
+        url += "?" + urllib.parse.urlencode(params)
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(url, data=data, method=method,
+                                 headers={"Authorization": f"Bearer {token}",
+                                          "Content-Type": "application/json",
+                                          "User-Agent": "DollarsStudio/1.0"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        raw = r.read().decode("utf-8")
+        return json.loads(raw) if raw.strip() else {}
+
+
+def token() -> str | None:
+    for prj in publish.all_projects():
+        try:
+            t = publish.access_token(prj)
+            if t:
+                return t
+        except Exception:
+            continue
+    return None
+
+
+def show(tok: str) -> dict:
+    d = _req("GET", "channels", tok, params={"part": "snippet,statistics,brandingSettings", "mine": "true"})
+    it = (d.get("items") or [{}])[0]
+    sn, st = it.get("snippet") or {}, it.get("statistics") or {}
+    ch = (it.get("brandingSettings") or {}).get("channel") or {}
+    print("📺 القناة:", sn.get("title"), "|", it.get("id"))
+    print("👥", st.get("subscriberCount"), "مشترك · 👁️", st.get("viewCount"), "مشاهدة · 🎬", st.get("videoCount"), "فيديو")
+    print("🌍 البلد:", ch.get("country") or "❌ مش محدّد")
+    print("🗣️ اللغة:", ch.get("defaultLanguage") or "❌ مش محددة")
+    print("🔑 كلمات القناة:", (ch.get("keywords") or "❌ مفقودة")[:150])
+    print("📄 الوصف:", ((ch.get("description") or "❌ مفقود")[:150]).replace("\n", " "))
+    return it
+
+
+def apply(tok: str, name: str | None = None) -> dict:
+    cur = _req("GET", "channels", tok, params={"part": "brandingSettings,snippet", "mine": "true"})
+    it = (cur.get("items") or [{}])[0]
+    base = (it.get("brandingSettings") or {})
+    chan = dict(base.get("channel") or {})
+    chan.update({"description": DESC, "keywords": KEYWORDS, "country": COUNTRY,
+                 "defaultLanguage": LANG, "defaultTab": "videos",
+                 "featuredChannelsTitle": "Watch next", "showRelatedChannels": False,
+                 "showBrowseView": True, "title": name or chan.get("title")})
+    body = {"id": it.get("id"), "brandingSettings": {**base, "channel": chan},
+            "snippet": {"title": name or (it.get("snippet") or {}).get("title"),
+                        "description": DESC, "defaultLanguage": LANG}}
+    if name:
+        body["snippet"]["title"] = name
+    out = _req("PUT", "channels", tok, body=body, params={"part": "brandingSettings,snippet"})
+    print("✅ اتطبّق:", ((out.get("snippet") or {}).get("title")))
+    return out
+
+
+def playlists(tok: str, limit_titles: int = 400) -> int:
+    """ينشئ بلايليست لكل نوع ويوزّع الفيديوهات المنشورة عليها."""
+    from engine import genres as _gg
+    import json as _j
+    pub = _j.loads((ROOT / "state" / "published.json").read_text(encoding="utf-8")) if \
+        (ROOT / "state" / "published.json").exists() else {"videos": []}
+    made = 0
+    try:
+        gids = list((_gg.GENRES or {}).keys())
+    except Exception:
+        gids = []
+    for gid in gids[:14]:
+        try:
+            pid = publish.playlist_id(gid.replace("_", " ").title(), token=tok)
+        except Exception:
+            pid = None
+        if not pid:
+            continue
+        made += 1
+        rows = [v for v in pub.get("videos", []) if (v.get("features") or {}).get("genre") == gid][-40:]
+        for v in rows:
+            try:
+                publish.add_to_playlist(v.get("video_id"), pid, token=tok)
+            except Exception:
+                pass
+    print(f"✅ بلايليستات: {made}")
+    return made
+
+
+def main() -> int:
+    tok = token()
+    if not tok:
+        print("❌ مفيش توكن قناة (مفاتيح النشر)")
+        return 1
+    show(tok)
+    if "--apply" in sys.argv:
+        name = None
+        if "--name" in sys.argv:
+            i = sys.argv.index("--name")
+            name = sys.argv[i + 1] if i + 1 < len(sys.argv) else None
+        apply(tok, name=name)
+        show(tok)
+    if "--playlists" in sys.argv:
+        playlists(tok)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

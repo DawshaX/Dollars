@@ -35,6 +35,17 @@ jobs:
         run: python engine/analytics.py --sync || echo "لسه مفيش أرقام — بنكمّل"
       - name: تشغيل العقل (تعلّم من الأرقام + أفكار + شخصيات جديدة + خطة اليوم)
         run: python engine/agent.py
+      - name: 🔎 فحص القناة الكامل (كل الفيديوهات — مش سجلنا بس)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+        run: python tools/channel_audit.py --telegram || echo "فحص القناة تعذّر النهاردة — بنكمّل"
       - name: تقرير الأداء على تليجرام (يلوّي على الإعداد من نفسه)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -72,6 +83,8 @@ jobs:
           path: |
             state/daily_report.md
             state/ideas.json
+            state/channel_audit.json
+            state/channel_audit.md
             state/plan_*.json
             content/characters.json
           retention-days: 30
