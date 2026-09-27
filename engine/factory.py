@@ -599,6 +599,16 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
                 print(f"🔎 عبارة عليها طلب حقيقي: {_ph}", flush=True)
         except Exception as _dme:
             print(f"🔎 محرّك الطلب اتعذّر ({type(_dme).__name__}) — بنكمل", flush=True)
+    if not str(idea.get("kw") or "").strip():              # 🛡️ مفيش كلمة مفتاحية ⇒ عنوان مكسور (كان بيطلع «— ...»)
+        _gname = str(idea.get("genre") or pillar or "nature").replace("_", " ").title()
+        idea = dict(idea)
+        try:
+            from engine import demand as _dmf
+            _pf = _dmf.pick(idea.get("genre") or pillar, rnd=random.Random(seed + 313))
+            idea["kw"] = _dmf.title_from_phrase(_pf) if _pf else _gname
+        except Exception:
+            idea["kw"] = _gname
+        print(f"🛡️ عنوان من غير كلمة مفتاحية ⇒ استخدمنا: {idea['kw']}", flush=True)
     t0 = time.time()
 
     # ── الاستوديو: النوع بيحدّد المشهد والصوت واللوحة والانتقال + النص على الشاشة ──

@@ -223,6 +223,10 @@ def build(spec: dict) -> dict:
         md["titles"] = [t if t.endswith("#shorts") else (t[:80] + " #shorts") for t in md["titles"]]
         md["chapters"] = []
         md["description"] = description.replace("⏱️ Chapters:", "").strip()
+    try:                                   # 🛡️ عنوان من غير كلمة مفتاحية = «— ...» ⇒ ننضّفه
+        md["titles"] = [tidy_title(t) for t in md["titles"] if tidy_title(t)] or md["titles"]
+    except Exception:
+        pass
     # ── النوع (الاستوديو): النوع بيحدّد العنوان والوصف والوسوم والبلايليست ──
     gid = spec.get("genre")
     if gid:
@@ -370,6 +374,15 @@ def unique_title(title: str, used, alternatives=None, seed: int = 0) -> str:
             return cand[:100]
         n += 1
     return title
+
+
+def tidy_title(t: str) -> str:
+    """يشيل الفواصل المعلّقة لو الكلمة المفتاحية فاضية («— عنوان» ⇒ «عنوان»)."""
+    if not t:
+        return t
+    t = re.sub(r"^[\s\-–—·•|:،,]+", "", t.strip())
+    t = re.sub(r"\s{2,}", " ", t)
+    return t
 
 
 def validate(md: dict) -> list:
