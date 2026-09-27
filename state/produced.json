@@ -974,19 +974,34 @@
       "reason": null,
       "seconds_spent": 1080.1,
       "at": "2026-09-27T12:03:35.309837+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 14,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "photo:nature close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_14/satisfying_864645.mp4",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/NaOw2R-BRb4",
+      "reason": null,
+      "seconds_spent": 295.5,
+      "at": "2026-09-27T12:12:48.003836+00:00"
     }
   ],
   "stats": {
-    "total": 63,
-    "published": 23,
+    "total": 64,
+    "published": 24,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
-      "satisfying": 28,
+      "satisfying": 29,
       "sleep": 19,
       "story": 8
     }
   },
   "created": null,
-  "updated": "2026-09-27T12:03:48.947954+00:00"
+  "updated": "2026-09-27T12:12:59.735975+00:00"
 }
