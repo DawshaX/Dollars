@@ -467,7 +467,9 @@ def upload_captions(video_id: str, srt_text: str, language: str = "en", name: st
             "Authorization": f"Bearer {token}", "Content-Type": ctype})
         try:
             with urllib.request.urlopen(req, timeout=90) as r:
-                return r.status in (200, 201)
+                if r.status in (200, 201):
+                    _say("   ✅ الترجمة (SRT) اترفعت على الفيديو — يوتيوب هيترجمها لكل اللغات")
+                    return True
         except urllib.error.HTTPError as e:
             msg = _body(e)[:160]
             if e.code in (400, 415) and not quoted:
