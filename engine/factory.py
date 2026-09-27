@@ -645,6 +645,17 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
 QUOTA_WORDS = ("quota", "exceeded", "rateLimit", "dailyLimit", "uploadLimit", "too many requests")
 
 
+def soft_capacity() -> int:
+    """كام رفعة نقدر نجرّبها دلوقتي. في الوضع المرن: بنجرّب ونسيب يوتيوب هو اللي يقول لأ."""
+    try:
+        from engine import publish as _pb
+        if getattr(_pb, "SOFT_QUOTA", False):
+            return max(1, _pb.extra_capacity())          # سقف مرن — مش بيمنع الوردية
+        return _pb.remaining_capacity()
+    except Exception:
+        return 1
+
+
 def quota_exhausted(res: dict) -> bool:
     """هل الفشل سببه كوتة يوتيوب؟ (وقتها بنوقف بدل ما نرندر حاجات مش هتنشر)"""
     if not res or res.get("published"):
@@ -718,7 +729,7 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
     items = q["items"][:limit] if limit else list(q["items"])
     lines, done = [], 0
     try:                                     # نسأل قبل ما نصرف ٥ دقايق رندر على الفاضي
-        left = publish.remaining_capacity()
+        left = soft_capacity()
         if publish.usable_projects() and left <= 0:
             _say("⛔ الحصة اليومية خلصت على كل المشاريع — مش بنرندر عشان ما نضيّعش وقت. "
                  "الطابور زي ما هو وهينزل لوحده أول ما الحصة ترجع.")
@@ -750,7 +761,7 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
             _jdump(STATE / "queue_skipped.json", sk)
             continue
         try:
-            if publish.usable_projects() and publish.remaining_capacity() <= 0:
+            if publish.usable_projects() and soft_capacity() <= 0:
                 _say("⛔ الحصة خلصت — وقفنا قبل الرندر (مبنضيّعش وقت) والباقي هينزل لوحده.")
                 _jdump(STATE / "queue.json", q)
                 _log(lines + ["⛔ الحصة خلصت أثناء الدفعة"])
@@ -823,7 +834,7 @@ def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=
     try:
         from engine import publish as _pb
         if _pb.usable_projects():
-            left = _pb.remaining_capacity()
+            left = soft_capacity()
             if left <= 0:
                 msg = (f"⛔ الحصة اليومية خلصت على كل المشاريع — وقفنا قبل الرندر. "
                        f"الطابور هينزل لوحده أول ما الحصة ترجع (07:02 و 07:32).")

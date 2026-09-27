@@ -47,7 +47,11 @@ def test_extra_projects_are_discovered_and_rotate(monkeypatch, tmp_path):
     assert rep["projects"]["1"]["uploads_left"] == 0 and rep["projects"]["2"]["uploads_left"] == 6
     for _ in range(6):
         publish.mark_upload(2, True)
-    assert publish.pick_project() is None, "لما الحصة تخلص في الكل لازم يوقف"
+    # 🔀 الوضع المرن (الافتراضي): بيدوّر على أقل مشروع استهلاكًا — ويوتيوب هو اللي يقول لأ
+    monkeypatch.setattr(publish, "SOFT_QUOTA", False)
+    assert publish.pick_project() is None, "في الوضع الصارم: لما الحصة تخلص في الكل لازم يوقف"
+    monkeypatch.setattr(publish, "SOFT_QUOTA", True)
+    assert publish.pick_project()["project"] == 1, "في الوضع المرن: نجرّب أقل مشروع استهلاكًا"
     assert publish.remaining_capacity() == 0
 
 
@@ -120,7 +124,8 @@ def test_prune_role_reserves_project_for_deleting(monkeypatch, tmp_path):
     assert rep["projects"]["2"]["deletes_left"] == 200 - 3, "٣ مسح = ١٥٠ وحدة"
     assert publish.remaining_capacity() == 6, "المشروع المحجوز مش بيتحسب للنشر"
     publish.mark_units(1, publish.DAILY_UNITS)
-    assert publish.pick_project() is None
+    monkeypatch.setattr(publish, "SOFT_QUOTA", False)       # الوضع الصارم فقط هو اللي بيوقف
+    assert publish.pick_project() is None, "مشروع المسح مايتحطش للنشر حتى لو التاني خلص"
 
 
 def test_quota_stop_and_resume_notices_are_sent_once(monkeypatch, tmp_path):

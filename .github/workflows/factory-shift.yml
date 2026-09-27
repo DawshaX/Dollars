@@ -13,9 +13,9 @@ on:
         required: false
         default: "1"
       every_min:
-        description: "⏱️ كل كام دقيقة ينشر (120 = ساعتين · 60 = كل ساعة)"
+        description: "⏱️ كل كام دقيقة ينشر (55 = كل ساعة · 120 = كل ساعتين)"
         required: false
-        default: "120"
+        default: "55"
 permissions:
   contents: write
   issues: write
@@ -59,7 +59,8 @@ jobs:
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY || secrets.PEXELS }}
           OPENVERSE_TOKEN: ${{ secrets.OPENVERSE_TOKEN || secrets.OPENVERSE }}
           DOLLARS_LONG_CLIPS: '1'
-          DOLLARS_EVERY_MIN: ${{ github.event.inputs.every_min || 120 }}
+          DOLLARS_SOFT_QUOTA: '1'
+          DOLLARS_EVERY_MIN: ${{ github.event.inputs.every_min || 55 }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY || secrets.GROQ_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
@@ -68,7 +69,7 @@ jobs:
           python engine/factory.py --shift \
             --hours "${{ github.event.inputs.hours || 5 }}" \
             --per-hour "${{ github.event.inputs.per_hour || 1 }}" \
-            --every-min "${{ github.event.inputs.every_min || 120 }}"
+            --every-min "${{ github.event.inputs.every_min || 55 }}"
       - name: حفظ الفيديوهات كأرشيف (٣ أيام)
         if: always()
         uses: actions/upload-artifact@v4

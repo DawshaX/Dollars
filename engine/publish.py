@@ -107,7 +107,12 @@ NOTICE_FILE = pathlib.Path("state/quota_notice.json")
 DAILY_UNITS = 10_000               # حصة كل مشروع جوجل في اليوم (من جوجل نفسه)
 UPLOAD_UNITS = 1_600               # تكلفة رفعة
 DELETE_UNITS = 50                  # تكلفة مسح فيديو
-DAILY_UPLOADS_PER_PROJECT = DAILY_UNITS // UPLOAD_UNITS        # ٦ رفعات
+DAILY_UPLOADS_PER_PROJECT = DAILY_UNITS // UPLOAD_UNITS        # ٦ رفعات (الموديل الرسمي)
+
+# ⚙️ وضع الحصة: "hard" يوقف الرفع عند حد الموديل · "soft" (الافتراضي) يجرّب لحد ما يوتيوب
+#    نفسه يرفض، وبعدها يوقف باحترام. ده اللي بيخلي النشر الساعي يستمر بدل ما يتقفل بدري.
+SOFT_QUOTA = (_env("DOLLARS_SOFT_QUOTA") or "1").lower() not in ("0", "false", "no")
+EXTRA_UPLOADS_PER_PROJECT = int(_env("DOLLARS_EXTRA_UPLOADS") or 0)     # سماح زيادة يدوي
 
 
 def my_channel(token: str) -> dict:
@@ -203,20 +208,35 @@ def quota_report() -> dict:
 
 
 def pick_project() -> dict | None:
-    """يختار مشروع عنده حصة فاضلة النهاردة (التبادل بين المشاريع)."""
-    for c in usable_projects() or []:
-        p = c.get("project", 1)
-        if role_of(p) == "prune":                 # مشروع محجوز للمسح ⇒ مش بنرفع بيه
-            continue
-        if units_left(p) >= UPLOAD_UNITS:
+    """يختار مشروع للرفع. في الوضع المرن: بيدوّر على **أقل مشروع مستهلك** ويسيبه ليوتيوب يقول لأ."""
+    projs = [c for c in (usable_projects() or []) if role_of(c.get("project", 1)) != "prune"]
+    if not projs:
+        return None
+    if SOFT_QUOTA:
+        return min(projs, key=lambda c: units_used(c.get("project", 1)))
+    for c in projs:
+        if units_left(c.get("project", 1)) >= UPLOAD_UNITS:
             return c
     return None
+
 
 
 def remaining_capacity() -> int:
     """كام رفعة لسه ينفع ننزلها النهاردة (مجموع المشاريع المؤهلة للنشر)."""
     return sum(units_left(c.get("project", 1)) // UPLOAD_UNITS
                for c in usable_projects() if role_of(c.get("project", 1)) != "prune")
+
+
+def extra_capacity() -> int:
+    """🎯 سعة **مرنة**: في الوضع المرن بندّي كل مشروع سماحية ١٢ رفعة/يوم قبل ما نستشير يوتيوب.
+
+    السبب: بنرفع أكتر من موديل ٦ رفعات بكتير في اليومفي الوقت الحقيقي (شفنا ٩٢ رفعة في يوم)،
+    فالموديل مايصحّش يقفل المصنع. القرار النهائي دايمًا من رد يوتيوب نفسه.
+    """
+    projs = [c for c in (usable_projects() or []) if role_of(c.get("project", 1)) != "prune"]
+    per = max(6, int(_env("DOLLARS_UPLOADS_PER_PROJECT_DAY") or 12))
+    used = sum(units_used(c.get("project", 1)) // UPLOAD_UNITS for c in projs)
+    return max(0, len(projs) * per - used)
 
 
 def prune_projects() -> list[dict]:
