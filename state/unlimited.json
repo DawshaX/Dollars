@@ -1,3 +1,9 @@
 {
- "used": []
+ "used": [
+  0
+ ],
+ "index": 1,
+ "by_pillar": {
+  "story": 1
+ }
 }
