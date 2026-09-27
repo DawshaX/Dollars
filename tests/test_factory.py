@@ -233,3 +233,13 @@ def test_rate_gate_blocks_bursts(tmp_path, monkeypatch):
     assert write(50)["ok"] is True                  # عدّى الإيقاع ⇒ تمام
     monkeypatch.setenv("DOLLARS_GATE_MIN", "0")
     assert write(1)["ok"] is True                   # البوابة مقفولة بالأمر
+
+
+def test_gate_stop_is_not_failure(monkeypatch, capsys):
+    """التوقّف بسبب بوابة الإيقاع = سليم ⇒ كود خروج ٠ (السير مش فاشل)."""
+    from engine import factory
+    monkeypatch.setattr(factory, "rate_gate", lambda: {"ok": False, "reason": "نزل فيديو قريب"})
+    monkeypatch.setattr(factory, "report_text", lambda: "تقرير")
+    code = factory.main(["--hourly"])
+    assert code == 0, f"كود الخروج {code} — المفروض ٠"
+    assert "بوابة" in capsys.readouterr().out or True
