@@ -886,11 +886,18 @@ def _log(lines: list):
 
 
 def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=None,
-        catchup: bool = False, max_catchup: int = 4) -> dict:
+        catchup: bool = False, max_catchup: int | None = None) -> dict:
     if catchup:
         miss = missed_slots(kind)
-        # الشورتس: نعوّض لحد 4 في التشغيل الواحد · الطويلة: واحدة بالكتير (ثقيلة أوي)
-        count = max(count, min(max_catchup, miss)) if kind == "short" else max(count, min(2, miss))
+        # 🚦 سقف التعويض: دفعة واحدة في المرة (بدل ٤). الدفع الجماعي (٥٢ فيديو في ساعة مرة)
+        #    كان بيبان لليوتيوب «سبام» وبيدفن القناة ⇒ صفر مشاهدات. الوردية الساعية بتعوّض الباقي بهدوء.
+        try:
+            _cap = int(os.environ.get("DOLLARS_CATCHUP_MAX") or 1)
+        except Exception:
+            _cap = 1
+        if max_catchup is not None:
+            _cap = max_catchup
+        count = max(count, min(max(1, _cap), miss)) if kind == "short" else max(count, min(1, miss))
     # ⛔ وعي بالحصة: مش بنرندر حاجة مش هينفع تنشر (الوقت أغلى من الرندر)
     try:
         from engine import publish as _pb
