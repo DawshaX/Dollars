@@ -412,8 +412,10 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
                 fps: int = 30, palette=None, look: str = "cinema_cool", seed: int = 7,
                 texts: list | None = None, crf: int = 21, calm: bool = False,
                 intros: bool = False, loop_back: bool | None = None,
-                maxrate: str | None = None) -> pathlib.Path:
-    """يرندر الصور الحقيقية كفيديو كامل (مع النص على الشاشة لو موجود)."""
+                maxrate: str | None = None, hook: str | None = None,
+                stickers: list | None = None, progress: bool = False,
+                watermark: str | None = None) -> pathlib.Path:
+    """يرندر الصور الحقيقية كفيديو كامل (نص + ملصقات + هوك + شريط تقدّم + علامة القناة)."""
     from engine.editor import _draw_text
     out_path = pathlib.Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -435,9 +437,32 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
             for tx in texts:
                 at, dur = float(tx.get("at", 0)), float(tx.get("dur", 3))
                 if at <= t_now < at + dur:
-                    fr = _draw_text(fr, str(tx.get("text", "")), pos=tx.get("pos", "lower"),
-                                    size=float(tx.get("size", 0.055)))
+                    if tx.get("card"):                 # 🎴 كارت كابشن فاخر
+                        from engine import overlays as _ov0
+                        _u8 = (np.clip(fr, 0, 1) * 255).astype(np.uint8)
+                        _u8 = _ov0.caption_card(_u8, str(tx.get("text", "")), t_now, at, dur,
+                                                size=float(tx.get("size", 0.052)),
+                                                y=float(tx.get("y", 0.76)))
+                        fr = _u8.astype(np.float32) / 255.0
+                    else:
+                        fr = _draw_text(fr, str(tx.get("text", "")), pos=tx.get("pos", "lower"),
+                                        size=float(tx.get("size", 0.055)))
                     break
+        if hook or stickers or progress or watermark:   # ✨ إضافات المونتاج (كانت ناقصة في مسار الصور)
+            from engine import overlays as _ov
+            u8 = (np.clip(fr, 0, 1) * 255).astype(np.uint8)
+            if hook and t_now < 3.2:
+                u8 = _ov.hook_badge(u8, hook, t_now, dur=3.2)
+            for sk in (stickers or []):
+                if float(sk["at"]) <= t_now < float(sk["at"]) + float(sk["dur"]):
+                    u8 = _ov.draw_sticker(u8, sk["code"], t_now, float(sk["at"]), float(sk["dur"]),
+                                          x=float(sk.get("x", 0.78)), y=float(sk.get("y", 0.28)),
+                                          size=float(sk.get("size", 0.14)))
+            if watermark:
+                u8 = _ov.watermark(u8, watermark)
+            if progress:
+                u8 = _ov.progress_bar(u8, t_now / max(0.1, seconds))
+            fr = u8.astype(np.float32) / 255.0
         p.stdin.write(memoryview(np.ascontiguousarray((np.clip(fr, 0, 1) * 255).astype(np.uint8))))
         i += 1
     p.stdin.close()

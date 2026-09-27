@@ -252,8 +252,20 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                            look="cinema_cool", seed=seed, texts=_texts, stickers=_stickers,
                            progress=True, watermark="@xDaw_NoVa", hook=_hook)
     else:
+        from engine import overlays as _ovp
+        # ✨ دلع مسار الصور كذلك: ملصقات + هوك + كابشنات فاخرة + شريط تقدّم + علامة القناة
+        _stickers_p = _ovp.plan_stickers(gid, seconds, seed=seed, count=3)
+        _hook_p = (idea.get("hook") or "").strip()[:42] or None
+        _texts_p = []
+        for tx in texts:
+            tx = dict(tx)
+            if tx.get("text") == _hook_p and float(tx.get("at", 0)) < 1.0:
+                continue
+            tx["card"] = True
+            _texts_p.append(tx)
         photo.render_reel(paths, silent, seconds=seconds, w=720, h=1280, fps=30, palette=pal,
-                          seed=seed, texts=texts)
+                          look="cinema_cool", seed=seed, texts=_texts_p, stickers=_stickers_p,
+                          progress=True, watermark="@xDaw_NoVa", hook=_hook_p)
     # الصوت: صوت من صنعنا + موسيقى (نفس منظومة المصنع)
     from engine import editor as _ed
     from engine import musiclib as _music

@@ -598,6 +598,7 @@ def notify(text: str) -> bool:
             _jdump(TELEGRAM_STATE, {"chat_id": chat, "ok_at": datetime.now(timezone.utc).isoformat()})
         except Exception:
             pass
+        print("📨 تليجرام: اتبعت ✅", flush=True)      # إثبات واضح في اللوج إن الإشعار وصل
     return ok
 
 
