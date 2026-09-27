@@ -220,6 +220,46 @@
       "origin": "auto",
       "created": "2026-09-27T03:01:54.741099+00:00",
       "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, bedroom background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "dushi_auto",
+      "name": "Dushi",
+      "type": "حجر ودود",
+      "look": "حجر أملس + وجه بسيط — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "كسول ومضحك",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "ocean"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "tiny_adventure"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-27T03:02:54.813511+00:00",
+      "image_prompt": "cute original 2D animation character, a friendly stone, حجر أملس + وجه بسيط, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "minu_auto",
+      "name": "Minu",
+      "type": "نبتة فضائية",
+      "look": "ساق ضوئية + أوراق شفافة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "هادي وبيفكّر",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "garden",
+        "snow"
+      ],
+      "formats": [
+        "silent_gag",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-27T03:02:54.813839+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -229,5 +269,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 8
+  "_auto_count": 10
 }

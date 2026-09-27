@@ -511,6 +511,18 @@
       "name": "Tari",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "dushi_auto",
+      "name": "Dushi",
+      "type": "حجر ودود",
+      "origin": "auto"
+    },
+    {
+      "id": "minu_auto",
+      "name": "Minu",
+      "type": "نبتة فضائية",
+      "origin": "auto"
     }
   ],
   "stories": [
