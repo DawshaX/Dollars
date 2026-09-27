@@ -779,19 +779,34 @@
       "reason": null,
       "seconds_spent": 409.1,
       "at": "2026-09-27T02:35:57.114780+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "20s",
+      "scene": "clip:the Monday morning funny animal",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_05/fun_memes_468598.mp4",
+      "title": "POV: the Monday morning #memes #shorts",
+      "published": true,
+      "url": "https://youtu.be/oQtqcFxt9sE",
+      "reason": null,
+      "seconds_spent": 131.0,
+      "at": "2026-09-27T02:41:38.985093+00:00"
     }
   ],
   "stats": {
-    "total": 52,
-    "published": 12,
+    "total": 53,
+    "published": 13,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
-      "satisfying": 22,
+      "satisfying": 23,
       "sleep": 15,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T02:37:10.992862+00:00"
+  "updated": "2026-09-27T02:41:49.867199+00:00"
 }
