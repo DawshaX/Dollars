@@ -199,3 +199,17 @@ def test_demand_never_breaks_factory(monkeypatch, tmp_path):
     monkeypatch.setattr(demand, "_load", lambda: {})
     assert demand.phrases("kinetic sand", force=True) == []
     assert demand.pick("satisfying") is None
+
+
+def test_loop_glue_keeps_duration_and_len(tmp_path):
+    """🔁 الخاتمة اللي بترجع للبداية: الفيديو مايقصرش ولا يطول."""
+    import subprocess
+    from engine import factory, proc
+    src = tmp_path / "in.mp4"
+    subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i",
+                    "testsrc2=size=180x320:rate=30:duration=4", "-c:v", "libx264", "-pix_fmt",
+                    "yuv420p", str(src)], check=True)
+    before = proc.duration(src)
+    ok = factory._loop_glue(src, 4.0)
+    assert ok is True
+    assert abs(proc.duration(src) - before) < 0.35

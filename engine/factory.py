@@ -328,6 +328,10 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                           music_path=(_track or {}).get("path"), sfx_files=_sfx_files)
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
+    try:                                    # 🔁 نخلي النهاية تلاقي البداية قبل ما نركّب الصوت
+        _loop_glue(silent, seconds)
+    except Exception:
+        pass
     video = out_dir / f"{gid}_{seed}.mp4"
     _vdur = proc.duration(silent) or seconds          # ⏱️ مدة الفيديو بالظبط (مش -shortest)
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
@@ -988,6 +992,43 @@ def report_text() -> str:
     if s.get("last"):
         lines.append(f"- آخر حاجة: {s['last'].get('title')} ({s['last'].get('pillar')})")
     return "\n".join(lines)
+
+
+def _loop_glue(path, seconds: float, blend: float = 0.4) -> bool:
+    """🔁 يخلّي الفيديو يلفّ على نفسه: آخر ٠٫٤ ثانية بتتلاقى مع أول ٠٫٤ ثانية.
+
+    ليه ده مهم؟ إعادة المشاهدة (rewatch) أقوى إشارة في ترتيب الشورتس — ولما نهاية
+    الفيديو تبقى نفس بدايته، العين مش بتحس بالقطع فبيرجع من أول تاني.
+    المدة مابتتغيّرش (بنقطع نفس الجزء ونستبدله بالمزج).
+    """
+    if (os.environ.get("DOLLARS_LOOP") or "1").strip() in ("0", "false", "no"):
+        return False
+    path = pathlib.Path(path)
+    if seconds < 4 or not path.exists():
+        return False
+    out = path.with_name(path.stem + "_loop.mp4")
+    b = max(0.25, min(float(blend), seconds / 4.0))
+    end = max(b + 0.05, seconds - b)
+    fc = (f"[0:v]trim=start={end:.3f},setpts=PTS-STARTPTS,fps=30[a];"
+          f"[0:v]trim=start=0:end={b:.3f},setpts=PTS-STARTPTS,fps=30[b];"
+          f"[a][b]xfade=transition=fade:duration={b:.3f}:offset=0,format=yuv420p[ab];"
+          f"[0:v]trim=start=0:end={end:.3f},setpts=PTS-STARTPTS,fps=30[c];"
+          f"[c][ab]concat=n=2:v=1:a=0[v]")
+    import subprocess
+    from engine import proc as _proc
+    cmd = [_proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-i", str(path),
+           "-filter_complex", fc, "-map", "[v]", "-an", "-c:v", "libx264", "-preset", "veryfast",
+           "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)]
+    try:
+        subprocess.run(cmd, check=True, timeout=300)
+        if out.exists() and out.stat().st_size > 10_000:
+            out.replace(path)
+            print("🔁 خاتمة بتلفّ على البداية (إعادة مشاهدة)", flush=True)
+            return True
+    except Exception as e:
+        print(f"🔁 اللفّ اتعذّر ({type(e).__name__}) — بنكمل بالفيديو الأصلي", flush=True)
+    out.unlink(missing_ok=True)
+    return False
 
 
 def _sync_state(tag: str = "") -> None:
