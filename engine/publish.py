@@ -343,8 +343,7 @@ def _snippet(md: dict) -> dict:
         "tags": md.get("tags", [])[:35],
         "categoryId": str(md.get("category_id", "10")),
         "defaultLanguage": md.get("default_language", "en"),
-        # 🌍 لو الفيديو عربي أساسي: نحط النسخة الإنجليزية كـlocalization كمان
-        **({"localizations": {"en": md["localizations_en"]}} if md.get("localizations_en") else {}),
+        # ⚠️ ملاحظة: localizations مش بتتحط جوه snippet (يوتيوب بيرفضها) — بتتحط في put_upload.
         # ⚠️ ممنوع نبعت defaultAudioLanguage="zxx": يوتيوب بيرفض الرفع كله (INVALID_REQUEST_METADATA).
         # سيبناها فاضية = «مفيش لغة كلام» وهو ده الافتراضي الآمن للفيديوهات الصامتة.
     }
@@ -367,6 +366,10 @@ def upload(video_path, md: dict, token: str | None = None, chunk: int = 8 * 1024
     body = {"snippet": _snippet(md), "status": _status(md)}
     loc = {k: v for k, v in (md.get("localizations") or {}).items()
            if isinstance(v, dict) and v.get("title")}
+    # 🌍 الفيديو العربي الأساسي: نحط نسخته الإنجليزية كـlocalization (والعكس)
+    _en = md.get("localizations_en")
+    if isinstance(_en, dict) and _en.get("title"):
+        loc.setdefault("en", _en)
     part = "&part=snippet,status"
     if loc:
         body["localizations"] = loc
@@ -702,7 +705,11 @@ def record(res: dict, md: dict) -> pathlib.Path:
                      "genre": md.get("genre"), "hour": ts.get("hour"),
                      "duration_bucket": md.get("duration_bucket") or ts.get("kind"),
                      "music": bool(md.get("music_credit")), "sfx": bool(md.get("sfx_used")),
-                     "overlays": bool(md.get("overlays_used")), "clips": bool(md.get("real_clips"))},
+                     "overlays": bool(md.get("overlays_used")), "clips": bool(md.get("real_clips")),
+                     # 🌍 اللغة الأساسية + النسخ العالمية اللي اتنشرت مع الفيديو (للتحقق بعدين)
+                     "lang": md.get("default_language") or "en",
+                     "locales": sorted(set(list((md.get("localizations") or {}).keys())
+                                           + (["en"] if md.get("localizations_en") else [])))},
         "views": 0, "likes": 0, "comments": 0,
         "thumbnail": bool(md.get("thumbnail_texts")), "playlist": md.get("playlist"),
     })

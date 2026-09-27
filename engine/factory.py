@@ -370,6 +370,43 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
         except Exception as _ae:
             print(f"🌍 العربي اتعذّر ({type(_ae).__name__}) — بنكمل إنجليزي", flush=True)
             md["default_language"] = "en"
+    # ── 🧬 حماية من التكرار: عنوان مش مكرر خلال آخر ٣٠٠ فيديو (الخوارزمية بتعاقب التكرار) ──
+    try:
+        from engine import meta as _m2
+        _used = _recent_titles(300)
+        _alts = []
+        if g:
+            _ctx = {"kw": idea.get("kw") or "", "dur": f"{int(seconds)}s",
+                    "hook": (g.get("hooks_en") or [""])[0], "city": idea.get("kw") or "",
+                    "topic": idea.get("kw") or "", "n": 1, "place": idea.get("kw") or ""}
+            for _st in (g.get("title_styles") or []):
+                try:
+                    _alts.append(_st.format(**_ctx))
+                except Exception:
+                    continue
+        _before = md["titles"][0]
+        _after = _m2.unique_title(_before, _used, alternatives=_alts, seed=seed)
+        if _after != _before:
+            md["titles"] = [_after] + [t for t in md["titles"] if t != _before]
+            print(f"🧬 عنوان جديد بدل المكرر: {_after[:56]}", flush=True)
+    except Exception as _de:
+        print(f"🧬 فحص التكرار اتعذّر ({type(_de).__name__})", flush=True)
+    # ── 🌍 نسخ عالمية لكل فيديو (localizations رسمية): يوتيوب يعرضه بلغة كل بلد ──
+    try:
+        _codes = [x.strip() for x in (os.environ.get("DOLLARS_LOCALES") or "ar,es,pt,hi,id").split(",") if x.strip()]
+        _base = md.get("default_language") or "en"
+        _need = [c for c in _codes if c != _base]
+        if _need:
+            from engine import globalize as _gl3
+            _got = _gl3.translate_fields(md["titles"][0], md["description"], _need)
+            _loc = md.setdefault("localizations", {})
+            for _c, _v in (_got or {}).items():
+                if isinstance(_v, dict) and _v.get("title"):
+                    _loc[_c] = _v
+            if _loc:
+                print(f"🌍 نسخ عالمية على الفيديو: {','.join(sorted(_loc))}", flush=True)
+    except Exception as _le:
+        print(f"🌍 النسخ العالمية اتعذّرت ({type(_le).__name__}) — بنكمل", flush=True)
     cr = clips.credits(clip_items) if use_clips else photo.credits(items)
     _mcr = _music.credits([_track]) if _track else []
     if _mcr:
@@ -930,6 +967,51 @@ def report_text() -> str:
     return "\n".join(lines)
 
 
+def _sync_state(tag: str = "") -> None:
+    """☁️ يحفظ سجل النشر في جيت هوب بعد كل دورة (لو DOLLARS_SYNC=1).
+
+    السبب: قبل كده الحالة كانت بتترفع بعد الوردية كلها ⇒ التقارير/الفحص كانوا
+    بيشوفوا فيديوهات قديمة، ومنع التكرار ماكانش عارف آخر اللي اتنشر في وردية تانية.
+    """
+    if (os.environ.get("DOLLARS_SYNC") or "").strip() not in ("1", "true", "yes"):
+        return
+    import subprocess
+    def g(*a, **kw):
+        return subprocess.run(["git", *a], capture_output=True, text=True, timeout=180, **kw)
+    try:
+        g("add", "state")
+        if g("diff", "--cached", "--quiet").returncode == 0:
+            print("☁️ مفيش تغيير في السجل — مفيش رفع", flush=True)
+            return
+        g("commit", "-qm", f"🔁 دورة {tag}: سجل وطابور", "-c", "user.name=Dollars Factory",
+          "-c", "user.email=factory@dawshax.local")
+        g("fetch", "-q", "origin", "main")
+        if g("pull", "--rebase", "--autostash", "origin", "main").returncode != 0:
+            g("rebase", "--abort")
+            g("merge", "-X", "ours", "--no-edit", "origin/main")
+        g("push", "-q", "origin", "main")
+        print(f"☁️ السجل اترفع على جيت هوب (دورة {tag})", flush=True)
+    except Exception as e:
+        print(f"☁️ الرفع اتعذّر ({type(e).__name__}: {str(e)[:60]}) — بنكمل", flush=True)
+
+
+def _recent_titles(limit: int = 300) -> list[str]:
+    """عناوين آخر الفيديوهات المنشورة (من state) — عشان مانكررش عنوان."""
+    out: list[str] = []
+    for path in ("state/published.json", "state/queue.json"):
+        try:
+            d = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for v in (d.get("videos") or []):
+            t = v.get("title")
+            if t:
+                out.append(str(t))
+            if len(out) >= limit:
+                return out
+    return out
+
+
 def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 120) -> dict:
     """🔁 وردية طويلة: بتنشر بنفسها كل ساعة من غير ما تحتاج كرون كل ساعة.
 
@@ -967,6 +1049,7 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
         wait = max(60.0, min(nxt - now, deadline - now))
         if now + wait >= deadline:
             break
+        _sync_state(str(cycle))                       # ☁️ نحفظ فورًا بعد كل دورة
         print(f"😴 نوم {wait/60:.0f} دقيقة لحد الساعة الجاية", flush=True)
         _t.sleep(wait)
     return {"cycles": cycle, "published": sum(1 for d in done if d.get("slots")), "log": done,

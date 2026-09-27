@@ -16,6 +16,7 @@ import os
 import pathlib
 import re
 import sys
+import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -53,13 +54,62 @@ def _llm(prompt: str, timeout: int = 40) -> str | None:
         return None
 
 
+def _gtx(text: str, lang: str, timeout: int = 25) -> str | None:
+    """🌐 ترجمة حقيقية **بلا أي مفتاح** (نقطة جوجل العامة client=gtx).
+
+    دي اللي بتخلي النسخة العربية الأساسية والترجمات العالمية تشتغل في السحابة
+    من غير ما نستنى مفتاح LLM — صفر تكلفة، وشغّالة على النصوص القصيرة (عنوان/وصف).
+    """
+    text = (text or "").strip()
+    if not text:
+        return None
+    out = []
+    for i in range(0, len(text), 1200):                       # نقطع عند ~١٢٠٠ حرف
+        part = text[i:i + 1200]
+        q = urllib.parse.quote(part)
+        url = (f"https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl={lang}"
+               f"&dt=t&q={q}")
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Dollars/1.0)"})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = json.loads(r.read().decode("utf-8", "replace"))
+            seg = "".join(s[0] for s in (data[0] or []) if s and s[0])
+            out.append(seg)
+        except Exception:
+            return None
+    got = "".join(out).strip()
+    return got or None
+
+
+_EMOJI_RE = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF\uFE0F]")
+
+
+def _keep_tail(src: str, dst: str) -> str:
+    """نحافظ على الهاشتاجات والإيموجي الأصلية بعد الترجمة (مهمة للخوارزمية).
+
+    أي هاشتاج مترجم (زي #شورت) بيتشال، والهاشتاج الأصلي بيرجع زي ما هو.
+    """
+    src_tags = re.findall(r"#[\w\u0600-\u06FF]+", src)
+    def _sub(m):
+        return m.group(0) if m.group(0) in src_tags else " "
+    dst2 = re.sub(r"#[\w\u0600-\u06FF]+", _sub, dst)
+    miss = [t for t in _EMOJI_RE.findall(src) if t not in dst2] + [t for t in src_tags if t not in dst2]
+    return re.sub(r"[ \t]{2,}", " ", (dst2 + " " + " ".join(miss)).strip()).strip()
+
+
 def translate_fields(title: str, description: str, langs: list[str] | None = None) -> dict:
-    """ترجمة العنوان والوصف لعدة لغات. بيرجّع {lang: {"title":…, "description":…}}."""
+    """ترجمة العنوان والوصف لعدة لغات. بيرجّع {lang: {"title":…, "description":…}}.
+
+    المسار الأول: LLM (لو فيه مفتاح). المسار الثاني: ترجمة مجانية بلا مفتاح (_gtx)
+    فأي لغة ناقصة بتتكمّل — عشان الفيديو يفضل «لكل العالم» في كل الحالات.
+    """
     langs = [x for x in (langs or LANGS_DEFAULT) if x != "en"]
     if not langs or not title:
         return {}
     out: dict[str, dict] = {}
     # كل نداء بياخد مجموعة لغات — أقل تكلفة وأسرع
+    if not llm_key():
+        return _gtx_fields(title, description, langs)
     for i in range(0, len(langs), 6):
         chunk = langs[i:i + 6]
         names = ", ".join(f"{c}={LANG_NAMES.get(c, c)}" for c in chunk)
@@ -80,6 +130,22 @@ def translate_fields(title: str, description: str, langs: list[str] | None = Non
             if code in chunk and isinstance(val, dict) and val.get("title"):
                 out[code] = {"title": str(val["title"])[:100],
                              "description": str(val.get("description") or "")[:4900]}
+    missing = [c for c in langs if c not in out]                 # اللي الـLLM سابه نكمّله مجانًا
+    if missing:
+        out.update(_gtx_fields(title, description, missing))
+    return out
+
+
+def _gtx_fields(title: str, description: str, langs: list[str]) -> dict:
+    """نسخة «بلا مفتاح» من الترجمة — لكل اللغات المطلوبة."""
+    out: dict[str, dict] = {}
+    for code in langs:
+        t = _gtx(title, code)
+        if not t:
+            continue
+        d = _gtx(description, code) if description else None
+        out[code] = {"title": _keep_tail(title, t)[:100],
+                     "description": ((_keep_tail(description, d) if d else description) or "")[:4900]}
     return out
 
 
