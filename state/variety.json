@@ -615,6 +615,17 @@
       "title_shape": "W W W W W W W — W W W #W",
       "mark": "the whale and the star",
       "hour": 6
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "ocean_night",
+      "palette": "midnight",
+      "transition": "slide",
+      "audio": "storm",
+      "montage": "تنفّس بطيء",
+      "title_shape": "W W W W W W | W W W W W | W W",
+      "mark": "Lake at Dusk",
+      "hour": 3
     }
   ]
 }
