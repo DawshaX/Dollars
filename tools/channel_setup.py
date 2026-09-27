@@ -13,6 +13,7 @@ import json
 import pathlib
 import sys
 import urllib.parse
+import urllib.error
 import urllib.request
 
 sys.path[:] = [q for q in sys.path if pathlib.Path(q or ".").resolve() != pathlib.Path(__file__).resolve().parent]
@@ -82,22 +83,45 @@ def show(tok: str) -> dict:
 
 
 def apply(tok: str, name: str | None = None) -> dict:
+    """يضبط هوية القناة: وصف · كلمات مفتاحية · بلد · لغة (واسم لو اتبعت)."""
     cur = _req("GET", "channels", tok, params={"part": "brandingSettings,snippet", "mine": "true"})
     it = (cur.get("items") or [{}])[0]
-    base = (it.get("brandingSettings") or {})
+    base = dict(it.get("brandingSettings") or {})
     chan = dict(base.get("channel") or {})
     chan.update({"description": DESC, "keywords": KEYWORDS, "country": COUNTRY,
-                 "defaultLanguage": LANG, "defaultTab": "videos",
-                 "featuredChannelsTitle": "Watch next", "showRelatedChannels": False,
-                 "showBrowseView": True, "title": name or chan.get("title")})
-    body = {"id": it.get("id"), "brandingSettings": {**base, "channel": chan},
-            "snippet": {"title": name or (it.get("snippet") or {}).get("title"),
-                        "description": DESC, "defaultLanguage": LANG}}
+                 "defaultLanguage": LANG})
     if name:
-        body["snippet"]["title"] = name
-    out = _req("PUT", "channels", tok, body=body, params={"part": "brandingSettings,snippet"})
-    print("✅ اتطبّق:", ((out.get("snippet") or {}).get("title")))
-    return out
+        chan["title"] = name
+    body = {"id": it.get("id"), "brandingSettings": {**base, "channel": chan}}
+    try:
+        out = _req("PUT", "channels", tok, body=body, params={"part": "brandingSettings"})
+        print("✅ الضبط اتطبق")
+        return out
+    except urllib.error.HTTPError as e:
+        detail = ""
+        try:
+            detail = json.loads(e.read().decode("utf-8")).get("error", {}).get("message", "")
+        except Exception:
+            pass
+        print(f"⚠️ القناة رفضت الضبط ({e.code}): {detail[:180]}")
+        # محاولة أخيرة: أقل حقول ممكنة (وصف + كلمات فقط)
+        try:
+            mini = {"id": it.get("id"), "brandingSettings": {"channel": {
+                "description": DESC, "keywords": KEYWORDS, "country": COUNTRY}}}
+            out = _req("PUT", "channels", tok, body=mini, params={"part": "brandingSettings"})
+            print("✅ الضبط اتطبق (نسخة مختصرة)")
+            return out
+        except urllib.error.HTTPError as e2:
+            d2 = ""
+            try:
+                d2 = json.loads(e2.read().decode("utf-8")).get("error", {}).get("message", "")
+            except Exception:
+                pass
+            print(f"❌ الضبط فشل ({e2.code}): {d2[:180]}")
+            return {}
+        except Exception as e3:
+            print("❌ الضبط فشل:", type(e3).__name__)
+            return {}
 
 
 def playlists(tok: str, limit_titles: int = 400) -> int:

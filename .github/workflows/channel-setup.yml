@@ -38,6 +38,17 @@ jobs:
           YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
           YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
         run: python tools/channel_audit.py --telegram || echo "الفحص تعذّر — بنكمّل"
+      - name: 📊 تحليلات عميقة (ظهور · نسبة نقر · بلاد · أعلى فيديوهات)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+        run: python tools/analytics_deep.py --days 28 --telegram || echo "التحليلات تعذّرت — بنكمّل"
       - name: ضبط هوية القناة (وصف · كلمات مفتاحية · بلد · لغة · بلايليستات)
         env:
           YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
@@ -51,7 +62,7 @@ jobs:
           if [ "${{ github.event.inputs.apply }}" = "true" ]; then ARGS="$ARGS --apply"; fi
           if [ "${{ github.event.inputs.playlists }}" = "true" ]; then ARGS="$ARGS --playlists"; fi
           if [ -n "${{ github.event.inputs.name }}" ]; then ARGS="$ARGS --name \"${{ github.event.inputs.name }}\""; fi
-          eval python tools/channel_setup.py $ARGS
+          eval python tools/channel_setup.py $ARGS || echo "ضبط القناة اتعذّر — بنكمّل"
       - name: حفظ نتائج الفحص
         if: always()
         run: |
