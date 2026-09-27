@@ -1,17 +1,6 @@
 {
   "sig": [
     {
-      "genre": "sleep_ambience",
-      "scene": "beach_night",
-      "palette": "warm_ember",
-      "transition": "crossfade",
-      "audio": "calm_night",
-      "montage": "طويل هادي",
-      "title_shape": "W W W W W W W | W W W W W | W W",
-      "mark": "Warm Fire and Rain",
-      "hour": 8
-    },
-    {
       "genre": "focus_study",
       "scene": "cafe_soft",
       "palette": "cool_slate",
@@ -659,6 +648,17 @@
       "title_shape": "W W-W W — W'W W W W #W",
       "mark": "the Wi-Fi dies",
       "hour": 1
+    },
+    {
+      "genre": "focus_study",
+      "scene": "snow_window",
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "focus",
+      "montage": "مشهد ثابت + ساعة",
+      "title_shape": "W W W — W W W W (W W) | W W #W",
+      "mark": "Rain on the Window",
+      "hour": 2
     }
   ]
 }

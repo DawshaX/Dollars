@@ -143,6 +143,24 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "5amIMlr4ta0",
+      "url": "https://youtu.be/5amIMlr4ta0",
+      "title": "Study With Me — Rain on the Window (45 seconds) | Pomodoro Chapters #shorts",
+      "published_at": "2026-09-27T01:11:15.551478+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Rain on the Window",
+        "hour": null,
+        "duration_bucket": null
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
