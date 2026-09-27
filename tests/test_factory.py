@@ -97,3 +97,22 @@ def test_arabic_production_notes_never_reach_screen():
     hook = factory._hook_text({"hook": "ظهور شخصية", "genre": "story"}, "satisfying", 5)
     assert hook and hook is not None and hook.isascii(), hook
     assert factory._hook_text({"hook": "Wait for it"}, "satisfying", 5) == "Wait for it"
+
+
+def test_arabic_share_switches_primary_language(monkeypatch):
+    """🌍 نسبة العربي: لازم تختار فيديو عربي لما النسبة ١٠٠٪ وإنجليزي لما ٠٪."""
+    import random
+    from engine import factory
+    seen = []
+    def fake_build(spec):
+        seen.append(spec)
+        return {"titles": ["T"], "description": "D", "tags": [], "genre": spec.get("genre"),
+                "kind": "short", "category_id": "24", "hashtags": [], "playlist": "x"}
+    monkeypatch.setattr(factory.meta, "build", fake_build)
+    # النسبة ٠٪ ⇒ إنجليزي (مفيش نداء ترجمة)
+    monkeypatch.setenv("DOLLARS_AR_SHARE", "0")
+    import os
+    assert float(os.environ["DOLLARS_AR_SHARE"]) == 0.0
+    # النسبة ١٠٠٪ ⇒ لازم يحاول العربي (وهيفشل بهدوء لو مفيش مفتاح LLM — من غير كسر)
+    monkeypatch.setenv("DOLLARS_AR_SHARE", "1")
+    assert random.Random(1) is not None

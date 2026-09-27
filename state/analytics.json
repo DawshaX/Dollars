@@ -167,7 +167,7 @@
     },
     {
       "title": "Soft Cafe Ambience for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
-      "views": 2,
+      "views": 3,
       "likes": 0,
       "comments": 0,
       "features": {
@@ -317,7 +317,7 @@
     },
     {
       "title": "What Whale shark Actually Looks Like — 3 Real Facts #shorts",
-      "views": 1,
+      "views": 3,
       "likes": 0,
       "comments": 0,
       "features": {
@@ -354,6 +354,41 @@
       },
       "video_id": "5dBUf_wXs80",
       "published_at": "2026-09-27T06:34:05.139853+00:00"
+    },
+    {
+      "title": "Soft Cafe Ambience for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
+      "views": 2,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Soft Cafe Ambience",
+        "hour": null,
+        "duration_bucket": null
+      },
+      "video_id": "cqsvs9eUjYc",
+      "published_at": "2026-09-27T02:11:41.904295+00:00"
+    },
+    {
+      "title": "What Whale shark Actually Looks Like — 3 Real Facts #shorts",
+      "views": 1,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Whale shark",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": true,
+        "sfx": false,
+        "overlays": false,
+        "clips": false
+      },
+      "video_id": "xfHDrNoeO9s",
+      "published_at": "2026-09-27T06:48:03.613708+00:00"
     },
     {
       "title": "Wait for it… Ice Crushing #oddlysatisfying #shorts",
@@ -525,8 +560,8 @@
     "title": "xDaw NoVa",
     "subs": 43,
     "views": 325971,
-    "videos": 328
+    "videos": 331
   },
-  "synced_at": "2026-09-27T10:08:10.179309+00:00",
-  "views_gained": 0
+  "synced_at": "2026-09-27T12:00:41.841510+00:00",
+  "views_gained": 57
 }

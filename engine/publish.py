@@ -337,6 +337,8 @@ def _snippet(md: dict) -> dict:
         "tags": md.get("tags", [])[:35],
         "categoryId": str(md.get("category_id", "10")),
         "defaultLanguage": md.get("default_language", "en"),
+        # 🌍 لو الفيديو عربي أساسي: نحط النسخة الإنجليزية كـlocalization كمان
+        **({"localizations": {"en": md["localizations_en"]}} if md.get("localizations_en") else {}),
         # ⚠️ ممنوع نبعت defaultAudioLanguage="zxx": يوتيوب بيرفض الرفع كله (INVALID_REQUEST_METADATA).
         # سيبناها فاضية = «مفيش لغة كلام» وهو ده الافتراضي الآمن للفيديوهات الصامتة.
     }

@@ -301,3 +301,31 @@ if __name__ == "__main__":
     p = build_day(d)
     print(json.dumps(p["mix"], ensure_ascii=False, indent=2))
     print("عدد الأدوار:", len(p["slots"]))
+
+# 🌍 موضوعات الأنواع الجديدة (متنوعة وعالمية)
+TOPICS.update({
+    "pets_funny": ["Playful Puppy", "Sleepy Kitten", "Dogs at the Beach", "Cat Zoomies",
+                   "Parrot Talking", "Ducklings Walking", "Hamster Snack Time"],
+    "food_asmr": ["Slicing Crispy Chicken", "Chocolate Breaking", "Honey Pouring", "Ice Crushing",
+                  "Fresh Bread Cutting", "Watermelon Cutting", "Coffee Pouring"],
+    "water_nature": ["Waterfall in the Forest", "Ocean Waves Close", "Mountain Stream",
+                     "Rain on a Lake", "River Stones", "Fountain at Night"],
+    "city_vibes": ["Tokyo at Night", "Rainy City Street", "Subway Ride", "City Skyline Dusk",
+                   "Neon Alley", "Morning City Walk"],
+    "space_cosmos": ["Earth from Orbit", "The Moon Up Close", "Jupiter Storms", "Solar Flares",
+                     "Saturn's Rings", "Aurora from Space"],
+    "slow_macro": ["Macro Water Drops", "Ink in Water", "Sand Grains Falling", "Flower Opening",
+                   "Bubbles Popping", "Ice Crystals Forming"],
+    "sky_timelapse": ["Sunset Timelapse", "Clouds Over the Sea", "Starry Night Sky",
+                      "Storm Clouds Rolling", "Sunrise in the Mountains"],
+    "machines_odd": ["Escalator Mechanics", "Clock Gears Turning", "Printing Press",
+                     "Robotic Arm Building", "Train Wheels", "Conveyor Line"],
+    "ocean_deep": ["Coral Reef Life", "Jellyfish Drifting", "Sea Turtle Swimming",
+                   "Whale Shark Passing", "School of Fish", "Deep Sea Creatures"],
+    "birds_wild": ["Hummingbird Feeding", "Owl at Night", "Flamingos Walking", "Eagle in Flight",
+                   "Swan on a Lake", "Birds at Sunrise"],
+    "lights_bokeh": ["City Lights Bokeh", "Candles in the Dark", "Fireworks Finale",
+                     "Fairy Lights", "Glass Reflections", "Neon Signs"],
+    "vintage_archive": ["Old City Streets", "Vintage Trains", "Historic Parade",
+                        "Early Aviation", "Old Market Life", "Classic Cars"],
+})

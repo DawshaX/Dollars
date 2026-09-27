@@ -393,3 +393,20 @@ def license_line(item: dict | None) -> str:
     if not item:
         return ""
     return f"{item.get('source')} · {item.get('license')} · {item.get('title')}"[:160]
+
+
+# 🌍 مزاج موسيقي للأنواع الجديدة (بحث حقيقي عن موسيقى مرخّصة مناسبة لكل نوع)
+MOODS.update({
+    "pets_funny": ["happy ukulele", "playful acoustic", "cheerful cartoon"],
+    "food_asmr": ["asmr chewing", "kitchen sounds", "soft food ambience"],
+    "water_nature": ["water ambience", "river sounds", "ocean waves"],
+    "city_vibes": ["city ambience", "night city sounds", "urban atmosphere"],
+    "space_cosmos": ["space ambient", "cosmic drone", "deep space music"],
+    "slow_macro": ["texture ambient", "glassy ambient", "modern minimal"],
+    "sky_timelapse": ["warm ambient", "sunrise music", "cinematic pad"],
+    "machines_odd": ["mechanical rhythm", "industrial ambience", "precise minimal"],
+    "ocean_deep": ["underwater ambience", "deep ocean drone", "whale song"],
+    "birds_wild": ["forest birds", "dawn chorus", "nature sounds"],
+    "lights_bokeh": ["dreamy synth", "bokeh lofi", "soft neon"],
+    "vintage_archive": ["old-time jazz", "vintage gramophone", "retro news"],
+})
