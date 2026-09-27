@@ -2,58 +2,28 @@
   "done": [
     {
       "date": "2026-09-27",
-      "hour": 2,
-      "kind": "long",
-      "pillar": "sleep",
-      "duration": "10h",
-      "scene": "black",
-      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_02/black_10h.mp4",
-      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
-      "published": true,
-      "url": "https://youtu.be/W0lUnUOiH0M",
-      "reason": null,
-      "seconds_spent": 918.3,
-      "at": "2026-09-27T17:14:24.063842+00:00"
-    },
-    {
-      "date": "2026-09-26",
-      "hour": 10,
+      "hour": 0,
       "kind": "short",
-      "pillar": "story",
-      "duration": "4m",
-      "scene": null,
-      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "published": true,
-      "url": "https://youtu.be/tnxITCFAcnM",
-      "reason": null,
-      "seconds_spent": 372.6,
-      "at": "2026-09-27T17:14:29.262147+00:00"
-    },
-    {
-      "date": "2026-09-26",
-      "hour": 10,
-      "kind": "short",
-      "pillar": "story",
-      "duration": "4m",
-      "scene": null,
-      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "published": true,
-      "url": "https://youtu.be/vzEycco8QEs",
-      "reason": null,
-      "seconds_spent": 375.6,
-      "at": "2026-09-27T20:13:45.333022+00:00"
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Oddly satisfying toys close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_00/satisfying_746075.mp4",
+      "title": "ألعاب مرضية بشكل غريب - مرضية بشكل غريب (الثلاثينيات) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 264.2,
+      "at": "2026-09-27T21:12:27.827741+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 1,
+    "published": 0,
     "staged": 0,
     "by_pillar": {
-      "sleep": 1,
-      "story": 2
+      "satisfying": 1
     }
   },
-  "updated": "2026-09-27T20:14:34.914930+00:00"
+  "created": null,
+  "updated": "2026-09-27T21:12:27.828050+00:00"
 }

@@ -2888,6 +2888,7 @@
       "playlist": "Wordless Stories"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "vzEycco8QEs",
       "url": "https://youtu.be/vzEycco8QEs",
       "title": "Bomi and a spark that got lost — a wordless story #shorts",
@@ -2897,23 +2898,86 @@
         "kind": "short",
         "kw": "Bomi and the Little Fire — a wordless story",
         "genre": null,
+=======
+      "video_id": "NvTEQjYPQ10",
+      "url": "https://youtu.be/NvTEQjYPQ10",
+      "title": "Oddly satisfying compilation — oddly satisfying (60s) #shorts",
+      "published_at": "2026-09-27T19:12:54.256647+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Oddly satisfying compilation",
+        "genre": "satisfying",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
         "sfx": false,
         "overlays": false,
         "clips": false,
+<<<<<<< Updated upstream
         "loop": false,
         "hook": false,
         "pinned": true,
         "lang": "en",
         "locales": []
+=======
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+>>>>>>> Stashed changes
       },
       "views": 0,
       "likes": 0,
       "comments": 0,
       "thumbnail": true,
+<<<<<<< Updated upstream
       "playlist": "Wordless Stories"
+=======
+      "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "zOI50ReEXwM",
+      "url": "https://youtu.be/zOI50ReEXwM",
+      "title": "Kinetic sand bowling — oddly satisfying (30s) #shorts",
+      "published_at": "2026-09-27T20:13:02.559445+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic sand bowling",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Satisfying & ASMR"
+>>>>>>> Stashed changes
     }
   ]
 }
