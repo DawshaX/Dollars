@@ -1257,8 +1257,20 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
             if left_h < 0.8:
                 print("⛔ الحصة خلصت — باقي وقت قليل فبننهي الوردية", flush=True)
                 break
-            print(f"⛔ الحصة خلصت — نوم ٤٥ دقيقة وبعدها نجرب تاني (باقي {left_h:.1f} ساعة)", flush=True)
-            next_at = now + 45 * 60
+            # ⏰ ننام لحد ميعاد تجدّد الحصة لو ده جوه وقت الوردية (مفيش لفّ على الفاضي)
+            try:
+                from engine import publish as _pb2
+                reset = _pb2.next_quota_reset()
+                until_reset = (reset - datetime.now(timezone.utc)).total_seconds()
+            except Exception:
+                until_reset = 0
+            if 0 < until_reset <= (deadline - now):
+                print(f"⛔ الحصة خلصت — نوم لحد التجدّد ({reset.strftime('%H:%M')} UTC · "
+                      f"{until_reset/3600:.1f} ساعة) وبعدها نكمّل", flush=True)
+                next_at = now + until_reset + 120
+            else:
+                print(f"⛔ الحصة خلصت — نوم ٤٥ دقيقة وبعدها نجرب تاني (باقي {left_h:.1f} ساعة)", flush=True)
+                next_at = now + 45 * 60
             continue
         if stopped == "gate":             # ⏳ حد تاني نزل قريب ⇒ نجرب بعد شوية (بلا تأجيل للنشرة الجاية)
             next_at = now + 12 * 60

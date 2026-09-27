@@ -295,6 +295,20 @@ def quota_resume_notice() -> None:
            f"السعة النهاردة: {remaining_capacity()} رفعة")
 
 
+def next_quota_reset(now=None) -> datetime:
+    """⏰ ميعاد تجدّد حصة يوتيوب اليومية (منتصف الليل بتوقيت المحيط الهادئ).
+
+    بنحسبها بالتقريب الآمن: ٠٧:٠٢ UTC صيفًا · ٠٨:٠٢ UTC شتاءً — وبناخد الأبعد
+    عشان ما نصحّش الفيديو على الفاضي قبل التجدّد.
+    """
+    now = now or datetime.now(timezone.utc)
+    for hour in (8, 7):
+        cand = now.replace(hour=hour, minute=2, second=0, microsecond=0)
+        if cand > now:
+            return cand
+    return (now + timedelta(days=1)).replace(hour=7, minute=2, second=0, microsecond=0)
+
+
 def _body(err) -> str:
     """نص رد يوتيوب (سبب الرفض الحقيقي) عشان نعرف نصلّح بدل التخمين."""
     try:

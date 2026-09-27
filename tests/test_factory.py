@@ -311,3 +311,17 @@ def test_pull_state_is_noop_without_sync(monkeypatch):
     from engine import factory
     monkeypatch.delenv("DOLLARS_SYNC", raising=False)
     assert factory._pull_state() is False
+
+
+def test_next_quota_reset_is_in_the_future():
+    """⏰ ميعاد تجدّد الحصة لازم يكون جاي (مش فات) وقريب من ٠٧:٠٢/٠٨:٠٢ UTC."""
+    from datetime import datetime, timezone, timedelta
+    from engine import publish
+    now = datetime(2026, 9, 27, 16, 50, tzinfo=timezone.utc)
+    nxt = publish.next_quota_reset(now)
+    assert nxt > now
+    assert timedelta(hours=0) < (nxt - now) <= timedelta(days=1)
+    assert (nxt.hour, nxt.minute) in ((7, 2), (8, 2)), nxt
+    # لو إحنا بعد التجدّد بالفعل ⇒ لازم يرجّع بكرة
+    late = datetime(2026, 9, 27, 9, 0, tzinfo=timezone.utc)
+    assert publish.next_quota_reset(late).day == 28
