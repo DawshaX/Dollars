@@ -513,6 +513,24 @@ def _plan(date_str: str | None = None) -> dict:
             brain = agent.Brain.load()
             plan = agent.plan_day(brain, date_str, characters=agent.load_characters().get("characters"))
             brain.save()
+    # 🚦 الإيقاع: الأدوار بتتقلّم لسقف الساعة (افتراضي ١ في الساعة = ٢٤ فيديو/يوم).
+    #    الخطة قبل كده كانت ٨ في الساعة ⇒ أي تعويض بيعمل دفعة كبيرة، ويوتيوب بيقراها سبام.
+    try:
+        _rate = max(1, int(os.environ.get("DOLLARS_SLOTS_PER_HOUR") or 1))
+        slots = plan.get("slots") or []
+        per_hour: dict[tuple, int] = {}
+        kept = []
+        for sl in slots:
+            key = (sl.get("kind"), int(sl.get("hour", 0)))
+            n = per_hour.get(key, 0)
+            if sl.get("kind") == "short" and n >= _rate:
+                continue
+            per_hour[key] = n + 1
+            kept.append(sl)
+        if kept and len(kept) != len(slots):
+            plan = dict(plan, slots=kept)
+    except Exception:
+        pass
     return plan
 
 
@@ -522,10 +540,15 @@ def next_slots(kind: str = "short", count: int = 1, date_str: str | None = None)
     led = _load_ledger()
     done = {(d.get("date"), d.get("hour"), d.get("kind")) for d in led.get("done", [])}
     out = []
+    _now = datetime.now(timezone.utc)
     for s in plan.get("slots", []):
         if s.get("kind") != kind:
             continue
         if (plan["date"], s["hour"], kind) in done:
+            continue
+        # ⏰ مش بناخد دور ساعته لسه مجتش: الأدوار بتستهلك بالساعة الحقيقية بس
+        #    (قبل كده الدفعات كانت بتاكل أدوار المستقبل ⇒ النشر يقف ساعتها فجأة)
+        if str(plan.get("date")) == _now.date().isoformat() and int(s.get("hour", 0)) > _now.hour:
             continue
         out.append(dict(s, date=plan["date"]))
         if len(out) >= count:
@@ -736,6 +759,40 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
 QUOTA_WORDS = ("quota", "exceeded", "rateLimit", "dailyLimit", "uploadLimit", "too many requests")
 
 
+def rate_gate() -> dict:
+    """⏳ بوابة الإيقاع: «مفيش نشر لو فيه فيديو نزل قريب» — إيقاع ساعة/ساعة بالظبط.
+
+    المشكلة اللي بتحلها: أكتر من workflow بيقدر ينشر (الوردية + تفريغ الطابور + النبضة
+    الساعية)، فالقناة كانت بتاخد دفعات. البوابة بتخلي **أي** مصدر يلتزم بنفس الإيقاع.
+
+        DOLLARS_GATE_MIN = ٤٠ دقيقة (افتراضي) · DOLLARS_GATE_MIN=0 يوقف البوابة
+    """
+    try:
+        _min = float(os.environ.get("DOLLARS_GATE_MIN") or 40)
+    except Exception:
+        _min = 40.0
+    if _min <= 0:
+        return {"ok": True, "reason": "البوابة مقفولة"}
+    try:
+        pub = (_jload(STATE / "published.json", {}) or {}).get("videos", []) or []
+        times = []
+        for v in pub:
+            try:
+                times.append(datetime.fromisoformat(str(v.get("published_at")).replace("Z", "+00:00")))
+            except Exception:
+                continue
+        if not times:
+            return {"ok": True, "reason": "مفيش نشر قبل كده"}
+        last = max(times)
+        mins = (datetime.now(timezone.utc) - last).total_seconds() / 60.0
+        if mins < _min:
+            return {"ok": False, "reason": f"آخر فيديو نزل قبل {mins:.0f} دقيقة (أقل من {_min:.0f}) — "
+                                           f"بنحافظ على إيقاع ساعة/ساعة", "minutes": mins}
+        return {"ok": True, "reason": f"آخر نشر قبل {mins:.0f} دقيقة"}
+    except Exception as e:
+        return {"ok": True, "reason": f"البوابة اتعذّرت ({type(e).__name__}) — بنكمل"}
+
+
 def soft_capacity() -> int:
     """كام رفعة نقدر نجرّبها دلوقتي. في الوضع المرن: بنجرّب ونسيب يوتيوب هو اللي يقول لأ."""
     try:
@@ -838,6 +895,10 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
         _say(f"♻️ تفريغ الطابور: {len(items)} عنصر · سعة النشر المتبقية النهاردة: {left} رفعة")
     except Exception:
         pass
+    _gate = rate_gate()                      # ⏳ نفس الإيقاع على تفريغ الطابور كذلك
+    if not _gate.get("ok"):
+        _say(f"⏳ تفريغ الطابور مستني الإيقاع: {_gate['reason']}")
+        return {"processed": 0, "remaining": len(q["items"]), "lines": [_gate["reason"]], "stopped": "gate"}
     _say(f"♻️ تفريغ الطابور: {len(items)} عنصر · رندر + نشر عنصر عنصر")
     order = sorted(range(len(items)),
                    key=lambda j: (0 if (items[j].get("slot") or {}).get("kind") == "short" else 1, j))
@@ -938,6 +999,12 @@ def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=
         if max_catchup is not None:
             _cap = max_catchup
         count = max(count, min(max(1, _cap), miss)) if kind == "short" else max(count, min(1, miss))
+    _gate = rate_gate()                      # ⏳ إيقاع ساعة/ساعة (ولا دفعات)
+    if not _gate.get("ok"):
+        msg = f"⏳ مستنيين الإيقاع: {_gate['reason']}"
+        _say(msg)
+        _log([msg])
+        return {"slots": 0, "results": [], "lines": [msg], "stopped": "gate"}
     # ⛔ وعي بالحصة: مش بنرندر حاجة مش هينفع تنشر (الوقت أغلى من الرندر)
     try:
         from engine import publish as _pb
