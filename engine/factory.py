@@ -807,7 +807,17 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
     مهيّأ لليوم اللي نربط فيه القناة: أمر واحد يحوّل الطابور لمحتوى منشور.
     """
     q = _jload(STATE / "queue.json", {"items": []}) or {"items": []}
-    items = q["items"][:limit] if limit else list(q["items"])
+    # 🎯 أولوية الشورتس: الشورتس هي الأساس (طلب المستخدم) — والطويلة تفضل في الطابور بأمان
+    #    لحد ما نقول ننشرها (مفيش حذف ولا فقدان لأي حاجة).
+    _kinds = [k.strip() for k in (os.environ.get("DOLLARS_DRAIN_KINDS") or "short").split(",") if k.strip()]
+    def _kind_of(x):
+        return ((x.get("slot") or {}).get("kind") or "short")
+    short_first = [x for x in q["items"] if _kind_of(x) in _kinds]
+    rest = [x for x in q["items"] if _kind_of(x) not in _kinds]
+    _pool = short_first + rest if _kinds else list(q["items"])
+    if _kinds and rest:
+        _say(f"⏳ {len(rest)} عنصر طويل مستني في الطابور (مش بيتنشر دلوقتي — الشورتس لها الأولوية)")
+    items = _pool[:limit] if limit else list(_pool)
     lines, done = [], 0
     try:                                     # نسأل قبل ما نصرف ٥ دقايق رندر على الفاضي
         left = soft_capacity()
