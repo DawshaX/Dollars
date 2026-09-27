@@ -974,19 +974,49 @@
       "reason": null,
       "seconds_spent": 1080.1,
       "at": "2026-09-27T12:03:35.309837+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 2,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "black",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_02/black_10h.mp4",
+      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
+      "published": true,
+      "url": "https://youtu.be/e2fFfQQDyZY",
+      "reason": null,
+      "seconds_spent": 845.8,
+      "at": "2026-09-27T12:28:55.093299+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 14,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "ocean",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_14/ocean_10h.mp4",
+      "title": "Ocean Waves for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": true,
+      "url": "https://youtu.be/g0LIWaZkxWs",
+      "reason": null,
+      "seconds_spent": 887.4,
+      "at": "2026-09-27T12:46:06.661098+00:00"
     }
   ],
   "stats": {
-    "total": 63,
-    "published": 23,
+    "total": 65,
+    "published": 25,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
       "satisfying": 28,
-      "sleep": 19,
+      "sleep": 21,
       "story": 8
     }
   },
   "created": null,
-  "updated": "2026-09-27T12:03:48.947954+00:00"
+  "updated": "2026-09-27T12:48:39.513125+00:00"
 }
