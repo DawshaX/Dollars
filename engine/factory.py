@@ -1182,6 +1182,10 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
             for line in out["lines"]:
                 print("•", line)
             done.append({"cycle": cycle, "slots": out.get("slots"), "stopped": out.get("stopped")})
+            if out.get("stopped") == "gate":             # ⏳ الإيقاع: حد تاني نزل قريب ⇒ نستنى شوية ونجرب
+                print("⏳ بوابة الإيقاع: بنستنى ١٢ دقيقة ونجرب تاني (عشان النشر مايتقطعش)", flush=True)
+                _t.sleep(12 * 60)
+                continue
             if out.get("stopped") == "quota":            # الحصة خلصت فعليًا من يوتيوب ⇒ ننام ونستأنف
                 _left_h = (deadline - _t.time()) / 3600.0
                 if _left_h < 0.8:
@@ -1268,17 +1272,19 @@ def main(argv=None):
     else:
         kinds = [("short", 1)]
     total = 0
-    stopped_quota = False
+    stopped_quota, stopped_gate = False, False
     for kind, cnt in kinds:
         out = run(kind, cnt, force_stage=a.force_stage, out_dir=a.out, catchup=a.catchup)
         total += out["slots"]
         stopped_quota = stopped_quota or (out.get("stopped") == "quota")
+        # ⏳ التوقّف بسبب بوابة الإيقاع = توقّف سليم مقصود (مش فشل) ⇒ كود خروج 0
+        stopped_gate = stopped_gate or (out.get("stopped") == "gate")
         for line in out["lines"]:
             print("•", line)
     print("\n" + report_text())
     # ⛔ الحصة خلصت = توقف سليم (مش فشل) ⇒ كود خروج 0 عشان خطوات حفظ ال
     #    الذاكرة/الأرشيف تشتغل، والسير ميبانش أحمر من غير سبب.
-    return 0 if (total or stopped_quota) else 1
+    return 0 if (total or stopped_quota or stopped_gate) else 1
 
 
 if __name__ == "__main__":
