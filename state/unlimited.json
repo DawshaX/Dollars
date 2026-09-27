@@ -1,9 +1,10 @@
 {
- "used": [
-  0
- ],
- "index": 1,
- "by_pillar": {
-  "sleep": 1
- }
+  "used": [
+    0
+  ],
+  "index": 1,
+  "by_pillar": {
+    "sleep": 1,
+    "story": 1
+  }
 }
