@@ -456,9 +456,12 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         hours = hours if hours in (3, 8, 10, 2, 4, 6, 12) else 8
         scene = idea.get("scene") or "valley_lake"
         audio = random.Random(seed).choice(["calm_night", "sleep_rain", "ocean", "fireplace", "focus"])
-        # 🎥 الأولوية: **مقاطع فيديو حقيقية** للطويلة (حركة حقيقية · حلقة ٦٠ ثانية)
+        # 🎥 مقاطع فيديو حقيقية للطويلة — **مقفولة دلوقتي** لحد ما نتأكد من الشورتس.
+        #    للتفعيل: DOLLARS_LONG_CLIPS=1 (الافتراضي: الصور المعتمدة · سلوك مستقر)
+        import os as _os
         long_videos = []
-        if scene != "black_screen":
+        _long_clips_on = str(_os.environ.get("DOLLARS_LONG_CLIPS", "")).strip().lower() in ("1", "true", "yes", "on")
+        if scene != "black_screen" and _long_clips_on:
             try:
                 _vq = _image_query({"genre": ("focus_study" if pillar == "focus" else "sleep_ambience"),
                                     "kw": idea.get("kw") or idea.get("topic") or "nature"})
