@@ -44,6 +44,15 @@ def build() -> str:
             last_h.append(v)
         if ts >= day_start:
             today.append(v)
+    # 🔬 إثبات آخر فيديو (نسخ عالمية · لفّ · تعليق مثبّت)
+    proof = ""
+    if pub:
+        _last = sorted(pub, key=lambda v: str(v.get("published_at") or ""))[-1]
+        _f = _last.get("features") or {}
+        proof = (f"🔬 آخر فيديو: {str(_last.get('title'))[:44]}\n"
+                 f"   نسخ عالمية: {len(_f.get('locales') or [])} · "
+                 f"لفّ: {'✓' if _f.get('loop') else '—'} · تعليق: {'✓' if _f.get('pinned') else '—'} · "
+                 f"مشاهدات: {_last.get('views', 0)}\n   {( _last.get('url') or '')}\n")
     an = _j("analytics.json", {}) or {}
     rows = an.get("videos") or []
     views = sum(int(r.get("views") or 0) for r in rows)
@@ -68,6 +77,8 @@ def build() -> str:
          f"📦 الطابور: {len(q)} عنصر مستني"]
     if audit.get("zero_pct") is not None:
         L.append(f"📉 فيديوهات بلا مشاهدات: {audit.get('zero_pct')}% من {audit.get('scanned')} فحصناها")
+    if proof:
+        L.append(proof.rstrip())
     return "\n".join(L)
 
 
