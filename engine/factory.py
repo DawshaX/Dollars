@@ -179,13 +179,20 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
             from engine import clips as _clips
             clip_items = _clips.collect(topic, genre=gid, n=8)   # بنجرب اكتر ونختار الصالح
             clip_paths = []
+            _rej = []
             for _it in clip_items:
                 if len(clip_paths) >= 5:
                     break
                 _p = _clips.download(_it)
                 if _p:
                     clip_paths.append(_p)
+                else:
+                    _rej.append(f"{_it.get('source')}:{_it.get('rejected') or _it.get('error') or '?'}")
+            # 🔎 تشخيص واضح في لوج التشغيل (نعرف منه ليه المقاطع اتستخدمت أو لأ)
+            _say(f"   🎥 المقاطع الحرة: منقول {len(clip_items)} · صالح {len(clip_paths)}"
+                 + (f" · مرفوض [{', '.join(_rej[:4])}]" if _rej else ""))
             if len(clip_paths) < 2:            # مش كفاية ⇒ صور حقيقية بدلًا منها
+                _say(f"   ↪️ مش كفاية ({len(clip_paths)}) — صور حقيقية بدلًا منها")
                 clip_paths = []
         except Exception as _ce:
             print(f"   ⚠️ مقاطع الفيديو اتعذّرت ({str(_ce)[:60]}) — صور حقيقية بدلًا منها", flush=True)
