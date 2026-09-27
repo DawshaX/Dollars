@@ -760,7 +760,16 @@ class Editor:
         video = self.out / f"{name}.mp4"
         look = kw.get("look") or sp.get("look") or ("cinema_cool" if pillar == "ambience" else "satisfying")
         transition = kw.get("transition", "crossfade")
-        render_shots(shots, silent, sp["w"], sp["h"], sp["fps"], look, texts=kw.get("texts"),
+        _txts = None
+        if kw.get("texts"):                        # نفس شروط الشاشة: نص لاتيني بس
+            from engine import overlays as _ovt
+            _txts = []
+            for _t in kw["texts"]:
+                _t = dict(_t)
+                _t["text"] = _ovt.on_screen(str(_t.get("text", "")), 90)
+                if _t["text"]:
+                    _txts.append(_t)
+        render_shots(shots, silent, sp["w"], sp["h"], sp["fps"], look, texts=_txts,
                      out_w=sp["ow"], out_h=sp["oh"], crf=21,
                      palette=kw.get("palette"), transition=transition)
         ambient_name = kw.get("audio")

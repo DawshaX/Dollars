@@ -52,10 +52,32 @@ STATE = ROOT / "state"
 WORK = ROOT / "work"
 
 
+def _on_screen(text: str) -> str:
+    """النصوص اللي بتظهر على الشاشة لازم تكون لاتينية — العربي من غير تشكيل بيطلع مشوّه."""
+    t = (text or "").strip()
+    if not t:
+        return ""
+    from engine import overlays as _ovs
+    return _ovs.on_screen(t)                       # 🚫 عربي/إيموجي مُركّب مايظهرش صح على الشاشة
+
+
+def _hook_text(idea: dict, gid: str, seed: int) -> str:
+    """هوك صالح للعرض: نص الفكرة لو مناسب، وإلا من بنك الهوك الإنجليزي للمزاج (مش ملاحظة إنتاج)."""
+    h = _on_screen(idea.get("hook"))
+    if h:
+        return h[:42]
+    try:
+        from engine import genres as _gg
+        pool = (_gg.get(gid) or {}).get("hooks_en") or []
+    except Exception:
+        pool = []
+    return (str(random.Random(seed).choice(pool))[:42] if pool else "")
+
+
 # 🎴 كابشنات جاهزة للأنواع اللي ملهاش سطور مكتوبة (الميمز · ASMR · الراحة)
 _DEFAULT_CARDS = {
-    "funny": [("Wait for it…", 0.34), ("Follow for more 😂", 0.80)],
-    "fun_memes": [("Wait for it…", 0.34), ("Follow for more 😂", 0.80)],
+    "funny": [("Wait for it…", 0.34), ("Follow for more", 0.80)],
+    "fun_memes": [("Wait for it…", 0.34), ("Follow for more", 0.80)],
     "asmr": [("Use headphones 🎧", 0.30), ("Turn the volume up", 0.78)],
     "comfort_relax": [("Breathe in… breathe out", 0.32), ("You're doing okay", 0.80)],
     "rain_nature": [("Rain sounds for sleep", 0.30), ("Save it for tonight", 0.80)],
@@ -216,10 +238,11 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     from engine import genres as _g
     pal = _g.palette_hex(idea.get("palette"))
     texts = []
-    if idea.get("hook"):
-        texts.append({"at": 0.4, "dur": 2.6, "text": idea["hook"], "pos": "lower", "size": 0.06})
+    _HK = _hook_text(idea, gid, seed)          # 🎯 هوك صالح للعرض (مش ملاحظة إنتاج عربية)
+    if _HK:
+        texts.append({"at": 0.4, "dur": 2.6, "text": _HK, "pos": "lower", "size": 0.06})
     style = idea.get("montage") or ""
-    lines = [_punchy(x) for x in (idea.get("lines") or [])][:3]
+    lines = [ln for ln in (_punchy(x) for x in (idea.get("lines") or [])) if _on_screen(ln)][:3]
     step = max(4.0, seconds / (len(lines) + 1)) if lines else 0
     for i, ln in enumerate(lines):
         texts.append({"at": 2.6 + i * step, "dur": step * 0.88, "text": ln, "pos": "lower", "size": 0.050})
@@ -233,14 +256,14 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
         texts.append({"at": max(1.0, seconds - 3.0), "dur": 3.0,
                       "text": "Source: " + _src, "pos": "lower", "size": 0.034})
     if gid == "story":                    # الحكاية بلا كلام: من غير سطور حقيقة
-        texts = [tx for tx in texts if tx.get("text") == idea.get("hook")]
+        texts = [tx for tx in texts if tx.get("text") == _HK]
     silent = out_dir / f"photo_{seed}.mp4"
     if use_clips:
         from engine import clips as _clips
         from engine import overlays as _ov
         # ✨ إضافات المونتاج: ملصقات متحركة + شريط تقدّم + هوك + علامة القناة + كابشنات فاخرة
         _stickers = _ov.plan_stickers(gid, seconds, seed=seed, count=3)
-        _hook = (idea.get("hook") or "").strip()[:42] or None
+        _hook = _HK or None
         _texts = []
         for tx in texts:
             tx = dict(tx)
@@ -255,7 +278,7 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
         from engine import overlays as _ovp
         # ✨ دلع مسار الصور كذلك: ملصقات + هوك + كابشنات فاخرة + شريط تقدّم + علامة القناة
         _stickers_p = _ovp.plan_stickers(gid, seconds, seed=seed, count=3)
-        _hook_p = (idea.get("hook") or "").strip()[:42] or None
+        _hook_p = _HK or None
         _texts_p = []
         for tx in texts:
             tx = dict(tx)

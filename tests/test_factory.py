@@ -87,3 +87,13 @@ def test_run_without_slots_logs_and_returns(sandbox, monkeypatch):
     monkeypatch.setattr(factory, "next_slots", lambda *a, **k: [])
     out = factory.run("short", 2)
     assert out["slots"] == 0 and out["lines"]
+
+
+def test_arabic_production_notes_never_reach_screen():
+    """🚫 ملاحظات الإنتاج العربية (زي «ظهور شخصية») ممنوع تظهر على الشاشة — بتطلع مشوّهة."""
+    from engine import factory
+    assert factory._on_screen("ظهور شخصية") == ""
+    assert factory._on_screen("Wait for it") == "Wait for it"
+    hook = factory._hook_text({"hook": "ظهور شخصية", "genre": "story"}, "satisfying", 5)
+    assert hook and hook is not None and hook.isascii(), hook
+    assert factory._hook_text({"hook": "Wait for it"}, "satisfying", 5) == "Wait for it"

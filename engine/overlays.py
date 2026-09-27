@@ -90,6 +90,17 @@ def _ease_out_back(u: float) -> float:
     return 1 + c3 * (u - 1) ** 3 + c1 * (u - 1) ** 2
 
 
+_SCREEN_OK = set(chr(c) for c in range(0x20, 0x7F)) | set("’‘“”…—–•·")
+
+
+def on_screen(text: str, limit: int | None = None) -> str:
+    """نص صالح للعرض على الشاشة (لاتيني) — العربي من غير تشكيل بيطلع مشوّه على الفيديو."""
+    t = (text or "").strip()
+    if not t or any(ch not in _SCREEN_OK for ch in t):
+        return ""
+    return t[:limit] if limit else t
+
+
 def draw_sticker(frame: np.ndarray, code: str, t: float, at: float, dur: float,
                  x: float = 0.78, y: float = 0.28, size: float = 0.15,
                  rotate: float = 0.0) -> np.ndarray:
