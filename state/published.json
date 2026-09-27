@@ -1091,6 +1091,29 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Satisfying"
+    },
+    {
+      "video_id": "jTlooRNhrCA",
+      "url": "https://youtu.be/jTlooRNhrCA",
+      "title": "Kinetic Sand — oddly satisfying (60s) #shorts",
+      "published_at": "2026-09-27T04:07:42.661017+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic Sand",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": true,
+        "sfx": false,
+        "overlays": false,
+        "clips": false
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Satisfying"
     }
   ]
 }
