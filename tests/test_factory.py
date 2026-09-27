@@ -304,3 +304,10 @@ def test_gate_stop_is_not_failure(monkeypatch, capsys):
     code = factory.main(["--hourly"])
     assert code == 0, f"كود الخروج {code} — المفروض ٠"
     assert "بوابة" in capsys.readouterr().out or True
+
+
+def test_pull_state_is_noop_without_sync(monkeypatch):
+    """⬇️ من غير DOLLARS_SYNC: مفيش أي أوامر جيت بتتنفّذ (ولا كسر)."""
+    from engine import factory
+    monkeypatch.delenv("DOLLARS_SYNC", raising=False)
+    assert factory._pull_state() is False

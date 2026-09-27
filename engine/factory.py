@@ -1148,6 +1148,27 @@ def _loop_glue(path, seconds: float, blend: float = 0.4) -> bool:
     return False
 
 
+def _pull_state() -> bool:
+    """⬇️ يسحب أحدث حالة من جيت هوب قبل كل نشرة.
+
+    ليه؟ عشان بوابة الإيقاع تشوف آخر فيديو **حقيقي** نزل (مش نسخة قديمة من وقت بداية الوردية)
+    — قبل كده حصل إن الوردية نزلت فيديو بعد ٧ دقايق من فيديو نزلته workflow تانية.
+    """
+    if (os.environ.get("DOLLARS_SYNC") or "").strip() not in ("1", "true", "yes"):
+        return False
+    import subprocess
+    try:
+        subprocess.run(["git", "fetch", "-q", "origin", "main"], capture_output=True, timeout=120)
+        r = subprocess.run(["git", "pull", "-q", "--rebase", "--autostash", "origin", "main"],
+                           capture_output=True, text=True, timeout=180)
+        if r.returncode != 0:
+            subprocess.run(["git", "rebase", "--abort"], capture_output=True, timeout=60)
+        return r.returncode == 0
+    except Exception as e:
+        print(f"⬇️ سحب الحالة اتعذّر ({type(e).__name__}) — بنكمل بالحالة المحلية", flush=True)
+        return False
+
+
 def _sync_state(tag: str = "") -> None:
     """☁️ يحفظ سجل النشر في جيت هوب بعد كل دورة (لو DOLLARS_SYNC=1).
 
@@ -1215,6 +1236,7 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
             _t.sleep(_nap)
             continue
         cycle += 1
+        _pull_state()                                     # ⬇️ نشوف آخر نشر حقيقي قبل ما نقرر
         left_h = (deadline - _t.time()) / 3600.0
         print(f"\n⏱️ وردية — دورة {cycle} (كل {int(_every/60)} دقيقة) · باقي {left_h:.2f} ساعة", flush=True)
         stopped = None
