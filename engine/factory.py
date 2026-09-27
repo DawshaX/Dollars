@@ -343,6 +343,8 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      "sfx_used": sorted(_sfx_files)[:4] or None,
                      "overlays_used": bool(_stickers) or bool(_hook),
                      "real_clips": bool(use_clips)})
+    md["genre"] = gid                               # 🧠 النوع يتسجل غلشان العقل يربط النوع بالمشاهدات
+    md["kind"] = md.get("kind") or "short"
     cr = clips.credits(clip_items) if use_clips else photo.credits(items)
     _mcr = _music.credits([_track]) if _track else []
     if _mcr:
