@@ -579,6 +579,22 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         style_kw["phrases"] = refs_mod.phrases_for(pillar_key)
     except Exception:
         pass
+    # 🔎 العنوان من طلب حقيقي (أوتوكومبليت بحث يوتيوب): بناخد العبارة اللي الناس بتكتبها فعلًا
+    #    — ده اللي بيخلي الفيديو يطلع في نتائج البحث بدل ما يتألف من دماغنا.
+    if (os.environ.get("DOLLARS_DEMAND") or "1").strip() not in ("0", "false", "no"):
+        try:
+            from engine import demand as _dmd
+            _g = idea.get("genre") or pillar
+            _seen = [str(t) for t in _recent_titles(120)]
+            _seen += [str(x.get("kw") or "") for x in _seen]
+            _ph = _dmd.pick(_g, rnd=random.Random(seed + 909), used=_seen)
+            if _ph:
+                idea = dict(idea)
+                idea["kw"] = _dmd.title_from_phrase(_ph)
+                idea["demand_phrase"] = _ph
+                print(f"🔎 عبارة عليها طلب حقيقي: {_ph}", flush=True)
+        except Exception as _dme:
+            print(f"🔎 محرّك الطلب اتعذّر ({type(_dme).__name__}) — بنكمل", flush=True)
     t0 = time.time()
 
     # ── الاستوديو: النوع بيحدّد المشهد والصوت واللوحة والانتقال + النص على الشاشة ──
@@ -886,11 +902,18 @@ def _log(lines: list):
 
 
 def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=None,
-        catchup: bool = False, max_catchup: int = 4) -> dict:
+        catchup: bool = False, max_catchup: int | None = None) -> dict:
     if catchup:
         miss = missed_slots(kind)
-        # الشورتس: نعوّض لحد 4 في التشغيل الواحد · الطويلة: واحدة بالكتير (ثقيلة أوي)
-        count = max(count, min(max_catchup, miss)) if kind == "short" else max(count, min(2, miss))
+        # 🚦 سقف التعويض: دفعة واحدة في المرة (بدل ٤). الدفع الجماعي (٥٢ فيديو في ساعة مرة)
+        #    كان بيبان لليوتيوب «سبام» وبيدفن القناة ⇒ صفر مشاهدات. الوردية الساعية بتعوّض الباقي بهدوء.
+        try:
+            _cap = int(os.environ.get("DOLLARS_CATCHUP_MAX") or 1)
+        except Exception:
+            _cap = 1
+        if max_catchup is not None:
+            _cap = max_catchup
+        count = max(count, min(max(1, _cap), miss)) if kind == "short" else max(count, min(1, miss))
     # ⛔ وعي بالحصة: مش بنرندر حاجة مش هينفع تنشر (الوقت أغلى من الرندر)
     try:
         from engine import publish as _pb
