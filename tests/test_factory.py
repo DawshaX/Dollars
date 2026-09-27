@@ -144,3 +144,31 @@ def test_shift_stays_alive_after_first_cycle(monkeypatch):
     except KeyboardInterrupt:
         pass
     assert calls["n"] == 1 and slept and 50 <= slept[0] / 60 <= 60, f"نام {slept}"
+
+
+def test_sync_state_skips_without_env(monkeypatch, capsys):
+    """☁️ من غير DOLLARS_SYNC: مفيش أي أوامر جيت بتتنفّذ."""
+    from engine import factory
+    monkeypatch.delenv("DOLLARS_SYNC", raising=False)
+    called = []
+    monkeypatch.setattr(factory.os, "environ", {}) if False else None
+    factory._sync_state("1")            # مش المفروض يعمل حاجة ولا يرمي استثناء
+    assert "اترفع" not in capsys.readouterr().out
+
+
+def test_recent_titles_reads_state(tmp_path, monkeypatch):
+    import json
+    from engine import factory
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "state").mkdir()
+    (tmp_path / "state" / "published.json").write_text(json.dumps({"videos": [
+        {"title": "A #shorts"}, {"title": "B #shorts"}]}), encoding="utf-8")
+    got = factory._recent_titles(10)
+    assert got[:2] == ["A #shorts", "B #shorts"]
+
+
+def test_meta_unique_title_blocks_repeat():
+    from engine import meta
+    used = ["Kinetic Sand — oddly satisfying (15s) #shorts"]
+    out = meta.unique_title(used[0], used, alternatives=["Kinetic Sand ASMR #shorts"], seed=1)
+    assert out.strip() != used[0].strip() and out.endswith("#shorts")

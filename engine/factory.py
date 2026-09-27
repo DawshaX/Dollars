@@ -967,6 +967,34 @@ def report_text() -> str:
     return "\n".join(lines)
 
 
+def _sync_state(tag: str = "") -> None:
+    """☁️ يحفظ سجل النشر في جيت هوب بعد كل دورة (لو DOLLARS_SYNC=1).
+
+    السبب: قبل كده الحالة كانت بتترفع بعد الوردية كلها ⇒ التقارير/الفحص كانوا
+    بيشوفوا فيديوهات قديمة، ومنع التكرار ماكانش عارف آخر اللي اتنشر في وردية تانية.
+    """
+    if (os.environ.get("DOLLARS_SYNC") or "").strip() not in ("1", "true", "yes"):
+        return
+    import subprocess
+    def g(*a, **kw):
+        return subprocess.run(["git", *a], capture_output=True, text=True, timeout=180, **kw)
+    try:
+        g("add", "state")
+        if g("diff", "--cached", "--quiet").returncode == 0:
+            print("☁️ مفيش تغيير في السجل — مفيش رفع", flush=True)
+            return
+        g("commit", "-qm", f"🔁 دورة {tag}: سجل وطابور", "-c", "user.name=Dollars Factory",
+          "-c", "user.email=factory@dawshax.local")
+        g("fetch", "-q", "origin", "main")
+        if g("pull", "--rebase", "--autostash", "origin", "main").returncode != 0:
+            g("rebase", "--abort")
+            g("merge", "-X", "ours", "--no-edit", "origin/main")
+        g("push", "-q", "origin", "main")
+        print(f"☁️ السجل اترفع على جيت هوب (دورة {tag})", flush=True)
+    except Exception as e:
+        print(f"☁️ الرفع اتعذّر ({type(e).__name__}: {str(e)[:60]}) — بنكمل", flush=True)
+
+
 def _recent_titles(limit: int = 300) -> list[str]:
     """عناوين آخر الفيديوهات المنشورة (من state) — عشان مانكررش عنوان."""
     out: list[str] = []
@@ -1021,6 +1049,7 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
         wait = max(60.0, min(nxt - now, deadline - now))
         if now + wait >= deadline:
             break
+        _sync_state(str(cycle))                       # ☁️ نحفظ فورًا بعد كل دورة
         print(f"😴 نوم {wait/60:.0f} دقيقة لحد الساعة الجاية", flush=True)
         _t.sleep(wait)
     return {"cycles": cycle, "published": sum(1 for d in done if d.get("slots")), "log": done,

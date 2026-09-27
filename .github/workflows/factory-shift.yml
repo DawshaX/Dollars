@@ -62,6 +62,8 @@ jobs:
           DOLLARS_SOFT_QUOTA: '1'
           DOLLARS_AR_SHARE: '0.2'
           DOLLARS_EVERY_MIN: ${{ github.event.inputs.every_min || 55 }}
+          DOLLARS_SYNC: '1'
+          DOLLARS_LOCALES: ${{ vars.DOLLARS_LOCALES || 'ar,es,pt,hi,id' }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY || secrets.GROQ_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
