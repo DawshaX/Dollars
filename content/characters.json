@@ -180,6 +180,46 @@
       "origin": "auto",
       "created": "2026-09-26T09:27:59.479470+00:00",
       "image_prompt": "cute original 2D animation character, a glass butterfly, أجنحة شفافة + خطوط ضوء, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "shuno_auto",
+      "name": "Shuno",
+      "type": "نبتة فضائية",
+      "look": "ساق ضوئية + أوراق شفافة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيرتّب كل حاجة",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "ocean",
+        "paper_world"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-27T03:01:54.740919+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, ocean background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "tari_auto",
+      "name": "Tari",
+      "type": "سمكة نجمية",
+      "look": "جسم لامع + زعانف ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "دائمًا جعان",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "bedroom",
+        "garden"
+      ],
+      "formats": [
+        "calm_loop",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-27T03:01:54.741099+00:00",
+      "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, bedroom background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -189,5 +229,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 6
+  "_auto_count": 8
 }

@@ -499,6 +499,18 @@
       "name": "Peno",
       "type": "فراشة زجاجية",
       "origin": "auto"
+    },
+    {
+      "id": "shuno_auto",
+      "name": "Shuno",
+      "type": "نبتة فضائية",
+      "origin": "auto"
+    },
+    {
+      "id": "tari_auto",
+      "name": "Tari",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [
