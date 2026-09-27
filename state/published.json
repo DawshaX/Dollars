@@ -179,6 +179,24 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "cqsvs9eUjYc",
+      "url": "https://youtu.be/cqsvs9eUjYc",
+      "title": "Soft Cafe Ambience for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
+      "published_at": "2026-09-27T02:11:41.904295+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Soft Cafe Ambience",
+        "hour": null,
+        "duration_bucket": null
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }

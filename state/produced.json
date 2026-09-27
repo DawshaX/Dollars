@@ -749,19 +749,34 @@
       "reason": null,
       "seconds_spent": 130.9,
       "at": "2026-09-27T01:16:32.012205+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:cafe window rain warm light",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_04/focus_study_14464.mp4",
+      "title": "Soft Cafe Ambience for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
+      "published": true,
+      "url": "https://youtu.be/cqsvs9eUjYc",
+      "reason": null,
+      "seconds_spent": 278.3,
+      "at": "2026-09-27T02:11:30.695978+00:00"
     }
   ],
   "stats": {
-    "total": 50,
-    "published": 10,
+    "total": 51,
+    "published": 11,
     "staged": 39,
     "by_pillar": {
-      "focus": 7,
+      "focus": 8,
       "satisfying": 22,
       "sleep": 14,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T01:16:42.722839+00:00"
+  "updated": "2026-09-27T02:11:42.389551+00:00"
 }
