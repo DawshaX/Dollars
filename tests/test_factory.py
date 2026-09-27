@@ -213,3 +213,23 @@ def test_loop_glue_keeps_duration_and_len(tmp_path):
     ok = factory._loop_glue(src, 4.0)
     assert ok is True
     assert abs(proc.duration(src) - before) < 0.35
+
+
+def test_rate_gate_blocks_bursts(tmp_path, monkeypatch):
+    """⏳ البوابة: مفيش نشر تاني قبل ٤٠ دقيقة (حماية من الدفعات)."""
+    import json
+    from datetime import datetime, timedelta, timezone
+    from engine import factory
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "state").mkdir()
+    monkeypatch.setattr(factory, "STATE", tmp_path / "state")
+    monkeypatch.setenv("DOLLARS_GATE_MIN", "40")
+    now = datetime.now(timezone.utc)
+    def write(mins_ago):
+        (tmp_path / "state" / "published.json").write_text(json.dumps({"videos": [
+            {"published_at": (now - timedelta(minutes=mins_ago)).isoformat()}]}), encoding="utf-8")
+        return factory.rate_gate()
+    assert write(5)["ok"] is False                  # لسه نزل ⇒ ممنوع دفعة تانية
+    assert write(50)["ok"] is True                  # عدّى الإيقاع ⇒ تمام
+    monkeypatch.setenv("DOLLARS_GATE_MIN", "0")
+    assert write(1)["ok"] is True                   # البوابة مقفولة بالأمر
