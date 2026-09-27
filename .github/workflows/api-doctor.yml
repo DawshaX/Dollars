@@ -48,4 +48,13 @@ jobs:
         run: |
           git config user.name "Dollars Factory"; git config user.email "factory@dawshax.local"
           git add docs/APIS.md; git diff --cached --quiet || git commit -m "🧰 تقرير فحص الـAPIs"
-          for i in 1 2 3; do git pull --rebase --autostash -q origin main 2>/dev/null || true; git push -q origin HEAD:main && break || sleep 5; done
+            git fetch -q origin main || true
+            if ! git pull --rebase --autostash origin main; then
+              echo "⚠️ تعارض في الدمج — بنوحّد ملفات الحالة وبنكمّل"
+              git rebase --abort 2>/dev/null || true
+              git merge -X ours --no-edit origin/main 2>/dev/null || true
+            fi
+            python3 tools/merge_state.py origin/main >/dev/null 2>&1 || true
+            git add state 2>/dev/null || true
+            git diff --cached --quiet || git commit -qm "🔀 توحيد حالة المصنع (اتحاد)" || true
+            git push origin main

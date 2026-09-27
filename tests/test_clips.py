@@ -178,3 +178,29 @@ def test_render_reel_smoke(tmp_path):
     loop = float(np.abs(fr[0] - fr[-1]).mean())
     assert motion > 0.1, f"مفيش حركة كفاية ({motion:.3f})"
     assert loop < 12.0, f"اللوب مش ناعم ({loop:.2f})"
+
+
+# ─────────────────── توحيد ملفات الحالة (منع فشل التشغيلات) ───────────────────
+
+def test_state_union_merges_lists_and_dicts():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("ms", "tools/merge_state.py")
+    ms = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ms)
+    ours = {"log": ["a", "b"], "meta": {"x": 1}, "keep": True}
+    theirs = {"log": ["b", "c"], "meta": {"x": 9, "y": 2}, "keep": False}
+    out = ms.union(ours, theirs)
+    assert out["log"] == ["a", "b", "c"], "القوائم بتتّحد بلا تكرار"
+    assert out["meta"]["y"] == 2 and out["meta"]["x"] == 1, "نسختنا ليها الأولوية"
+    assert out["keep"] is True
+
+
+def test_state_union_handles_deep_and_empty():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("ms", "tools/merge_state.py")
+    ms = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(ms)
+    assert ms.union({}, {"a": [1]}) == {"a": [1]}
+    assert ms.union({"a": 1}, {}) == {"a": 1}
+    nested = ms.union({"a": {"b": {"c": [1]}}}, {"a": {"b": {"c": [2], "d": 3}}})
+    assert nested["a"]["b"]["c"] == [1, 2] and nested["a"]["b"]["d"] == 3

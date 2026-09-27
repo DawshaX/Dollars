@@ -704,19 +704,34 @@
       "reason": null,
       "seconds_spent": 173.2,
       "at": "2026-09-27T00:34:01.848323+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "clip:the Wi-Fi dies funny animal",
+      "video": "/var/tmp/prod_check/fun_memes_635435.mp4",
+      "title": "the Wi-Fi dies — we've all been there #shorts",
+      "published": false,
+      "url": null,
+      "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
+      "seconds_spent": 196.6,
+      "at": "2026-09-27T00:55:14.340947+00:00"
     }
   ],
   "stats": {
-    "total": 47,
+    "total": 48,
     "published": 8,
-    "staged": 38,
+    "staged": 39,
     "by_pillar": {
       "focus": 5,
-      "satisfying": 21,
+      "satisfying": 22,
       "sleep": 14,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T00:34:10.389376+00:00"
+  "updated": "2026-09-27T00:55:15.420656+00:00"
 }

@@ -72,5 +72,13 @@ jobs:
           git add state 2>/dev/null || true
           if git diff --cached --quiet; then echo "مفيش تغيير"; exit 0; fi
           git commit -m "🏭 المصنع: الطويلة اليومية + السجل"
-          git pull --rebase --autostash origin main
+          git fetch -q origin main || true
+          if ! git pull --rebase --autostash origin main; then
+            echo "⚠️ تعارض في الدمج — بنوحّد ملفات الحالة وبنكمّل"
+            git rebase --abort 2>/dev/null || true
+            git merge -X ours --no-edit origin/main 2>/dev/null || true
+          fi
+          python3 tools/merge_state.py origin/main >/dev/null 2>&1 || true
+          git add state 2>/dev/null || true
+          git diff --cached --quiet || git commit -qm "🔀 توحيد حالة المصنع (اتحاد)" || true
           git push origin main
