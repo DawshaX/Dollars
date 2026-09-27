@@ -15,6 +15,7 @@ from __future__ import annotations
 import json
 import os
 import pathlib
+import sys
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -31,6 +32,8 @@ def _fix_path_shadow():
 _fix_path_shadow()
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:            # عشان `from engine import ...` يشتغل والنص بيتنفّذ مباشرة
+    sys.path.insert(0, str(ROOT))
 STATE = ROOT / "state"
 API = "https://www.googleapis.com/youtube/v3/videos"
 CHANNEL_API = "https://www.googleapis.com/youtube/v3/channels"
@@ -82,15 +85,18 @@ def _get(url: str, timeout: int = 30, token: str | None = None) -> dict:
 def fetch_stats(ids: list[str], api_key: str | None = None) -> dict:
     """مشاهدات/لايكات/تعليقات لأي عدد فيديوهات (حتى 50 في الطلب)."""
     api_key = api_key or key()
-    if not api_key:
-        raise RuntimeError("مفيش YOUTUBE_API_KEY")
+    token = None if api_key else _oauth_token()
+    if not api_key and not token:
+        raise RuntimeError("مفيش YOUTUBE_API_KEY ولا توكن القناة")
     out: dict[str, dict] = {}
     for i in range(0, len(ids), 50):
         chunk = [i for i in ids[i:i + 50] if i]
         if not chunk:
             continue
-        q = urllib.parse.urlencode({"part": "statistics,snippet", "id": ",".join(chunk), "key": api_key})
-        d = _get(f"{API}?{q}", token=token)
+        params = {"part": "statistics,snippet", "id": ",".join(chunk)}
+        if api_key:
+            params["key"] = api_key
+        d = _get(f"{API}?{urllib.parse.urlencode(params)}", token=token)
         for item in d.get("items", []):
             st = item.get("statistics", {})
             out[item["id"]] = {

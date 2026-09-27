@@ -499,6 +499,42 @@
       "name": "Peno",
       "type": "فراشة زجاجية",
       "origin": "auto"
+    },
+    {
+      "id": "shuno_auto",
+      "name": "Shuno",
+      "type": "نبتة فضائية",
+      "origin": "auto"
+    },
+    {
+      "id": "tari_auto",
+      "name": "Tari",
+      "type": "سمكة نجمية",
+      "origin": "auto"
+    },
+    {
+      "id": "dushi_auto",
+      "name": "Dushi",
+      "type": "حجر ودود",
+      "origin": "auto"
+    },
+    {
+      "id": "minu_auto",
+      "name": "Minu",
+      "type": "نبتة فضائية",
+      "origin": "auto"
+    },
+    {
+      "id": "duro_auto",
+      "name": "Duro",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "griri_auto",
+      "name": "Griri",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
