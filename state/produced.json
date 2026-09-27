@@ -1096,6 +1096,7 @@
       "at": "2026-09-27T13:04:59.242415+00:00"
     },
     {
+<<<<<<< Updated upstream
       "date": "2026-09-27",
       "hour": 1,
       "kind": "short",
@@ -1109,6 +1110,21 @@
       "reason": null,
       "seconds_spent": 104.5,
       "at": "2026-09-27T15:42:11.110295+00:00"
+=======
+      "date": null,
+      "hour": 15,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:Before Sleep",
+      "video": "/home/runner/work/Dollars/Dollars/work/None_15/calm_wellness_718421.mp4",
+      "title": "Breathe with me — 45 seconds of calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/iq-k6u_qSBU",
+      "reason": null,
+      "seconds_spent": 263.3,
+      "at": "2026-09-27T15:45:28.911621+00:00"
+>>>>>>> Stashed changes
     }
   ],
   "stats": {
@@ -1116,12 +1132,22 @@
     "published": 29,
     "staged": 39,
     "by_pillar": {
+<<<<<<< Updated upstream
       "focus": 8,
       "satisfying": 32,
+=======
+      "focus": 9,
+      "satisfying": 31,
+>>>>>>> Stashed changes
       "sleep": 21,
       "story": 8
     }
   },
   "created": null,
+<<<<<<< Updated upstream
   "updated": "2026-09-27T15:42:51.073070+00:00"
 }
+=======
+  "updated": "2026-09-27T15:46:17.007924+00:00"
+}
+>>>>>>> Stashed changes

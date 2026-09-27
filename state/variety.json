@@ -617,6 +617,7 @@
       "hour": 12
     },
     {
+<<<<<<< Updated upstream
       "genre": "fun_memes",
       "scene": "meme_traffic",
       "palette": "vivid_pop",
@@ -626,6 +627,17 @@
       "title_shape": "W W W-W W… #W #W",
       "mark": "the Wi-Fi dies",
       "hour": 1
+=======
+      "genre": "calm_wellness",
+      "scene": "breath_circle",
+      "palette": "deep_blue",
+      "transition": "slide",
+      "audio": "calm_night",
+      "montage": "إيقاع ٤-٧-٨",
+      "title_shape": "W W W — W W W W #W",
+      "mark": "Before Sleep",
+      "hour": 15
+>>>>>>> Stashed changes
     }
   ]
 }

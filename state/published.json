@@ -4479,6 +4479,7 @@
       "playlist": "Satisfying & ASMR"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "FSAzhwusEjY",
       "url": "https://youtu.be/FSAzhwusEjY",
       "title": "When the Wi-Fi dies… #funny #shorts",
@@ -4488,6 +4489,17 @@
         "kind": "short",
         "kw": "the Wi-Fi dies",
         "genre": "fun_memes",
+=======
+      "video_id": "iq-k6u_qSBU",
+      "url": "https://youtu.be/iq-k6u_qSBU",
+      "title": "Breathe with me — 45 seconds of calm #shorts",
+      "published_at": "2026-09-27T15:46:16.461036+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Before Sleep",
+        "genre": "calm_wellness",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
@@ -4510,7 +4522,11 @@
       "likes": 0,
       "comments": 0,
       "thumbnail": true,
+<<<<<<< Updated upstream
       "playlist": "Fun & Memes"
+=======
+      "playlist": "Calm & Breathe"
+>>>>>>> Stashed changes
     }
   ]
 }
