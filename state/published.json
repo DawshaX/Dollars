@@ -161,6 +161,24 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "a387alSKg_g",
+      "url": "https://youtu.be/a387alSKg_g",
+      "title": "Study With Me — Soft Cafe Ambience (30 seconds) | Pomodoro Chapters #shorts",
+      "published_at": "2026-09-27T01:16:42.182036+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Soft Cafe Ambience",
+        "hour": null,
+        "duration_bucket": null
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }

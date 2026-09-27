@@ -734,19 +734,34 @@
       "reason": null,
       "seconds_spent": 196.0,
       "at": "2026-09-27T01:11:02.568883+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "30s",
+      "scene": "clip:cafe window rain warm light",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_03/focus_study_137686.mp4",
+      "title": "Study With Me — Soft Cafe Ambience (30 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/a387alSKg_g",
+      "reason": null,
+      "seconds_spent": 130.9,
+      "at": "2026-09-27T01:16:32.012205+00:00"
     }
   ],
   "stats": {
-    "total": 49,
-    "published": 9,
+    "total": 50,
+    "published": 10,
     "staged": 39,
     "by_pillar": {
-      "focus": 6,
+      "focus": 7,
       "satisfying": 22,
       "sleep": 14,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T01:11:16.163880+00:00"
+  "updated": "2026-09-27T01:16:42.722839+00:00"
 }

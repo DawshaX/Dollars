@@ -637,6 +637,17 @@
       "title_shape": "W W W — W W W W (W W) | W W #W",
       "mark": "Rain on the Window",
       "hour": 2
+    },
+    {
+      "genre": "focus_study",
+      "scene": "forest_night",
+      "palette": "cool_slate",
+      "transition": "xfade_soft",
+      "audio": "focus",
+      "montage": "مشهد ثابت + ساعة",
+      "title_shape": "W W W — W W W (W W) | W W #W",
+      "mark": "Soft Cafe Ambience",
+      "hour": 3
     }
   ]
 }
