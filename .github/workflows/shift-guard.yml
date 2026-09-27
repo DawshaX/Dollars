@@ -16,19 +16,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
-          RUNS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
-            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/factory-shift.yml/runs?per_page=5")
-          LIVE=$(echo "$RUNS" | python3 -c "
-import json,sys
-d=json.load(sys.stdin)
-live=[r for r in d.get('workflow_runs',[]) if r['status'] in ('in_progress','queued','pending','requested','waiting')]
-print(len(live))")
+          RUNS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" "https://api.github.com/repos/${{ github.repository }}/actions/workflows/factory-shift.yml/runs?per_page=5")
+          LIVE=$(printf '%s' "$RUNS" | grep -c '"status": *"in_progress"' || true)
           echo "🔎 ورديات شغالة الآن: $LIVE"
-          if [ "$LIVE" -gt 0 ]; then
+          if [ "${LIVE:-0}" -gt 0 ]; then
             echo "✅ فيه وردية شغالة — مفيش حاجة نعملها"
             exit 0
           fi
-          echo "⚠️ مفيش وردية شغالة — بنشغّل واحدة جديدة (نشر كل ساعة يكمل)"
+          echo "⚠️ مفيش وردية شغالة — بنشغّل واحدة جديدة (النشر كل ساعة يكمل)"
           curl -s -o /dev/null -w "dispatch=%{http_code}\n" -X POST \
             -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${{ github.repository }}/actions/workflows/factory-shift.yml/dispatches" \
@@ -43,4 +38,4 @@ print(len(live))")
           curl -s -o /dev/null -w "telegram=%{http_code}\n" -X POST \
             "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
             -d "chat_id=$TELEGRAM_CHAT_ID" \
-            -d "text=🛡️ حارس الوردية: النشر كل ساعة مضمون — لو الوردية وقعت الحارس بيشغّل واحدة جديدة تلقائيًا."
+            -d "text=🛡️ حارس الوردية: النشر كل ساعة مضمون — لو الوردية وقعت، الحارس بيشغّل واحدة جديدة تلقائيًا."
