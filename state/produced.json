@@ -44,16 +44,32 @@
       "reason": null,
       "seconds_spent": 375.6,
       "at": "2026-09-27T20:13:45.333022+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Kinetic sand cutting close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_00/satisfying_746075.mp4",
+      "title": "قطع الرمل الحركي - مرضي بشكل غريب (30 ثانية) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 270.8,
+      "at": "2026-09-27T21:23:28.505946+00:00"
     }
   ],
   "stats": {
-    "total": 2,
+    "total": 3,
     "published": 2,
     "staged": 0,
     "by_pillar": {
       "sleep": 1,
-      "story": 2
+      "story": 2,
+      "satisfying": 1
     }
   },
-  "updated": "2026-09-27T20:14:34.914930+00:00"
+  "updated": "2026-09-27T21:23:28.506394+00:00"
 }
