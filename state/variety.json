@@ -2,17 +2,6 @@
   "sig": [
     {
       "genre": "sleep_ambience",
-      "scene": "ocean_night",
-      "palette": "midnight",
-      "transition": "slide",
-      "audio": "storm",
-      "montage": "تنفّس بطيء",
-      "title_shape": "W W W W W W | W W W W W | W W",
-      "mark": "Lake at Dusk",
-      "hour": 3
-    },
-    {
-      "genre": "sleep_ambience",
       "scene": "beach_night",
       "palette": "warm_ember",
       "transition": "crossfade",
@@ -659,6 +648,17 @@
       "title_shape": "W W W W W W W | W W W",
       "mark": "The Carina Nebula",
       "hour": 12
+    },
+    {
+      "genre": "satisfying",
+      "scene": "magnet_beads",
+      "palette": "high_contrast",
+      "transition": "crossfade",
+      "audio": "water_soft",
+      "montage": "قطع سريع على الإيقاع",
+      "title_shape": "W W W… W W #W #W",
+      "mark": "Ice Crushing",
+      "hour": 0
     }
   ]
 }

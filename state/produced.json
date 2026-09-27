@@ -689,19 +689,34 @@
       "reason": null,
       "seconds_spent": 139.9,
       "at": "2026-09-26T14:34:38.245547+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:ice cubes crystal light macro",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_00/satisfying_746075.mp4",
+      "title": "Wait for it… Ice Crushing #oddlysatisfying #shorts",
+      "published": true,
+      "url": "https://youtu.be/WqBRVzfVZaM",
+      "reason": null,
+      "seconds_spent": 173.2,
+      "at": "2026-09-27T00:34:01.848323+00:00"
     }
   ],
   "stats": {
-    "total": 46,
-    "published": 7,
+    "total": 47,
+    "published": 8,
     "staged": 38,
     "by_pillar": {
       "focus": 5,
-      "satisfying": 20,
+      "satisfying": 21,
       "sleep": 14,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-26T14:34:53.048666+00:00"
+  "updated": "2026-09-27T00:34:10.389376+00:00"
 }
