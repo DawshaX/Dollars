@@ -328,10 +328,11 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                           music_path=(_track or {}).get("path"), sfx_files=_sfx_files)
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
+    _looped = False
     try:                                    # 🔁 نخلي النهاية تلاقي البداية قبل ما نركّب الصوت
-        _loop_glue(silent, seconds)
+        _looped = bool(_loop_glue(silent, seconds))
     except Exception:
-        pass
+        _looped = False
     video = out_dir / f"{gid}_{seed}.mp4"
     _vdur = proc.duration(silent) or seconds          # ⏱️ مدة الفيديو بالظبط (مش -shortest)
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
@@ -359,6 +360,8 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      "overlays_used": bool(_stickers_p) or bool(_hook_p),
                      "real_clips": bool(use_clips)})
     md["genre"] = gid                               # 🧠 النوع يتسجل غلشان العقل يربط النوع بالمشاهدات
+    md["loop_glue"] = _looped                       # 🔁 بصمة اللفّ (عشان العقل يعرف تنفع ولا لأ)
+    md["hook_used"] = bool(_HK)                     # 🪝 بصمة الهوك (أول ثانية)
     md["kind"] = md.get("kind") or "short"
     if _lang == "ar":                       # 🌍 نسخة عربية أساسية (ترجمة حقيقية بالـLLM)
         try:

@@ -280,3 +280,32 @@ def test_globalize_srt_keeps_timings(monkeypatch):
     monkeypatch.setenv("LLM_API_KEY", "x")
     out = globalize.translate_srt(srt, ["ar"])
     assert "ar" in out and "00:00:00,000 --> 00:00:02,000" in out["ar"] and "مرحبا" in out["ar"]
+
+
+def test_pin_comment_posts_thread(monkeypatch):
+    """📌 التعليق المثبّت: نداء صحيح + مايكسرش لو يوتيوب رد بغلط."""
+    import json
+    from engine import publish
+    seen = {}
+    class R:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+    def fake_urlopen(req, timeout=45):
+        seen["url"] = req.full_url
+        seen["body"] = json.loads(req.data.decode())
+        return R()
+    monkeypatch.setattr(publish.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(publish, "access_token", lambda *a, **k: "tok")
+    assert publish.pin_comment("vid123", "من أي بلد بتتفرج؟ 🌍") is True
+    assert "commentThreads" in seen["url"] and seen["body"]["snippet"]["videoId"] == "vid123"
+    assert seen["body"]["snippet"]["topLevelComment"]["snippet"]["textOriginal"]
+
+
+def test_pin_comment_never_raises(monkeypatch):
+    from engine import publish
+    def boom(*a, **k):
+        raise OSError("net down")
+    monkeypatch.setattr(publish.urllib.request, "urlopen", boom)
+    monkeypatch.setattr(publish, "access_token", lambda *a, **k: "tok")
+    assert publish.pin_comment("v", "hi") is False
