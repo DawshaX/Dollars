@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 import subprocess
 import sys
 
@@ -87,8 +88,42 @@ def merge_file(p: pathlib.Path) -> bool:
     return False
 
 
+def clean_markdown() -> int:
+    """🧹 يشيل علامات التعارض من ملفات الحالة النصية (سجل المصنع/التقارير).
+
+    علامات زي <<<<<<< HEAD كانت بتفضل جوه السجل للأبد لأن ملفات .md مش بتتدمج بالاتحاد.
+    """
+    fixed = 0
+    for p in sorted(list(STATE.glob("*.md")) + list(STATE.glob("*.txt"))):
+        try:
+            raw = p.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        if MARK not in raw and "=======" not in raw:
+            continue
+        keep: list[str] = []
+        skipping = False
+        for line in raw.splitlines():
+            if line.startswith("<<<<<<<"):
+                skipping = True              # نسختنا (بنحتفظ بيها) — بنشيل العلامة بس
+                continue
+            if line.startswith("======="):
+                skipping = True              # نبدأ نتجاهل نسخة الريموت لحد العلامة الجاية
+                continue
+            if line.startswith(">>>>>>>"):
+                skipping = False
+                continue
+            if not skipping:
+                keep.append(line)
+        new = re.sub(r"\n{3,}", "\n\n", "\n".join(keep)).strip() + "\n"
+        if new != raw:
+            p.write_text(new, encoding="utf-8")
+            fixed += 1
+    return fixed
+
+
 def main() -> int:
-    changed = 0
+    changed = clean_markdown()
     for p in sorted(STATE.glob("*.json")):
         try:
             if merge_file(p):

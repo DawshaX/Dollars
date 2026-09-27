@@ -65,7 +65,19 @@ def run(n: int = 12) -> dict:
                      "privacy": stt.get("privacyStatus") or "?", "upload": stt.get("uploadStatus") or "?",
                      "reject": stt.get("rejectionReason") or "", "kids": bool(stt.get("madeForKids")),
                      "caption": bool(cd.get("caption") == "true"), "dur": cd.get("duration") or ""})
-    return {"ok": True, "channel": {"title": (it.get("snippet") or {}).get("title"),
+    # 📌 هل التعليق المثبّت موجود فعلًا على آخر فيديو؟ (إثبات إن التفاعل بيشتغل)
+    pinned_ok = None
+    try:
+        ct = api(f"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId={ids[0]}"
+                 f"&maxResults=5", token)
+        items = ct.get("items") or []
+        pinned_ok = bool(items)
+        if pinned_ok:
+            rows_pin = [i["snippet"]["topLevelComment"]["snippet"].get("textDisplay", "")
+                        for i in items]
+    except Exception:
+        pinned_ok = None
+    return {"ok": True, "pinned": pinned_ok, "channel": {"title": (it.get("snippet") or {}).get("title"),
                                     "subs": st.get("subscriberCount"), "videos": st.get("videoCount"),
                                     "views": st.get("viewCount")},
             "rows": rows,
@@ -123,6 +135,8 @@ def main() -> int:
     print(f"القناة: {c['title']} · مشتركين {c['subs']} · فيديوهات {c['videos']} · مشاهدات {c['views']}")
     print(f"من آخر {len(res['rows'])} فيديو: عربي أساسي {res['ar_primary']} · "
           f"معاه نسخ عالمية {res['with_locales']} · صفر مشاهدات {res['zero_views']}")
+    if res.get("pinned") is not None:
+        print("📌 تعليق مثبّت على آخر فيديو:", "موجود ✅" if res["pinned"] else "مش موجود ❌")
     print("─" * 44)
     for r in res["rows"]:
         loc = ("" if not r["locales"] else f" +{len(r['locales'])}:{','.join(r['locales'][:6])}")
@@ -141,13 +155,14 @@ def main() -> int:
     if tg:
         try:
             from engine import publish as _p
+            pin_line = "📌 تعليق مثبّت: موجود ✅\n" if res.get("pinned") else ""
             msg = ("🔬 فحص حقيقي (يوتيوب API)\n"
                    f"آخر {len(res['rows'])} فيديو · عربي أساسي {res['ar_primary']} · "
                    f"نسخ عالمية {res['with_locales']} · صفر مشاهدات {res['zero_views']}\n"
-                   f"🚦 {burst_check()}\n"
-                   f"القناة: {c['subs']} مشترك · {c['videos']} فيديو · {c['views']} مشاهدة\n"
-                   + "\n".join(f"{r['at']} [{r['lang']}] +{len(r['locales'])} · {r['title'][:44]}"
-                               for r in res["rows"][:5]))
+                   f"🚦 {burst_check()}\n" + pin_line +
+                   f"القناة: {c['subs']} مشترك · {c['videos']} فيديو · {c['views']} مشاهدة\n" +
+                   "\n".join(f"{r['at']} [{r['lang']}] +{len(r['locales'])} · {r['title'][:44]}"
+                             for r in res["rows"][:5]))
             print("📨 تليجرام:", "اتبعت ✅" if _p.notify(msg) else "مش مفعّل")
         except Exception as e:
             print("📨 تليجرام اتعذّر:", type(e).__name__)
