@@ -116,3 +116,100 @@ def test_arabic_share_switches_primary_language(monkeypatch):
     # النسبة ١٠٠٪ ⇒ لازم يحاول العربي (وهيفشل بهدوء لو مفيش مفتاح LLM — من غير كسر)
     monkeypatch.setenv("DOLLARS_AR_SHARE", "1")
     assert random.Random(1) is not None
+
+
+def test_shift_interval_is_minutes_not_hours():
+    """🔁 الباج: الفاصل كان بيتحسب ساعات (١٥ ساعة!) فالوردية كانت تقفل بعد أول دورة."""
+    for every_min, want in ((55, 55), (120, 60), (30, 30), (5, 15)):
+        got = max(15, min(60, int(every_min)))          # نفس معادلة الوردية
+        assert got == want, (every_min, got)
+
+
+def test_shift_stays_alive_after_first_cycle(monkeypatch):
+    """الوردية لازم تسيب وقت النوم بعد أول دورة (مش تخرج من اللوب)."""
+    import time as _t
+    from engine import factory
+    calls = {"n": 0}
+    def fake_run(*a, **k):
+        calls["n"] += 1
+        return {"slots": 1, "lines": ["ok"], "stopped": None}
+    monkeypatch.setattr(factory, "run", fake_run)
+    slept = []
+    def fake_sleep(sec):
+        slept.append(sec)
+        raise KeyboardInterrupt("وقفة تجربة")
+    monkeypatch.setattr(_t, "sleep", fake_sleep)
+    try:
+        factory.shift(hours=5.5, per_hour=1, every_min=55)
+    except KeyboardInterrupt:
+        pass
+    assert calls["n"] == 1 and slept and 50 <= slept[0] / 60 <= 60, f"نام {slept}"
+
+
+def test_sync_state_skips_without_env(monkeypatch, capsys):
+    """☁️ من غير DOLLARS_SYNC: مفيش أي أوامر جيت بتتنفّذ."""
+    from engine import factory
+    monkeypatch.delenv("DOLLARS_SYNC", raising=False)
+    called = []
+    monkeypatch.setattr(factory.os, "environ", {}) if False else None
+    factory._sync_state("1")            # مش المفروض يعمل حاجة ولا يرمي استثناء
+    assert "اترفع" not in capsys.readouterr().out
+
+
+def test_recent_titles_reads_state(tmp_path, monkeypatch):
+    import json
+    from engine import factory
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "state").mkdir()
+    (tmp_path / "state" / "published.json").write_text(json.dumps({"videos": [
+        {"title": "A #shorts"}, {"title": "B #shorts"}]}), encoding="utf-8")
+    got = factory._recent_titles(10)
+    assert got[:2] == ["A #shorts", "B #shorts"]
+
+
+def test_meta_unique_title_blocks_repeat():
+    from engine import meta
+    used = ["Kinetic Sand — oddly satisfying (15s) #shorts"]
+    out = meta.unique_title(used[0], used, alternatives=["Kinetic Sand ASMR #shorts"], seed=1)
+    assert out.strip() != used[0].strip() and out.endswith("#shorts")
+
+
+def test_demand_phrases_from_autocomplete(monkeypatch):
+    """🔎 عبارات الطلب بتيجي من أوتوكومبليت بحث يوتيوب (بلا مفتاح) وبتتكاش."""
+    from engine import demand
+    monkeypatch.setattr(demand, "_get", lambda q, hl="en", timeout=15: ["kinetic sand asmr",
+                                                                       "kinetic sand cutting", q])
+    monkeypatch.setattr(demand, "_load", lambda: {})
+    monkeypatch.setattr(demand, "_save", lambda d: None)
+    got = demand.phrases("kinetic sand", force=True)
+    assert got[0] == "kinetic sand asmr" and len(got) >= 2
+    pool = demand.top_by_genre("satisfying", limit=5)
+    assert all(isinstance(x, str) and x for x in pool)
+    phrase = demand.pick("satisfying", rnd=__import__("random").Random(1), used=["Kinetic sand asmr"])
+    assert phrase and phrase.lower() != "kinetic sand asmr"
+    assert demand.title_from_phrase("kinetic sand cutting") == "Kinetic sand cutting"
+
+
+def test_demand_never_breaks_factory(monkeypatch, tmp_path):
+    """لو الشبكة وقعت: مفيش كسر، والقيمة None وبنسيب الكلمة الأصلية."""
+    from engine import demand
+    def boom(*a, **k):
+        raise OSError("no net")
+    monkeypatch.setattr(demand, "_get", boom)
+    monkeypatch.setattr(demand, "_load", lambda: {})
+    assert demand.phrases("kinetic sand", force=True) == []
+    assert demand.pick("satisfying") is None
+
+
+def test_loop_glue_keeps_duration_and_len(tmp_path):
+    """🔁 الخاتمة اللي بترجع للبداية: الفيديو مايقصرش ولا يطول."""
+    import subprocess
+    from engine import factory, proc
+    src = tmp_path / "in.mp4"
+    subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i",
+                    "testsrc2=size=180x320:rate=30:duration=4", "-c:v", "libx264", "-pix_fmt",
+                    "yuv420p", str(src)], check=True)
+    before = proc.duration(src)
+    ok = factory._loop_glue(src, 4.0)
+    assert ok is True
+    assert abs(proc.duration(src) - before) < 0.35

@@ -328,6 +328,10 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                           music_path=(_track or {}).get("path"), sfx_files=_sfx_files)
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
+    try:                                    # 🔁 نخلي النهاية تلاقي البداية قبل ما نركّب الصوت
+        _loop_glue(silent, seconds)
+    except Exception:
+        pass
     video = out_dir / f"{gid}_{seed}.mp4"
     _vdur = proc.duration(silent) or seconds          # ⏱️ مدة الفيديو بالظبط (مش -shortest)
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
@@ -370,6 +374,43 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
         except Exception as _ae:
             print(f"🌍 العربي اتعذّر ({type(_ae).__name__}) — بنكمل إنجليزي", flush=True)
             md["default_language"] = "en"
+    # ── 🧬 حماية من التكرار: عنوان مش مكرر خلال آخر ٣٠٠ فيديو (الخوارزمية بتعاقب التكرار) ──
+    try:
+        from engine import meta as _m2
+        _used = _recent_titles(300)
+        _alts = []
+        if g:
+            _ctx = {"kw": idea.get("kw") or "", "dur": f"{int(seconds)}s",
+                    "hook": (g.get("hooks_en") or [""])[0], "city": idea.get("kw") or "",
+                    "topic": idea.get("kw") or "", "n": 1, "place": idea.get("kw") or ""}
+            for _st in (g.get("title_styles") or []):
+                try:
+                    _alts.append(_st.format(**_ctx))
+                except Exception:
+                    continue
+        _before = md["titles"][0]
+        _after = _m2.unique_title(_before, _used, alternatives=_alts, seed=seed)
+        if _after != _before:
+            md["titles"] = [_after] + [t for t in md["titles"] if t != _before]
+            print(f"🧬 عنوان جديد بدل المكرر: {_after[:56]}", flush=True)
+    except Exception as _de:
+        print(f"🧬 فحص التكرار اتعذّر ({type(_de).__name__})", flush=True)
+    # ── 🌍 نسخ عالمية لكل فيديو (localizations رسمية): يوتيوب يعرضه بلغة كل بلد ──
+    try:
+        _codes = [x.strip() for x in (os.environ.get("DOLLARS_LOCALES") or "ar,es,pt,hi,id").split(",") if x.strip()]
+        _base = md.get("default_language") or "en"
+        _need = [c for c in _codes if c != _base]
+        if _need:
+            from engine import globalize as _gl3
+            _got = _gl3.translate_fields(md["titles"][0], md["description"], _need)
+            _loc = md.setdefault("localizations", {})
+            for _c, _v in (_got or {}).items():
+                if isinstance(_v, dict) and _v.get("title"):
+                    _loc[_c] = _v
+            if _loc:
+                print(f"🌍 نسخ عالمية على الفيديو: {','.join(sorted(_loc))}", flush=True)
+    except Exception as _le:
+        print(f"🌍 النسخ العالمية اتعذّرت ({type(_le).__name__}) — بنكمل", flush=True)
     cr = clips.credits(clip_items) if use_clips else photo.credits(items)
     _mcr = _music.credits([_track]) if _track else []
     if _mcr:
@@ -542,6 +583,22 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         style_kw["phrases"] = refs_mod.phrases_for(pillar_key)
     except Exception:
         pass
+    # 🔎 العنوان من طلب حقيقي (أوتوكومبليت بحث يوتيوب): بناخد العبارة اللي الناس بتكتبها فعلًا
+    #    — ده اللي بيخلي الفيديو يطلع في نتائج البحث بدل ما يتألف من دماغنا.
+    if (os.environ.get("DOLLARS_DEMAND") or "1").strip() not in ("0", "false", "no"):
+        try:
+            from engine import demand as _dmd
+            _g = idea.get("genre") or pillar
+            _seen = [str(t) for t in _recent_titles(120)]
+            _seen += [str(x.get("kw") or "") for x in _seen]
+            _ph = _dmd.pick(_g, rnd=random.Random(seed + 909), used=_seen)
+            if _ph:
+                idea = dict(idea)
+                idea["kw"] = _dmd.title_from_phrase(_ph)
+                idea["demand_phrase"] = _ph
+                print(f"🔎 عبارة عليها طلب حقيقي: {_ph}", flush=True)
+        except Exception as _dme:
+            print(f"🔎 محرّك الطلب اتعذّر ({type(_dme).__name__}) — بنكمل", flush=True)
     t0 = time.time()
 
     # ── الاستوديو: النوع بيحدّد المشهد والصوت واللوحة والانتقال + النص على الشاشة ──
@@ -849,11 +906,18 @@ def _log(lines: list):
 
 
 def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=None,
-        catchup: bool = False, max_catchup: int = 4) -> dict:
+        catchup: bool = False, max_catchup: int | None = None) -> dict:
     if catchup:
         miss = missed_slots(kind)
-        # الشورتس: نعوّض لحد 4 في التشغيل الواحد · الطويلة: واحدة بالكتير (ثقيلة أوي)
-        count = max(count, min(max_catchup, miss)) if kind == "short" else max(count, min(2, miss))
+        # 🚦 سقف التعويض: دفعة واحدة في المرة (بدل ٤). الدفع الجماعي (٥٢ فيديو في ساعة مرة)
+        #    كان بيبان لليوتيوب «سبام» وبيدفن القناة ⇒ صفر مشاهدات. الوردية الساعية بتعوّض الباقي بهدوء.
+        try:
+            _cap = int(os.environ.get("DOLLARS_CATCHUP_MAX") or 1)
+        except Exception:
+            _cap = 1
+        if max_catchup is not None:
+            _cap = max_catchup
+        count = max(count, min(max(1, _cap), miss)) if kind == "short" else max(count, min(1, miss))
     # ⛔ وعي بالحصة: مش بنرندر حاجة مش هينفع تنشر (الوقت أغلى من الرندر)
     try:
         from engine import publish as _pb
@@ -930,6 +994,88 @@ def report_text() -> str:
     return "\n".join(lines)
 
 
+def _loop_glue(path, seconds: float, blend: float = 0.4) -> bool:
+    """🔁 يخلّي الفيديو يلفّ على نفسه: آخر ٠٫٤ ثانية بتتلاقى مع أول ٠٫٤ ثانية.
+
+    ليه ده مهم؟ إعادة المشاهدة (rewatch) أقوى إشارة في ترتيب الشورتس — ولما نهاية
+    الفيديو تبقى نفس بدايته، العين مش بتحس بالقطع فبيرجع من أول تاني.
+    المدة مابتتغيّرش (بنقطع نفس الجزء ونستبدله بالمزج).
+    """
+    if (os.environ.get("DOLLARS_LOOP") or "1").strip() in ("0", "false", "no"):
+        return False
+    path = pathlib.Path(path)
+    if seconds < 4 or not path.exists():
+        return False
+    out = path.with_name(path.stem + "_loop.mp4")
+    b = max(0.25, min(float(blend), seconds / 4.0))
+    end = max(b + 0.05, seconds - b)
+    fc = (f"[0:v]trim=start={end:.3f},setpts=PTS-STARTPTS,fps=30[a];"
+          f"[0:v]trim=start=0:end={b:.3f},setpts=PTS-STARTPTS,fps=30[b];"
+          f"[a][b]xfade=transition=fade:duration={b:.3f}:offset=0,format=yuv420p[ab];"
+          f"[0:v]trim=start=0:end={end:.3f},setpts=PTS-STARTPTS,fps=30[c];"
+          f"[c][ab]concat=n=2:v=1:a=0[v]")
+    import subprocess
+    from engine import proc as _proc
+    cmd = [_proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-i", str(path),
+           "-filter_complex", fc, "-map", "[v]", "-an", "-c:v", "libx264", "-preset", "veryfast",
+           "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)]
+    try:
+        subprocess.run(cmd, check=True, timeout=300)
+        if out.exists() and out.stat().st_size > 10_000:
+            out.replace(path)
+            print("🔁 خاتمة بتلفّ على البداية (إعادة مشاهدة)", flush=True)
+            return True
+    except Exception as e:
+        print(f"🔁 اللفّ اتعذّر ({type(e).__name__}) — بنكمل بالفيديو الأصلي", flush=True)
+    out.unlink(missing_ok=True)
+    return False
+
+
+def _sync_state(tag: str = "") -> None:
+    """☁️ يحفظ سجل النشر في جيت هوب بعد كل دورة (لو DOLLARS_SYNC=1).
+
+    السبب: قبل كده الحالة كانت بتترفع بعد الوردية كلها ⇒ التقارير/الفحص كانوا
+    بيشوفوا فيديوهات قديمة، ومنع التكرار ماكانش عارف آخر اللي اتنشر في وردية تانية.
+    """
+    if (os.environ.get("DOLLARS_SYNC") or "").strip() not in ("1", "true", "yes"):
+        return
+    import subprocess
+    def g(*a, **kw):
+        return subprocess.run(["git", *a], capture_output=True, text=True, timeout=180, **kw)
+    try:
+        g("add", "state")
+        if g("diff", "--cached", "--quiet").returncode == 0:
+            print("☁️ مفيش تغيير في السجل — مفيش رفع", flush=True)
+            return
+        g("commit", "-qm", f"🔁 دورة {tag}: سجل وطابور", "-c", "user.name=Dollars Factory",
+          "-c", "user.email=factory@dawshax.local")
+        g("fetch", "-q", "origin", "main")
+        if g("pull", "--rebase", "--autostash", "origin", "main").returncode != 0:
+            g("rebase", "--abort")
+            g("merge", "-X", "ours", "--no-edit", "origin/main")
+        g("push", "-q", "origin", "main")
+        print(f"☁️ السجل اترفع على جيت هوب (دورة {tag})", flush=True)
+    except Exception as e:
+        print(f"☁️ الرفع اتعذّر ({type(e).__name__}: {str(e)[:60]}) — بنكمل", flush=True)
+
+
+def _recent_titles(limit: int = 300) -> list[str]:
+    """عناوين آخر الفيديوهات المنشورة (من state) — عشان مانكررش عنوان."""
+    out: list[str] = []
+    for path in ("state/published.json", "state/queue.json"):
+        try:
+            d = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for v in (d.get("videos") or []):
+            t = v.get("title")
+            if t:
+                out.append(str(t))
+            if len(out) >= limit:
+                return out
+    return out
+
+
 def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 120) -> dict:
     """🔁 وردية طويلة: بتنشر بنفسها كل ساعة من غير ما تحتاج كرون كل ساعة.
 
@@ -962,11 +1108,12 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
             print(f"⚠️ دورة فشلت ({type(e).__name__}: {str(e)[:90]}) — بنكمل الدورة الجاية", flush=True)
             done.append({"cycle": cycle, "error": type(e).__name__})
         now = _t.time()
-        _every = max(900, min(3600, int(every_min))) * 60      # ⏱️ كل ساعتين (أو ساعة لما نقرر)
+        _every = max(15, min(60, int(every_min))) * 60        # ⏱️ ١٥–٦٠ دقيقة (كانت بتطلع ١٥ ساعة!)
         nxt = started + cycle * _every
         wait = max(60.0, min(nxt - now, deadline - now))
         if now + wait >= deadline:
             break
+        _sync_state(str(cycle))                       # ☁️ نحفظ فورًا بعد كل دورة
         print(f"😴 نوم {wait/60:.0f} دقيقة لحد الساعة الجاية", flush=True)
         _t.sleep(wait)
     return {"cycles": cycle, "published": sum(1 for d in done if d.get("slots")), "log": done,
