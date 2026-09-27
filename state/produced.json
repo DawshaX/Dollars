@@ -794,19 +794,34 @@
       "reason": null,
       "seconds_spent": 131.0,
       "at": "2026-09-27T02:41:38.985093+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "bubble_lamp",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_06/ambience_short_789163_60s.mp4",
+      "title": "Rain Sounds for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": true,
+      "url": "https://youtu.be/NdvMAk3UowI",
+      "reason": null,
+      "seconds_spent": 878.3,
+      "at": "2026-09-27T03:22:47.906525+00:00"
     }
   ],
   "stats": {
-    "total": 53,
-    "published": 13,
+    "total": 54,
+    "published": 14,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
       "satisfying": 23,
-      "sleep": 15,
+      "sleep": 16,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T02:41:49.867199+00:00"
+  "updated": "2026-09-27T03:22:57.531933+00:00"
 }
