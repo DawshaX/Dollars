@@ -334,6 +334,15 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                     "-b:a", "192k", "-t", f"{_vdur:.3f}", "-movflags", "+faststart", str(video)], check=True)
     silent.unlink(missing_ok=True); wav.unlink(missing_ok=True)
     from engine import meta
+    # 🌍 نسبة عربية: فيديو من كل خمسة يكون **عربي أساسي** (وعناوينه بالعربي) — والباقي إنجليزي
+    #    وكل الفيديوهات بتاخد عناوين/أوصاف عربي كـlocalization وقت النشر (engine/globalize).
+    _lang = "en"
+    try:
+        _share = float(os.environ.get("DOLLARS_AR_SHARE") or 0.2)
+    except Exception:
+        _share = 0.2
+    if _share > 0 and random.Random(seed + 77).random() < _share:
+        _lang = "ar"
     md = meta.build({**(idea.get("md_spec") or {}), **(idea.get("spec_extra") or {}), "genre": gid,
                      "pillar": g["pillar"] if (g := _g.get(gid)) else idea.get("pillar"),
                      "kind": "short", "seconds": int(seconds), "kw": idea.get("kw"),
@@ -346,6 +355,20 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      "real_clips": bool(use_clips)})
     md["genre"] = gid                               # 🧠 النوع يتسجل غلشان العقل يربط النوع بالمشاهدات
     md["kind"] = md.get("kind") or "short"
+    if _lang == "ar":                       # 🌍 نسخة عربية أساسية (ترجمة حقيقية بالـLLM)
+        try:
+            from engine import globalize as _gl
+            _tr = _gl.translate_fields(md["titles"][0], md["description"], ["ar"]).get("ar")
+            if _tr and _tr.get("title"):
+                _orig = (md["titles"][0], md["description"])
+                md["titles"] = [_tr["title"]] + [t for t in md["titles"] if t != _orig[0]]
+                md["description"] = _tr["description"] or _orig[1]
+                md["default_language"] = "ar"
+                md["localizations_en"] = {"title": _orig[0], "description": _orig[1]}
+                print(f"🌍 نسخة عربية أساسية: {md['titles'][0][:48]}", flush=True)
+        except Exception as _ae:
+            print(f"🌍 العربي اتعذّر ({type(_ae).__name__}) — بنكمل إنجليزي", flush=True)
+            md["default_language"] = "en"
     cr = clips.credits(clip_items) if use_clips else photo.credits(items)
     _mcr = _music.credits([_track]) if _track else []
     if _mcr:

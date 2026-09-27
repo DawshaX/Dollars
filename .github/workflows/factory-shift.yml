@@ -60,6 +60,7 @@ jobs:
           OPENVERSE_TOKEN: ${{ secrets.OPENVERSE_TOKEN || secrets.OPENVERSE }}
           DOLLARS_LONG_CLIPS: '1'
           DOLLARS_SOFT_QUOTA: '1'
+          DOLLARS_AR_SHARE: '0.2'
           DOLLARS_EVERY_MIN: ${{ github.event.inputs.every_min || 55 }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY || secrets.GROQ_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
