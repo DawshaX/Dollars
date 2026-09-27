@@ -1,0 +1,46 @@
+name: 📈 تقرير الساعة (تليجرام)
+on:
+  schedule:
+    - cron: '50 * * * *'      # كل ساعة قبل المصنع الساعوي
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: تحديث أرقام يوتيوب (لو ممكن) ثم التقرير
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+        run: |
+          python engine/analytics.py --sync || echo "المزامنة تعذّرت — بنكمّل"
+          python tools/hour_report.py --telegram || echo "التقرير اتعذّر"
+      - name: حفظ أرقام الساعة
+        if: always()
+        run: |
+          git config user.name "Dollars Report"
+          git config user.email "report@dawshax.local"
+          git add state 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -qm "📈 تقرير الساعة (أرقام حقيقية)"
+          git fetch -q origin main || true
+          git pull --rebase --autostash -q origin main || git merge -X ours --no-edit -q origin/main || true
+          python3 tools/merge_state.py origin/main >/dev/null 2>&1 || true
+          git add state 2>/dev/null || true
+          git diff --cached --quiet || git commit -qm "🔀 توحيد حالة المصنع (اتحاد)" || true
+          git push origin main || true

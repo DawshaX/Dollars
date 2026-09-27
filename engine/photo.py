@@ -389,19 +389,32 @@ def thumb_from_photo(paths: list[pathlib.Path], texts: list[str], out_path,
     except Exception:
         pass
     im = Image.fromarray((np.clip(arr, 0, 1) * 255).astype(np.uint8))
+    # 🎨 غلاف أقوى: تدرّج سفلي للقراءة + شريط ملوّن + نص ضخم (يُقرأ على الموبايل الصغير)
     d = ImageDraw.Draw(im, "RGBA")
-    f = _font(int(h * 0.115))
-    y = int(h * 0.10)
-    for i, t in enumerate([x for x in texts if x][:2]):
-        fnt = f if i == 0 else _font(int(h * 0.078))
+    _band = np.zeros((h, w, 4), np.uint8)
+    _y0 = int(h * 0.54)
+    _g = np.linspace(0.0, 0.72, h - _y0)[:, None]
+    _band[_y0:, :, 3] = np.clip(_g * 190, 0, 255).astype(np.uint8)
+    im = Image.alpha_composite(im.convert("RGBA"), Image.fromarray(_band, "RGBA")).convert("RGB")
+    d = ImageDraw.Draw(im, "RGBA")
+    _acc = (255, 70, 70, 235)
+    d.rectangle([0, 0, int(w * 0.16), int(h * 0.022)], fill=_acc)     # شريط هوية القناة
+    texts = [x for x in texts if x]
+    f = _font(int(h * 0.150))                                          # خط أكبر = يبان في الـfeed
+    y = int(h * 0.60)
+    for i, t in enumerate(texts[:2]):
+        t = t if len(t) <= 26 else t[:25].rstrip() + "…"
+        fnt = f if i == 0 else _font(int(h * 0.096))
         tw = d.textlength(t, font=fnt)
-        x = int((w - tw) / 2)
-        pad = int(h * 0.02)
-        d.rounded_rectangle([x - pad, y - pad // 2, x + tw + pad, y + int(h * 0.115) + pad // 2],
-                            radius=int(h * 0.02), fill=(0, 0, 0, 150))
-        d.text((x + 3, y + 3), t, font=fnt, fill=(0, 0, 0, 200))
-        d.text((x, y), t, font=fnt, fill=(255, 255, 255, 250))
-        y += int(h * 0.16)
+        x = max(int(h * 0.03), int((w - tw) / 2))
+        pad = int(h * 0.026)
+        box_h = int(h * (0.175 if i == 0 else 0.115))
+        d.rounded_rectangle([x - pad, y - pad // 2, min(w - pad, x + tw + pad), y + box_h],
+                            radius=int(h * 0.026), fill=(0, 0, 0, 165),
+                            outline=(255, 255, 255, 90), width=max(2, int(h * 0.004)))
+        d.text((x + 4, y + 4), t, font=fnt, fill=(0, 0, 0, 215))
+        d.text((x, y), t, font=fnt, fill=(255, 255, 255, 252))
+        y += box_h + int(h * 0.025)
     out_path = pathlib.Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     im.save(out_path, "JPEG", quality=90)
