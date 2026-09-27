@@ -914,19 +914,79 @@
       "reason": null,
       "seconds_spent": 103.0,
       "at": "2026-09-27T06:33:55.342597+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "2m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_10/koko_star_full.mp4",
+      "title": "Koko and the little star that fell — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/Sas6gzCFRvY",
+      "reason": null,
+      "seconds_spent": 343.9,
+      "at": "2026-09-27T11:34:09.243385+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 11,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "zen_garden",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_11/satisfying_short_879815_15s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/CnPFHRBxNGo",
+      "reason": null,
+      "seconds_spent": 365.7,
+      "at": "2026-09-27T11:40:24.023218+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 12,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "pendulum_wave",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_12/satisfying_short_97244_15s.mp4",
+      "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/gWQHVCOaNH4",
+      "reason": null,
+      "seconds_spent": 290.9,
+      "at": "2026-09-27T11:45:26.143654+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 13,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "45s",
+      "scene": "bubble_lamp",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_13/ambience_short_41580_45s.mp4",
+      "title": "Rain Sounds for Sleeping | 45 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": true,
+      "url": "https://youtu.be/XVoZBe18_WA",
+      "reason": null,
+      "seconds_spent": 1080.1,
+      "at": "2026-09-27T12:03:35.309837+00:00"
     }
   ],
   "stats": {
-    "total": 59,
-    "published": 19,
+    "total": 63,
+    "published": 23,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
-      "satisfying": 26,
-      "sleep": 18,
-      "story": 7
+      "satisfying": 28,
+      "sleep": 19,
+      "story": 8
     }
   },
   "created": null,
-  "updated": "2026-09-27T06:48:04.373106+00:00"
+  "updated": "2026-09-27T12:03:48.947954+00:00"
 }
