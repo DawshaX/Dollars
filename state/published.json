@@ -2135,6 +2135,29 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "5dBUf_wXs80",
+      "url": "https://youtu.be/5dBUf_wXs80",
+      "title": "the Wi-Fi dies — we've all been there #shorts",
+      "published_at": "2026-09-27T06:34:05.139853+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "the Wi-Fi dies",
+        "genre": "fun_memes",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Fun & Memes"
     }
   ]
 }
