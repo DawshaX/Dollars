@@ -15,7 +15,7 @@ on:
       limit:
         description: 'أقصى عدد من الطابور في المرة دي'
         type: string
-        default: '2'
+        default: '1'
 
 permissions:
   contents: write
@@ -58,7 +58,11 @@ jobs:
           YOUTUBE_REFRESH_TOKEN_4: ${{ secrets.YOUTUBE_REFRESH_TOKEN_4 }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python engine/factory.py --render-queue --limit ${{ github.event.inputs.limit || 2 }}
+          DOLLARS_DRAIN_KINDS: short      # 🎯 الشورتس الأول (الطويلة بتستنى في الطابور بأمان)
+          DOLLARS_CATCHUP_MAX: '1'
+          DOLLARS_LOOP: '1'
+          DOLLARS_SYNC: '1'
+        run: python engine/factory.py --render-queue --limit ${{ github.event.inputs.limit || 1 }}
       - name: حفظ الذاكرة (الطابور + السجل)
         if: always()                    # 💾 حتى لو الرفع/الرندر فشل — حالة الطابور تتسجّل دايمًا
         run: |

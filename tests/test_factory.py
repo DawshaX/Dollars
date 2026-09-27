@@ -172,3 +172,44 @@ def test_meta_unique_title_blocks_repeat():
     used = ["Kinetic Sand — oddly satisfying (15s) #shorts"]
     out = meta.unique_title(used[0], used, alternatives=["Kinetic Sand ASMR #shorts"], seed=1)
     assert out.strip() != used[0].strip() and out.endswith("#shorts")
+
+
+def test_demand_phrases_from_autocomplete(monkeypatch):
+    """🔎 عبارات الطلب بتيجي من أوتوكومبليت بحث يوتيوب (بلا مفتاح) وبتتكاش."""
+    from engine import demand
+    monkeypatch.setattr(demand, "_get", lambda q, hl="en", timeout=15: ["kinetic sand asmr",
+                                                                       "kinetic sand cutting", q])
+    monkeypatch.setattr(demand, "_load", lambda: {})
+    monkeypatch.setattr(demand, "_save", lambda d: None)
+    got = demand.phrases("kinetic sand", force=True)
+    assert got[0] == "kinetic sand asmr" and len(got) >= 2
+    pool = demand.top_by_genre("satisfying", limit=5)
+    assert all(isinstance(x, str) and x for x in pool)
+    phrase = demand.pick("satisfying", rnd=__import__("random").Random(1), used=["Kinetic sand asmr"])
+    assert phrase and phrase.lower() != "kinetic sand asmr"
+    assert demand.title_from_phrase("kinetic sand cutting") == "Kinetic sand cutting"
+
+
+def test_demand_never_breaks_factory(monkeypatch, tmp_path):
+    """لو الشبكة وقعت: مفيش كسر، والقيمة None وبنسيب الكلمة الأصلية."""
+    from engine import demand
+    def boom(*a, **k):
+        raise OSError("no net")
+    monkeypatch.setattr(demand, "_get", boom)
+    monkeypatch.setattr(demand, "_load", lambda: {})
+    assert demand.phrases("kinetic sand", force=True) == []
+    assert demand.pick("satisfying") is None
+
+
+def test_loop_glue_keeps_duration_and_len(tmp_path):
+    """🔁 الخاتمة اللي بترجع للبداية: الفيديو مايقصرش ولا يطول."""
+    import subprocess
+    from engine import factory, proc
+    src = tmp_path / "in.mp4"
+    subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-f", "lavfi", "-i",
+                    "testsrc2=size=180x320:rate=30:duration=4", "-c:v", "libx264", "-pix_fmt",
+                    "yuv420p", str(src)], check=True)
+    before = proc.duration(src)
+    ok = factory._loop_glue(src, 4.0)
+    assert ok is True
+    assert abs(proc.duration(src) - before) < 0.35

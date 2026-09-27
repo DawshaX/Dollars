@@ -48,17 +48,23 @@ def run(n: int = 12) -> dict:
     ids = [i["contentDetails"]["videoId"] for i in (pl.get("items") or [])]
     if not ids:
         return {"ok": False, "error": "مفيش فيديوهات على القناة؟"}
-    vids = api("https://www.googleapis.com/youtube/v3/videos?part=snippet,localizations,statistics"
-               f"&id={','.join(ids)}", token)
+    vids = api("https://www.googleapis.com/youtube/v3/videos?part=snippet,localizations,statistics,status,"
+               f"contentDetails&id={','.join(ids)}", token)
     rows = []
     for v in (vids.get("items") or []):
         s = v.get("snippet") or {}
         loc = v.get("localizations") or {}
+        stt = v.get("status") or {}
+        cd = v.get("contentDetails") or {}
         rows.append({"id": v.get("id"), "at": (s.get("publishedAt") or "")[:16],
                      "lang": s.get("defaultLanguage") or "—", "locales": sorted(loc.keys()),
+                     "loc_sample": ((loc.get("ar") or {}).get("title") or "")[:40],
                      "title": s.get("title") or "", "views": int((v.get("statistics") or {}).get("viewCount") or 0),
                      "likes": int((v.get("statistics") or {}).get("likeCount") or 0),
-                     "comments": int((v.get("statistics") or {}).get("commentCount") or 0)})
+                     "comments": int((v.get("statistics") or {}).get("commentCount") or 0),
+                     "privacy": stt.get("privacyStatus") or "?", "upload": stt.get("uploadStatus") or "?",
+                     "reject": stt.get("rejectionReason") or "", "kids": bool(stt.get("madeForKids")),
+                     "caption": bool(cd.get("caption") == "true"), "dur": cd.get("duration") or ""})
     return {"ok": True, "channel": {"title": (it.get("snippet") or {}).get("title"),
                                     "subs": st.get("subscriberCount"), "videos": st.get("videoCount"),
                                     "views": st.get("viewCount")},
@@ -66,6 +72,22 @@ def run(n: int = 12) -> dict:
             "ar_primary": sum(1 for r in rows if r["lang"].startswith("ar")),
             "with_locales": sum(1 for r in rows if r["locales"]),
             "zero_views": sum(1 for r in rows if r["views"] == 0)}
+
+
+def burst_check() -> str:
+    """🚦 فحص الدفع الجماعي: كام فيديو نزل في نفس الساعة (السبب المعروف لدفن القناة)."""
+    try:
+        pub = json.loads((STATE / "published.json").read_text(encoding="utf-8")).get("videos") or []
+    except Exception:
+        return "مفيش سجل"
+    import collections, datetime
+    c = collections.Counter(str(v.get("published_at"))[:13] for v in pub)
+    today = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+    th = sum(n for k, n in c.items() if k.startswith(today))
+    top = c.most_common(3)
+    worst = top[0][1] if top else 0
+    return (f"النهاردة: {th} · أكتر ساعة: {worst} فيديو ({', '.join(k[5:] + '=' + str(n) for k, n in top)})"
+            + ("  ⚠️ دفع جماعي — بيتقرا سبام" if worst >= 5 else "  ✅ الإيقاع هادي"))
 
 
 def commit_check() -> str:
@@ -104,10 +126,17 @@ def main() -> int:
     print("─" * 44)
     for r in res["rows"]:
         loc = ("" if not r["locales"] else f" +{len(r['locales'])}:{','.join(r['locales'][:6])}")
-        print(f"{r['at']} [{r['lang']:<2}]{loc:<28} 👁{r['views']:<5} ♥{r['likes']:<3} 💬{r['comments']:<2} "
-              f"{r['title'][:52]}")
+        flags = f"{r['privacy'][:6]}/{r['upload'][:8]}" + ("/⚠️" + r["reject"] if r["reject"] else "")
+        print(f"{r['at']} [{r['lang']:<2}]{loc:<26} 👁{r['views']:<5} ♥{r['likes']:<3} {flags} · {r['dur']}")
+        print(f"    {r['title'][:70]}")
+        if r["loc_sample"]:
+            print(f"    ع↩ {r['loc_sample']}")
         print(f"    https://youtu.be/{r['id']}")
+    bad = [r for r in res["rows"] if r["reject"] or r["upload"] not in ("processed", "uploaded")]
+    if bad:
+        print(f"⚠️ فيديوهات مش سليمة عند يوتيوب: {len(bad)}")
     print("─" * 44)
+    print("🚦 إيقاع النشر:", burst_check())
     print("من حالتنا المحلية:\n" + commit_check())
     if tg:
         try:
@@ -115,6 +144,7 @@ def main() -> int:
             msg = ("🔬 فحص حقيقي (يوتيوب API)\n"
                    f"آخر {len(res['rows'])} فيديو · عربي أساسي {res['ar_primary']} · "
                    f"نسخ عالمية {res['with_locales']} · صفر مشاهدات {res['zero_views']}\n"
+                   f"🚦 {burst_check()}\n"
                    f"القناة: {c['subs']} مشترك · {c['videos']} فيديو · {c['views']} مشاهدة\n"
                    + "\n".join(f"{r['at']} [{r['lang']}] +{len(r['locales'])} · {r['title'][:44]}"
                                for r in res["rows"][:5]))

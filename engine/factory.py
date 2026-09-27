@@ -328,6 +328,10 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                           music_path=(_track or {}).get("path"), sfx_files=_sfx_files)
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
+    try:                                    # 🔁 نخلي النهاية تلاقي البداية قبل ما نركّب الصوت
+        _loop_glue(silent, seconds)
+    except Exception:
+        pass
     video = out_dir / f"{gid}_{seed}.mp4"
     _vdur = proc.duration(silent) or seconds          # ⏱️ مدة الفيديو بالظبط (مش -shortest)
     subprocess.run([proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
@@ -579,6 +583,32 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
         style_kw["phrases"] = refs_mod.phrases_for(pillar_key)
     except Exception:
         pass
+    # 🔎 العنوان من طلب حقيقي (أوتوكومبليت بحث يوتيوب): بناخد العبارة اللي الناس بتكتبها فعلًا
+    #    — ده اللي بيخلي الفيديو يطلع في نتائج البحث بدل ما يتألف من دماغنا.
+    if (os.environ.get("DOLLARS_DEMAND") or "1").strip() not in ("0", "false", "no"):
+        try:
+            from engine import demand as _dmd
+            _g = idea.get("genre") or pillar
+            _seen = [str(t) for t in _recent_titles(120)]
+            _seen += [str(x.get("kw") or "") for x in _seen]
+            _ph = _dmd.pick(_g, rnd=random.Random(seed + 909), used=_seen)
+            if _ph:
+                idea = dict(idea)
+                idea["kw"] = _dmd.title_from_phrase(_ph)
+                idea["demand_phrase"] = _ph
+                print(f"🔎 عبارة عليها طلب حقيقي: {_ph}", flush=True)
+        except Exception as _dme:
+            print(f"🔎 محرّك الطلب اتعذّر ({type(_dme).__name__}) — بنكمل", flush=True)
+    if not str(idea.get("kw") or "").strip():              # 🛡️ مفيش كلمة مفتاحية ⇒ عنوان مكسور (كان بيطلع «— ...»)
+        _gname = str(idea.get("genre") or pillar or "nature").replace("_", " ").title()
+        idea = dict(idea)
+        try:
+            from engine import demand as _dmf
+            _pf = _dmf.pick(idea.get("genre") or pillar, rnd=random.Random(seed + 313))
+            idea["kw"] = _dmf.title_from_phrase(_pf) if _pf else _gname
+        except Exception:
+            idea["kw"] = _gname
+        print(f"🛡️ عنوان من غير كلمة مفتاحية ⇒ استخدمنا: {idea['kw']}", flush=True)
     t0 = time.time()
 
     # ── الاستوديو: النوع بيحدّد المشهد والصوت واللوحة والانتقال + النص على الشاشة ──
@@ -787,7 +817,17 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
     مهيّأ لليوم اللي نربط فيه القناة: أمر واحد يحوّل الطابور لمحتوى منشور.
     """
     q = _jload(STATE / "queue.json", {"items": []}) or {"items": []}
-    items = q["items"][:limit] if limit else list(q["items"])
+    # 🎯 أولوية الشورتس: الشورتس هي الأساس (طلب المستخدم) — والطويلة تفضل في الطابور بأمان
+    #    لحد ما نقول ننشرها (مفيش حذف ولا فقدان لأي حاجة).
+    _kinds = [k.strip() for k in (os.environ.get("DOLLARS_DRAIN_KINDS") or "short").split(",") if k.strip()]
+    def _kind_of(x):
+        return ((x.get("slot") or {}).get("kind") or "short")
+    short_first = [x for x in q["items"] if _kind_of(x) in _kinds]
+    rest = [x for x in q["items"] if _kind_of(x) not in _kinds]
+    _pool = short_first + rest if _kinds else list(q["items"])
+    if _kinds and rest:
+        _say(f"⏳ {len(rest)} عنصر طويل مستني في الطابور (مش بيتنشر دلوقتي — الشورتس لها الأولوية)")
+    items = _pool[:limit] if limit else list(_pool)
     lines, done = [], 0
     try:                                     # نسأل قبل ما نصرف ٥ دقايق رندر على الفاضي
         left = soft_capacity()
@@ -886,11 +926,18 @@ def _log(lines: list):
 
 
 def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=None,
-        catchup: bool = False, max_catchup: int = 4) -> dict:
+        catchup: bool = False, max_catchup: int | None = None) -> dict:
     if catchup:
         miss = missed_slots(kind)
-        # الشورتس: نعوّض لحد 4 في التشغيل الواحد · الطويلة: واحدة بالكتير (ثقيلة أوي)
-        count = max(count, min(max_catchup, miss)) if kind == "short" else max(count, min(2, miss))
+        # 🚦 سقف التعويض: دفعة واحدة في المرة (بدل ٤). الدفع الجماعي (٥٢ فيديو في ساعة مرة)
+        #    كان بيبان لليوتيوب «سبام» وبيدفن القناة ⇒ صفر مشاهدات. الوردية الساعية بتعوّض الباقي بهدوء.
+        try:
+            _cap = int(os.environ.get("DOLLARS_CATCHUP_MAX") or 1)
+        except Exception:
+            _cap = 1
+        if max_catchup is not None:
+            _cap = max_catchup
+        count = max(count, min(max(1, _cap), miss)) if kind == "short" else max(count, min(1, miss))
     # ⛔ وعي بالحصة: مش بنرندر حاجة مش هينفع تنشر (الوقت أغلى من الرندر)
     try:
         from engine import publish as _pb
@@ -965,6 +1012,43 @@ def report_text() -> str:
     if s.get("last"):
         lines.append(f"- آخر حاجة: {s['last'].get('title')} ({s['last'].get('pillar')})")
     return "\n".join(lines)
+
+
+def _loop_glue(path, seconds: float, blend: float = 0.4) -> bool:
+    """🔁 يخلّي الفيديو يلفّ على نفسه: آخر ٠٫٤ ثانية بتتلاقى مع أول ٠٫٤ ثانية.
+
+    ليه ده مهم؟ إعادة المشاهدة (rewatch) أقوى إشارة في ترتيب الشورتس — ولما نهاية
+    الفيديو تبقى نفس بدايته، العين مش بتحس بالقطع فبيرجع من أول تاني.
+    المدة مابتتغيّرش (بنقطع نفس الجزء ونستبدله بالمزج).
+    """
+    if (os.environ.get("DOLLARS_LOOP") or "1").strip() in ("0", "false", "no"):
+        return False
+    path = pathlib.Path(path)
+    if seconds < 4 or not path.exists():
+        return False
+    out = path.with_name(path.stem + "_loop.mp4")
+    b = max(0.25, min(float(blend), seconds / 4.0))
+    end = max(b + 0.05, seconds - b)
+    fc = (f"[0:v]trim=start={end:.3f},setpts=PTS-STARTPTS,fps=30[a];"
+          f"[0:v]trim=start=0:end={b:.3f},setpts=PTS-STARTPTS,fps=30[b];"
+          f"[a][b]xfade=transition=fade:duration={b:.3f}:offset=0,format=yuv420p[ab];"
+          f"[0:v]trim=start=0:end={end:.3f},setpts=PTS-STARTPTS,fps=30[c];"
+          f"[c][ab]concat=n=2:v=1:a=0[v]")
+    import subprocess
+    from engine import proc as _proc
+    cmd = [_proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error", "-i", str(path),
+           "-filter_complex", fc, "-map", "[v]", "-an", "-c:v", "libx264", "-preset", "veryfast",
+           "-crf", "20", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)]
+    try:
+        subprocess.run(cmd, check=True, timeout=300)
+        if out.exists() and out.stat().st_size > 10_000:
+            out.replace(path)
+            print("🔁 خاتمة بتلفّ على البداية (إعادة مشاهدة)", flush=True)
+            return True
+    except Exception as e:
+        print(f"🔁 اللفّ اتعذّر ({type(e).__name__}) — بنكمل بالفيديو الأصلي", flush=True)
+    out.unlink(missing_ok=True)
+    return False
 
 
 def _sync_state(tag: str = "") -> None:
