@@ -535,6 +535,18 @@
       "name": "Griri",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "naka_auto",
+      "name": "Naka",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "kibi_auto",
+      "name": "Kibi",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [
