@@ -56,3 +56,39 @@ def test_report_lists_best_first(state):
     table = txt.split("| الفيديو")[1]                     # نتأكد من ترتيب جدول الفيديوهات
     assert table.index("ب") < table.index("أ") and "satisfying" in txt
     assert txt.index("- **satisfying**") < txt.index("- **sleep**")   # الأفضل فوق
+"""تعلّم حقيقي: قراءة أرقام يوتيوب بتوكن القناة (من غير مشروع جوجل جديد)."""
+import sys, pathlib
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+from engine import analytics
+
+
+def test_needs_key_or_token(monkeypatch):
+    monkeypatch.delenv("YOUTUBE_API_KEY", raising=False)
+    monkeypatch.setattr(analytics, "_oauth_token", lambda: None)
+    try:
+        analytics.fetch_stats(["abc"])
+        raised = False
+    except RuntimeError as e:
+        raised = "توكن" in str(e)
+    assert raised, "لازم يقول إن المفتاح أو التوكن ناقص"
+
+
+def test_uses_oauth_token_when_no_key(monkeypatch):
+    monkeypatch.delenv("YOUTUBE_API_KEY", raising=False)
+    monkeypatch.setattr(analytics, "_oauth_token", lambda: "tok-123")
+    seen = {}
+    def fake_get(url, timeout=30, token=None):
+        seen["url"], seen["token"] = url, token
+        return {"items": [{"id": "abc", "statistics": {"viewCount": "7", "likeCount": "1"},
+                           "snippet": {"title": "t"}}]}
+    monkeypatch.setattr(analytics, "_get", fake_get)
+    out = analytics.fetch_stats(["abc"])
+    assert seen["token"] == "tok-123" and "key=" not in seen["url"]
+    assert out["abc"]["views"] == 7
+
+
+def test_sync_reports_reason_without_any_credential(monkeypatch):
+    monkeypatch.delenv("YOUTUBE_API_KEY", raising=False)
+    monkeypatch.setattr(analytics, "_oauth_token", lambda: None)
+    r = analytics.sync(write=False)
+    assert r["ok"] is False and "ناقص" in r["reason"]
