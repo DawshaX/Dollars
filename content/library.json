@@ -523,6 +523,18 @@
       "name": "Minu",
       "type": "نبتة فضائية",
       "origin": "auto"
+    },
+    {
+      "id": "duro_auto",
+      "name": "Duro",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "griri_auto",
+      "name": "Griri",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
