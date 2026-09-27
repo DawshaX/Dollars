@@ -23,3 +23,5 @@
    ⚠️ الترجمة ما اترفعتش: HTTP 400 — parseError — Invalid JSON payload received. Unable to parse number.
 --dollars_boundary_7
 ^
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (12.6 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: 5amIMlr4ta0

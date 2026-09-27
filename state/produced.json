@@ -719,19 +719,34 @@
       "reason": "مفيش توكن للقناة (ناقص: client_id, client_secret, refresh_token) — الشغل هيتحفظ في الطابور",
       "seconds_spent": 196.6,
       "at": "2026-09-27T00:55:14.340947+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:Rain on the Window rain window",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_02/focus_study_960698.mp4",
+      "title": "Study With Me — Rain on the Window (45 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/5amIMlr4ta0",
+      "reason": null,
+      "seconds_spent": 196.0,
+      "at": "2026-09-27T01:11:02.568883+00:00"
     }
   ],
   "stats": {
-    "total": 48,
-    "published": 8,
+    "total": 49,
+    "published": 9,
     "staged": 39,
     "by_pillar": {
-      "focus": 5,
+      "focus": 6,
       "satisfying": 22,
       "sleep": 14,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T00:55:15.420656+00:00"
+  "updated": "2026-09-27T01:11:16.163880+00:00"
 }
