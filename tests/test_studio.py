@@ -59,3 +59,47 @@ def test_genre_meta_reaches_youtube_package(tmp_path, monkeypatch):
     assert "https://en.wikipedia.org/wiki/Volcano" in md["description"]
     assert "volcano" in " ".join(md["tags"]).lower()
     assert md["titles"][0].endswith("#shorts")
+
+
+# ───────────── الأنواع الجديدة (٢٠٢٦): ASMR · راحة · ضحك · مطر وطبيعة ─────────────
+
+NEW_GENRES = ("asmr", "comfort_relax", "funny", "rain_nature")
+
+
+def test_new_genres_are_registered_and_complete():
+    from engine import genres as G
+    need = {"ar", "pillar", "kinds", "durations", "scenes", "audio", "palettes", "title_styles",
+            "desc_intro", "tags", "playlist", "dayparts", "hooks_en", "text_policy"}
+    for gid in NEW_GENRES:
+        g = G.get(gid)
+        assert g, f"النوع {gid} مش مسجّل"
+        missing = need - set(g)
+        assert not missing, f"{gid} ناقصه: {missing}"
+        assert g["title_styles"] and g["tags"] and g["hooks_en"]
+        assert any("{" in t for t in g["title_styles"]), f"{gid}: لازم تنسيق عنوان"
+
+
+def test_new_genres_have_topics():
+    from engine import studio
+    for gid in NEW_GENRES:
+        topics = studio.TOPICS.get(gid) or []
+        assert len(topics) >= 12, f"{gid}: مواضيع قليلة ({len(topics)})"
+        assert len(set(topics)) == len(topics), f"{gid}: مواضيع مكررة"
+
+
+def test_new_genres_have_music_moods():
+    from engine import musiclib
+    for gid in NEW_GENRES:
+        assert musiclib.MOODS.get(gid), f"{gid}: مفيش مزاج موسيقى"
+
+
+def test_new_genre_palettes_and_scenes_exist():
+    from engine import genres as G
+    from engine import visuals
+    valid_palettes = {p for g in G.GENRES.values() for p in g.get("palettes") or []}
+    for gid in NEW_GENRES:
+        g = G.get(gid)
+        for p in g["palettes"]:
+            assert p in valid_palettes, f"{gid}: لوحة غير معروفة {p}"
+        for p in g["palettes"]:
+            assert G.palette_hex(p), f"{gid}: لوحة فاضية {p}"

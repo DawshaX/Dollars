@@ -309,6 +309,50 @@
       "hour": 23
     },
     {
+      "genre": "sleep_ambience",
+      "scene": "ocean_night",
+      "palette": "midnight",
+      "transition": "slide",
+      "audio": "storm",
+      "montage": "تنفّس بطيء",
+      "title_shape": "W W W W W W | W W W W W | W W",
+      "mark": "Lake at Dusk",
+      "hour": 3
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "beach_night",
+      "palette": "warm_ember",
+      "transition": "crossfade",
+      "audio": "calm_night",
+      "montage": "طويل هادي",
+      "title_shape": "W W W W W W W | W W W W W | W W",
+      "mark": "Warm Fire and Rain",
+      "hour": 8
+    },
+    {
+      "genre": "focus_study",
+      "scene": "cafe_soft",
+      "palette": "cool_slate",
+      "transition": "slide",
+      "audio": "cafe",
+      "montage": "خط زمني وفصول",
+      "title_shape": "W W W — W W (W W W) | W W",
+      "mark": "White Noise",
+      "hour": 10
+    },
+    {
+      "genre": "space_nature",
+      "scene": "earth_from_space",
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "ocean",
+      "montage": "رحلة مستمرة",
+      "title_shape": "W W W W W W W | W W W",
+      "mark": "The Carina Nebula",
+      "hour": 12
+    },
+    {
       "genre": "satisfying",
       "scene": "magnet_beads",
       "palette": "high_contrast",
@@ -615,39 +659,6 @@
       "title_shape": "W W W W W W W | W W W",
       "mark": "Volcano at Night",
       "hour": 12
-    },
-    {
-      "genre": "fun_memes",
-      "scene": "meme_traffic",
-      "palette": "vivid_pop",
-      "transition": "slide",
-      "audio": "pop_bright",
-      "montage": "مفارقة",
-      "title_shape": "W W-W W — W'W W W W #W",
-      "mark": "the Wi-Fi dies",
-      "hour": 1
-    },
-    {
-      "genre": "focus_study",
-      "scene": "snow_window",
-      "palette": "deep_blue",
-      "transition": "fade",
-      "audio": "focus",
-      "montage": "مشهد ثابت + ساعة",
-      "title_shape": "W W W — W W W W (W W) | W W #W",
-      "mark": "Rain on the Window",
-      "hour": 2
-    },
-    {
-      "genre": "focus_study",
-      "scene": "forest_night",
-      "palette": "cool_slate",
-      "transition": "xfade_soft",
-      "audio": "focus",
-      "montage": "مشهد ثابت + ساعة",
-      "title_shape": "W W W — W W W (W W) | W W #W",
-      "mark": "Soft Cafe Ambience",
-      "hour": 3
     }
   ]
 }

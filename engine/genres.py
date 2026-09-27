@@ -267,3 +267,85 @@ def tags_for(gid: str, extra: list[str] | None = None, limit_chars: int = 480) -
         if t not in out:
             out.append(t); total += len(t) + 1
     return out
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 🆕 أنواع ٢٠٢٦ المضافة: ASMR · راحة نفسية · ضحك · مطر وطبيعة
+#    (كلها أنواع **الناس بتدور عليها** فعلًا وبتحقق مشاهدات عالية)
+# ═══════════════════════════════════════════════════════════════════════════
+GENRES["asmr"] = {
+    "ar": "إيه‑إس‑إم‑آر", "pillar": "satisfying", "kinds": ["short", "long"],
+    "durations": {"short": ["30s", "45s", "60s"], "long": ["30m", "1h", "2h"]},
+    "scenes": ["sand_table", "bubble_lamp", "candle_desk", "zen_garden", "harmonograph"],
+    "audio": ["room_tone", "rain", "fire"],
+    "mood": ["قريب", "ناعم", "مريح"],
+    "palettes": ["warm_amber", "pastel_soft", "night_blue"],
+    "montage": ["تفاصيل قريبة جدًا", "لمس وإيقاع هادي", "إضاءة دافئة"],
+    "title_styles": ["ASMR {topic} (No Talking)", "ASMR {topic} — {dur} of pure sounds",
+                     "Tingly ASMR: {topic}"],
+    "desc_intro": "{dur} of close-up ASMR sounds and textures — no talking, just the sound. "
+                  "Headphones recommended.",
+    "tags": ["asmr", "asmr no talking", "tingles", "sleep aid", "relaxing sounds",
+             "close up", "satisfying sounds"],
+    "playlist": "ASMR Sounds", "dayparts": {"night": 4, "evening": 3, "midday": 2, "morning": 2},
+    "hooks_en": ["Turn your volume up", "Headphones on", "Close your eyes…"],
+    "thumb_styles": ["تفصيلة قريبة + كلمة ASMR", "خلفية دافئة + نص ناعم", "إيموجي ✨ + كلمتين"],
+    "text_policy": "hook_only",
+}
+
+GENRES["comfort_relax"] = {
+    "ar": "راحة نفسية وتهدئة", "pillar": "sleep", "kinds": ["short", "long"],
+    "durations": {"short": ["30s", "45s"], "long": ["1h", "2h", "3h"]},
+    "scenes": ["candle_desk", "rain_glass", "fireplace", "ocean", "forest_night"],
+    "audio": ["rain", "fire", "waves", "room_tone"],
+    "mood": ["دافي", "مطمئن", "ناعم"],
+    "palettes": ["warm_amber", "pastel_soft", "sunset_warm"],
+    "montage": ["مشاهد دافية", "إيقاع بطيء", "إحساس بيت"],
+    "title_styles": ["{dur} of pure comfort", "Comforting {topic} — let it slow down",
+                     "Cozy {topic} (No Music Needed)"],
+    "desc_intro": "{dur} of cozy, calming {topic}. Made for anxious nights, long days and "
+                  "the moments you just need to breathe. General wellbeing only.",
+    "tags": ["comfort", "relaxation", "calm", "anxiety relief", "cozy", "peaceful",
+             "stress relief"],
+    "playlist": "Comfort & Calm", "dayparts": {"night": 5, "evening": 4, "midday": 2, "morning": 2},
+    "hooks_en": ["You're safe here", "It's okay to slow down", "Breathe with this one"],
+    "thumb_styles": ["شمعة + كلمة دافية", "مطر على الشباك", "مشهد بيت + نص ناعم"],
+    "text_policy": "hook_only",
+}
+
+GENRES["funny"] = {
+    "ar": "ضحك وكوميدي", "pillar": "satisfying", "kinds": ["short"],
+    "durations": {"short": ["15s", "20s", "30s"]},
+    "scenes": ["stinger_zoom", "stinger_confetti", "stinger_glitch", "neon_rain", "bubble_lamp"],
+    "audio": ["room_tone", "rain"],
+    "mood": ["مبسوط", "سريع", "خفيف"],
+    "palettes": ["vivid_bright", "sunset_warm", "neon_pop"],
+    "montage": ["قطع سريع", "زوم مضحك", "مؤثرات صوتية"],
+    "title_styles": ["POV: {topic} 😭", "Nobody: … Me: {topic}", "{topic} — why is this so real"],
+    "desc_intro": "Relatable comedy about {topic}. If you smiled, subscribe for one more 😅",
+    "tags": ["funny", "relatable", "comedy", "shorts", "lol", "meme", "pov"],
+    "playlist": "Funny Moments", "dayparts": {"evening": 5, "midday": 4, "night": 3, "morning": 2},
+    "hooks_en": ["Wait for it…", "Why is this so accurate 😭", "Tell me I'm not alone"],
+    "thumb_styles": ["وش متعجب + نص كبير", "إيموجي 😂 + كلمة", "خلفية ملوّنة + جملة"],
+    "text_policy": "en_lines",
+}
+
+GENRES["rain_nature"] = {
+    "ar": "مطر وطبيعة", "pillar": "sleep", "kinds": ["short", "long"],
+    "durations": {"short": ["30s", "45s", "60s"], "long": ["3h", "8h", "10h"]},
+    "scenes": ["rain_glass", "neon_rain", "forest_night", "ocean", "aurora"],
+    "audio": ["rain", "thunder", "wind", "waves"],
+    "mood": ["هادي", "طبيعي", "مريح"],
+    "palettes": ["night_blue", "deep_green", "storm_grey"],
+    "montage": ["مطر حقيقي", "برق بعيد", "غابات وضباب"],
+    "title_styles": ["{topic} for {dur} | Sleep & Study", "Rainy {topic} — {dur} No Music",
+                     "{dur} of {topic} (Real Sounds)"],
+    "desc_intro": "{dur} of real rain and nature sounds in {topic} — no music, no talking. "
+                  "Perfect for sleep, study and deep focus.",
+    "tags": ["rain sounds", "nature sounds", "sleep sounds", "study sounds", "rain for sleeping",
+             "thunderstorm", "no music"],
+    "playlist": "Rain & Nature", "dayparts": {"night": 6, "evening": 4, "midday": 3, "morning": 2},
+    "hooks_en": ["Real rain, no music", "Let it rain", "Sleep in 10 minutes"],
+    "thumb_styles": ["مطر + كلمة واحدة", "غابة وضباب + نص", "برق بعيد + مدة"],
+    "text_policy": "hook_only",
+}
+

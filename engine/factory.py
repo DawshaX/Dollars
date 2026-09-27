@@ -222,15 +222,39 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     silent = out_dir / f"photo_{seed}.mp4"
     if use_clips:
         from engine import clips as _clips
+        from engine import overlays as _ov
+        # ✨ إضافات المونتاج: ملصقات متحركة + شريط تقدّم + هوك + علامة القناة + كابشنات فاخرة
+        _stickers = _ov.plan_stickers(gid, seconds, seed=seed, count=3)
+        _hook = (idea.get("hook") or "").strip()[:42] or None
+        _texts = []
+        for tx in texts:
+            tx = dict(tx)
+            if tx.get("text") == _hook and float(tx.get("at", 0)) < 1.0:
+                continue                       # الهوك بقى بادج فوق — مش نص عائم
+            tx["card"] = True                  # كارت نص فاخر بدل النص العائم
+            _texts.append(tx)
         _clips.render_reel(clip_paths, silent, seconds=seconds, w=720, h=1280, fps=30, palette=pal,
-                           look="cinema_cool", seed=seed, texts=texts)
+                           look="cinema_cool", seed=seed, texts=_texts, stickers=_stickers,
+                           progress=True, watermark="@xDaw_NoVa", hook=_hook)
     else:
         photo.render_reel(paths, silent, seconds=seconds, w=720, h=1280, fps=30, palette=pal,
                           seed=seed, texts=texts)
     # الصوت: صوت من صنعنا + موسيقى (نفس منظومة المصنع)
     from engine import editor as _ed
+    from engine import musiclib as _music
+    # 🎵 موسيقى حقيقية مرخّصة (حرة للربح) — ولو مالقيناش نرجع للموسيقى المولّدة
+    _track = None
+    try:
+        _track = _music.track_for(gid, seed=seed, seconds=seconds)
+    except Exception as _me:
+        print(f"   ⚠️ الموسيقى الحرة اتعذّرت ({str(_me)[:50]}) — موسيقى مولّدة", flush=True)
+    if _track:
+        print(f"   🎵 موسيقى: {str(_track.get('title'))[:40]} — {_track.get('license')}"
+              f" ({_track.get('source')})", flush=True)
     audio = _ed.mix_audio(seconds, [], ambient_name=idea.get("audio"),
-                          music_style=idea.get("music") or "dream_pulse", music_gain=0.5)
+                          music_style=None if _track else (idea.get("music") or "dream_pulse"),
+                          music_gain=(0.62 if _track else 0.5),
+                          music_path=(_track or {}).get("path"))
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
     video = out_dir / f"{gid}_{seed}.mp4"
@@ -246,6 +270,14 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      "lines": lines, "source": idea.get("source"),
                      "title_style": idea.get("title_style"), "scene": idea.get("scene")})
     cr = clips.credits(clip_items) if use_clips else photo.credits(items)
+    _mcr = _music.credits([_track]) if _track else []
+    if _mcr:
+        cr = (cr or []) + _mcr
+    try:
+        from engine import overlays as _ov2
+        cr = (cr or []) + [_ov2.EMOJI_CREDIT]      # شرط رخصة الملصقات (Twemoji CC-BY)
+    except Exception:
+        pass
     if cr:
         md["description"] = (md["description"] + "\n\nCredits:\n" + "\n".join(cr))[:4900]
     # 🗣️ ترجمة حقيقية على الفيديو (يوتيوب يترجمها تلقائيًا لكل اللغات)
@@ -289,7 +321,8 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
             "duration": f"{int(seconds)}s", "scene": f"{'clip' if use_clips else 'photo'}:{topic}",
             "audio": idea.get("audio"), "palette": idea.get("palette"), "genre": gid,
             "photos": len(paths), "clips": len(clip_paths), "real_clips": bool(use_clips),
-            "credits": cr}
+            "music": _music.license_line(_track), "credits": cr,
+            "music_needs_credit": bool(_track and _track.get("needs_credit"))}
 
 
 def _say(text: str) -> None:

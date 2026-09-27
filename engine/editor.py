@@ -314,7 +314,7 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
 
 def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
               sr: int = 44100, music_style: str | None = None,
-              music_gain: float = 0.55) -> np.ndarray:
+              music_gain: float = 0.55, music_path=None) -> np.ndarray:
     """يمزج الأجواء + الموسيقى (بتاعتنا) + المؤثرات في مسار ستيريو واحد في التوقيت الصح."""
     n = int(seconds * sr)
     left = np.zeros(n, np.float32)
@@ -347,7 +347,22 @@ def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
             left[j:j + m] += x[:m]
             right[j:j + m] += x[:m] * 0.98
         at += float(sh["dur"])
-    if music_style:                                    # أرضية موسيقية مولّدة بالكود
+    if music_path:                                     # 🎵 موسيقى **حقيقية** مرخّصة (حرة للربح)
+        try:
+            from engine import musiclib as _music
+            tr = _music.decode(music_path, max(3.0, seconds))
+            if tr is not None:
+                m = min(tr.shape[0], n)
+                fade = int(min(1.8 * sr, max(1, n * 0.06)))
+                env = np.ones(m, np.float32)
+                if fade > 1:
+                    env[:fade] = np.linspace(0.0, 1.0, fade)
+                    env[-fade:] = np.linspace(1.0, 0.0, fade)
+                left[:m] += tr[:m, 0] * music_gain * env
+                right[:m] += tr[:m, 1] * music_gain * env
+        except Exception:
+            pass
+    elif music_style:                                  # أرضية موسيقية مولّدة بالكود
         try:
             bed = music.bed(music_style, max(3.0, seconds))
             m = min(bed.shape[0], n)

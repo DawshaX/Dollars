@@ -172,6 +172,9 @@ def collect(query: str, genre: str = "satisfying", n: int = 6,
         clean.append({**it, "needs_credit": (it.get("source") in ("wikimedia", "nasa", "archive")),
                       "credit": f"{it.get('source')}" + (f" · {it.get('license')}" if it.get("license") else "")})
     clean.sort(key=lambda x: -x.get("match", 0))       # الأقرب للموضوع الأول
+    matched = [c for c in clean if c.get("match", 0) > 0]
+    if len(matched) >= max(2, n // 2):                 # عندنا كفاية مطابقين ⇒ نقلل الدخلاء
+        clean = matched + [c for c in clean if c.get("match", 0) == 0]
     return clean[:max(n, n)]
 
 
@@ -352,16 +355,23 @@ def analyze(path, samples: int = 6) -> dict:
             gx = np.pad(gx, ((0, 0), (0, 1))); gy = np.pad(gy, ((0, 1), (0, 0)))
             edge = np.maximum(gx, gy)
             flats.append(float((edge < 2.5).mean()))
-            b = int(270 * 0.22)
-            bands.append(float((edge[:b].ravel() > 25).mean()))
-            bands[-1] = float((np.concatenate([(edge[:b] > 25).mean(axis=1),
-                                               (edge[-b:] > 25).mean(axis=1)]) > 0.28).mean())
+            # نص مدمج في أي مكان: صفوف فيها حواف متوسطة كتير (شكل الحروف)
+            rows_edge = (edge > 25).mean(axis=1)
+            bands.append(float((rows_edge > 0.26).mean()))
+            # + نص أبيض ساطع (زي خرائط/شرايط القنوات): بكسلات فاتحة جدًا وحوافها حادة
+            bright = (g > 235) & (edge > 30)
+            bands[-1] = max(bands[-1], float(bright.mean()) * 3.2)
             sats.append(float((fr.max(axis=2) - fr.min(axis=2)).mean()))
             _b = 8
             _H, _W = 270 // _b * _b, 480 // _b * _b
             _blk = fr[:_H, :_W].reshape(_H // _b, _b, _W // _b, _b, 3)
             _rng = _blk.max(axis=(1, 3)) - _blk.min(axis=(1, 3))
             blks.append(float((_rng.max(axis=2) <= 2).mean()))     # بلوكات ثابتة تمامًا = جرافيك
+            _b2 = 24
+            _H2, _W2 = 270 // _b2 * _b2, 480 // _b2 * _b2
+            _blk2 = fr[:_H2, :_W2].reshape(_H2 // _b2, _b2, _W2 // _b2, _b2, 3)
+            _rng2 = _blk2.max(axis=(1, 3)) - _blk2.min(axis=(1, 3))
+            blks.append(float((_rng2.max(axis=2) <= 3).mean()) * 1.0)   # مساحات كبيرة مستوية
         if not flats:
             return out
         out.update(flat=round(float(np.mean(flats)), 3), band_edge=round(float(np.mean(bands)), 4),
@@ -377,7 +387,7 @@ def is_clean(q: dict) -> bool:
     """نرفض: نص مدمج · شرايط إخبارية · جرافيك بيانات مسطّح (مش فيديو حقيقي)."""
     if not q or q.get("frames", 0) < 3:                # ما قدرناش نعاين كفاية ⇒ نرفضه
         return False
-    if q.get("texty", 0) > 0.12:                       # كابشن/نص مكتوب جوّه الفيديو
+    if q.get("texty", 0) > 0.09:                       # كابشن/نص مكتوب جوّه الفيديو (أي مكان)
         return False
     if q.get("flatblk", 0) > 0.40:                     # بلوكات ألوان ثابتة = جرافيك/بيانات مش كاميرا
         return False
@@ -389,7 +399,10 @@ def is_clean(q: dict) -> bool:
 
 
 # عناوين مش فيديو سينمائي: بيانات · أخبار · شروح · إعلانات
-BAD_TITLE = ("cira", "nesdis", "noaa", "meteosat", "copernicus", "goes-", "visualization",
+BAD_TITLE = ("band", "music video", "official video", "official audio", "lyrics", "lyric video",
+             "karaoke", "cover version", "live at", "live from", "concert", "orchestra plays",
+             "symphony no", "remix", "instrumental cover", "sing-along",
+             "cira", "nesdis", "noaa", "meteosat", "copernicus", "goes-", "visualization",
              "visualisation", "infographic", "data ", "simulation", "animated", "animation",
              "explainer", "briefing", "press conference", "webinar", "interview", "lecture",
              "presentation", "screencast", "screen recording", "tutorial", "how to", "review",
@@ -622,7 +635,9 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
                 fps: int = 30, palette=None, look: str = "cinema_cool", seed: int = 7,
                 texts: list | None = None, crf: int = 21, calm: bool = False,
                 loop_back: bool | None = None, seg_seconds: float | None = None,
-                maxrate: str | None = None) -> pathlib.Path:
+                maxrate: str | None = None, stickers: list | None = None,
+                progress: bool = True, watermark: str | None = "@xDaw_NoVa",
+                hook: str | None = None) -> pathlib.Path:
     """يرندر الشورت من **مقاطع فيديو حقيقية**: قصّ سينمائي + تلاشي متبادل + هوية بصرية + نص.
 
     - كل مقطع بياخد حركة كاميرا مختلفة (تقريب/انزياح/تحريك) على نافذة متحركة.
@@ -678,6 +693,7 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
 
     def _write(fr01: np.ndarray):
         i = st["i"]
+        t_now = i / float(fps)
         if fr01.dtype == np.uint8:
             fr = fr01                                  # جاهز
         else:                                          # تحويل بلا نسخ زايدة
@@ -686,12 +702,32 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
             np.clip(_t, 0, 255, out=_t)
             fr = _t.astype(np.uint8)
         if texts:
-            t_now = i / float(fps)
             for tx in texts:
                 if float(tx.get("at", 0)) <= t_now < float(tx.get("at", 0)) + float(tx.get("dur", 3)):
-                    fr = _draw_text(fr, str(tx.get("text", "")), pos=tx.get("pos", "lower"),
-                                    size=float(tx.get("size", 0.055)))
+                    if tx.get("card"):
+                        from engine import overlays as _ov
+                        fr = _ov.caption_card(fr, str(tx.get("text", "")), t_now,
+                                              float(tx.get("at", 0)), float(tx.get("dur", 3)),
+                                              size=float(tx.get("size", 0.052)),
+                                              y=float(tx.get("y", 0.76)))
+                    else:
+                        fr = _draw_text(fr, str(tx.get("text", "")), pos=tx.get("pos", "lower"),
+                                        size=float(tx.get("size", 0.055)))
                     break
+        # ✨ إضافات المونتاج (ملصقات · شريط تقدّم · هوك · علامة القناة)
+        if hook or stickers or watermark:
+            from engine import overlays as _ov
+            if hook and t_now < 3.2:
+                fr = _ov.hook_badge(fr, hook, t_now, dur=3.2)
+            for sk in (stickers or []):
+                if float(sk["at"]) <= t_now < float(sk["at"]) + float(sk["dur"]):
+                    fr = _ov.draw_sticker(fr, sk["code"], t_now, float(sk["at"]), float(sk["dur"]),
+                                          x=float(sk.get("x", 0.78)), y=float(sk.get("y", 0.28)),
+                                          size=float(sk.get("size", 0.14)))
+            if watermark:
+                fr = _ov.watermark(fr, watermark)
+            if progress:
+                fr = _ov.progress_bar(fr, t_now / max(0.1, body / float(fps)))
         arr = np.ascontiguousarray(fr)
         if i < body:
             pipe.stdin.write(memoryview(arr))

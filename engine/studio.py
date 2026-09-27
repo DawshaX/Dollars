@@ -136,6 +136,40 @@ def _topic(gid: str, rng: random.Random) -> dict:
     return out
 
 
+TOPICS["asmr"] = [
+    "Bubble Wrap Crunching", "Wooden Tapping", "Rain on a Tent Up Close",
+    "Candle Crackling", "Brushing the Mic", "Sand Pouring Close Up",
+    "Ice in a Glass", "Page Turning", "Keys and Coins", "Slime Squishing",
+    "Hair Brushing Sounds", "Water Pouring in a Mug", "Chalk on Paper",
+    "Velcro Peeling", "Foam Squeezing", "Glass Tapping", "Wax Melting",
+    "Spoon in a Bowl", "Zipper Sounds", "Fabric Rubbing", "Tea Pouring",
+    "Book Spine Cracks", "Bamboo Chimes", "Kettle Whistle",
+]
+TOPICS["comfort_relax"] = [
+    "Rainy Window at Night", "Warm Candlelight", "A Quiet Fireplace",
+    "Sleeping Cat Breathing", "Fresh Bread in the Kitchen", "Old Books and Rain",
+    "Coffee Steam in the Morning", "Soft Blanket Sounds", "A Cabin in the Snow",
+    "Lamp Light and Rain", "Gentle Wind at Dusk", "Warm Bath Sounds",
+    "Quiet House at Midnight", "Slow Afternoon Rain", "Grandma's Kitchen",
+    "Tea and Window Rain", "Soft Music Box at Night", "Fresh Laundry and Rain",
+]
+TOPICS["funny"] = [
+    "the alarm at 6am", "when the food arrives", "the group chat at 3am",
+    "the printer before a deadline", "running for the bus", "the fridge at midnight",
+    "when the teacher says 'in pairs'", "the wifi password hunt", "opening a new phone",
+    "the last 1% battery", "the gym membership in February", "the autocorrect fail",
+    "when someone says 'we need to talk'", "the elevator small talk", "the pizza delivery guy",
+    "reading terms and conditions", "the Monday morning face", "when the song ends early",
+]
+TOPICS["rain_nature"] = [
+    "Heavy Rain on a Tin Roof", "Thunderstorm Over the Valley", "Rain in a Bamboo Forest",
+    "Monsoon on a Balcony", "Rain on Leaves at Midnight", "Distant Thunder and Wind",
+    "Rain on a Car Roof (In-Car)", "Storm by the Ocean", "Rain in the Redwoods",
+    "Light Rain on a Lake", "Rain and Crickets", "Rain on an Old Window Frame",
+    "Snow Melt Stream", "Wind Through Tall Grass", "Rain in a City Alley",
+    "Fog and Drizzle at Dawn", "Waterfall and Bird Song", "Night Rain on Canvas",
+]
+
 LONG_SLEEP_TOPICS = ["Rain Sounds", "Ocean Waves", "Fireplace Crackling", "Thunderstorm at Night",
                      "Snowfall at Night", "Night Forest", "Beach at Midnight", "Mountain Stream",
                      "Desert Wind", "Night Train"]
