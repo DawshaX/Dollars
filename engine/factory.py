@@ -962,7 +962,7 @@ def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 
             print(f"⚠️ دورة فشلت ({type(e).__name__}: {str(e)[:90]}) — بنكمل الدورة الجاية", flush=True)
             done.append({"cycle": cycle, "error": type(e).__name__})
         now = _t.time()
-        _every = max(900, min(3600, int(every_min))) * 60      # ⏱️ كل ساعتين (أو ساعة لما نقرر)
+        _every = max(15, min(60, int(every_min))) * 60        # ⏱️ ١٥–٦٠ دقيقة (كانت بتطلع ١٥ ساعة!)
         nxt = started + cycle * _every
         wait = max(60.0, min(nxt - now, deadline - now))
         if now + wait >= deadline:

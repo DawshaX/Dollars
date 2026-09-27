@@ -116,3 +116,31 @@ def test_arabic_share_switches_primary_language(monkeypatch):
     # النسبة ١٠٠٪ ⇒ لازم يحاول العربي (وهيفشل بهدوء لو مفيش مفتاح LLM — من غير كسر)
     monkeypatch.setenv("DOLLARS_AR_SHARE", "1")
     assert random.Random(1) is not None
+
+
+def test_shift_interval_is_minutes_not_hours():
+    """🔁 الباج: الفاصل كان بيتحسب ساعات (١٥ ساعة!) فالوردية كانت تقفل بعد أول دورة."""
+    for every_min, want in ((55, 55), (120, 60), (30, 30), (5, 15)):
+        got = max(15, min(60, int(every_min)))          # نفس معادلة الوردية
+        assert got == want, (every_min, got)
+
+
+def test_shift_stays_alive_after_first_cycle(monkeypatch):
+    """الوردية لازم تسيب وقت النوم بعد أول دورة (مش تخرج من اللوب)."""
+    import time as _t
+    from engine import factory
+    calls = {"n": 0}
+    def fake_run(*a, **k):
+        calls["n"] += 1
+        return {"slots": 1, "lines": ["ok"], "stopped": None}
+    monkeypatch.setattr(factory, "run", fake_run)
+    slept = []
+    def fake_sleep(sec):
+        slept.append(sec)
+        raise KeyboardInterrupt("وقفة تجربة")
+    monkeypatch.setattr(_t, "sleep", fake_sleep)
+    try:
+        factory.shift(hours=5.5, per_hour=1, every_min=55)
+    except KeyboardInterrupt:
+        pass
+    assert calls["n"] == 1 and slept and 50 <= slept[0] / 60 <= 60, f"نام {slept}"
