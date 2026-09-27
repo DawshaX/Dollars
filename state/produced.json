@@ -794,19 +794,34 @@
       "reason": null,
       "seconds_spent": 131.0,
       "at": "2026-09-27T02:41:38.985093+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "90s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_06/koko_zen_full.mp4",
+      "title": "Kiki and the whale and the star — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/MB1K-aM_QX0",
+      "reason": null,
+      "seconds_spent": 203.4,
+      "at": "2026-09-27T03:06:20.668470+00:00"
     }
   ],
   "stats": {
-    "total": 53,
-    "published": 13,
+    "total": 54,
+    "published": 14,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
       "satisfying": 23,
       "sleep": 15,
-      "story": 7
+      "story": 8
     }
   },
   "created": null,
-  "updated": "2026-09-27T02:41:49.867199+00:00"
+  "updated": "2026-09-27T03:06:30.535313+00:00"
 }

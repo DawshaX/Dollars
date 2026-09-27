@@ -2,17 +2,6 @@
   "sig": [
     {
       "genre": "sleep_ambience",
-      "scene": "ocean_night",
-      "palette": "midnight",
-      "transition": "slide",
-      "audio": "storm",
-      "montage": "تنفّس بطيء",
-      "title_shape": "W W W W W W | W W W W W | W W",
-      "mark": "Lake at Dusk",
-      "hour": 3
-    },
-    {
-      "genre": "sleep_ambience",
       "scene": "beach_night",
       "palette": "warm_ember",
       "transition": "crossfade",
@@ -659,6 +648,17 @@
       "title_shape": "W W W W W W W | W W W",
       "mark": "Volcano at Night",
       "hour": 12
+    },
+    {
+      "genre": "story",
+      "scene": "story_city_rain",
+      "palette": "story_dream",
+      "transition": "fade",
+      "audio": "story_mystery",
+      "montage": "مشهد ← مشهد بإيقاع",
+      "title_shape": "W W W W W W W — W W W #W",
+      "mark": "the whale and the star",
+      "hour": 6
     }
   ]
 }
