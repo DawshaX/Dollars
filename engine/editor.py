@@ -782,8 +782,8 @@ class Editor:
             real_track = _ml.track_for(_g, seed=seed, seconds=seconds)
         except Exception:
             real_track = None
-        if real_track:
-            style = f"{real_track.get('title')} — {real_track.get('license') or 'CC'}"
+        real_label = (f"{real_track.get('title')} — {real_track.get('license') or 'CC'}"
+                      if real_track else None)
         audio = mix_audio(seconds, shots, ambient_name=ambient_name, music_style=style,
                           music_gain=(0.55 if real_track else (0.5 if pillar == "ambience" else 0.62)),
                           music_path=(real_track or {}).get("path"))
@@ -813,6 +813,8 @@ class Editor:
                 md["music_credit"] = real_track.get("title")
             except Exception:
                 pass
+        if real_label:
+            md["montage_real_music"] = real_label        # 🎵 الموسيقى الحقيقية المستخدمة (CC)
         md["montage"] = {"shots": len(shots), "music": style, "look": look,
                          "transition": transition, "palette": kw.get("palette"),
                          "camera_moves": sorted({s["move"] for s in shots}),
