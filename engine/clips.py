@@ -221,7 +221,8 @@ def probe(path) -> tuple[int, int, float]:
 def _light_urls(url: str) -> list[str]:
     """روابط أخف للديكود: نسخ ويكيميديا المضغوطة ٧٢٠/٤٨٠پ (أسرع بكتير من 4K)."""
     try:
-        if "upload.wikimedia.org" in url and "/commons/" in url:
+        if "upload.wikimedia.org" in url and "/commons/" in url and "/transcoded/" not in url \
+                and not re.search(r"\.(480|720|1080)p\.", url):
             base, name = url.split("?")[0].rsplit("/", 1)
             stem = name.rsplit(".", 1)[0]
             tr = base.replace("/commons/", "/commons/transcoded/")
@@ -270,17 +271,20 @@ def download(item: dict, timeout: int = 120, max_mb: int = MAX_MB,
             except Exception:
                 raw = b""
         if len(raw) < 40_000:
+            item["rejected"] = "download_too_small"
             return None
         tmp = p.with_suffix(".part")
         tmp.write_bytes(raw)
         w, h, secs = probe(tmp)
         if w < 320 or h < 240 or secs < 1.0:          # مش فيديو سليم ⇒ نرفضه
             tmp.unlink(missing_ok=True)
+            item["rejected"] = f"bad_video:{w}x{h}/{secs:.1f}s"
             return None
         if require_motion:
             m = motion_score(tmp)
             if m < 0.25:                      # فيديو ساكن/شبه ثابت ⇒ مرفوض
                 tmp.unlink(missing_ok=True)
+                item["rejected"] = f"too_still:{m:.2f}"
                 return None
             item["motion"] = round(m, 2)
         if require_motion:                    # ⛔ رفض النصوص/الجرافيك المدمج (جودة + أصالة)
