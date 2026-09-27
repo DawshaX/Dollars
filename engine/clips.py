@@ -96,6 +96,16 @@ def _wikimedia_videos(q: str, per: int = 3) -> list[dict]:
     return out
 
 
+QW_STOP = {"close", "up", "closeup", "upclose", "video", "clip", "footage", "shot", "scene",
+           "the", "and", "for", "with", "from", "high", "quality", "free", "stock", "slow",
+           "motion", "macro", "closeup"}
+
+
+def _qwords(s: str) -> list[str]:
+    """كلمات البحث المفيدة (بدون كلمات عامة زي close up اللي بتجيب نتايج غلط)."""
+    return [w for w in re.findall(r"[a-z]{3,}", (s or "").lower()) if w not in QW_STOP]
+
+
 def _variants(query: str) -> list[str]:
     """صيغ بحث متعددة لنفس الموضوع — تغطية أوسع لما المصدر ضيق."""
     q = (query or "").strip() or "nature"
@@ -115,8 +125,22 @@ def _variants(query: str) -> list[str]:
     return out[:3]
 
 
+GENRE_FALLBACK = {
+    "asmr": ["water drops macro", "macro texture water", "hands close up water"],
+    "comfort_relax": ["calm water surface", "clouds sky", "green leaves wind"],
+    "funny": ["dog playing", "cat playing", "duck swimming"],
+    "rain_nature": ["rain on window", "rain leaves", "rain puddle"],
+    "sleep_ambience": ["night sky stars", "moon clouds", "candle flame"],
+    "space_nature": ["earth from space", "nebula stars", "aurora"],
+    "satisfying": ["sand falling slow", "paint in water", "ink in water"],
+    "focus_study": ["desk laptop notes", "books library", "writing paper"],
+    "facts": ["nature close up", "animals wild", "ocean waves"],
+}
+
+
 def collect(query: str, genre: str = "satisfying", n: int = 6,
-            min_seconds: float = 2.0, min_side: int = 640) -> list[dict]:
+            min_seconds: float = 2.0, min_side: int = 640,
+            fallback: list[str] | None = None) -> list[dict]:
     """يجمع **مقاطع فيديو حرة** عن الموضوع من كل المصادر المتاحة (المفاتيح أولوية).
 
     الترتيب: Pexels · Pixabay (بمفتاح) → NASA/Archive للمواضيع الفضائية → ويكيميديا احتياطي.
@@ -163,11 +187,10 @@ def collect(query: str, genre: str = "satisfying", n: int = 6,
         if not title_ok(str(it.get("title") or "") + " " + urllib.parse.unquote(u)):
             continue                                   # شرح/بيانات/أخبار = مرفوض
         title = (it.get("title") or it.get("id") or "").lower()
-        qw = {w for w in re.findall(r"[a-z]{3,}", q.lower())}
-        tw = set(re.findall(r"[a-z]{3,}", title))
-        it["match"] = len(qw & tw) + (2 if len(qw) >= 2 and " ".join(sorted(qw)[:2]) and
-                                      " ".join(w for w in re.findall(r"[a-z]{3,}", q.lower())[:2]) in title
-                                      else 0)          # مطابقة الجملة = وزن أعلى
+        ql = _qwords(q)
+        qw, tw = set(ql), set(re.findall(r"[a-z]{3,}", title))
+        phrase = " ".join(ql[:2]) if len(ql) >= 2 else ""
+        it["match"] = len(qw & tw) + (2 if phrase and phrase in title else 0)   # مطابقة الجملة = وزن أعلى
         seen.add(u)
         clean.append({**it, "needs_credit": (it.get("source") in ("wikimedia", "nasa", "archive")),
                       "credit": f"{it.get('source')}" + (f" · {it.get('license')}" if it.get("license") else "")})
@@ -175,6 +198,12 @@ def collect(query: str, genre: str = "satisfying", n: int = 6,
     matched = [c for c in clean if c.get("match", 0) > 0]
     if len(matched) >= max(2, n // 2):                 # عندنا كفاية مطابقين ⇒ نقلل الدخلاء
         clean = matched + [c for c in clean if c.get("match", 0) == 0]
+    if not matched:                                    # 🎯 مفيش مطابقة خالص ⇒ نجرب كويري احتياطي للمزاج
+        _fb = list(fallback or []) + list(GENRE_FALLBACK.get(genre, []))
+        for fq in _fb[:2]:
+            sub = collect(fq, genre=genre, n=n, min_seconds=min_seconds, min_side=min_side)
+            if any(x.get("match", 0) > 0 for x in sub):
+                return sub[:n]
     return clean[:max(n, n)]
 
 
@@ -395,6 +424,10 @@ def is_clean(q: dict) -> bool:
         return False
     if q.get("bright", 1.0) < 0.07:                    # كادر مظلم أوي — المشاهد مايشوفش حاجة
         return False
+    if q.get("bright", 0.0) > 0.90 and q.get("sat", 99) < 18:
+        return False                                   # مغسول أبيض بلا تفاصيل = مشهد ميّت
+    if q.get("sat", 99) < 4 and q.get("flatblk", 0) > 0.25:
+        return False                                   # أبيض/أسود سادة (سكرين)
     return True
 
 
@@ -408,12 +441,42 @@ BAD_TITLE = ("band", "music video", "official video", "official audio", "lyrics"
              "presentation", "screencast", "screen recording", "tutorial", "how to", "review",
              "vlog", "podcast", "news", "forecast", "weather", "map of", "chart", "graph",
              "diagram", "dashboard", "trailer", "teaser", "promo", "commercial", "advert",
-             "conference", "panel", "speech", "update on")
+             "conference", "panel", "speech", "update on",
+             "scientific visualization", "svs2", "svs-", "render of", "cgi", "3d model",
+             "artist's impression", "artist impression", "concept art", "fly-through",
+             "flythrough", "schematic", "cutaway", "artist rendering",
+    # 🚫 NSFW — ممنوع تمامًا من النشر
+    "ejaculat",
+    "orgasm",
+    "masturbat",
+    "porn",
+    "nude",
+    "naked",
+    "penis",
+    "vagina",
+    "erotic",
+    "xxx",
+    "nsfw",
+    "breast",
+    "boob",
+    "sexual",
+    "fetish",
+    "bikini",
+    "lingerie",
+    "hentai",)
+
+
+NSFW_RE = re.compile(
+    r"\b(ejaculat\w*|orgasm\w*|masturbat\w*|porn\w*|nude|nudity|naked|penis|vagina|erotic\w*"
+    r"|xxx|nsfw|breast\w*|boob\w*|sexual\w*|fetish\w*|bikini|lingerie|hentai|viagra|condom\w*"
+    r"|sperm(?!\s*whale)|strip\s*tease|sexy|topless)\b")
 
 
 def title_ok(title: str) -> bool:
-    """نرفض من العنوان أي حاجة مش footage حقيقي (شرح · بيانات · أخبار · إعلان)."""
+    """نرفض أي عنوان مش footage حقيقي (شرح · بيانات · أخبار · إعلان) أو أي محتوى NSFW."""
     t = (title or "").lower()
+    if NSFW_RE.search(t):
+        return False
     return not any(bad in t for bad in BAD_TITLE)
 
 

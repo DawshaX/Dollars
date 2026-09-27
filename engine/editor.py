@@ -314,7 +314,7 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
 
 def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
               sr: int = 44100, music_style: str | None = None,
-              music_gain: float = 0.55, music_path=None) -> np.ndarray:
+              music_gain: float = 0.55, music_path=None, sfx_files: dict | None = None) -> np.ndarray:
     """يمزج الأجواء + الموسيقى (بتاعتنا) + المؤثرات في مسار ستيريو واحد في التوقيت الصح."""
     n = int(seconds * sr)
     left = np.zeros(n, np.float32)
@@ -342,7 +342,19 @@ def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
             j = int((at + float(cue.get("at", 0.0))) * sr)
             if j >= n:
                 continue
-            x = sfx.render(cue["name"]) * float(cue.get("gain", 0.7))
+            x = None
+            _real = (sfx_files or {}).get(cue["name"])
+            if _real:
+                try:                                   # 🎬 مؤثر **حقيقي** مرخّص
+                    from engine import musiclib as _ml
+                    _d = _ml.decode(_real, 3.0)
+                    if _d is not None:
+                        x = (_d[:, 0] + _d[:, 1]) * 0.5
+                except Exception:
+                    x = None
+            if x is None:
+                x = sfx.render(cue["name"])
+            x = x * float(cue.get("gain", 0.7))
             m = min(x.size, n - j)
             left[j:j + m] += x[:m]
             right[j:j + m] += x[:m] * 0.98

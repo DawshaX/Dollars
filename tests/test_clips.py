@@ -204,3 +204,25 @@ def test_state_union_handles_deep_and_empty():
     assert ms.union({"a": 1}, {}) == {"a": 1}
     nested = ms.union({"a": {"b": {"c": [1]}}}, {"a": {"b": {"c": [2], "d": 3}}})
     assert nested["a"]["b"]["c"] == [1, 2] and nested["a"]["b"]["d"] == 3
+
+
+def test_nsfw_titles_are_blocked():
+    """🚫 أي محتوى NSFW يترفض من العنوان (حماية للنشر/الربح)."""
+    from engine import clips
+    for bad in ["Close up ejaculation one quarter speed", "Naked woman walking",
+                "Porn compilation", "Masturbation tutorial", "Sexy bikini girl",
+                "Topless dance", "update onejaculation"]:
+        assert not clips.title_ok(bad), bad
+    for ok in ["Close-up of yellow flowers", "Sperm whale swimming and diving",
+               "Bubble wrap crunching close up", "Rain on window at night"]:
+        assert clips.title_ok(ok), ok
+
+
+def test_washed_out_frames_are_rejected():
+    """🫥 إطار مغسول أبيض/سادة يترفض (زي ما شفناه في المراجعة البصرية)."""
+    from engine import clips
+    base = {"frames": 8, "texty": 0.0, "flatblk": 0.10, "flat": 0.5, "bright": 0.5, "sat": 60}
+    assert clips.is_clean(dict(base))
+    assert not clips.is_clean({**base, "bright": 0.97, "sat": 6})      # أبيض ميّت
+    assert not clips.is_clean({**base, "sat": 2, "flatblk": 0.30})     # سادة رمادي
+    assert clips.is_clean({**base, "bright": 0.93, "sat": 55})         # ثلج/سما فاتحة = تمام

@@ -251,10 +251,29 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     if _track:
         print(f"   🎵 موسيقى: {str(_track.get('title'))[:40]} — {_track.get('license')}"
               f" ({_track.get('source')})", flush=True)
-    audio = _ed.mix_audio(seconds, [], ambient_name=idea.get("audio"),
+    # 🎬 مؤثرات حقيقية على لحظات المونتاج (انتقال بين المقاطع + ظهور الملصقات)
+    _cues, _sfx_files = [], {}
+    if use_clips and len(clip_paths) >= 2:
+        _seg = max(1.2, min(seconds / float(len(clip_paths)), 7.0))
+        for i in range(1, len(clip_paths)):
+            _cues.append({"at": min(seconds - 0.6, i * _seg), "name": "whoosh", "gain": 0.33})
+    if use_clips and _stickers:
+        for sk in _stickers[:3]:
+            _cues.append({"at": float(sk["at"]), "name": "sparkle", "gain": 0.22})
+    try:
+        for _n in {c["name"] for c in _cues}:
+            _pth = _music.sfx(_n)
+            if _pth:
+                _sfx_files[_n] = _pth
+        if _sfx_files:
+            print(f"   🎬 مؤثرات حقيقية: {', '.join(sorted(_sfx_files))}", flush=True)
+    except Exception:
+        _sfx_files = {}
+    audio = _ed.mix_audio(seconds, [{"dur": max(1.0, seconds), "cues": _cues}] if _cues else [],
+                          ambient_name=idea.get("audio"),
                           music_style=None if _track else (idea.get("music") or "dream_pulse"),
                           music_gain=(0.62 if _track else 0.5),
-                          music_path=(_track or {}).get("path"))
+                          music_path=(_track or {}).get("path"), sfx_files=_sfx_files)
     wav = out_dir / f"photo_{seed}.wav"
     _ed._write_wav(wav, audio)
     video = out_dir / f"{gid}_{seed}.mp4"

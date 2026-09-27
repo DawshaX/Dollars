@@ -217,7 +217,7 @@ def trim_cache(max_mb: int = 120, keep_min: int = 4) -> int:
     return freed
 
 
-def download(item: dict, timeout: int = 120) -> pathlib.Path | None:
+def download(item: dict, timeout: int = 120, min_bytes: int = 50_000) -> pathlib.Path | None:
     """ينزّل المقطع الصوتي ويتأكد إنه **صوت حقيقي** (مدة + مستوى صوت)."""
     url = item.get("url") or ""
     if not url:
@@ -225,20 +225,21 @@ def download(item: dict, timeout: int = 120) -> pathlib.Path | None:
     CACHE.mkdir(parents=True, exist_ok=True)
     ext = pathlib.Path(urllib.parse.urlparse(url).path).suffix.lower() or ".mp3"
     p = CACHE / (hashlib.md5(url.encode()).hexdigest()[:16] + ext)
-    if p.exists() and p.stat().st_size > 50_000:
+    if p.exists() and p.stat().st_size >= min_bytes:
         item["path"] = str(p)
         return p
     try:
         req = urllib.request.Request(url, headers=UA)
         with urllib.request.urlopen(req, timeout=timeout) as r:
             raw = r.read(MAX_MB * 1024 * 1024 + 1)
-        if len(raw) > MAX_MB * 1024 * 1024 or len(raw) < 50_000:
+        if len(raw) > MAX_MB * 1024 * 1024 or len(raw) < min_bytes:
             item["rejected"] = "size"
             return None
         tmp = p.with_suffix(p.suffix + ".part")
         tmp.write_bytes(raw)
         d = probe_audio(tmp)
-        if not d or d["seconds"] < 8 or d["rms"] < 0.0008:
+        _min_sec = 0.35 if min_bytes < 20_000 else 8.0            # المؤثرات القصيرة مسموحة
+        if not d or d["seconds"] < _min_sec or d["rms"] < 0.0008:
             tmp.unlink(missing_ok=True)
             item["rejected"] = "silent_or_short"
             return None
@@ -279,6 +280,28 @@ def decode(path, seconds: float, sr: int = SR) -> np.ndarray | None:
         return a[: n * 2].reshape(-1, 2).copy()
     except Exception:
         return None
+
+
+# 🎬 مؤثرات حقيقية للمونتاج (بتضاف على لحظات الانتقال/الظهور)
+SFX_QUERIES = {
+    "whoosh": "deep whoosh transition", "pop": "pop sound effect", "click": "ui click short",
+    "impact": "impact boom hit", "riser": "riser build up", "camera": "camera shutter",
+    "sparkle": "magic sparkle chime", "page": "page turn sound",
+}
+
+
+def sfx(name: str, tries: int = 4) -> str | None:
+    """يجيب **مؤثر صوتي حقيقي** مرخّص (قصير) ويرجّع مساره — أو None (نرجع للمولّد)."""
+    q = SFX_QUERIES.get(name)
+    if not q:
+        return None
+    cands = openverse(q, per=6, min_seconds=0.3)
+    cands = [c for c in cands if (c.get("seconds") or 0) <= 8.0]
+    cands.sort(key=lambda c: (0 if not c.get("needs_credit") else 1, abs((c.get("seconds") or 3) - 1.5)))
+    for it in cands[: max(1, tries)]:
+        if download(it, min_bytes=6_000):                          # ملفات المؤثرات صغيرة طبيعيًا
+            return it["path"]
+    return None
 
 
 def _variants(q: str) -> list[str]:
