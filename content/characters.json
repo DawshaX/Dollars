@@ -380,6 +380,46 @@
       "origin": "auto",
       "created": "2026-09-27T03:56:36.648113+00:00",
       "image_prompt": "cute original 2D animation character, a small clay creature, طين ناعم + عينين كبيرتين, ocean background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "boshi_auto",
+      "name": "Boshi",
+      "type": "قطة سحابية",
+      "look": "سحابة ناعمة + ذيل نجوم — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "كسول ومضحك",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "space",
+        "kitchen"
+      ],
+      "formats": [
+        "calm_loop",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-27T10:08:09.436618+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny cloud cat, سحابة ناعمة + ذيل نجوم, space background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "wata_auto",
+      "name": "Wata",
+      "type": "قطة صحراوية",
+      "look": "فرو رملي + عيون ذهبية — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "خجول بس شجاع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "desert",
+        "rain"
+      ],
+      "formats": [
+        "silent_gag",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-09-27T10:08:09.460747+00:00",
+      "image_prompt": "cute original 2D animation character, a desert kitten, فرو رملي + عيون ذهبية, desert background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -389,5 +429,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 16
+  "_auto_count": 18
 }

@@ -559,6 +559,18 @@
       "name": "Lala",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "boshi_auto",
+      "name": "Boshi",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "wata_auto",
+      "name": "Wata",
+      "type": "قطة صحراوية",
+      "origin": "auto"
     }
   ],
   "stories": [
