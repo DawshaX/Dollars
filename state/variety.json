@@ -2,6 +2,17 @@
   "sig": [
     {
       "genre": "sleep_ambience",
+      "scene": "ocean_night",
+      "palette": "midnight",
+      "transition": "slide",
+      "audio": "storm",
+      "montage": "تنفّس بطيء",
+      "title_shape": "W W W W W W | W W W W W | W W",
+      "mark": "Lake at Dusk",
+      "hour": 3
+    },
+    {
+      "genre": "sleep_ambience",
       "scene": "beach_night",
       "palette": "warm_ember",
       "transition": "crossfade",
@@ -307,6 +318,39 @@
       "title_shape": "W W W W W W | W W W W W | W W",
       "mark": "Lake at Dusk",
       "hour": 3
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "beach_night",
+      "palette": "warm_ember",
+      "transition": "crossfade",
+      "audio": "calm_night",
+      "montage": "طويل هادي",
+      "title_shape": "W W W W W W W | W W W W W | W W",
+      "mark": "Warm Fire and Rain",
+      "hour": 8
+    },
+    {
+      "genre": "focus_study",
+      "scene": "cafe_soft",
+      "palette": "cool_slate",
+      "transition": "slide",
+      "audio": "cafe",
+      "montage": "خط زمني وفصول",
+      "title_shape": "W W W — W W (W W W) | W W",
+      "mark": "White Noise",
+      "hour": 10
+    },
+    {
+      "genre": "space_nature",
+      "scene": "earth_from_space",
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "ocean",
+      "montage": "رحلة مستمرة",
+      "title_shape": "W W W W W W W | W W W",
+      "mark": "The Carina Nebula",
+      "hour": 12
     },
     {
       "genre": "satisfying",
@@ -615,39 +659,6 @@
       "title_shape": "W W W W W W W | W W W",
       "mark": "Volcano at Night",
       "hour": 12
-    },
-    {
-      "genre": "focus_study",
-      "scene": "snow_window",
-      "palette": "deep_blue",
-      "transition": "fade",
-      "audio": "rain_soft",
-      "montage": "خط زمني وفصول",
-      "title_shape": "W W W W W & W | W W | W W, W W #W",
-      "mark": "Soft Cafe Ambience",
-      "hour": 4
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "fireplace",
-      "palette": "deep_blue",
-      "transition": "crossfade",
-      "audio": "train",
-      "montage": "مشهد واحد مستمر",
-      "title_shape": "W W W W | W W W W | W W, W W",
-      "mark": "Night Train Ride",
-      "hour": 3
-    },
-    {
-      "genre": "fun_memes",
-      "scene": "bubbles",
-      "palette": "pastel_soft",
-      "transition": "crossfade",
-      "audio": "pop_bright",
-      "montage": "مفارقة",
-      "title_shape": "W: W W W #W #W",
-      "mark": "the Monday morning",
-      "hour": 5
     }
   ]
 }

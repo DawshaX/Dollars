@@ -1,0 +1,37 @@
+name: 📨 فحص تليجرام (الإشعارات تصل؟)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '43 6 * * *'          # كل يوم 06:43 UTC — فحص يومي للإشعارات
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: فحص الإشعارات + رسالة تجربة
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python tools/telegram_test.py
+      - name: حفظ رقم الشات لو اتصلّح
+        if: always()
+        run: |
+          git config user.name "Dollars Bot"
+          git config user.email "bot@dawshax.local"
+          git add state/telegram.json 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -qm "📨 تليجرام: تثبيت رقم الشات (إصلاح ذاتي)"
+          git fetch -q origin main || true
+          git pull --rebase --autostash -q origin main || git merge -X ours --no-edit -q origin/main || true
+          python3 tools/merge_state.py origin/main >/dev/null 2>&1 || true
+          git add state 2>/dev/null || true
+          git diff --cached --quiet || git commit -qm "🔀 توحيد حالة المصنع (اتحاد)" || true
+          git push origin main || true

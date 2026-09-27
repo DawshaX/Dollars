@@ -774,8 +774,19 @@ class Editor:
             style = (random.Random(seed + 11).choice(["warm_pad", "dream_pulse", "night_drone"])
                      if pillar == "ambience" else
                      random.Random(seed + 11).choice(["music_box", "lofi_keys", "dream_pulse", "warm_pad"]))
+        # 🎵 موسيقى **حقيقية** مرخّصة لو متاحة (CC0/CC-BY) — وإلا الموسيقى المُصنّعة
+        real_track = None
+        try:
+            from engine import musiclib as _ml
+            _g = str((spec_extra or {}).get("genre") or kw.get("meta_pillar") or pillar)
+            real_track = _ml.track_for(_g, seed=seed, seconds=seconds)
+        except Exception:
+            real_track = None
+        if real_track:
+            style = f"{real_track.get('title')} — {real_track.get('license') or 'CC'}"
         audio = mix_audio(seconds, shots, ambient_name=ambient_name, music_style=style,
-                          music_gain=0.5 if pillar == "ambience" else 0.62)
+                          music_gain=(0.55 if real_track else (0.5 if pillar == "ambience" else 0.62)),
+                          music_path=(real_track or {}).get("path"))
         wav = self.out / f"{name}.wav"
         _write_wav(wav, audio)
         _vdur = proc.duration(silent) or seconds      # ⏱️ مدة الفيديو بالظبط
@@ -795,6 +806,13 @@ class Editor:
                             "sfx": [c["name"] for c in s["cues"]],
                             "fx": [x["kind"] for x in s.get("fx", [])],
                             "stickers": [x["name"] for x in s.get("stickers", [])]} for s in shots]
+        if real_track:
+            try:
+                from engine import musiclib as _ml2
+                md["credits"] = list(md.get("credits") or []) + _ml2.credits([real_track])
+                md["music_credit"] = real_track.get("title")
+            except Exception:
+                pass
         md["montage"] = {"shots": len(shots), "music": style, "look": look,
                          "transition": transition, "palette": kw.get("palette"),
                          "camera_moves": sorted({s["move"] for s in shots}),

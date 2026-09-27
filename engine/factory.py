@@ -52,6 +52,17 @@ STATE = ROOT / "state"
 WORK = ROOT / "work"
 
 
+# 🎴 كابشنات جاهزة للأنواع اللي ملهاش سطور مكتوبة (الميمز · ASMR · الراحة)
+_DEFAULT_CARDS = {
+    "funny": [("Wait for it…", 0.34), ("Follow for more 😂", 0.80)],
+    "fun_memes": [("Wait for it…", 0.34), ("Follow for more 😂", 0.80)],
+    "asmr": [("Use headphones 🎧", 0.30), ("Turn the volume up", 0.78)],
+    "comfort_relax": [("Breathe in… breathe out", 0.32), ("You're doing okay", 0.80)],
+    "rain_nature": [("Rain sounds for sleep", 0.30), ("Save it for tonight", 0.80)],
+    "satisfying": [("Watch till the end", 0.34), ("Follow for more", 0.80)],
+}
+
+
 def _dur_seconds(dur, default: float = 45.0) -> float:
     """يحوّل أي صيغة مدة ("90s" · "2m" · "3h" · 90) لثواني — بلا انفجار."""
     try:
@@ -212,6 +223,10 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
     step = max(4.0, seconds / (len(lines) + 1)) if lines else 0
     for i, ln in enumerate(lines):
         texts.append({"at": 2.6 + i * step, "dur": step * 0.88, "text": ln, "pos": "lower", "size": 0.050})
+    if not lines and gid in _DEFAULT_CARDS:            # 🎴 مفيش سطور ⇒ كابشنات مزاج جاهزة
+        for _t, _fr in _DEFAULT_CARDS[gid]:
+            texts.append({"at": max(1.2, seconds * _fr), "dur": min(3.2, max(2.0, seconds * 0.16)),
+                          "text": _t, "pos": "lower", "size": 0.048})
     if gid in ("facts", "space_nature"):
         _src = (idea.get("source") or "").replace("https://", "").replace("http://", "").replace("www.", "")
         _src = _src.split("/")[0] or "NASA / Wikimedia"       # الدومين بس — الرابط الكامل في الوصف
@@ -287,7 +302,12 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
                      "pillar": g["pillar"] if (g := _g.get(gid)) else idea.get("pillar"),
                      "kind": "short", "seconds": int(seconds), "kw": idea.get("kw"),
                      "lines": lines, "source": idea.get("source"),
-                     "title_style": idea.get("title_style"), "scene": idea.get("scene")})
+                     "title_style": idea.get("title_style"), "scene": idea.get("scene"),
+                     # 🧠 بصمات الإنتاج — العقل بيتعلم منها إيه اللي بيجيب مشاهدات
+                     "music_credit": (_track or {}).get("title"),
+                     "sfx_used": sorted(_sfx_files)[:4] or None,
+                     "overlays_used": bool(_stickers) or bool(_hook),
+                     "real_clips": bool(use_clips)})
     cr = clips.credits(clip_items) if use_clips else photo.credits(items)
     _mcr = _music.credits([_track]) if _track else []
     if _mcr:

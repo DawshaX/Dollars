@@ -54,8 +54,27 @@ def key() -> str | None:
     return os.environ.get("YOUTUBE_API_KEY") or os.environ.get("YT_API_KEY")
 
 
-def _get(url: str, timeout: int = 30) -> dict:
-    req = urllib.request.Request(url, headers={"User-Agent": "DollarsStudio/1.0"})
+def _oauth_token() -> str | None:
+    """🔑 توكن القناة المربوطة (OAuth) — بنقرا الأرقام من غير مشروع جوجل جديد."""
+    try:
+        from engine import publish
+        for prj in publish.all_projects():
+            try:
+                tok = publish.access_token(prj)
+                if tok:
+                    return tok
+            except Exception:
+                continue
+    except Exception:
+        return None
+    return None
+
+
+def _get(url: str, timeout: int = 30, token: str | None = None) -> dict:
+    h = {"User-Agent": "DollarsStudio/1.0"}
+    if token:
+        h["Authorization"] = f"Bearer {token}"
+    req = urllib.request.Request(url, headers=h)
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read().decode("utf-8"))
 
@@ -71,7 +90,7 @@ def fetch_stats(ids: list[str], api_key: str | None = None) -> dict:
         if not chunk:
             continue
         q = urllib.parse.urlencode({"part": "statistics,snippet", "id": ",".join(chunk), "key": api_key})
-        d = _get(f"{API}?{q}")
+        d = _get(f"{API}?{q}", token=token)
         for item in d.get("items", []):
             st = item.get("statistics", {})
             out[item["id"]] = {
@@ -86,12 +105,18 @@ def fetch_stats(ids: list[str], api_key: str | None = None) -> dict:
 def channel_totals(api_key: str | None = None, handle: str = "@DollarsStudio") -> dict:
     """أرقام القناة نفسها (مشتركين · مشاهدات · عدد فيديوهات) — للمتابعة اليومية."""
     api_key = api_key or key()
-    if not api_key:
+    token = None if api_key else _oauth_token()
+    if not api_key and not token:
         return {}
-    for param in (("forHandle", handle), ("forUsername", handle.lstrip("@")), ("mine", "true")):
+    tries = [("mine", "true")] if token else []          # بالتوكن: قناتنا نفسها
+    tries += [("forHandle", handle), ("forUsername", handle.lstrip("@")), ("mine", "true")]
+    for param in tries:
         try:
-            q = urllib.parse.urlencode({"part": "statistics,snippet", **dict([param]), "key": api_key})
-            d = _get(f"{CHANNEL_API}?{q}")
+            params = {"part": "statistics,snippet", **dict([param])}
+            if api_key:
+                params["key"] = api_key
+            q = urllib.parse.urlencode(params)
+            d = _get(f"{CHANNEL_API}?{q}", token=token)
             if d.get("items"):
                 st = d["items"][0].get("statistics", {})
                 return {"title": d["items"][0]["snippet"]["title"],
@@ -108,8 +133,8 @@ def sync(limit: int = 50, write: bool = True) -> dict:
     published = (_jload(STATE / "published.json", {}) or {}).get("videos", [])
     if not published:
         return {"ok": False, "reason": "لسه مفيش فيديوهات منشورة — أول نشر وبعدين نبدأ نقيس"}
-    if not key():
-        return {"ok": False, "reason": "ناقص YOUTUBE_API_KEY (قراءة أرقام يوتيوب)"}
+    if not key() and not _oauth_token():
+        return {"ok": False, "reason": "ناقص مفتاح القراءة (YOUTUBE_API_KEY أو توكن القناة)"}
     ids = [v.get("video_id") for v in published[-limit:] if v.get("video_id")]
     stats = fetch_stats(ids)
     rows, gained, misses = [], 0, 0
@@ -167,10 +192,19 @@ if __name__ == "__main__":
     ap.add_argument("--sync", action="store_true", help="يجيب الأرقام ويكتبها")
     ap.add_argument("--report", action="store_true", help="تقرير بالأرقام")
     ap.add_argument("--limit", type=int, default=50)
+    ap.add_argument("--telegram", action="store_true", help="ابعت التقرير على تليجرام")
     a = ap.parse_args()
     if a.sync:
         r = sync(limit=a.limit)
         print("✅ اتزامن:" if r.get("ok") else "ℹ️", r.get("reason") or
               f"{r['videos']} فيديو · +{r['views_gained']:,} مشاهدة جديدة · {r.get('channel') or ''}")
-    if a.report or not a.sync:
-        print(report())
+    if a.report or a.telegram or not a.sync:
+        txt = report()
+        print(txt)
+        if a.telegram:
+            try:
+                from engine import publish as _pub
+                ok = _pub.notify("📊 Dollars · تقرير الأداء\n\n" + txt[:3500])
+                print("📨 تليجرام:", "اتبعت" if ok else "مقدرش يبعت")
+            except Exception as _e:
+                print("📨 تليجرام: فشل —", type(_e).__name__)

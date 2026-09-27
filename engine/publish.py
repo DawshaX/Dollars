@@ -533,19 +533,72 @@ def add_to_playlist(video_id: str, playlist: str, token: str | None = None) -> b
         return False
 
 
-def notify(text: str) -> bool:
-    """إشعار تليجرام (اختياري) — لو المفاتيح موجودة."""
-    tok, chat = _env("TELEGRAM_BOT_TOKEN"), _env("TELEGRAM_CHAT_ID", "TELEGRAM_ADMIN_CHAT_ID")
-    if not (tok and chat):
-        return False
+TELEGRAM_STATE = pathlib.Path("state/telegram.json")
+
+
+def _tg_send(tok: str, chat, text: str) -> tuple[bool, str]:
+    """يبعت رسالة ويرجّع (نجح؟, وصف الخطأ)."""
     url = f"https://api.telegram.org/bot{tok}/sendMessage"
     data = urllib.parse.urlencode({"chat_id": chat, "text": text[:3900],
                                    "disable_web_page_preview": "true"}).encode()
     try:
         with urllib.request.urlopen(urllib.request.Request(url, data=data), timeout=20) as r:
-            return r.status == 200
+            return r.status == 200, ""
+    except urllib.error.HTTPError as e:
+        try:
+            j = json.loads(e.read().decode("utf-8"))
+            return False, str(j.get("description") or e.code)
+        except Exception:
+            return False, f"HTTP {e.code}"
+    except Exception as e:
+        return False, type(e).__name__
+
+
+def _tg_discover_chat(tok: str):
+    """🔎 يجيب الـchat id من رسايل البوت نفسه (getUpdates) لو الإعداد ناقص/غلط."""
+    try:
+        with urllib.request.urlopen(f"https://api.telegram.org/bot{tok}/getUpdates", timeout=20) as r:
+            ups = json.loads(r.read().decode("utf-8")).get("result") or []
     except Exception:
+        return None
+    for u in reversed(ups):
+        m = u.get("message") or u.get("channel_post") or {}
+        cid = ((m.get("chat") or {}).get("id"))
+        if cid:
+            return cid
+    return None
+
+
+def notify(text: str) -> bool:
+    """إشعار تليجرام — مع إصلاح ذاتي للـchat id وتسجيل واضح للنتيجة."""
+    tok = _env("TELEGRAM_BOT_TOKEN")
+    chat = _env("TELEGRAM_CHAT_ID", "TELEGRAM_ADMIN_CHAT_ID")
+    if not tok:
         return False
+    if not chat:
+        saved = (_jload(TELEGRAM_STATE, {}) or {}).get("chat_id")
+        chat = saved or _tg_discover_chat(tok)
+    if not chat:
+        print("📨 تليجرام: مفيش chat id (اكتب للبوت مرة واحدة وهو هيمسكه لوحده)")
+        return False
+    ok, err = _tg_send(tok, chat, text)
+    if not ok:
+        alt = _tg_discover_chat(tok)
+        if alt and str(alt) != str(chat):
+            ok2, err2 = _tg_send(tok, alt, text)
+            if ok2:
+                chat, ok, err = alt, True, ""
+                print(f"📨 تليجرام: صلّحت الـchat id تلقائيًا ✅ ({str(alt)[:4]}…{str(alt)[-3:]})")
+            else:
+                err = err2
+        if not ok:
+            print(f"📨 تليجرام: فشل — {err}")
+    if ok:
+        try:
+            _jdump(TELEGRAM_STATE, {"chat_id": chat, "ok_at": datetime.now(timezone.utc).isoformat()})
+        except Exception:
+            pass
+    return ok
 
 
 def publish(video_path, md: dict, thumb_path=None) -> dict:
@@ -607,7 +660,10 @@ def record(res: dict, md: dict) -> pathlib.Path:
         "video_id": res.get("id"), "url": res.get("url"), "title": md["titles"][0],
         "published_at": datetime.now(timezone.utc).isoformat(),
         "features": {"pillar": md.get("pillar"), "kind": md.get("kind"), "kw": md.get("kw"),
-                     "hour": ts.get("hour"), "duration_bucket": md.get("duration_bucket") or ts.get("kind")},
+                     "genre": md.get("genre"), "hour": ts.get("hour"),
+                     "duration_bucket": md.get("duration_bucket") or ts.get("kind"),
+                     "music": bool(md.get("music_credit")), "sfx": bool(md.get("sfx_used")),
+                     "overlays": bool(md.get("overlays_used")), "clips": bool(md.get("real_clips"))},
         "views": 0, "likes": 0, "comments": 0,
         "thumbnail": bool(md.get("thumbnail_texts")), "playlist": md.get("playlist"),
     })

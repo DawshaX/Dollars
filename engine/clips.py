@@ -101,6 +101,16 @@ QW_STOP = {"close", "up", "closeup", "upclose", "video", "clip", "footage", "sho
            "motion", "macro", "closeup"}
 
 
+def _sig(title: str) -> str:
+    """بصمة العنوان — بتمنع تكرار مقاطع نفس السلسلة (… 1 2017-06-08 · … 2 …)."""
+    t = (title or "").lower().replace("file:", "")
+    t = re.sub(r"\.(webm|ogv|mp4|mov)$", "", t)
+    t = re.sub(r"\b\d{4}-\d{2}-\d{2}\b", " ", t)
+    t = re.sub(r"\b\d+\b", " ", t)
+    ws = [w for w in re.findall(r"[a-z]{3,}", t) if w not in QW_STOP]
+    return " ".join(ws[:3])
+
+
 def _qwords(s: str) -> list[str]:
     """كلمات البحث المفيدة (بدون كلمات عامة زي close up اللي بتجيب نتايج غلط)."""
     return [w for w in re.findall(r"[a-z]{3,}", (s or "").lower()) if w not in QW_STOP]
@@ -171,7 +181,7 @@ def collect(query: str, genre: str = "satisfying", n: int = 6,
                 break
     # ملاحظة: ناسا بتدخل لمواضيع الفضاء بس — عشان مايحصلش عدم تطابق (فيديو أقمار لموضوع بحر!)
 
-    clean, seen = [], set()
+    clean, seen, seen_sigs = [], set(), set()
     for it in out:
         u = it.get("url") or ""
         if not u or u in seen:
@@ -191,6 +201,10 @@ def collect(query: str, genre: str = "satisfying", n: int = 6,
         qw, tw = set(ql), set(re.findall(r"[a-z]{3,}", title))
         phrase = " ".join(ql[:2]) if len(ql) >= 2 else ""
         it["match"] = len(qw & tw) + (2 if phrase and phrase in title else 0)   # مطابقة الجملة = وزن أعلى
+        sig = f"{it.get('source')}·{_sig(str(it.get('title') or ''))}"
+        if sig in seen_sigs:                               # 🔁 نفس السلسلة ⇒ مرة واحدة بس
+            continue
+        seen_sigs.add(sig)
         seen.add(u)
         clean.append({**it, "needs_credit": (it.get("source") in ("wikimedia", "nasa", "archive")),
                       "credit": f"{it.get('source')}" + (f" · {it.get('license')}" if it.get("license") else "")})
