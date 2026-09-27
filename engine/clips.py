@@ -164,7 +164,10 @@ def collect(query: str, genre: str = "satisfying", n: int = 6,
             continue                                   # شرح/بيانات/أخبار = مرفوض
         title = (it.get("title") or it.get("id") or "").lower()
         qw = {w for w in re.findall(r"[a-z]{3,}", q.lower())}
-        it["match"] = len(qw & set(re.findall(r"[a-z]{3,}", title)))
+        tw = set(re.findall(r"[a-z]{3,}", title))
+        it["match"] = len(qw & tw) + (2 if len(qw) >= 2 and " ".join(sorted(qw)[:2]) and
+                                      " ".join(w for w in re.findall(r"[a-z]{3,}", q.lower())[:2]) in title
+                                      else 0)          # مطابقة الجملة = وزن أعلى
         seen.add(u)
         clean.append({**it, "needs_credit": (it.get("source") in ("wikimedia", "nasa", "archive")),
                       "credit": f"{it.get('source')}" + (f" · {it.get('license')}" if it.get("license") else "")})
@@ -324,12 +327,13 @@ def analyze(path, samples: int = 6) -> dict:
     - flat   : نسبة المناطق الساكنة المسطّحة (بيانات/شرايط مسطّحة = جرافيك مش فيديو).
     - sat    : متوسط التشبّع اللوني.
     """
-    out = {"flat": 0.0, "band_edge": 0.0, "texty": 0.0, "sat": 0.0, "flatblk": 0.0, "frames": 0}
+    out = {"flat": 0.0, "band_edge": 0.0, "texty": 0.0, "sat": 0.0, "flatblk": 0.0,
+           "bright": 0.0, "frames": 0}
     try:
         _, _, secs = probe(path)
         secs = secs or 4.0
         pts = [secs * (0.12 + 0.76 * (i + 0.5) / samples) for i in range(samples)]
-        flats, bands, sats, blks = [], [], [], []
+        flats, bands, sats, blks, brs = [], [], [], [], []
         for t in pts:
             r = subprocess.run([proc.FFMPEG, "-hide_banner", "-loglevel", "error", "-ss", f"{t:.2f}",
                                 "-i", str(path), "-frames:v", "1", "-vf", "scale=480:270",
@@ -339,6 +343,7 @@ def analyze(path, samples: int = 6) -> dict:
                 continue
             fr = a[:480 * 270 * 3].reshape(270, 480, 3).astype(np.float32)
             g = fr @ np.array([0.299, 0.587, 0.114], np.float32)
+            brs.append(float(g.mean()) / 255.0)
             gx = np.abs(np.diff(g, axis=1)); gy = np.abs(np.diff(g, axis=0))
             gx = np.pad(gx, ((0, 0), (0, 1))); gy = np.pad(gy, ((0, 1), (0, 0)))
             edge = np.maximum(gx, gy)
@@ -357,7 +362,8 @@ def analyze(path, samples: int = 6) -> dict:
             return out
         out.update(flat=round(float(np.mean(flats)), 3), band_edge=round(float(np.mean(bands)), 4),
                    texty=round(float(np.mean(bands)), 3), sat=round(float(np.mean(sats)), 1),
-                   flatblk=round(float(np.mean(blks)), 3) if blks else 0.0, frames=len(flats))
+                   flatblk=round(float(np.mean(blks)), 3) if blks else 0.0,
+                   bright=round(float(np.mean(brs)), 3) if brs else 0.0, frames=len(flats))
     except Exception as _e:
         out["error"] = f"{type(_e).__name__}"
     return out
@@ -369,9 +375,11 @@ def is_clean(q: dict) -> bool:
         return False
     if q.get("texty", 0) > 0.12:                       # كابشن/نص مكتوب جوّه الفيديو
         return False
-    if q.get("flatblk", 0) > 0.45:                     # بلوكات ألوان ثابتة = جرافيك/بيانات مش كاميرا
+    if q.get("flatblk", 0) > 0.40:                     # بلوكات ألوان ثابتة = جرافيك/بيانات مش كاميرا
         return False
     if q.get("flat", 0) > 0.93:                        # إطار شبه سادة (سكرين شوت/شاشة)
+        return False
+    if q.get("bright", 1.0) < 0.07:                    # كادر مظلم أوي — المشاهد مايشوفش حاجة
         return False
     return True
 
@@ -476,53 +484,141 @@ def _split_tone_fast(f: np.ndarray, palette, strength: float = 0.42) -> np.ndarr
     return np.clip(f + (sh - 0.5) * lo * strength * 0.30 + (hi - 0.5) * up * strength * 0.22, 0, 1)
 
 
-def _look(f: np.ndarray, i: int, palette, look: str, n_p: int, px, py, pv, h: int, w: int,
+# 🧠 مخزن مؤقت ثابت (بنعيد استخدامه) — الرام في الساندبوكس محدودة، ممنوع نسخ كتير
+_SCRATCH: dict = {}
+
+
+def _bufs(h: int, w: int) -> dict:
+    key = (h, w)
+    b = _SCRATCH.get(key)
+    if b is None:
+        b = {"f": np.empty((h, w, 3), np.float32), "t": np.empty((h, w, 3), np.float32),
+             "lum": np.empty((h, w), np.float32)}
+        if len(_SCRATCH) > 2:
+            _SCRATCH.clear()
+        _SCRATCH[key] = b
+    return b
+
+
+def _look(fr01: np.ndarray, i: int, palette, look: str, n_p: int, px, py, pv, h: int, w: int,
           body: int, calm: bool) -> np.ndarray:
-    """هوية الاستوديو البصرية — نسخة سريعة للفيديو (منحنى فيلمي + بلوم + تلوين + حبيبات)."""
+    """هوية الاستوديو البصرية — نسخة **موفّرة للرام** (تعديل في المكان · بلا نسخ زايدة).
+
+    منحنى فيلمي · تبايُن · تدرّج ألوان · تلوين نوعي · بلوم · جزيئات · فينييت · حبيبات.
+    """
     from PIL import Image, ImageFilter
-    from engine.photo import _light_leak
 
+    # ⚠️ الحبيبات والفينييت ليهم مخزن جاهز جوه grade (مش بنعيد حسابهم كل كادر)
     if look == "warm":
-        gain, lift = np.array([1.06, 1.00, 0.94], np.float32), np.array([0.012, 0.006, 0.0], np.float32)
+        gain = np.array([1.06, 1.00, 0.94], np.float32)
+        lift = np.array([0.012, 0.006, 0.0], np.float32)
     elif look == "mono":
-        f = np.clip((f @ np.array([0.299, 0.587, 0.114], np.float32))[..., None].repeat(3, 2), 0, 1)
-        gain, lift = np.array([1.02, 1.02, 1.05], np.float32), np.array([0.004, 0.004, 0.01], np.float32)
-    else:                                     # cinema_cool
-        gain, lift = np.array([0.96, 1.00, 1.10], np.float32), np.array([0.008, 0.004, 0.022], np.float32)
+        gain = np.array([1.02, 1.02, 1.05], np.float32)
+        lift = np.array([0.004, 0.004, 0.012], np.float32)
+    else:
+        gain = np.array([0.96, 1.00, 1.10], np.float32)
+        lift = np.array([0.008, 0.004, 0.022], np.float32)
 
-    f = np.clip(f, 0, 1)
-    f = f * f * (3.0 - 2.0 * f)                       # منحنى ناعم
-    f = np.clip((f - 0.5) * 1.09 + 0.5, 0, 1)         # تبايُن سينمائي
-    f = np.clip(f * gain + lift, 0, 1)
-    f = _split_tone_fast(f, palette, 0.46)
+    b = _bufs(h, w)
+    f, t = b["f"], b["t"]
+    if fr01.dtype == np.uint8:
+        np.multiply(fr01, 1.0 / 255.0, out=f, dtype=np.float32)
+    else:
+        np.copyto(f, fr01, casting="unsafe")
 
-    # بلوم ناعم من نسخة مصغّرة (رخيص)
+    if look == "mono":                                   # رمادي سينمائي
+        np.multiply(f, np.array([0.299, 0.587, 0.114], np.float32), out=t)
+        np.sum(t, axis=2, out=b["lum"])
+        f[:, :, 0] = b["lum"]
+        f[:, :, 1] = b["lum"]
+        f[:, :, 2] = b["lum"]
+
+    np.multiply(f, f, out=t)                             # t = f²
+    f *= -2.0
+    f += 3.0                                             # f = 3-2f
+    np.multiply(t, f, out=f)                             # f = f²(3-2f) منحنى ناعم
+    f -= 0.5
+    f *= 1.09                                            # تبايُن سينمائي
+    f += 0.5
+    f *= gain
+    f += lift
+    np.clip(f, 0, 1, out=f)
+
+    # ── تلوين الظلال/الإضاءة بألوان النوع (في المكان · قنوات على حدة) ──
+    if palette:
+        try:
+            cols = [(int(str(c).lstrip("#")[i2:i2 + 2], 16) / 255.0) for c in palette[:3]
+                    for i2 in (0, 2, 4)]
+            sh = np.array(cols[0:3], np.float32)
+            hi = np.array(cols[-3:], np.float32)
+            lum = b["lum"]
+            np.multiply(f, np.array([0.299, 0.587, 0.114], np.float32), out=t)
+            np.sum(t, axis=2, out=lum)
+            shm, him = t[:, :, 0], t[:, :, 1]            # إعادة استخدام أول قناتين كمساحات
+            np.multiply(lum, -1.8, out=shm)
+            shm += 1.0
+            np.clip(shm, 0, 1, out=shm)
+            np.multiply(shm, 0.14 * (sh[0] - 0.5), out=shm)
+            f[:, :, 0] += shm
+            np.multiply(lum, -1.8, out=shm)
+            shm += 1.0
+            np.clip(shm, 0, 1, out=shm)
+            np.multiply(shm, 0.14 * (sh[1] - 0.5), out=shm)
+            f[:, :, 1] += shm
+            np.multiply(lum, -1.8, out=shm)
+            shm += 1.0
+            np.clip(shm, 0, 1, out=shm)
+            np.multiply(shm, 0.14 * (sh[2] - 0.5), out=shm)
+            f[:, :, 2] += shm
+            np.multiply(lum, 1.8, out=him)
+            him -= 0.8
+            np.clip(him, 0, 1, out=him)
+            np.multiply(him, 0.10 * (hi[2] - 0.5), out=him)
+            f[:, :, 2] += him
+            np.clip(f, 0, 1, out=f)
+        except Exception:
+            pass
+
+    # ── بلوم ناعم من نسخة مصغّرة (رخيص في الرام والوقت) ──
     try:
-        small = Image.fromarray((f * 255).astype(np.uint8)).resize((w // 8, h // 8), Image.BILINEAR)
-        small = small.filter(ImageFilter.GaussianBlur(2.2))
-        up = np.asarray(small.resize((w, h), Image.BILINEAR), np.float32) / 255.0
-        f = np.clip(f + up * (0.10 if calm else 0.16), 0, 1)
+        small = Image.fromarray(np.clip(f * 255.0, 0, 255).astype(np.uint8)).resize(
+            (max(2, w // 8), max(2, h // 8)), Image.BILINEAR).filter(ImageFilter.GaussianBlur(2.2))
+        up = small.resize((w, h), Image.BILINEAR)
+        if up.size != (w, h):
+            up = up.resize((w, h), Image.BILINEAR)
+        np.multiply(np.asarray(up, np.float32), 1.0 / 255.0 * (0.10 if calm else 0.16), out=t)
+        np.add(f, t, out=f)
     except Exception:
         pass
 
-    if n_p:
+    if n_p:                                              # جزيئات (عمق بصري)
         ys = (py + (i * pv * 1.4)).astype(int) % h
         xs = (px + (np.sin(i / 60.0 + px % 7) * 5)).astype(int) % w
-        f[ys, xs] = np.clip(f[ys, xs] + 0.13, 0, 1)
+        np.add(f[ys, xs], 0.13, out=f[ys, xs])
+
     try:
-        f = f * (1.0 + 0.018 * math.sin(2 * math.pi * i / (30.0 * 7.0)))
-        f = grade.vignette(f, amount=0.24, softness=1.5)
-        f = np.clip(f + _light_leak(w, h, i, max(1, body), 0.14), 0, 1)
-        f = grade.grain(f, amount=(0.004 if calm else 0.007), seed=i)
+        breath = 1.0 + 0.018 * math.sin(2 * math.pi * i / (30.0 * 7.0))
+        f *= breath
+        np.multiply(f, grade.vig_mask(h, w, 0.24, 1.5)[:, :, None], out=f)   # فينييت (مخزن جاهز)
+        from engine.photo import leak_tile                 # بلاطة صغيرة ⇒ تكبير في المخزن
+        _lt = leak_tile(w, h, i, max(1, body), 0.14)
+        _lg = Image.fromarray((np.clip(_lt, 0, 1) * 255).astype(np.uint8)).resize((w, h),
+                                                                                 Image.BILINEAR)
+        np.multiply(np.asarray(_lg, np.float32), 1.0 / 255.0, out=t)
+        np.add(f, t, out=f)
+        np.multiply(grade.grain_tiles(h, w)[i % 8], (0.004 if calm else 0.007), out=t)
+        f += t
+        np.clip(f, 0, 1, out=f)
     except Exception:
-        pass
-    return np.clip(f, 0, 1)
+        np.clip(f, 0, 1, out=f)
+    return f
 
 
 def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 720, h: int = 1280,
                 fps: int = 30, palette=None, look: str = "cinema_cool", seed: int = 7,
                 texts: list | None = None, crf: int = 21, calm: bool = False,
-                loop_back: bool | None = None, seg_seconds: float | None = None) -> pathlib.Path:
+                loop_back: bool | None = None, seg_seconds: float | None = None,
+                maxrate: str | None = None) -> pathlib.Path:
     """يرندر الشورت من **مقاطع فيديو حقيقية**: قصّ سينمائي + تلاشي متبادل + هوية بصرية + نص.
 
     - كل مقطع بياخد حركة كاميرا مختلفة (تقريب/انزياح/تحريك) على نافذة متحركة.
@@ -548,16 +644,20 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
         loop_back = not calm
     back = max(4, int(0.9 * fps)) if (loop_back and not calm and total > 10 * fps) else 0
     body = total - back
-    over = 1.14
+    over = 1.06 if calm else 1.14                      # الطويلة: هامش أقل = ديكود أخف
     W, H = int(w * over) // 2 * 2, int(h * over) // 2 * 2
     seg = max(1.2, min(seg_seconds or (body / float(fps) / max(2, n)), 7.0))
     per = max(int(fps), int(round(seg * fps)))
-    trans = max(6, min(int(per * 0.16), int(0.7 * fps)))
+    trans = max(4, min(int(per * (0.08 if calm else 0.16)), int((0.35 if calm else 0.7) * fps)))
 
     cmd = [proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{w}x{h}", "-r", str(fps), "-i", "-",
            "-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-pix_fmt", "yuv420p",
-           "-g", str(fps * 2), "-movflags", "+faststart", str(out_path)]
+           "-g", str(fps * 2)]
+    if maxrate:                                   # 🧯 سقف البتريت (الطويلة ما تكبرش أوي)
+        _buf = str(maxrate).rstrip("kK") + "k"
+        cmd += ["-maxrate", str(maxrate), "-bufsize", _buf]
+    cmd += ["-movflags", "+faststart", str(out_path)]
     _errlog = pathlib.Path(tempfile.gettempdir()) / "dollars_clips_ffmpeg.log"
     _errf = open(_errlog, "wb")
     pipe = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=_errf)
@@ -574,7 +674,13 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
 
     def _write(fr01: np.ndarray):
         i = st["i"]
-        fr = (np.clip(fr01, 0, 1) * 255).astype(np.uint8)
+        if fr01.dtype == np.uint8:
+            fr = fr01                                  # جاهز
+        else:                                          # تحويل بلا نسخ زايدة
+            _t = _bufs(fr01.shape[0], fr01.shape[1])["t"]
+            np.multiply(fr01, 255.0, out=_t)
+            np.clip(_t, 0, 255, out=_t)
+            fr = _t.astype(np.uint8)
         if texts:
             t_now = i / float(fps)
             for tx in texts:

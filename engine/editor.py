@@ -875,7 +875,7 @@ class Editor:
                 from engine import clips as _clips
                 _clips.render_reel(list(videos), loop, seconds=body_seconds, w=fmt["w"], h=fmt["h"],
                                    fps=30, palette=palette, look=look or "cinema_cool",
-                                   seed=self.seed, calm=True, crf=23)
+                                   seed=self.seed, calm=True, crf=23, maxrate=fmt["maxrate"])
                 used_clips = len(videos)
                 used_photos = 0
             except Exception as _e:
@@ -886,7 +886,7 @@ class Editor:
                 from engine import photo as _photo
                 _photo.render_reel(list(photos), loop, seconds=body_seconds, w=fmt["w"], h=fmt["h"],
                                    fps=30, palette=palette, look=look or "cinema_cool",
-                                   seed=self.seed, calm=True, crf=23)
+                                   seed=self.seed, calm=True, crf=23, maxrate=fmt["maxrate"])
                 used_photos = len(photos)
             except Exception as _e:
                 print(f"⚠️ صور الطويلة اتعذّرت ({type(_e).__name__}) — هنستخدم المشهد المولّد", flush=True)

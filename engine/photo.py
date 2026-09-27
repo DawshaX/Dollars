@@ -213,24 +213,37 @@ _LEAK_CACHE: dict = {}
 _LEAK_STEPS = 24
 
 
-def _light_leak(w: int, h: int, i: int, total: int, strength: float = 0.22) -> np.ndarray:
-    """ليك ضوء متحرك — **جدول جاهز** (٢٤ خطوة) وإزاحة سريعة ⇒ نفس الشكل بخُمس التكلفة."""
-    key = (w, h)
+def leak_tile(w: int, h: int, i: int, total: int, strength: float = 0.22, div: int = 8) -> np.ndarray:
+    """بلاطة «ليك ضوء» بمقاس **مصغّر** (ذاكرة أقل ٦٤×) — بتتكبّر وقت الاستخدام.
+
+    المهم: الكاش بيخزّن ٢٤ خطوة صغيرة بدل ٢٤ كادر كامل (كانت بتاكل ~٦٠٠ ميجا في 1080p).
+    """
+    sw, sh = max(8, int(w) // max(1, div)), max(8, int(h) // max(1, div))
+    key = (sw, sh, round(float(strength), 3))
     steps = _LEAK_CACHE.get(key)
     if steps is None:
         col = np.array([1.0, 0.82, 0.6], dtype=np.float32)
-        yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+        yy, xx = np.mgrid[0:sh, 0:sw].astype(np.float32)
         steps = []
         for k in range(_LEAK_STEPS):
-            cx = w * (0.02 + 0.96 * (k / _LEAK_STEPS))
-            d = np.sqrt(((xx - cx) / (w * 0.55)) ** 2 + ((yy - h * 0.25) / (h * 0.75)) ** 2)
+            cx = sw * (0.02 + 0.96 * (k / _LEAK_STEPS))
+            d = np.sqrt(((xx - cx) / (sw * 0.55)) ** 2 + ((yy - sh * 0.25) / (sh * 0.75)) ** 2)
             glow = np.clip(1.0 - d, 0, 1) ** 2.2
-            steps.append((glow * strength)[..., None] * col[None, None, :])
-        if len(_LEAK_CACHE) > 3:
+            steps.append(((glow * strength)[..., None] * col[None, None, :]).astype(np.float32))
+        if len(_LEAK_CACHE) > 6:
             _LEAK_CACHE.clear()
         _LEAK_CACHE[key] = steps
     t = (i % max(1, total)) / float(max(1, total))
     return steps[int(t * _LEAK_STEPS) % _LEAK_STEPS]
+
+
+def _light_leak(w: int, h: int, i: int, total: int, strength: float = 0.22) -> np.ndarray:
+    """ليك ضوء متحرك بالمقاس الكامل (بيتكبّر من البلاطة الصغيرة — نفس الشكل برام أقل)."""
+    from PIL import Image
+    sm = leak_tile(w, h, i, total, strength)
+    big = Image.fromarray((np.clip(sm, 0, 1) * 255).astype(np.uint8)).resize((int(w), int(h)),
+                                                                             Image.BILINEAR)
+    return np.asarray(big, dtype=np.float32) / 255.0
 
 
 def reel_frames(paths: list[pathlib.Path], w: int, h: int, fps: int, seconds: float,
@@ -398,7 +411,8 @@ def thumb_from_photo(paths: list[pathlib.Path], texts: list[str], out_path,
 def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 720, h: int = 1280,
                 fps: int = 30, palette=None, look: str = "cinema_cool", seed: int = 7,
                 texts: list | None = None, crf: int = 21, calm: bool = False,
-                intros: bool = False, loop_back: bool | None = None) -> pathlib.Path:
+                intros: bool = False, loop_back: bool | None = None,
+                maxrate: str | None = None) -> pathlib.Path:
     """يرندر الصور الحقيقية كفيديو كامل (مع النص على الشاشة لو موجود)."""
     from engine.editor import _draw_text
     out_path = pathlib.Path(out_path)
@@ -406,7 +420,10 @@ def render_reel(paths: list[pathlib.Path], out_path, seconds: float, w: int = 72
     cmd = [proc.FFMPEG, "-y", "-hide_banner", "-loglevel", "error",
            "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{w}x{h}", "-r", str(fps), "-i", "-",
            "-c:v", "libx264", "-preset", "veryfast", "-crf", str(crf), "-pix_fmt", "yuv420p",
-           "-g", str(fps * 2), "-movflags", "+faststart", str(out_path)]
+           "-g", str(fps * 2)]
+    if maxrate:                                        # 🧯 سقف البتريت للطويلة
+        cmd += ["-maxrate", str(maxrate), "-bufsize", str(maxrate).rstrip("kK") + "k"]
+    cmd += ["-movflags", "+faststart", str(out_path)]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
     i = 0
     if loop_back is None:

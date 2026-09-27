@@ -206,6 +206,32 @@ def grain(img: np.ndarray, amount: float = 0.012, seed: int = 0) -> np.ndarray:
 _VIG_CACHE: dict = {}
 
 
+def vig_mask(h: int, w: int, amount: float = 0.30, softness: float = 1.6) -> np.ndarray:
+    """قناع الفينييت (مخزّن) — محرّك الفيديو بيضربه في المكان لتوفير الرام."""
+    key = (h, w, round(float(amount), 3), round(float(softness), 3))
+    v = _VIG_CACHE.get(key)
+    if v is None:
+        y = (np.arange(h, dtype=np.float32) / max(1, h - 1) - 0.5) * 2
+        x = (np.arange(w, dtype=np.float32) / max(1, w - 1) - 0.5) * 2
+        r2 = (y[:, None] ** 2 + x[None, :] ** 2)
+        v = np.clip(1.0 - amount * (r2 ** (softness * 0.6)), 0.0, 1.0).astype(np.float32)
+        if len(_VIG_CACHE) > 6:
+            _VIG_CACHE.clear()
+        _VIG_CACHE[key] = v
+    return v
+
+
+def grain_tiles(h: int, w: int) -> list:
+    """أنماط الحبيبات (مخزّنة) — بتتدوّر على الكادرات."""
+    tiles = _GRAIN_CACHE.get((h, w))
+    if tiles is None:
+        rng = np.random.default_rng(7)
+        tiles = [rng.normal(0.0, 1.0, (h, w, 1)).astype(np.float32) for _ in range(8)]
+        _GRAIN_CACHE.clear()
+        _GRAIN_CACHE[(h, w)] = tiles
+    return tiles
+
+
 def vignette(img: np.ndarray, amount: float = 0.30, softness: float = 1.6) -> np.ndarray:
     h, w = img.shape[:2]
     key = (h, w, round(float(amount), 3), round(float(softness), 3))
