@@ -74,18 +74,33 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 270.8,
       "at": "2026-09-27T21:23:28.505946+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 8,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "black",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_08/black_10h.mp4",
+      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
+      "published": true,
+      "url": "https://youtu.be/I91WjkEvOpU",
+      "reason": null,
+      "seconds_spent": 1094.7,
+      "at": "2026-09-27T21:45:52.011196+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 0,
+    "total": 2,
+    "published": 1,
     "staged": 0,
     "by_pillar": {
       "satisfying": 1,
-      "sleep": 1,
+      "sleep": 2,
       "story": 2
     }
   },
   "created": null,
-  "updated": "2026-09-27T21:12:27.828050+00:00"
+  "updated": "2026-09-27T21:48:38.311361+00:00"
 }
