@@ -125,6 +125,45 @@ def test_shift_interval_is_minutes_not_hours():
         assert got == want, (every_min, got)
 
 
+def test_shift_schedule_not_inflated_by_gate(monkeypatch):
+    """⏳ لو بوابة الإيقاع ردّتنا (حد تاني نزل)، الوردية ماتأجّلش النشرة الجاية ساعات.
+
+    الحالة اللي كانت بتحصل: كل محاولة مرفوعة بعدّاد الدورات ⇒ الوردية تنام ٣ ساعات وتقطع النشر.
+    """
+    import time as _t
+    from engine import factory
+    seq = [{"stopped": "gate", "slots": 0, "lines": ["بوابة"]},
+           {"stopped": None, "slots": 1, "lines": ["نُشر"]},
+           {"stopped": "gate", "slots": 0, "lines": ["بوابة"]},
+           {"stopped": None, "slots": 1, "lines": ["نُشر"]}]
+    calls = {"n": 0}
+    def fake_run(*a, **k):
+        i = min(calls["n"], len(seq) - 1)
+        calls["n"] += 1
+        return seq[i]
+    monkeypatch.setattr(factory, "run", fake_run)
+    monkeypatch.setattr(factory, "_sync_state", lambda *a, **k: None)
+    slept = []
+    clock = {"t": 0.0}
+    def fake_time():
+        return clock["t"] + 1_000_000.0
+    def fake_sleep(sec):
+        slept.append(sec)
+        clock["t"] += sec
+        if len(slept) >= 5:
+            raise KeyboardInterrupt("خلاص كفاية")
+    monkeypatch.setattr(_t, "time", fake_time)
+    monkeypatch.setattr(_t, "sleep", fake_sleep)
+    try:
+        factory.shift(hours=5.5, per_hour=1, every_min=55)
+    except KeyboardInterrupt:
+        pass
+    assert calls["n"] >= 4, f"الدورات {calls['n']}"
+    assert all(x <= 55 * 60 + 5 for x in slept), f"في نومة أطول من اللازم: {[round(x/60) for x in slept]}"
+    assert any(abs(x - 12 * 60) < 5 for x in slept), "لازم نومة ١٢ دقيقة بعد بوابة الإيقاع"
+    assert any(abs(x - 55 * 60) < 5 for x in slept), "ونومة ٥٥ دقيقة بعد النشرة الناجحة"
+
+
 def test_shift_stays_alive_after_first_cycle(monkeypatch):
     """الوردية لازم تسيب وقت النوم بعد أول دورة (مش تخرج من اللوب)."""
     import time as _t
