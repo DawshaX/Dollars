@@ -370,6 +370,43 @@ def produce_photo_short(idea: dict, seconds: float, out_dir, seed: int,
         except Exception as _ae:
             print(f"🌍 العربي اتعذّر ({type(_ae).__name__}) — بنكمل إنجليزي", flush=True)
             md["default_language"] = "en"
+    # ── 🧬 حماية من التكرار: عنوان مش مكرر خلال آخر ٣٠٠ فيديو (الخوارزمية بتعاقب التكرار) ──
+    try:
+        from engine import meta as _m2
+        _used = _recent_titles(300)
+        _alts = []
+        if g:
+            _ctx = {"kw": idea.get("kw") or "", "dur": f"{int(seconds)}s",
+                    "hook": (g.get("hooks_en") or [""])[0], "city": idea.get("kw") or "",
+                    "topic": idea.get("kw") or "", "n": 1, "place": idea.get("kw") or ""}
+            for _st in (g.get("title_styles") or []):
+                try:
+                    _alts.append(_st.format(**_ctx))
+                except Exception:
+                    continue
+        _before = md["titles"][0]
+        _after = _m2.unique_title(_before, _used, alternatives=_alts, seed=seed)
+        if _after != _before:
+            md["titles"] = [_after] + [t for t in md["titles"] if t != _before]
+            print(f"🧬 عنوان جديد بدل المكرر: {_after[:56]}", flush=True)
+    except Exception as _de:
+        print(f"🧬 فحص التكرار اتعذّر ({type(_de).__name__})", flush=True)
+    # ── 🌍 نسخ عالمية لكل فيديو (localizations رسمية): يوتيوب يعرضه بلغة كل بلد ──
+    try:
+        _codes = [x.strip() for x in (os.environ.get("DOLLARS_LOCALES") or "ar,es,pt,hi,id").split(",") if x.strip()]
+        _base = md.get("default_language") or "en"
+        _need = [c for c in _codes if c != _base]
+        if _need:
+            from engine import globalize as _gl3
+            _got = _gl3.translate_fields(md["titles"][0], md["description"], _need)
+            _loc = md.setdefault("localizations", {})
+            for _c, _v in (_got or {}).items():
+                if isinstance(_v, dict) and _v.get("title"):
+                    _loc[_c] = _v
+            if _loc:
+                print(f"🌍 نسخ عالمية على الفيديو: {','.join(sorted(_loc))}", flush=True)
+    except Exception as _le:
+        print(f"🌍 النسخ العالمية اتعذّرت ({type(_le).__name__}) — بنكمل", flush=True)
     cr = clips.credits(clip_items) if use_clips else photo.credits(items)
     _mcr = _music.credits([_track]) if _track else []
     if _mcr:
@@ -928,6 +965,23 @@ def report_text() -> str:
     if s.get("last"):
         lines.append(f"- آخر حاجة: {s['last'].get('title')} ({s['last'].get('pillar')})")
     return "\n".join(lines)
+
+
+def _recent_titles(limit: int = 300) -> list[str]:
+    """عناوين آخر الفيديوهات المنشورة (من state) — عشان مانكررش عنوان."""
+    out: list[str] = []
+    for path in ("state/published.json", "state/queue.json"):
+        try:
+            d = json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for v in (d.get("videos") or []):
+            t = v.get("title")
+            if t:
+                out.append(str(t))
+            if len(out) >= limit:
+                return out
+    return out
 
 
 def shift(hours: float = 5.0, per_hour: int = 1, out_dir=None, every_min: int = 120) -> dict:

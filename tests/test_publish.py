@@ -248,15 +248,29 @@ def test_captions_retry_with_quoted_boundary_on_400(monkeypatch):
     assert "boundary=dollars" in first and 'boundary="dollars' in second, (first, second)
 
 
-def test_globalize_skips_without_llm_key(monkeypatch):
-    """🌍 من غير مفتاح ترجمة: مفيش كسر، والمصنع بيكمّل عادي."""
+def test_globalize_uses_free_translation_without_llm_key(monkeypatch):
+    """🌍 من غير أي مفتاح: الترجمة بتشتغل بالمسار المجاني (مش بتتخطّى)."""
     from engine import globalize
     monkeypatch.delenv("LLM_API_KEY", raising=False)
     monkeypatch.delenv("GROQ_API_KEY", raising=False)
-    assert globalize.translate_fields("Ocean waves", "relaxing", ["ar"]) == {}
+    calls = []
+    def fake_gtx(text, lang, timeout=25):
+        calls.append((lang, text[:12]))
+        return f"[{lang}] {text}"
+    monkeypatch.setattr(globalize, "_gtx", fake_gtx)
+    got = globalize.translate_fields("Ocean waves #shorts 🌊", "relaxing", ["ar", "es"])
+    assert set(got) == {"ar", "es"} and got["ar"]["title"].startswith("[ar]")
+    assert "#shorts" in got["ar"]["title"] and "🌊" in got["ar"]["title"]   # الهاشتاج والإيموجي بيفضلوا
+    assert {c[0] for c in calls} == {"ar", "es"}
     assert globalize.translate_srt("1\n00:00:00,000 --> 00:00:02,000\nHi\n", ["ar"]) == {}
-    r = globalize.globalize_video("x", "t", "d", "tok", srt=None)
-    assert r == {"localized": 0, "captions": 0}
+
+
+def test_keep_tail_drops_translated_hashtags():
+    from engine import globalize
+    src = "Kinetic Sand #shorts #kineticsand"
+    dst = "رمال حركية #شورت #short"
+    out = globalize._keep_tail(src, dst)
+    assert "#shorts" in out and "#kineticsand" in out and "#شورت" not in out
 
 
 def test_globalize_srt_keeps_timings(monkeypatch):

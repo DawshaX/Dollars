@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import random
 import re
 
 MAX_TITLE = 100
@@ -326,6 +327,49 @@ def build(spec: dict) -> dict:
         if smart.get("suggests"):
             md["search_demand"] = smart["suggests"][:12]
     return md
+
+
+def _norm_title(t: str) -> str:
+    t = (t or "").lower()
+    t = re.sub(r"#shorts?\b|#\w+", "", t)
+    t = re.sub(r"[^0-9a-z\u0600-\u06FF ]+", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+# بدائل نستخدمها لما العنوان يتكرر (تبان طبيعية ومش بتبان قالب)
+_DIFFS = ["a closer look", "the longer cut", "part two", "softer version", "new cut",
+          "4K detail", "second helping", "and again", "take three"]
+
+
+def unique_title(title: str, used, alternatives=None, seed: int = 0) -> str:
+    """يرجّع عنوان مش مكرر: الأصلي ← بديل من النوع ← إضافة كلمة فرق (وأخيرًا رقم).
+
+    السبب: نفس العنوان مرتين في نفس اليوم = إشارة «محتوى مكرر» عند يوتيوب،
+    والخوارزمية بتحرم الفيديو من الظهور.
+    """
+    used_norm = {_norm_title(u) for u in (used or []) if u}
+    if not title:
+        return title
+    if _norm_title(title) not in used_norm:
+        return title
+    for alt in (alternatives or []):
+        if alt and _norm_title(alt) not in used_norm and _norm_title(alt) != _norm_title(title):
+            a = alt.strip()
+            if "#shorts" not in a.lower():
+                a = (a[:90] + " #shorts")
+            return a
+    rnd = random.Random(seed)
+    for d in rnd.sample(_DIFFS, len(_DIFFS)):
+        cand = f"{title} · {d}"
+        if _norm_title(cand) not in used_norm:
+            return cand[:100]
+    n = 2
+    while n < 50:
+        cand = f"{title} · part {n}"
+        if _norm_title(cand) not in used_norm:
+            return cand[:100]
+        n += 1
+    return title
 
 
 def validate(md: dict) -> list:
