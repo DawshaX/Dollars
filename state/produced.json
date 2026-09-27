@@ -764,19 +764,34 @@
       "reason": null,
       "seconds_spent": 278.3,
       "at": "2026-09-27T02:11:30.695978+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 3,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "3h",
+      "scene": "fireplace",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_03/fireplace_3h.mp4",
+      "title": "Fireplace Crackling for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": true,
+      "url": "https://youtu.be/NQiHouMmYyQ",
+      "reason": null,
+      "seconds_spent": 409.1,
+      "at": "2026-09-27T02:35:57.114780+00:00"
     }
   ],
   "stats": {
-    "total": 51,
-    "published": 11,
+    "total": 52,
+    "published": 12,
     "staged": 39,
     "by_pillar": {
       "focus": 8,
       "satisfying": 22,
-      "sleep": 14,
+      "sleep": 15,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-09-27T02:11:42.389551+00:00"
+  "updated": "2026-09-27T02:37:10.992862+00:00"
 }

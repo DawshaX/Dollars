@@ -197,6 +197,24 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "NQiHouMmYyQ",
+      "url": "https://youtu.be/NQiHouMmYyQ",
+      "title": "Fireplace Crackling for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published_at": "2026-09-27T02:37:10.561045+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "long",
+        "kw": "Fireplace Crackling",
+        "hour": null,
+        "duration_bucket": null
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Rain"
     }
   ]
 }
