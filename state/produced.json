@@ -74,18 +74,33 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 270.8,
       "at": "2026-09-27T21:23:28.505946+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:Oddly satisfying compilation close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_01/satisfying_635435.mp4",
+      "title": "Oddly satisfying compilation — oddly satisfying (60s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/8Ec4h1yVuE0",
+      "reason": null,
+      "seconds_spent": 492.2,
+      "at": "2026-09-27T21:43:46.268509+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 0,
+    "total": 2,
+    "published": 1,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 1,
+      "satisfying": 2,
       "sleep": 1,
       "story": 2
     }
   },
   "created": null,
-  "updated": "2026-09-27T21:12:27.828050+00:00"
+  "updated": "2026-09-27T21:44:34.175353+00:00"
 }
