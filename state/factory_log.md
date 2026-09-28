@@ -220,52 +220,17 @@
 ## 2026-09-27 21:12 UTC
 - 2026-09-27 00:00 · satisfying · 30s · satisfying_746075.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
 
-<<<<<<< Updated upstream
-## 2026-09-27 21:48 UTC
-- 2026-09-27 08:00 · sleep · 10h · black_10h.mp4 · نُشر: https://youtu.be/I91WjkEvOpU
-
-## 2026-09-27 21:48 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 0 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-09-27 23:06 UTC
-- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/hWUe4Ig7xb8
-<<<<<<< Updated upstream
-
-## 2026-09-28 00:01 UTC
-- 2026-09-27 02:00 · satisfying · 30s · satisfying_960698.mp4 · نُشر: https://youtu.be/wmGWeKTZf_s
-<<<<<<< Updated upstream
-
-## 2026-09-28 00:37 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 36 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-09-28 01:40 UTC
-- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/XUofbVi6WRk
-=======
-=======
-=======
-=======
-=======
-## 2026-09-27 21:34 UTC
-- 2026-09-27 01:00 · satisfying · 60s · satisfying_635435.mp4 · نُشر: https://youtu.be/A2nX2fJEERg
->>>>>>> Stashed changes
-
 ## 2026-09-27 22:36 UTC
 - 2026-09-27 00:00 · satisfying · 30s · satisfying_746075.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
->>>>>>> Stashed changes
 
 ## 2026-09-27 23:37 UTC
 - 2026-09-27 00:00 · satisfying · 30s · satisfying_746075.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
->>>>>>> Stashed changes
 
 ## 2026-09-28 00:41 UTC
 - 2026-09-28 00:00 · satisfying · 60s · satisfying_675487.mp4 · نُشر: https://youtu.be/vcp3Wmv3kUo
->>>>>>> Stashed changes
 
 ## 2026-09-28 01:39 UTC
 - 2026-09-28 01:00 · satisfying · 30s · fun_memes_470221.mp4 · نُشر: https://youtu.be/PHCUnOQArdM
->>>>>>> Stashed changes
 
 ## 2026-09-28 02:42 UTC
 - 2026-09-28 00:00 · satisfying · 60s · satisfying_675487.mp4 · نُشر: https://youtu.be/uzOsK9nVtwc
