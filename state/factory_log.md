@@ -259,24 +259,6 @@
 ## 2026-09-28 13:41 UTC
 - 2026-09-28 08:00 · story · 2m · koko_snow_full.mp4 · نُشر: https://youtu.be/ZJfWKaHB6S8
 
-<<<<<<< Updated upstream
-## 2026-09-28 14:11 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 30 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-
-## 2026-09-28 14:11 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 30 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-09-28 14:34 UTC
-- 2026-09-28 09:00 · satisfying · 60s · satisfying_248738.mp4 · نُشر: https://youtu.be/1bI6lAg6Ndk
-
-## 2026-09-28 15:28 UTC
-=======
-=======
-## 2026-09-28 14:01 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 20 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
->>>>>>> Stashed changes
-
 ## 2026-09-28 14:13 UTC
 - ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 32 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
 
@@ -284,16 +266,7 @@
 - 2026-09-28 09:00 · satisfying · 60s · satisfying_248738.mp4 · نُشر: https://youtu.be/Qh_MS4H9LXk
 
 ## 2026-09-28 15:34 UTC
->>>>>>> Stashed changes
 - 2026-09-28 10:00 · satisfying · 30s · satisfying_315351.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
-
-<<<<<<< Updated upstream
-## 2026-09-28 16:06 UTC
-- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/NDDcH5j5W2A
-=======
-## 2026-09-28 16:46 UTC
-- 2026-09-28 00:00 · sleep · 45s · sleep_ambience_675487.mp4 · نُشر: https://youtu.be/GHGQgmiaoss
->>>>>>> Stashed changes
 
 ## 2026-09-28 17:56 UTC
 - 2026-09-28 00:00 · sleep · 45s · sleep_ambience_675487.mp4 · نُشر: https://youtu.be/DPFyCE_xRK0
