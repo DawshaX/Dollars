@@ -119,18 +119,33 @@
       "reason": null,
       "seconds_spent": 378.8,
       "at": "2026-09-27T23:06:15.012067+00:00"
+    },
+    {
+      "date": "2026-09-27",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Kinetic sand bowling close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-27_02/satisfying_960698.mp4",
+      "title": "Wait for it… Kinetic sand bowling #oddlysatisfying #shorts",
+      "published": true,
+      "url": "https://youtu.be/wmGWeKTZf_s",
+      "reason": null,
+      "seconds_spent": 264.3,
+      "at": "2026-09-28T00:01:04.189678+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 2,
+    "total": 4,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 1,
+      "satisfying": 2,
       "sleep": 2,
       "story": 3
     }
   },
   "created": null,
-  "updated": "2026-09-27T23:06:27.699272+00:00"
+  "updated": "2026-09-28T00:01:47.116048+00:00"
 }
