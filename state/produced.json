@@ -359,19 +359,34 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 442.0,
       "at": "2026-09-28T15:28:57.288713+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/NDDcH5j5W2A",
+      "reason": null,
+      "seconds_spent": 365.8,
+      "at": "2026-09-28T16:06:22.793019+00:00"
     }
   ],
   "stats": {
-    "total": 9,
-    "published": 7,
+    "total": 10,
+    "published": 8,
     "staged": 0,
     "by_pillar": {
       "satisfying": 5,
       "sleep": 3,
-      "story": 7,
+      "story": 8,
       "focus": 3
     }
   },
   "created": null,
-  "updated": "2026-09-28T15:28:57.289226+00:00"
+  "updated": "2026-09-28T16:06:34.344782+00:00"
 }

@@ -270,3 +270,6 @@
 
 ## 2026-09-28 15:28 UTC
 - 2026-09-28 10:00 · satisfying · 30s · satisfying_315351.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
+
+## 2026-09-28 16:06 UTC
+- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/NDDcH5j5W2A
