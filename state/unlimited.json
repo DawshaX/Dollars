@@ -1,16 +1,17 @@
 {
-  "index": 6,
-  "used": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5
-  ],
-  "by_pillar": {
-    "satisfying": 2,
-    "sleep": 2,
-    "story": 3
-  }
+ "index": 7,
+ "used": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "by_pillar": {
+  "satisfying": 2,
+  "sleep": 2,
+  "story": 4
+ }
 }
