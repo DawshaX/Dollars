@@ -1,3 +1,38 @@
 {
-  "seen": []
+  "seen": [],
+  "sig": [
+    {
+      "genre": "satisfying",
+      "scene": "soap_cut",
+      "palette": "clean_bright",
+      "transition": "crossfade",
+      "audio": "water_soft",
+      "montage": "لقطة واحدة متصلة",
+      "title_shape": "W W W… W W #W #W",
+      "mark": "Slime Stretch",
+      "hour": 0
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_park",
+      "palette": "pastel_soft",
+      "transition": "xfade_soft",
+      "audio": "fun_beat",
+      "montage": "مفارقة",
+      "title_shape": "W W W W W W W — W'W W W W #W",
+      "mark": "the queue that picks the wrong line",
+      "hour": 1
+    },
+    {
+      "genre": "satisfying",
+      "scene": "soap_cut",
+      "palette": "clean_bright",
+      "transition": "crossfade",
+      "audio": "water_soft",
+      "montage": "لقطة واحدة متصلة",
+      "title_shape": "W W W… W W #W #W",
+      "mark": "Slime Stretch",
+      "hour": 0
+    }
+  ]
 }
