@@ -571,6 +571,18 @@
       "name": "Wata",
       "type": "قطة صحراوية",
       "origin": "auto"
+    },
+    {
+      "id": "tami_auto",
+      "name": "Tami",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "nata_auto",
+      "name": "Nata",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [
