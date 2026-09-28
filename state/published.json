@@ -11326,6 +11326,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "CxjBt2fk1qY",
+      "url": "https://youtu.be/CxjBt2fk1qY",
+      "title": "Fireplace Crackling for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published_at": "2026-09-28T23:46:57.726231+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "long",
+        "kw": "Fireplace Crackling",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Rain"
     }
   ]
 }

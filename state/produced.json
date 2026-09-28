@@ -464,19 +464,34 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 308.2,
       "at": "2026-09-28T21:59:30.510922+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 8,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "fireplace",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_08/fireplace_10h.mp4",
+      "title": "Fireplace Crackling for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": true,
+      "url": "https://youtu.be/CxjBt2fk1qY",
+      "reason": null,
+      "seconds_spent": 1187.4,
+      "at": "2026-09-28T23:43:41.762933+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 5,
+    "total": 6,
+    "published": 6,
     "staged": 0,
     "by_pillar": {
-      "sleep": 3,
+      "sleep": 4,
       "story": 2,
       "satisfying": 5,
       "focus": 3
     }
   },
   "created": null,
-  "updated": "2026-09-28T21:59:40.539039+00:00"
+  "updated": "2026-09-28T23:46:58.376510+00:00"
 }
