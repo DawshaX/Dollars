@@ -5692,6 +5692,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Fun & Memes"
+    },
+    {
+      "video_id": "RyGqdr7fUos",
+      "url": "https://youtu.be/RyGqdr7fUos",
+      "title": "Calm Down in 60 seconds | Guided Breathing (No Talk) #shorts",
+      "published_at": "2026-09-28T06:51:24.818439+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "4-7-8 Breathing",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }

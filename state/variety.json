@@ -2,61 +2,6 @@
   "seen": [],
   "sig": [
     {
-      "genre": "space_nature",
-      "scene": "aurora",
-      "palette": "cosmic",
-      "transition": "fade",
-      "audio": "cosmic",
-      "montage": "تحوّل تدريجي",
-      "title_shape": "W W W W — W W W W W W (W W W)",
-      "mark": "Coral Reef at Night",
-      "hour": 12
-    },
-    {
-      "genre": "calm_wellness",
-      "scene": "aurora",
-      "palette": "deep_blue",
-      "transition": "slide",
-      "audio": "breath_soft",
-      "montage": "إيقاع ٤-٧-٨",
-      "title_shape": "W W W W W | W W (W W)",
-      "mark": "Slow Down",
-      "hour": 0
-    },
-    {
-      "genre": "space_nature",
-      "scene": "aurora",
-      "palette": "cosmic",
-      "transition": "crossfade",
-      "audio": "space_calm",
-      "montage": "تحوّل تدريجي",
-      "title_shape": "W W W — W W W W W W (W W)",
-      "mark": "Earth From Orbit",
-      "hour": 1
-    },
-    {
-      "genre": "facts",
-      "scene": "micro_world",
-      "palette": "deep_blue",
-      "transition": "crossfade",
-      "audio": "curious",
-      "montage": "سؤال ← جواب",
-      "title_shape": "W: W W W (W W)",
-      "mark": "Desert",
-      "hour": 2
-    },
-    {
-      "genre": "focus_study",
-      "scene": "cafe_soft",
-      "palette": "deep_blue",
-      "transition": "crossfade",
-      "audio": "cafe",
-      "montage": "بومودورو",
-      "title_shape": "W W W W & W | W W | W W, W W",
-      "mark": "Brown Noise",
-      "hour": 3
-    },
-    {
       "genre": "fun_memes",
       "scene": "meme_office",
       "palette": "pastel_soft",
@@ -704,6 +649,17 @@
       "title_shape": "W W W W W W & W | W W W | W W, W W",
       "mark": "Silent Library at Dawn",
       "hour": 10
+    },
+    {
+      "genre": "calm_wellness",
+      "scene": "breath_circle",
+      "palette": "pastel_soft",
+      "transition": "fade",
+      "audio": "ocean",
+      "montage": "إيقاع ٤-٧-٨",
+      "title_shape": "W W W W W | W W (W W) #W",
+      "mark": "4-7-8 Breathing",
+      "hour": 2
     }
   ]
 }
