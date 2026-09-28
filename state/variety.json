@@ -660,6 +660,50 @@
       "title_shape": "W W W W | W W W W | W W, W W",
       "mark": "Mountain Stream",
       "hour": 3
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_office",
+      "palette": "vivid_pop",
+      "transition": "xfade_soft",
+      "audio": "fun_beat",
+      "montage": "مقطع ٣ ثواني ← ضربة",
+      "title_shape": "W W W W W W W — W'W W W W #W",
+      "mark": "the queue that picks the wrong line",
+      "hour": 1
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "fireplace",
+      "palette": "midnight",
+      "transition": "fade",
+      "audio": "train",
+      "montage": "طويل هادي",
+      "title_shape": "W W W: W W W W W W W",
+      "mark": "Mountain Stream",
+      "hour": 3
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "storm_window",
+      "palette": "warm_ember",
+      "transition": "slide",
+      "audio": "ocean",
+      "montage": "تنفّس بطيء",
+      "title_shape": "W W W W W W | W W W W W | W W",
+      "mark": "Night Train Ride",
+      "hour": 8
+    },
+    {
+      "genre": "focus_study",
+      "scene": "forest_night",
+      "palette": "paper_warm",
+      "transition": "crossfade",
+      "audio": "library",
+      "montage": "خط زمني وفصول",
+      "title_shape": "W W W W W W & W | W W W | W W, W W",
+      "mark": "Silent Library at Dawn",
+      "hour": 10
     }
   ]
 }

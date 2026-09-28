@@ -179,6 +179,21 @@
       "reason": null,
       "seconds_spent": 1156.2,
       "at": "2026-09-28T05:52:25.867037+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:the queue that picks the wrong line",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_01/fun_memes_470221.mp4",
+      "title": "the queue that picks the wrong line — we've all been there #shorts",
+      "published": true,
+      "url": "https://youtu.be/VlYKvADKTY0",
+      "reason": null,
+      "seconds_spent": 122.5,
+      "at": "2026-09-28T05:50:46.477552+00:00"
     }
   ],
   "stats": {
