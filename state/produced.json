@@ -344,19 +344,34 @@
       "reason": null,
       "seconds_spent": 441.6,
       "at": "2026-09-28T14:33:51.430670+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Oddly satisfying shorts close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_10/satisfying_315351.mp4",
+      "title": "شورتات مرضية بشكل غريب - مرضية بشكل غريب (30 ثانية) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 442.0,
+      "at": "2026-09-28T15:28:57.288713+00:00"
     }
   ],
   "stats": {
-    "total": 8,
+    "total": 9,
     "published": 7,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 4,
+      "satisfying": 5,
       "sleep": 3,
       "story": 7,
       "focus": 3
     }
   },
   "created": null,
-  "updated": "2026-09-28T14:34:08.340227+00:00"
+  "updated": "2026-09-28T15:28:57.289226+00:00"
 }
