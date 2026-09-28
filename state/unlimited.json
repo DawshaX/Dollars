@@ -1,21 +1,27 @@
 {
-  "index": 1,
-  "used": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9
-  ],
-  "by_pillar": {
-    "satisfying": 1,
-    "sleep": 3,
-    "story": 5,
-    "focus": 1
-  }
+ "index": 16,
+ "used": [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15
+ ],
+ "by_pillar": {
+  "satisfying": 3,
+  "sleep": 3,
+  "story": 7,
+  "focus": 3
+ }
 }

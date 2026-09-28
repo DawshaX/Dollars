@@ -239,19 +239,109 @@
       "reason": null,
       "seconds_spent": 379.3,
       "at": "2026-09-28T07:46:51.784130+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Brown Noise",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_03/focus_study_116950.mp4",
+      "title": "الضوضاء البنية • 45 ثانية • شورت التركيز والهدوء #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 424.3,
+      "at": "2026-09-28T08:37:07.233615+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Wind and Pages",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_04/focus_study_789870.mp4",
+      "title": "Wind and Pages • 60 seconds • Concentration & Calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/cb0I0kIp9fI",
+      "reason": null,
+      "seconds_spent": 340.9,
+      "at": "2026-09-28T09:37:48.905431+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:Sand Raking",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_05/satisfying_594611.mp4",
+      "title": "Perfect Sand Raking — no talking, just calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/N0gfATV-dI4",
+      "reason": null,
+      "seconds_spent": 327.0,
+      "at": "2026-09-28T10:39:03.641489+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "3m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_06/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/yz-8ANr8VjU",
+      "reason": null,
+      "seconds_spent": 247.8,
+      "at": "2026-09-28T11:38:28.595871+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 7,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:Kinetic sand videos close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_07/satisfying_216753.mp4",
+      "title": "Kinetic sand videos — oddly satisfying (60s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/xK-5kWVeBG4",
+      "reason": null,
+      "seconds_spent": 352.9,
+      "at": "2026-09-28T12:40:04.130651+00:00"
+    },
+    {
+      "date": "2026-09-28",
+      "hour": 8,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "2m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-28_08/koko_snow_full.mp4",
+      "title": "Koko and the first snowflake of winter — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/ZJfWKaHB6S8",
+      "reason": null,
+      "seconds_spent": 333.4,
+      "at": "2026-09-28T13:41:18.641485+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 7,
+    "published": 6,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 1,
+      "satisfying": 3,
       "sleep": 3,
-      "story": 5,
-      "focus": 1
+      "story": 7,
+      "focus": 3
     }
   },
   "created": null,
-  "updated": "2026-09-28T07:44:01.111967+00:00"
+  "updated": "2026-09-28T13:41:32.650201+00:00"
 }
