@@ -310,25 +310,8 @@
 ## 2026-09-29 05:49 UTC
 - 2026-09-29 03:00 · focus · 45s · focus_study_684285.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
 
-<<<<<<< Updated upstream
-## 2026-09-29 07:39 UTC
-- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/DM_x1Hd-3Rg
-<<<<<<< Updated upstream
-
-## 2026-09-29 08:29 UTC
-- 2026-09-29 05:00 · satisfying · 30s · facts_820244.mp4 · نُشر: https://youtu.be/cJFOB1-mHCk
-=======
-=======
-## 2026-09-29 06:38 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 31 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-
-## 2026-09-29 06:53 UTC
-- 2026-09-29 04:00 · satisfying · 15s · fun_memes_407476.mp4 · نُشر: https://youtu.be/NhUVX-RwSdg
->>>>>>> Stashed changes
-
 ## 2026-09-29 07:53 UTC
 - 2026-09-29 00:00 · focus · 60s · calm_wellness_578392.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
->>>>>>> Stashed changes
 
 ## 2026-09-29 08:52 UTC
 - 2026-09-29 00:00 · focus · 60s · calm_wellness_578392.mp4 · نُشر: https://youtu.be/rsXf7ceu7uw
