@@ -12768,6 +12768,62 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "qFdct5kD2nk",
+      "url": "https://youtu.be/qFdct5kD2nk",
+      "title": "Earth From Orbit — a slow look at the universe (60 seconds) #shorts",
+      "published_at": "2026-09-29T03:46:59.522723+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Earth From Orbit",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "Gwkj93GrgxI",
+      "url": "https://youtu.be/Gwkj93GrgxI",
+      "title": "Desert: 3 Verified Facts (Sources Included) #shorts",
+      "published_at": "2026-09-29T04:48:13.052022+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Desert",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Facts & Science"
     }
   ]
 }
