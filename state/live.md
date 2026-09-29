@@ -153,8 +153,23 @@
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (15.2 ميجا)…
    ✅ يوتيوب استقبل الفيديو: Gwkj93GrgxI
    ⚠️ الترجمة ما اترفعتش: HTTP 403 — quotaExceeded — The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.
+<<<<<<< Updated upstream
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (5.6 ميجا)…
    ✅ يوتيوب استقبل الفيديو: DM_x1Hd-3Rg
+<<<<<<< Updated upstream
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (13.0 ميجا)…
    ✅ يوتيوب استقبل الفيديو: cJFOB1-mHCk
+   ✅ الترجمة (SRT) اترفعت على الفيديو — يوتيوب هيترجمها لكل اللغات
+=======
+=======
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (5.5 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: NhUVX-RwSdg
+   ⚠️ الترجمة ما اترفعتش: HTTP 403 — quotaExceeded — The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (12.2 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: rsXf7ceu7uw
+   ✅ الترجمة (SRT) اترفعت على الفيديو — يوتيوب هيترجمها لكل اللغات
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (15.2 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: ctNDoROeevk
    ✅ الترجمة (SRT) اترفعت على الفيديو — يوتيوب هيترجمها لكل اللغات
