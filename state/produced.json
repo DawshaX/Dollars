@@ -869,19 +869,34 @@
       "reason": null,
       "seconds_spent": 508.1,
       "at": "2026-09-29T20:52:28.662785+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 14,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "3h",
+      "scene": "rain_glass",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_14/rain_glass_3h.mp4",
+      "title": "Rain on Window for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": true,
+      "url": "https://youtu.be/DBez4EgLJnY",
+      "reason": null,
+      "seconds_spent": 866.3,
+      "at": "2026-09-29T22:40:08.030899+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 4,
+    "total": 6,
+    "published": 5,
     "staged": 0,
     "by_pillar": {
       "story": 2,
       "satisfying": 2,
       "focus": 1,
-      "sleep": 4
+      "sleep": 5
     }
   },
   "created": null,
-  "updated": "2026-09-29T20:53:08.245398+00:00"
+  "updated": "2026-09-29T22:41:56.877620+00:00"
 }
