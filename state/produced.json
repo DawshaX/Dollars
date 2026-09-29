@@ -644,19 +644,34 @@
       "reason": null,
       "seconds_spent": 104.2,
       "at": "2026-09-29T07:31:21.571389+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Glacier",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_05/facts_820244.mp4",
+      "title": "3 Facts About Glacier You Didn't Know #shorts",
+      "published": true,
+      "url": "https://youtu.be/cJFOB1-mHCk",
+      "reason": null,
+      "seconds_spent": 372.2,
+      "at": "2026-09-29T08:29:26.686638+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 3,
+    "total": 6,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
       "focus": 2,
       "sleep": 1,
-      "satisfying": 1,
+      "satisfying": 2,
       "story": 3
     }
   },
   "created": null,
-  "updated": "2026-09-29T07:39:25.329137+00:00"
+  "updated": "2026-09-29T08:29:44.834825+00:00"
 }

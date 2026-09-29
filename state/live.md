@@ -155,3 +155,6 @@
    ⚠️ الترجمة ما اترفعتش: HTTP 403 — quotaExceeded — The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (5.6 ميجا)…
    ✅ يوتيوب استقبل الفيديو: DM_x1Hd-3Rg
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (13.0 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: cJFOB1-mHCk
+   ✅ الترجمة (SRT) اترفعت على الفيديو — يوتيوب هيترجمها لكل اللغات
