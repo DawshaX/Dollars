@@ -583,6 +583,18 @@
       "name": "Nata",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "wami_auto",
+      "name": "Wami",
+      "type": "نبتة فضائية",
+      "origin": "auto"
+    },
+    {
+      "id": "zibi_auto",
+      "name": "Zibi",
+      "type": "روبوت ورق",
+      "origin": "auto"
     }
   ],
   "stories": [
