@@ -509,19 +509,34 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 249.5,
       "at": "2026-09-29T01:20:16.534686+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:Glacier",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_01/facts_602048.mp4",
+      "title": "3 حقائق عن النهر الجليدي لم تكن تعرفها #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 559.6,
+      "at": "2026-09-29T02:01:21.300881+00:00"
     }
   ],
   "stats": {
-    "total": 2,
+    "total": 3,
     "published": 0,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "sleep": 5,
       "story": 2,
-      "satisfying": 5
+      "satisfying": 6
     }
   },
   "created": null,
-  "updated": "2026-09-29T01:20:16.535179+00:00"
+  "updated": "2026-09-29T02:01:21.301424+00:00"
 }

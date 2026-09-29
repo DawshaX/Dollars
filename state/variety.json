@@ -1,138 +1,6 @@
 {
   "sig": [
     {
-      "genre": "facts",
-      "scene": "micro_world",
-      "palette": "cosmic",
-      "transition": "slide",
-      "audio": "space_calm",
-      "montage": "٣ حقائق ← ٣ مشاهد",
-      "title_shape": "W W W W W W'W W",
-      "mark": "Aurora",
-      "hour": 5
-    },
-    {
-      "genre": "satisfying",
-      "scene": "sand_table",
-      "palette": "high_contrast",
-      "transition": "slide",
-      "audio": "asmr_soft",
-      "montage": "٤ مقاطع متساوية",
-      "title_shape": "W W — W W (W W)",
-      "mark": "Hydraulic Press",
-      "hour": 6
-    },
-    {
-      "genre": "calm_wellness",
-      "scene": "breath_circle",
-      "palette": "pastel_soft",
-      "transition": "slide",
-      "audio": "breath_soft",
-      "montage": "إيقاع ٤-٧-٨",
-      "title_shape": "W W W W W | W W W",
-      "mark": "Quiet the Mind",
-      "hour": 7
-    },
-    {
-      "genre": "facts",
-      "scene": "ice_flow",
-      "palette": "cosmic",
-      "transition": "fade",
-      "audio": "curious",
-      "montage": "٣ حقائق ← ٣ مشاهد",
-      "title_shape": "W: W W W (W W)",
-      "mark": "Meteorite",
-      "hour": 8
-    },
-    {
-      "genre": "satisfying",
-      "scene": "glass_sand",
-      "palette": "pastel_soft",
-      "transition": "xfade_soft",
-      "audio": "asmr_crisp",
-      "montage": "قطع سريع على الإيقاع",
-      "title_shape": "W W — W W (W W)",
-      "mark": "Kinetic Sand",
-      "hour": 9
-    },
-    {
-      "genre": "space_nature",
-      "scene": "earth_from_space",
-      "palette": "aurora",
-      "transition": "xfade_soft",
-      "audio": "ocean",
-      "montage": "كشف بطيء",
-      "title_shape": "W W W W W W W W | W W",
-      "mark": "The Milky Way Core",
-      "hour": 10
-    },
-    {
-      "genre": "calm_wellness",
-      "scene": "breath_circle",
-      "palette": "aurora",
-      "transition": "xfade_soft",
-      "audio": "calm_night",
-      "montage": "إيقاع ٤-٧-٨",
-      "title_shape": "W W W — W W W W",
-      "mark": "Box Breathing",
-      "hour": 11
-    },
-    {
-      "genre": "focus_study",
-      "scene": "cafe_soft",
-      "palette": "deep_blue",
-      "transition": "crossfade",
-      "audio": "rain_soft",
-      "montage": "خط زمني وفصول",
-      "title_shape": "W W W — W W (W W) | W W",
-      "mark": "White Noise",
-      "hour": 12
-    },
-    {
-      "genre": "calm_wellness",
-      "scene": "breath_circle",
-      "palette": "aurora",
-      "transition": "fade",
-      "audio": "breath_soft",
-      "montage": "موجات هادئة",
-      "title_shape": "W W W — W W W W",
-      "mark": "Morning Reset",
-      "hour": 13
-    },
-    {
-      "genre": "space_nature",
-      "scene": "ocean_deep",
-      "palette": "deep_blue",
-      "transition": "slide",
-      "audio": "wind_deep",
-      "montage": "رحلة مستمرة",
-      "title_shape": "W W W W: W W W (W W W W)",
-      "mark": "The Himalayas at Dawn",
-      "hour": 14
-    },
-    {
-      "genre": "fun_memes",
-      "scene": "meme_park",
-      "palette": "vivid_pop",
-      "transition": "crossfade",
-      "audio": "pop_bright",
-      "montage": "بناء ← نتيجة",
-      "title_shape": "W W W-W W… #W",
-      "mark": "the Wi-Fi dies",
-      "hour": 15
-    },
-    {
-      "genre": "fun_memes",
-      "scene": "meme_office",
-      "palette": "vivid_pop",
-      "transition": "fade",
-      "audio": "fun_beat",
-      "montage": "بناء ← نتيجة",
-      "title_shape": "W W W — W'W W W W",
-      "mark": "the microwave timer",
-      "hour": 16
-    },
-    {
       "genre": "focus_study",
       "scene": "brown_noise",
       "palette": "paper_warm",
@@ -780,6 +648,17 @@
       "title_shape": "W W W W W & W | W W | W W, W W",
       "mark": "Snow Day Study",
       "hour": 4
+    },
+    {
+      "genre": "facts",
+      "scene": "ocean_deep",
+      "palette": "cosmic",
+      "transition": "crossfade",
+      "audio": "space_calm",
+      "montage": "عدّاد تصاعدي",
+      "title_shape": "W حقائق عن النهر الجليدي لم تكن تعرفها #",
+      "mark": "Glacier",
+      "hour": 1
     }
   ],
   "seen": []
