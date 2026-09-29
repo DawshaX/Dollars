@@ -629,6 +629,21 @@
       "reason": null,
       "seconds_spent": 249.2,
       "at": "2026-09-29T07:39:08.669541+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "photo:the printer jams",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_04/fun_memes_407476.mp4",
+      "title": "POV: the printer jams #memes #shorts",
+      "published": true,
+      "url": "https://youtu.be/yDj7GLJNyfs",
+      "reason": null,
+      "seconds_spent": 104.2,
+      "at": "2026-09-29T07:31:21.571389+00:00"
     }
   ],
   "stats": {
