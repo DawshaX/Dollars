@@ -764,19 +764,34 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 283.9,
       "at": "2026-09-29T14:23:59.385067+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 7,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Oddly satisfying asmr close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_07/satisfying_704049.mp4",
+      "title": "Oddly satisfying asmr — oddly satisfying (30s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/dFqlSDs_ih4",
+      "reason": null,
+      "seconds_spent": 310.1,
+      "at": "2026-09-29T15:48:46.178889+00:00"
     }
   ],
   "stats": {
-    "total": 6,
-    "published": 4,
+    "total": 7,
+    "published": 5,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "sleep": 2,
-      "satisfying": 2,
+      "satisfying": 3,
       "story": 4
     }
   },
   "created": null,
-  "updated": "2026-09-29T14:29:17.621067+00:00"
+  "updated": "2026-09-29T15:49:31.713361+00:00"
 }
