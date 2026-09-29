@@ -734,19 +734,34 @@
       "reason": null,
       "seconds_spent": 1029.6,
       "at": "2026-09-29T13:24:58.636229+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Kinetic sand slime close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_06/satisfying_81681.mp4",
+      "title": "الوحل الرملي الحركي - مرضي بشكل غريب (30 ثانية) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 283.9,
+      "at": "2026-09-29T14:23:59.385067+00:00"
     }
   ],
   "stats": {
-    "total": 5,
+    "total": 6,
     "published": 3,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "sleep": 2,
-      "satisfying": 2,
+      "satisfying": 3,
       "story": 3
     }
   },
   "created": null,
-  "updated": "2026-09-29T13:28:04.005797+00:00"
+  "updated": "2026-09-29T14:23:59.385682+00:00"
 }
