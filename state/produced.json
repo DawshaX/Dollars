@@ -824,19 +824,34 @@
       "reason": null,
       "seconds_spent": 1288.2,
       "at": "2026-09-29T18:27:22.486005+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 8,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:G11c54nbdjs night nature calm",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_08/sleep_ambience_249539.mp4",
+      "title": "G11c54nbdjs for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "published": true,
+      "url": "https://youtu.be/xY1EuYKPSgo",
+      "reason": null,
+      "seconds_spent": 638.3,
+      "at": "2026-09-29T19:48:22.713121+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 2,
+    "total": 4,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "story": 1,
       "satisfying": 1,
       "focus": 1,
-      "sleep": 3
+      "sleep": 4
     }
   },
   "created": null,
-  "updated": "2026-09-29T18:31:14.238035+00:00"
+  "updated": "2026-09-29T19:49:12.316265+00:00"
 }
