@@ -1,127 +1,6 @@
 {
   "sig": [
     {
-      "genre": "fun_memes",
-      "scene": "bubbles",
-      "palette": "high_contrast",
-      "transition": "fade",
-      "audio": "pop_bright",
-      "montage": "بناء ← نتيجة",
-      "title_shape": "W: W W W W #W",
-      "mark": "the umbrella you left",
-      "hour": 22
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "fireplace",
-      "palette": "deep_blue",
-      "transition": "xfade_soft",
-      "audio": "beach",
-      "montage": "طويل هادي",
-      "title_shape": "W W W W W • W W • W W W (W W)",
-      "mark": "Warm Fire and Rain",
-      "hour": 23
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "train_window",
-      "palette": "midnight",
-      "transition": "slide",
-      "audio": "sleep_rain",
-      "montage": "طويل هادي",
-      "title_shape": "W W W W — W W W W W W | W W",
-      "mark": "Forest at Night",
-      "hour": 3
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "forest_night",
-      "palette": "warm_ember",
-      "transition": "fade",
-      "audio": "calm_night",
-      "montage": "مشهد واحد مستمر",
-      "title_shape": "W W W W W W W — W W W W W W | W W",
-      "mark": "Snow Falling in a Quiet Village",
-      "hour": 8
-    },
-    {
-      "genre": "focus_study",
-      "scene": "snow_window",
-      "palette": "paper_warm",
-      "transition": "xfade_soft",
-      "audio": "library",
-      "montage": "خط زمني وفصول",
-      "title_shape": "W W W — W W (W W W) | W W",
-      "mark": "Pink Noise",
-      "hour": 10
-    },
-    {
-      "genre": "space_nature",
-      "scene": "earth_from_space",
-      "palette": "cosmic",
-      "transition": "crossfade",
-      "audio": "space_calm",
-      "montage": "رحلة مستمرة",
-      "title_shape": "W W W W W W W W W | W W W",
-      "mark": "The Grand Canyon at Dawn",
-      "hour": 12
-    },
-    {
-      "genre": "space_nature",
-      "scene": "glacier",
-      "palette": "deep_blue",
-      "transition": "xfade_soft",
-      "audio": "wind_deep",
-      "montage": "رحلة مستمرة",
-      "title_shape": "W W W W W W W | W W",
-      "mark": "Tornado Alley Skies",
-      "hour": 0
-    },
-    {
-      "genre": "space_nature",
-      "scene": "nebula_flow",
-      "palette": "deep_blue",
-      "transition": "fade",
-      "audio": "ocean",
-      "montage": "رحلة مستمرة",
-      "title_shape": "W'W W W W — W W W W W W (W W)",
-      "mark": "Jupiter's Great Red Spot",
-      "hour": 1
-    },
-    {
-      "genre": "facts",
-      "scene": "ice_flow",
-      "palette": "cosmic",
-      "transition": "crossfade",
-      "audio": "discovery",
-      "montage": "٣ حقائق ← ٣ مشاهد",
-      "title_shape": "W W: W W W (W W)",
-      "mark": "Honey bee",
-      "hour": 2
-    },
-    {
-      "genre": "focus_study",
-      "scene": "desk_window",
-      "palette": "cool_slate",
-      "transition": "crossfade",
-      "audio": "library",
-      "montage": "مشهد ثابت + ساعة",
-      "title_shape": "W W W • W W • W & W",
-      "mark": "Coffee Shop Murmur",
-      "hour": 3
-    },
-    {
-      "genre": "focus_study",
-      "scene": "brown_noise",
-      "palette": "cool_slate",
-      "transition": "slide",
-      "audio": "focus",
-      "montage": "خط زمني وفصول",
-      "title_shape": "W W W W W & W | W W | W W, W W",
-      "mark": "Snow Day Study",
-      "hour": 4
-    },
-    {
       "genre": "facts",
       "scene": "micro_world",
       "palette": "cosmic",
@@ -769,6 +648,17 @@
       "title_shape": "W W — W W (W W)",
       "mark": "Rolling Dominoes",
       "hour": 21
+    },
+    {
+      "genre": "space_nature",
+      "scene": "aurora",
+      "palette": "cosmic",
+      "transition": "crossfade",
+      "audio": "space_calm",
+      "montage": "تحوّل تدريجي",
+      "title_shape": "الأرض من المدار - نظرة بطيئة على الكون (",
+      "mark": "Earth From Orbit",
+      "hour": 1
     }
   ],
   "seen": []

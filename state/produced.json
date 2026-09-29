@@ -494,19 +494,34 @@
       "reason": null,
       "seconds_spent": 1187.4,
       "at": "2026-09-28T23:43:41.762933+00:00"
+    },
+    {
+      "date": "2026-09-29",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "clip:Earth From Orbit",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_01/space_nature_602048.mp4",
+      "title": "الأرض من المدار - نظرة بطيئة على الكون (60 ثانية) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 249.5,
+      "at": "2026-09-29T01:20:16.534686+00:00"
     }
   ],
   "stats": {
-    "total": 1,
+    "total": 2,
     "published": 0,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
-      "sleep": 4,
+      "sleep": 5,
       "story": 2,
       "satisfying": 5
     }
   },
   "created": null,
-  "updated": "2026-09-29T01:05:25.917688+00:00"
+  "updated": "2026-09-29T01:20:16.535179+00:00"
 }
