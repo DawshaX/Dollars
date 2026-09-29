@@ -10,10 +10,10 @@
       "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_00/paper_man_help_full.mp4",
       "title": "Paper Man and a lantern that went out — a wordless story #shorts",
       "published": true,
-      "url": "https://youtu.be/5WDj_ERod9w",
+      "url": "https://youtu.be/eI-H57EffIM",
       "reason": null,
-      "seconds_spent": 283.9,
-      "at": "2026-09-29T16:19:16.748259+00:00"
+      "seconds_spent": 283.3,
+      "at": "2026-09-29T21:53:00.180847+00:00"
     },
     {
       "date": "2026-09-29",
@@ -21,12 +21,13 @@
       "kind": "short",
       "pillar": "satisfying",
       "duration": "45s",
-      "scene": "photo:Kinetic sand slime close up texture",
+      "scene": "photo:Oddly satisfying slime close up texture",
       "video": "/home/runner/work/Dollars/Dollars/work/2026-09-29_01/satisfying_602048.mp4",
-      "title": "الوحل الرملي الحركي - مرضي بشكل غريب (45 ثانية) #shorts",
+      "title": "الوحل المُرضي بشكل غريب - مرضٍ بشكل غريب (45 ثانية) #shorts",
       "published": false,
       "url": null,
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+<<<<<<< Updated upstream
       "seconds_spent": 481.3,
       "at": "2026-09-29T17:22:44.708891+00:00"
     },
@@ -900,3 +901,21 @@
   "created": null,
   "updated": "2026-09-29T22:41:56.877620+00:00"
 }
+=======
+      "seconds_spent": 306.9,
+      "at": "2026-09-29T22:53:20.890665+00:00"
+    }
+  ],
+  "stats": {
+    "total": 2,
+    "published": 1,
+    "staged": 0,
+    "by_pillar": {
+      "story": 1,
+      "satisfying": 1
+    }
+  },
+  "created": null,
+  "updated": "2026-09-29T22:53:20.890972+00:00"
+}
+>>>>>>> Stashed changes

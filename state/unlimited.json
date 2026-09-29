@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
   "index": 35,
   "used": [
     0,
@@ -44,3 +45,15 @@
     "sleep": 5
   }
 }
+=======
+ "index": 2,
+ "used": [
+  0,
+  1
+ ],
+ "by_pillar": {
+  "story": 1,
+  "satisfying": 1
+ }
+}
+>>>>>>> Stashed changes
