@@ -28554,6 +28554,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Rain"
+    },
+    {
+      "video_id": "npHXBhzNYuQ",
+      "url": "https://youtu.be/npHXBhzNYuQ",
+      "title": "Koko and the little star that fell — a wordless story #shorts",
+      "published_at": "2026-09-30T23:53:18.760945+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Koko and the Little Star — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Wordless Stories"
     }
   ]
 }

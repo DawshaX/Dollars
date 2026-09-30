@@ -1154,19 +1154,34 @@
       "reason": null,
       "seconds_spent": 1175.9,
       "at": "2026-09-30T22:48:12.850184+00:00"
+    },
+    {
+      "date": "2026-09-30",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "1m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-30_04/koko_star_full.mp4",
+      "title": "Koko and the little star that fell — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/npHXBhzNYuQ",
+      "reason": null,
+      "seconds_spent": 349.2,
+      "at": "2026-09-30T23:53:03.681356+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "satisfying": 1,
       "sleep": 4,
-      "story": 6,
+      "story": 7,
       "focus": 1
     }
   },
   "created": null,
-  "updated": "2026-09-30T22:51:27.293855+00:00"
+  "updated": "2026-09-30T23:53:19.172440+00:00"
 }
