@@ -870,7 +870,7 @@
     },
     {
       "title": "Earth From Orbit — a slow look at the universe (60 seconds) #shorts",
-      "views": 9,
+      "views": 10,
       "likes": 0,
       "comments": 0,
       "features": {
@@ -1188,7 +1188,7 @@
     },
     {
       "title": "Kinetic sand for kids — oddly satisfying (60s) #shorts",
-      "views": 1,
+      "views": 2,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1297,6 +1297,62 @@
       },
       "video_id": "i8z3TP8OG68",
       "published_at": "2026-09-30T08:54:06.533076+00:00"
+    },
+    {
+      "title": "Earth From Orbit — a slow look at the universe (60 seconds) #shorts",
+      "views": 9,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Earth From Orbit",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "qFdct5kD2nk",
+      "published_at": "2026-09-29T03:46:59.522723+00:00"
+    },
+    {
+      "title": "Kinetic sand for kids — oddly satisfying (60s) #shorts",
+      "views": 1,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic sand for kids",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "6CvDektgPEU",
+      "published_at": "2026-09-29T20:53:07.745483+00:00"
     },
     {
       "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
@@ -3527,8 +3583,8 @@
     "title": "xDaw NoVa",
     "subs": 43,
     "views": 326308,
-    "videos": 425
+    "videos": 428
   },
-  "synced_at": "2026-09-30T10:38:44.868468+00:00",
-  "views_gained": 0
+  "synced_at": "2026-09-30T13:03:50.938013+00:00",
+  "views_gained": 60
 }
