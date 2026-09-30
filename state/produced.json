@@ -989,19 +989,34 @@
       "reason": null,
       "seconds_spent": 869.1,
       "at": "2026-09-30T05:54:30.904604+00:00"
+    },
+    {
+      "date": "2026-09-30",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Octopus",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-30_02/facts_231457.mp4",
+      "title": "3 حقائق لا تعرفها عن الأخطبوط #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 276.9,
+      "at": "2026-09-30T06:43:31.071486+00:00"
     }
   ],
   "stats": {
-    "total": 2,
+    "total": 3,
     "published": 2,
     "staged": 0,
     "by_pillar": {
       "sleep": 2,
       "story": 3,
-      "satisfying": 2,
+      "satisfying": 3,
       "focus": 1
     }
   },
   "created": null,
-  "updated": "2026-09-30T05:55:49.187493+00:00"
+  "updated": "2026-09-30T06:43:31.071992+00:00"
 }
