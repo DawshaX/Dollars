@@ -929,19 +929,34 @@
       "reason": null,
       "seconds_spent": 420.0,
       "at": "2026-09-30T00:29:48.270294+00:00"
+    },
+    {
+      "date": "2026-09-30",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "30s",
+      "scene": "clip:Jupiter's Great Red Spot",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-30_01/space_nature_977938.mp4",
+      "title": "Jupiter's Great Red Spot — a slow look at the universe (30 seconds) #shorts",
+      "published": true,
+      "url": "https://youtu.be/l5el1vqNxVo",
+      "reason": null,
+      "seconds_spent": 213.0,
+      "at": "2026-09-30T02:25:04.066033+00:00"
     }
   ],
   "stats": {
-    "total": 7,
-    "published": 6,
+    "total": 8,
+    "published": 7,
     "staged": 0,
     "by_pillar": {
       "story": 2,
       "satisfying": 2,
       "focus": 1,
-      "sleep": 6
+      "sleep": 7
     }
   },
   "created": null,
-  "updated": "2026-09-30T00:30:29.711133+00:00"
+  "updated": "2026-09-30T02:25:48.470881+00:00"
 }
