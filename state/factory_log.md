@@ -382,32 +382,6 @@
 ## 2026-09-30 15:52 UTC
 - 2026-09-30 00:00 · satisfying · 60s · satisfying_809288.mp4 · نُشر: https://youtu.be/nHblpbydniI
 
-<<<<<<< Updated upstream
-## 2026-09-30 16:04 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 12 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-09-30 18:33 UTC
-- 2026-09-30 08:00 · sleep · 8h · rain_glass_8h.mp4 · نُشر: https://youtu.be/E2VlV7i_o3Q
-
-## 2026-09-30 18:33 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 0 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-09-30 19:11 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 38 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-09-30 20:16 UTC
-- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/2MjnP1-3e9I
-=======
-=======
-=======
-=======
-## 2026-09-30 15:53 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 1 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
->>>>>>> Stashed changes
-
 ## 2026-09-30 16:05 UTC
 - ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 13 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
 
@@ -422,15 +396,12 @@
 
 ## 2026-09-30 17:50 UTC
 - 2026-09-30 04:00 · story · 1m · koko_star_full.mp4 · نُشر: https://youtu.be/YhmoLcmQC10
->>>>>>> Stashed changes
 
 ## 2026-09-30 18:53 UTC
 - 2026-09-30 00:00 · satisfying · 60s · satisfying_809288.mp4 · نُشر: https://youtu.be/LPCb7Hr4qTI
->>>>>>> Stashed changes
 
 ## 2026-09-30 19:53 UTC
 - 2026-09-30 01:00 · story · 2m · lazo_space_full.mp4 · نُشر: https://youtu.be/MPa2xe2PXvE
->>>>>>> Stashed changes
 
 ## 2026-09-30 20:55 UTC
 - 2026-09-30 00:00 · satisfying · 60s · satisfying_809288.mp4 · نُشر: https://youtu.be/T4KC2EuGzOs
