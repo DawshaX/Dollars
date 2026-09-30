@@ -20697,6 +20697,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "rq5dC1nVj7M",
+      "url": "https://youtu.be/rq5dC1nVj7M",
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "published_at": "2026-09-30T05:55:48.857779+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
