@@ -595,6 +595,18 @@
       "name": "Zibi",
       "type": "روبوت ورق",
       "origin": "auto"
+    },
+    {
+      "id": "shuzo_auto",
+      "name": "Shuzo",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "rishi_auto",
+      "name": "Rishi",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
