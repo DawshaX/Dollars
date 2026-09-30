@@ -1,46 +1,6 @@
 {
   "videos": [
     {
-      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "features": {
-        "pillar": "satisfying",
-        "kind": "short",
-        "kw": "Kinetic Sand",
-        "genre": "satisfying",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false
-      },
-      "video_id": "4Ljyc_-esyk",
-      "published_at": "2026-09-27T12:20:57.179407+00:00"
-    },
-    {
-      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "features": {
-        "pillar": "focus",
-        "kind": "long",
-        "kw": "Sleep Sounds",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false
-      },
-      "video_id": "e2fFfQQDyZY",
-      "published_at": "2026-09-27T12:31:18.876911+00:00"
-    },
-    {
       "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
       "views": 0,
       "likes": 0,
@@ -810,7 +770,7 @@
     },
     {
       "title": "Earth From Orbit — a slow look at the universe (60 seconds) #shorts",
-      "views": 12,
+      "views": 13,
       "likes": 0,
       "comments": 0,
       "features": {
@@ -1312,6 +1272,127 @@
       },
       "video_id": "E2VlV7i_o3Q",
       "published_at": "2026-09-30T18:33:17.208645+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "2MjnP1-3e9I",
+      "published_at": "2026-09-30T20:16:08.466508+00:00"
+    },
+    {
+      "title": "Kinetic sand videos — oddly satisfying (30s) #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic sand videos",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "ZMUZgYo_NEE",
+      "published_at": "2026-09-30T21:05:48.419655+00:00"
+    },
+    {
+      "title": "Kinetic Sand — oddly satisfying (45s) #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic Sand",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false
+      },
+      "video_id": "4Ljyc_-esyk",
+      "published_at": "2026-09-27T12:20:57.179407+00:00"
+    },
+    {
+      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false
+      },
+      "video_id": "e2fFfQQDyZY",
+      "published_at": "2026-09-27T12:31:18.876911+00:00"
+    },
+    {
+      "title": "Earth From Orbit — a slow look at the universe (60 seconds) #shorts",
+      "views": 12,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Earth From Orbit",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "qFdct5kD2nk",
+      "published_at": "2026-09-29T03:46:59.522723+00:00"
     },
     {
       "title": "Kinetic Sand — oddly satisfying (15s) #shorts",
@@ -3707,9 +3788,9 @@
   "channel": {
     "title": "xDaw NoVa",
     "subs": 43,
-    "views": 326308,
-    "videos": 435
+    "views": 326357,
+    "videos": 442
   },
-  "synced_at": "2026-09-30T18:36:47.960402+00:00",
-  "views_gained": 56
+  "synced_at": "2026-09-30T22:39:43.869928+00:00",
+  "views_gained": 57
 }
