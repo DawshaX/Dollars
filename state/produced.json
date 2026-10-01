@@ -1364,19 +1364,34 @@
       "reason": null,
       "seconds_spent": 1142.7,
       "at": "2026-10-01T18:46:07.241677+00:00"
+    },
+    {
+      "date": "2026-10-01",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "2m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-01_05/nono_rain_full.mp4",
+      "title": "Nono and the rain that would not stop — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/nI72C8sX7To",
+      "reason": null,
+      "seconds_spent": 284.1,
+      "at": "2026-10-01T21:23:39.151102+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
       "sleep": 1,
       "satisfying": 4,
-      "story": 10,
+      "story": 11,
       "focus": 1
     }
   },
   "created": null,
-  "updated": "2026-10-01T19:05:24.114868+00:00"
+  "updated": "2026-10-01T21:24:27.869130+00:00"
 }
