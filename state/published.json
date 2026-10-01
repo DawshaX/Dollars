@@ -28610,6 +28610,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "CwMQVYQ_nU8",
+      "url": "https://youtu.be/CwMQVYQ_nU8",
+      "title": "Sleep in Minutes: Lake at Dusk Sounds for 90 seconds #shorts",
+      "published_at": "2026-10-01T01:03:32.294688+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Lake at Dusk Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
     }
   ]
 }

@@ -1184,19 +1184,34 @@
       "reason": null,
       "seconds_spent": 334.6,
       "at": "2026-09-30T23:51:41.250223+00:00"
+    },
+    {
+      "date": "2026-10-01",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "90s",
+      "scene": "photo:Lake at Dusk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-01_00/sleep_ambience_569416.mp4",
+      "title": "Sleep in Minutes: Lake at Dusk Sounds for 90 seconds #shorts",
+      "published": true,
+      "url": "https://youtu.be/CwMQVYQ_nU8",
+      "reason": null,
+      "seconds_spent": 817.2,
+      "at": "2026-10-01T01:02:49.095451+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
       "satisfying": 1,
-      "sleep": 4,
+      "sleep": 5,
       "story": 7,
       "focus": 1
     }
   },
   "created": null,
-  "updated": "2026-09-30T23:53:19.172440+00:00"
+  "updated": "2026-10-01T01:03:32.721907+00:00"
 }
