@@ -1229,19 +1229,34 @@
       "reason": null,
       "seconds_spent": 345.8,
       "at": "2026-10-01T02:34:32.860001+00:00"
+    },
+    {
+      "date": "2026-10-01",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Tornado Alley Skies",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-01_01/space_nature_855229.mp4",
+      "title": "The Real Tornado Alley Skies in Motion | 60 seconds #shorts",
+      "published": true,
+      "url": "https://youtu.be/dzv0GAqy8G8",
+      "reason": null,
+      "seconds_spent": 537.2,
+      "at": "2026-10-01T05:52:10.524261+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
-      "sleep": 1,
+      "sleep": 2,
       "satisfying": 1,
       "story": 8,
       "focus": 1
     }
   },
   "created": null,
-  "updated": "2026-10-01T02:20:23.295835+00:00"
+  "updated": "2026-10-01T05:52:31.914643+00:00"
 }
