@@ -607,6 +607,18 @@
       "name": "Rishi",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "wazo_auto",
+      "name": "Wazo",
+      "type": "حجر ودود",
+      "origin": "auto"
+    },
+    {
+      "id": "peva_auto",
+      "name": "Peva",
+      "type": "حجر ودود",
+      "origin": "auto"
     }
   ],
   "stories": [

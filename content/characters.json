@@ -540,6 +540,46 @@
       "origin": "auto",
       "created": "2026-09-30T10:38:37.615038+00:00",
       "image_prompt": "cute original 2D animation character, a small clay creature, طين ناعم + عينين كبيرتين, city_night background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "wazo_auto",
+      "name": "Wazo",
+      "type": "حجر ودود",
+      "look": "حجر أملس + وجه بسيط — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيحب النجوم",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "snow",
+        "garden"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-01T11:06:06.173316+00:00",
+      "image_prompt": "cute original 2D animation character, a friendly stone, حجر أملس + وجه بسيط, snow background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "peva_auto",
+      "name": "Peva",
+      "type": "حجر ودود",
+      "look": "حجر أملس + وجه بسيط — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيحب النجوم",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "snow"
+      ],
+      "formats": [
+        "silent_gag",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-01T11:06:06.205220+00:00",
+      "image_prompt": "cute original 2D animation character, a friendly stone, حجر أملس + وجه بسيط, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -549,5 +589,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 24
+  "_auto_count": 26
 }
