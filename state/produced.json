@@ -1409,6 +1409,21 @@
       "reason": null,
       "seconds_spent": 1508.5,
       "at": "2026-10-01T23:12:33.975835+00:00"
+    },
+    {
+      "date": "2026-10-01",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:Kinetic sand satisfying close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-01_06/satisfying_564439.mp4",
+      "title": "Kinetic sand satisfying video — oddly satisfying (60s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/iIXqTbAbzzs",
+      "reason": null,
+      "seconds_spent": 350.6,
+      "at": "2026-10-01T23:13:53.711965+00:00"
     }
   ],
   "stats": {
