@@ -1,7 +1,7 @@
 {
+  "seen": [],
   "sig": [
     {
-<<<<<<< Updated upstream
       "genre": "calm_wellness",
       "scene": "aurora",
       "palette": "aurora",
@@ -57,8 +57,6 @@
       "hour": 12
     },
     {
-=======
->>>>>>> Stashed changes
       "genre": "sleep_ambience",
       "scene": "beach_night",
       "palette": "warm_ember",
@@ -70,7 +68,6 @@
       "hour": 0
     },
     {
-<<<<<<< Updated upstream
       "genre": "story",
       "scene": "story_harbor",
       "palette": "story_dusk",
@@ -1314,8 +1311,6 @@
       "hour": 6
     },
     {
-=======
->>>>>>> Stashed changes
       "genre": "space_nature",
       "scene": "aurora",
       "palette": "aurora",
@@ -1325,7 +1320,6 @@
       "title_shape": "W W W W W W W | W W #W",
       "mark": "Tornado Alley Skies",
       "hour": 1
-<<<<<<< Updated upstream
     },
     {
       "genre": "sleep_ambience",
@@ -1931,8 +1925,6 @@
       "title_shape": "W W W W W W W W W | W W",
       "mark": "The Grand Canyon at Dawn",
       "hour": 22
-=======
->>>>>>> Stashed changes
     }
   ]
 }
