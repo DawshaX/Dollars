@@ -1,31 +1,6 @@
 {
   "videos": [
     {
-      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
-      "views": 1,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "focus",
-        "kind": "long",
-        "kw": "Sleep Sounds",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "W0lUnUOiH0M",
-      "published_at": "2026-09-27T17:17:20.031677+00:00"
-    },
-    {
       "title": "Bomi and a spark that got lost — a wordless story #shorts",
       "views": 2,
       "likes": 0,
@@ -619,7 +594,7 @@
     },
     {
       "title": "Earth From Orbit — a slow look at the universe (60 seconds) #shorts",
-      "views": 16,
+      "views": 18,
       "likes": 0,
       "comments": 0,
       "features": {
@@ -1339,6 +1314,87 @@
       },
       "video_id": "vQKhAXhxG9w",
       "published_at": "2026-10-01T09:19:23.850342+00:00"
+    },
+    {
+      "title": "Oddly satisfying video that makes you sleepy — oddly satisfying (60s) #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Oddly satisfying video that makes you sleepy",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "9ICLD20Ur3Q",
+      "published_at": "2026-10-01T13:10:48.915771+00:00"
+    },
+    {
+      "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
+      "views": 1,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "W0lUnUOiH0M",
+      "published_at": "2026-09-27T17:17:20.031677+00:00"
+    },
+    {
+      "title": "Earth From Orbit — a slow look at the universe (60 seconds) #shorts",
+      "views": 16,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Earth From Orbit",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "qFdct5kD2nk",
+      "published_at": "2026-09-29T03:46:59.522723+00:00"
     },
     {
       "title": "When the Wi-Fi dies… #funny #shorts",
@@ -4150,8 +4206,8 @@
     "title": "xDaw NoVa",
     "subs": 43,
     "views": 326395,
-    "videos": 460
+    "videos": 464
   },
-  "synced_at": "2026-10-01T11:06:13.062416+00:00",
-  "views_gained": 0
+  "synced_at": "2026-10-01T15:44:00.336807+00:00",
+  "views_gained": 56
 }
