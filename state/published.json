@@ -36968,6 +36968,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "v7hrcrSJxCA",
+      "url": "https://youtu.be/v7hrcrSJxCA",
+      "title": "When the printer jams… #funny #shorts",
+      "published_at": "2026-10-02T05:30:29.811628+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "the printer jams",
+        "genre": "fun_memes",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Fun & Memes"
     }
   ]
 }
