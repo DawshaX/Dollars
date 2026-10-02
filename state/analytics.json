@@ -1,37 +1,6 @@
 {
   "videos": [
     {
-      "title": "Kinetic sand videos — oddly satisfying (60s) #shorts",
-      "views": 2,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "satisfying",
-        "kind": "short",
-        "kw": "Kinetic sand videos",
-        "genre": "satisfying",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "video_id": "xK-5kWVeBG4",
-      "published_at": "2026-09-28T12:40:44.206594+00:00"
-    },
-    {
       "title": "Koko and the first snowflake of winter — a wordless story #shorts",
       "views": 2,
       "likes": 0,
@@ -482,7 +451,7 @@
     },
     {
       "title": "G11c54nbdjs for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
-      "views": 6,
+      "views": 7,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -750,7 +719,7 @@
     },
     {
       "title": "Kinetic sand videos — oddly satisfying (30s) #shorts",
-      "views": 0,
+      "views": 1,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -943,7 +912,7 @@
     },
     {
       "title": "Oddly satisfying video that makes you sleepy — oddly satisfying (60s) #shorts",
-      "views": 2,
+      "views": 3,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1351,6 +1320,161 @@
       },
       "video_id": "jQeQE0GGuXY",
       "published_at": "2026-10-02T18:20:17.645798+00:00"
+    },
+    {
+      "title": "Kinetic sand commercial — oddly satisfying (15s) #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic sand commercial",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "he3QHJpRpQw",
+      "published_at": "2026-10-02T19:35:09.369357+00:00"
+    },
+    {
+      "title": "Kinetic sand videos — oddly satisfying (60s) #shorts",
+      "views": 2,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic sand videos",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "xK-5kWVeBG4",
+      "published_at": "2026-09-28T12:40:44.206594+00:00"
+    },
+    {
+      "title": "G11c54nbdjs for Sleeping | 60 seconds Black Screen | Deep Sleep, Insomnia Relief #shorts",
+      "views": 6,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "G11c54nbdjs",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "xY1EuYKPSgo",
+      "published_at": "2026-09-29T19:49:11.932107+00:00"
+    },
+    {
+      "title": "Kinetic sand videos — oddly satisfying (30s) #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic sand videos",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "ZMUZgYo_NEE",
+      "published_at": "2026-09-30T21:05:48.419655+00:00"
+    },
+    {
+      "title": "Oddly satisfying video that makes you sleepy — oddly satisfying (60s) #shorts",
+      "views": 2,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Oddly satisfying video that makes you sleepy",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "9ICLD20Ur3Q",
+      "published_at": "2026-10-01T13:10:48.915771+00:00"
     },
     {
       "title": "Wind and Pages • 60 seconds • Concentration & Calm #shorts",
@@ -4698,8 +4822,8 @@
     "title": "xDaw NoVa",
     "subs": 43,
     "views": 326529,
-    "videos": 501
+    "videos": 507
   },
-  "synced_at": "2026-10-02T18:44:31.805720+00:00",
-  "views_gained": 53
+  "synced_at": "2026-10-02T22:37:13.682387+00:00",
+  "views_gained": 54
 }
