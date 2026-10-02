@@ -619,6 +619,18 @@
       "name": "Peva",
       "type": "حجر ودود",
       "origin": "auto"
+    },
+    {
+      "id": "riri_auto",
+      "name": "Riri",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "nata_auto",
+      "name": "Nata",
+      "type": "روبوت ورق",
+      "origin": "auto"
     }
   ],
   "stories": [
