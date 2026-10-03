@@ -1,6 +1,4 @@
 {
-<<<<<<< Updated upstream
-  "index": 77,
   "used": [
     0,
     1,
@@ -80,6 +78,7 @@
     75,
     76
   ],
+  "index": 77,
   "by_pillar": {
     "story": 3,
     "satisfying": 3,
@@ -87,15 +86,3 @@
     "sleep": 7
   }
 }
-=======
- "index": 2,
- "used": [
-  0,
-  1
- ],
- "by_pillar": {
-  "story": 1,
-  "satisfying": 1
- }
-}
->>>>>>> Stashed changes
