@@ -1949,19 +1949,34 @@
       "reason": null,
       "seconds_spent": 337.4,
       "at": "2026-10-03T16:15:30.617597+00:00"
+    },
+    {
+      "date": "2026-10-03",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Kinetic sand for kids close up",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-03_04/satisfying_269700.mp4",
+      "title": "Kinetic sand for kids — oddly satisfying (30s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/EQFDqHydYAg",
+      "reason": null,
+      "seconds_spent": 213.6,
+      "at": "2026-10-03T17:58:07.467349+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
       "story": 2,
-      "satisfying": 1,
+      "satisfying": 2,
       "focus": 1,
       "sleep": 7
     }
   },
   "created": null,
-  "updated": "2026-10-03T16:16:21.453982+00:00"
+  "updated": "2026-10-03T17:58:53.077667+00:00"
 }
