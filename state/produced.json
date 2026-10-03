@@ -1889,19 +1889,34 @@
       "reason": null,
       "seconds_spent": 247.3,
       "at": "2026-10-03T12:09:14.296228+00:00"
+    },
+    {
+      "date": "2026-10-03",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "photo:Kinetic sand asmr close up texture",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-03_03/satisfying_509718.mp4",
+      "title": "Kinetic sand asmr — oddly satisfying (15s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/q7rJpxvR_eU",
+      "reason": null,
+      "seconds_spent": 276.2,
+      "at": "2026-10-03T13:25:15.955219+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 1,
+      "satisfying": 2,
       "focus": 1,
       "story": 4,
       "sleep": 7
     }
   },
   "created": null,
-  "updated": "2026-10-03T12:12:06.068198+00:00"
+  "updated": "2026-10-03T13:26:02.188549+00:00"
 }
