@@ -1754,19 +1754,34 @@
       "reason": null,
       "seconds_spent": 244.9,
       "at": "2026-10-03T01:32:39.983140+00:00"
+    },
+    {
+      "date": "2026-10-03",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "20s",
+      "scene": "photo:Ice Crushing",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-03_00/satisfying_798674.mp4",
+      "title": "Ice Crushing — oddly satisfying (20s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/NZa5ErBj_6w",
+      "reason": null,
+      "seconds_spent": 247.3,
+      "at": "2026-10-03T02:23:19.766209+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 1,
+      "satisfying": 2,
       "focus": 1,
       "story": 2,
       "sleep": 5
     }
   },
   "created": null,
-  "updated": "2026-10-03T01:32:50.236152+00:00"
+  "updated": "2026-10-03T02:23:59.465522+00:00"
 }
