@@ -631,6 +631,18 @@
       "name": "Nata",
       "type": "روبوت ورق",
       "origin": "auto"
+    },
+    {
+      "id": "kimi_auto",
+      "name": "Kimi",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
+    },
+    {
+      "id": "wava_auto",
+      "name": "Wava",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
