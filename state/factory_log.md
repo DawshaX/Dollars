@@ -505,37 +505,8 @@
 ## 2026-10-02 23:10 UTC
 - 2026-10-02 00:00 · satisfying · 60s · satisfying_116450.mp4 · نُشر: https://youtu.be/FSGezr1pJUE
 
-<<<<<<< Updated upstream
-## 2026-10-03 01:32 UTC
-- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/FaTD8Bht0dE
-
-## 2026-10-03 01:54 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 22 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-10-03 02:23 UTC
-- 2026-10-03 00:00 · satisfying · 20s · satisfying_798674.mp4 · نُشر: https://youtu.be/NZa5ErBj_6w
-=======
-=======
-## 2026-10-02 23:22 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 12 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-
-## 2026-10-02 23:34 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 24 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-
-## 2026-10-02 23:46 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 36 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-
-## 2026-10-03 00:03 UTC
-- 2026-10-02 07:00 · satisfying · 45s · satisfying_243564.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
-
-## 2026-10-03 01:02 UTC
-- 2026-10-03 00:00 · satisfying · 20s · satisfying_798674.mp4 · نُشر: https://youtu.be/IweQKD5CSes
->>>>>>> Stashed changes
-
 ## 2026-10-03 02:01 UTC
 - 2026-10-03 00:00 · satisfying · 20s · satisfying_798674.mp4 · نُشر: https://youtu.be/Fo93bnV1rYI
->>>>>>> Stashed changes
 
 ## 2026-10-03 02:59 UTC
 - 2026-10-03 00:00 · satisfying · 20s · satisfying_798674.mp4 · نُشر: https://youtu.be/WE0VDL3mCeg
