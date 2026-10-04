@@ -58495,6 +58495,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "dO9BMsCu0ug",
+      "url": "https://youtu.be/dO9BMsCu0ug",
+      "title": "Rain on Window for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published_at": "2026-10-04T17:12:18.532317+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "long",
+        "kw": "Rain on Window",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Rain"
     }
   ]
 }
