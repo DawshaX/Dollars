@@ -2204,19 +2204,34 @@
       "reason": null,
       "seconds_spent": 958.7,
       "at": "2026-10-04T17:09:14.604965+00:00"
+    },
+    {
+      "date": "2026-10-04",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Rock band night nature calm",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-04_03/sleep_ambience_134887.mp4",
+      "title": "Rock band for Sleeping | 60s Black Screen | Deep Sleep #shorts",
+      "published": true,
+      "url": "https://youtu.be/_PkjEh01Egg",
+      "reason": null,
+      "seconds_spent": 477.9,
+      "at": "2026-10-04T18:15:13.917039+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 2,
+    "total": 4,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "satisfying": 3,
       "story": 6,
-      "sleep": 10
+      "sleep": 11
     }
   },
   "created": null,
-  "updated": "2026-10-04T17:12:18.982228+00:00"
+  "updated": "2026-10-04T18:15:32.002021+00:00"
 }

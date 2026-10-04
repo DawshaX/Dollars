@@ -58523,6 +58523,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Rain"
+    },
+    {
+      "video_id": "_PkjEh01Egg",
+      "url": "https://youtu.be/_PkjEh01Egg",
+      "title": "Rock band for Sleeping | 60s Black Screen | Deep Sleep #shorts",
+      "published_at": "2026-10-04T18:15:31.602111+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Rock band",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
     }
   ]
 }
