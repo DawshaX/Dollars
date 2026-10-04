@@ -2264,19 +2264,34 @@
       "reason": null,
       "seconds_spent": 333.3,
       "at": "2026-10-04T21:27:01.340733+00:00"
+    },
+    {
+      "date": "2026-10-04",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Rock band night nature calm",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-04_05/sleep_ambience_94946.mp4",
+      "title": "Rock band • 60s • Fall Asleep Fast (No Music) #shorts",
+      "published": true,
+      "url": "https://youtu.be/pE5w0CqaaJA",
+      "reason": null,
+      "seconds_spent": 722.3,
+      "at": "2026-10-04T22:43:25.828582+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 2,
+    "total": 4,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "satisfying": 4,
       "story": 7,
-      "sleep": 11
+      "sleep": 12
     }
   },
   "created": null,
-  "updated": "2026-10-04T21:27:15.220383+00:00"
+  "updated": "2026-10-04T22:44:06.260975+00:00"
 }
