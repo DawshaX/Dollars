@@ -2039,19 +2039,34 @@
       "reason": null,
       "seconds_spent": 371.3,
       "at": "2026-10-03T22:22:05.835971+00:00"
+    },
+    {
+      "date": "2026-10-04",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "scene": "photo:Honey bee",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-04_00/facts_528742.mp4",
+      "title": "3 حقائق عن عسل النحل لا تعرفها #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 303.3,
+      "at": "2026-10-04T00:38:36.035314+00:00"
     }
   ],
   "stats": {
-    "total": 7,
+    "total": 8,
     "published": 7,
     "staged": 0,
     "by_pillar": {
       "story": 4,
-      "satisfying": 3,
+      "satisfying": 4,
       "focus": 1,
       "sleep": 7
     }
   },
   "created": null,
-  "updated": "2026-10-03T22:22:14.442803+00:00"
+  "updated": "2026-10-04T00:38:36.036216+00:00"
 }
