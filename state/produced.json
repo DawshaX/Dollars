@@ -2084,19 +2084,34 @@
       "reason": null,
       "seconds_spent": 360.1,
       "at": "2026-10-04T01:49:43.598744+00:00"
+    },
+    {
+      "date": "2026-10-04",
+      "hour": 3,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "3h",
+      "scene": "beach_night",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-04_03/beach_night_3h.mp4",
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "published": true,
+      "url": "https://youtu.be/OFqLnZfjBLE",
+      "reason": null,
+      "seconds_spent": 1388.6,
+      "at": "2026-10-04T06:23:16.133644+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 0,
+    "total": 2,
+    "published": 1,
     "staged": 0,
     "by_pillar": {
       "satisfying": 1,
       "story": 5,
       "focus": 1,
-      "sleep": 7
+      "sleep": 8
     }
   },
   "created": null,
-  "updated": "2026-10-04T02:43:38.810144+00:00"
+  "updated": "2026-10-04T06:25:20.534493+00:00"
 }
