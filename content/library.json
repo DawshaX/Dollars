@@ -643,6 +643,18 @@
       "name": "Wava",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "kiro_auto",
+      "name": "Kiro",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "riri_auto",
+      "name": "Riri",
+      "type": "حجر ودود",
+      "origin": "auto"
     }
   ],
   "stories": [
