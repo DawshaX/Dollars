@@ -2174,19 +2174,34 @@
       "reason": null,
       "seconds_spent": 1669.6,
       "at": "2026-10-04T13:00:53.395042+00:00"
+    },
+    {
+      "date": "2026-10-04",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "photo:colorful kinetic sand art pastel",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-04_02/satisfying_6961.mp4",
+      "title": "Kinetic sand that hits different (15s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/UHlBKT-iA3M",
+      "reason": null,
+      "seconds_spent": 159.0,
+      "at": "2026-10-04T15:01:05.163322+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 0,
+    "total": 2,
+    "published": 1,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
-      "satisfying": 2,
+      "satisfying": 3,
       "story": 6,
       "sleep": 9
     }
   },
   "created": null,
-  "updated": "2026-10-04T13:38:25.681637+00:00"
+  "updated": "2026-10-04T15:01:22.999606+00:00"
 }
