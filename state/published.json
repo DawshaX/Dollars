@@ -53692,6 +53692,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "E3ygmRmR8S8",
+      "url": "https://youtu.be/E3ygmRmR8S8",
+      "title": "Copper and Salt that hits different (20 seconds) #shorts",
+      "published_at": "2026-10-04T08:47:50.127529+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Copper and Salt",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Satisfying & ASMR"
     }
   ]
 }

@@ -1,17 +1,6 @@
 {
   "date": "2026-10-04",
   "units": {
-<<<<<<< Updated upstream
-    "1": 3200,
-=======
-<<<<<<< Updated upstream
-    "1": 1600,
->>>>>>> Stashed changes
-    "2": 1600
-=======
-    "1": 4800,
-    "2": 3200
->>>>>>> Stashed changes
-  },
-  "videos": []
+    "1": 1600
+  }
 }
