@@ -2099,19 +2099,34 @@
       "reason": null,
       "seconds_spent": 1388.6,
       "at": "2026-10-04T06:23:16.133644+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/9glvT9mPWp8",
+      "reason": null,
+      "seconds_spent": 413.1,
+      "at": "2026-10-04T07:31:35.549281+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 1,
+    "total": 3,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
       "satisfying": 1,
-      "story": 5,
+      "story": 6,
       "focus": 1,
       "sleep": 8
     }
   },
   "created": null,
-  "updated": "2026-10-04T06:25:20.534493+00:00"
+  "updated": "2026-10-04T07:31:46.375162+00:00"
 }
