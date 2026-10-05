@@ -2564,19 +2564,34 @@
       "reason": null,
       "seconds_spent": 369.8,
       "at": "2026-10-05T18:25:36.235286+00:00"
+    },
+    {
+      "date": "2026-10-05",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Musical artist rain window desk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-05_06/focus_study_195532.mp4",
+      "title": "Musical artist for Studying & Focus | 45 seconds | Deep Work, No Interruptions #shorts",
+      "published": true,
+      "url": "https://youtu.be/GAtX7ceF5RI",
+      "reason": null,
+      "seconds_spent": 405.1,
+      "at": "2026-10-05T22:41:31.478770+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
       "satisfying": 1,
       "sleep": 1,
-      "focus": 1,
+      "focus": 2,
       "story": 3
     }
   },
   "created": null,
-  "updated": "2026-10-05T18:26:26.353675+00:00"
+  "updated": "2026-10-05T22:42:01.942449+00:00"
 }
