@@ -1,81 +1,6 @@
 {
   "videos": [
     {
-      "title": "Fireplace Crackling for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
-      "views": 1,
-      "likes": 0,
-      "comments": 0,
-      "features": {
-        "pillar": "sleep",
-        "kind": "long",
-        "kw": "Fireplace Crackling",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "Q8Zgnwziz8o",
-      "published_at": "2026-10-02T22:45:48.687719+00:00"
-    },
-    {
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "ucr5NqYv568",
-      "published_at": "2026-10-02T22:40:13.655147+00:00"
-    },
-    {
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "FaTD8Bht0dE",
-      "published_at": "2026-10-03T01:32:49.094727+00:00"
-    },
-    {
       "title": "Ice Crushing — oddly satisfying (20s) #shorts",
       "views": 4,
       "likes": 0,
@@ -1192,7 +1117,7 @@
     },
     {
       "title": "Rock band • 60s • Fall Asleep Fast (No Music) #shorts",
-      "views": 3,
+      "views": 4,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1351,6 +1276,199 @@
       },
       "video_id": "FBH4ZjjW4RU",
       "published_at": "2026-10-05T15:31:56.387926+00:00"
+    },
+    {
+      "title": "Kinetic sand that hits different (30s) #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Kinetic sand",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "LRqRVxVF2Qc",
+      "published_at": "2026-10-05T17:27:13.832173+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "lj28hDqMrPs",
+      "published_at": "2026-10-05T18:26:25.077263+00:00"
+    },
+    {
+      "title": "Musical artist for Studying & Focus | 45 seconds | Deep Work, No Interruptions #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Musical artist",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "GAtX7ceF5RI",
+      "published_at": "2026-10-05T22:42:01.533635+00:00"
+    },
+    {
+      "title": "Fireplace Crackling for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "views": 1,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "sleep",
+        "kind": "long",
+        "kw": "Fireplace Crackling",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "Q8Zgnwziz8o",
+      "published_at": "2026-10-02T22:45:48.687719+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "ucr5NqYv568",
+      "published_at": "2026-10-02T22:40:13.655147+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "FaTD8Bht0dE",
+      "published_at": "2026-10-03T01:32:49.094727+00:00"
+    },
+    {
+      "title": "Rock band • 60s • Fall Asleep Fast (No Music) #shorts",
+      "views": 3,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Rock band",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "pE5w0CqaaJA",
+      "published_at": "2026-10-04T22:44:05.816914+00:00"
     },
     {
       "title": "Kinetic sand commercial — oddly satisfying (15s) #shorts",
@@ -5837,8 +5955,8 @@
     "title": "xDaw NoVa",
     "subs": 43,
     "views": 326801,
-    "videos": 588
+    "videos": 598
   },
-  "synced_at": "2026-10-05T16:26:29.594819+00:00",
+  "synced_at": "2026-10-05T22:56:21.259338+00:00",
   "views_gained": 31
 }

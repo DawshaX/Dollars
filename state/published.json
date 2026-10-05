@@ -123,6 +123,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "GAtX7ceF5RI",
+      "url": "https://youtu.be/GAtX7ceF5RI",
+      "title": "Musical artist for Studying & Focus | 45 seconds | Deep Work, No Interruptions #shorts",
+      "published_at": "2026-10-05T22:42:01.533635+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Musical artist",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
