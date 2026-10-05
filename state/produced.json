@@ -2414,19 +2414,34 @@
       "reason": null,
       "seconds_spent": 1659.4,
       "at": "2026-10-05T06:16:35.823870+00:00"
+    },
+    {
+      "date": "2026-10-05",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:the Wi-Fi dies",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-05_04/fun_memes_528431.mp4",
+      "title": "تموت شبكة Wi-Fi - لقد كنا جميعًا هناك #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 155.6,
+      "at": "2026-10-05T07:42:39.622886+00:00"
     }
   ],
   "stats": {
-    "total": 4,
+    "total": 5,
     "published": 2,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "story": 1,
-      "satisfying": 1,
+      "satisfying": 2,
       "sleep": 1
     }
   },
   "created": null,
-  "updated": "2026-10-05T05:54:02.423445+00:00"
+  "updated": "2026-10-05T07:42:39.623821+00:00"
 }
