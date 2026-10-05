@@ -2294,19 +2294,34 @@
       "reason": null,
       "seconds_spent": 367.9,
       "at": "2026-10-04T23:32:32.142155+00:00"
+    },
+    {
+      "date": "2026-10-05",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Two Minutes of Calm",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-05_00/calm_wellness_597886.mp4",
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts",
+      "published": true,
+      "url": "https://youtu.be/tNeULADrIPA",
+      "reason": null,
+      "seconds_spent": 275.3,
+      "at": "2026-10-05T00:56:32.277746+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 4,
+    "total": 6,
+    "published": 5,
     "staged": 0,
     "by_pillar": {
-      "focus": 1,
+      "focus": 2,
       "satisfying": 4,
       "story": 8,
       "sleep": 12
     }
   },
   "created": null,
-  "updated": "2026-10-04T23:33:08.444332+00:00"
+  "updated": "2026-10-05T00:57:23.237013+00:00"
 }

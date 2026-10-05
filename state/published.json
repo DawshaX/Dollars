@@ -61859,6 +61859,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "tNeULADrIPA",
+      "url": "https://youtu.be/tNeULADrIPA",
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts",
+      "published_at": "2026-10-05T00:57:22.710803+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Two Minutes of Calm",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
