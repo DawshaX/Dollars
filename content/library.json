@@ -655,6 +655,18 @@
       "name": "Riri",
       "type": "حجر ودود",
       "origin": "auto"
+    },
+    {
+      "id": "zibi_auto",
+      "name": "Zibi",
+      "type": "سمكة نجمية",
+      "origin": "auto"
+    },
+    {
+      "id": "tava_auto",
+      "name": "Tava",
+      "type": "كائن ضبابي",
+      "origin": "auto"
     }
   ],
   "stories": [
