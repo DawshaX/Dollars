@@ -65161,6 +65161,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "oa3xqEgl0rs",
+      "url": "https://youtu.be/oa3xqEgl0rs",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published_at": "2026-10-05T09:02:16.317587+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Wordless Stories"
     }
   ]
 }
