@@ -2339,19 +2339,34 @@
       "reason": null,
       "seconds_spent": 255.4,
       "at": "2026-10-05T02:14:36.228510+00:00"
+    },
+    {
+      "date": "2026-10-05",
+      "hour": 3,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "3h",
+      "scene": "valley_lake",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-05_03/valley_lake_3h.mp4",
+      "title": "Night Lake Ambience for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": true,
+      "url": "https://youtu.be/wOZXuTqELwA",
+      "reason": null,
+      "seconds_spent": 1659.4,
+      "at": "2026-10-05T06:16:35.823870+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "satisfying": 4,
       "story": 9,
-      "sleep": 12
+      "sleep": 13
     }
   },
   "created": null,
-  "updated": "2026-10-05T02:14:46.183339+00:00"
+  "updated": "2026-10-05T06:20:48.104797+00:00"
 }
