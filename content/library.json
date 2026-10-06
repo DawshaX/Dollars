@@ -667,6 +667,18 @@
       "name": "Tava",
       "type": "كائن ضبابي",
       "origin": "auto"
+    },
+    {
+      "id": "shupo_auto",
+      "name": "Shupo",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "dumi_auto",
+      "name": "Dumi",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
