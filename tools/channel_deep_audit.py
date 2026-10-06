@@ -43,10 +43,19 @@ def _secs(iso: str) -> int:
     return int(m.group(1) or 0) * 3600 + int(m.group(2) or 0) * 60 + int(m.group(3) or 0)
 
 
-def collect(max_videos: int = 600) -> dict:
+# 🏭 قنوات المصانع: الدولارز (قناتنا) + نور الإسلامية (مصنع XTreNDAW)
+CHANNELS = [
+    ("الدولارز — xDaw NoVa", ""),                       # فارغ = قناتنا المربوطة بالتوكن
+    ("نور — XTreNDAW ShOrts", "UC2PCynDtd_wtPrgoAuqH6yw"),
+]
+
+
+def collect(max_videos: int = 600, channel_id: str = "") -> dict:
     from engine import publish
     token = publish.access_token()
-    ch = api("https://www.googleapis.com/youtube/v3/channels?part=contentDetails,statistics,snippet&mine=true", token)
+    u = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails,statistics,snippet"
+    u += f"&id={channel_id}" if channel_id else "&mine=true"
+    ch = api(u, token)
     it = (ch.get("items") or [{}])[0]
     upl = ((it.get("contentDetails") or {}).get("relatedPlaylists") or {}).get("uploads", "")
     # كل الفيديوهات (playlistItems ٥٠ لكل صفحة)
@@ -200,6 +209,40 @@ def report(a: dict) -> str:
 
 
 def main() -> int:
+    import os
+    only = (os.environ.get("DOLLARS_AUDIT_CHANNEL") or "").strip()
+    parts = []
+    for name, cid in CHANNELS:
+        if only and cid != only:
+            continue
+        try:
+            a = analyze(collect(channel_id=cid))
+            a["channel"]["label"] = name
+            parts.append(a)
+            print(report(a)); print()
+        except Exception as e:
+            print(f"⚠️ قناة {name}: اتعذّر ({type(e).__name__}: {str(e)[:80]})")
+    if not parts:
+        print("مفيش قنوات اتفحصت")
+        return 1
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps({"channels": parts}, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"💾 اتحفظ: {OUT}")
+    if "--telegram" in sys.argv:
+        try:
+            from engine import publish
+            msg = "🔍 تشريح المصانع (أرقام حقيقية)\n" + "\n".join(
+                f"• {a['channel'].get('label')}: {a['channel']['subs']} مشترك · "
+                f"آخر ٧ أيام {a['last_7d']['n']} فيديو ⇒ {a['last_7d']['views']} مشاهدة"
+                for a in parts)
+            ok = publish.notify(msg)
+            print("📨 تليجرام:", "اتبعت ✅" if ok else "مش مفعّل")
+        except Exception as e:
+            print("📨 تليجرام اتعذّر:", type(e).__name__)
+    return 0
+
+
+def _old_main() -> int:
     data = collect()
     a = analyze(data)
     OUT.parent.mkdir(parents=True, exist_ok=True)
