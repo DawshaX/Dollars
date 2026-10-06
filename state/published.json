@@ -75243,6 +75243,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "C1Fhny38PPM",
+      "url": "https://youtu.be/C1Fhny38PPM",
+      "title": "Paper Man and a lantern that went out — a wordless story #shorts",
+      "published_at": "2026-10-06T17:29:22.471922+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "The Paper Man and the Lantern — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Wordless Stories"
     }
   ]
 }
