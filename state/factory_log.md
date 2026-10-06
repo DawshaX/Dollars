@@ -694,30 +694,8 @@
 ## 2026-10-05 22:29 UTC
 - 2026-10-05 03:00 · story · 4m · paper_man_help_full.mp4 · نُشر: https://youtu.be/nOZ2cl7MJ2g
 
-<<<<<<< Updated upstream
-## 2026-10-05 23:21 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 40 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-<<<<<<< Updated upstream
-
-## 2026-10-06 00:18 UTC
-- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/91vVnJde8lA
-<<<<<<< Updated upstream
-
-## 2026-10-06 03:02 UTC
-- 2026-10-06 00:00 · satisfying · 60s · facts_992715.mp4 · نُشر: https://youtu.be/4TXEXh8erhM
-
-## 2026-10-06 03:19 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 17 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-=======
-=======
-=======
-## 2026-10-05 23:14 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 33 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
->>>>>>> Stashed changes
-
 ## 2026-10-05 23:44 UTC
 - 2026-10-05 07:00 · sleep · 60s · sleep_ambience_306060.mp4 · نُشر: https://youtu.be/vMoXOaqJrs4
->>>>>>> Stashed changes
 
 ## 2026-10-06 00:47 UTC
 - 2026-10-06 00:00 · satisfying · 60s · facts_992715.mp4 · نُشر: https://youtu.be/jqViXujCnIs
@@ -727,7 +705,6 @@
 
 ## 2026-10-06 02:57 UTC
 - 2026-10-06 02:00 · focus · 60s · focus_study_68876.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
->>>>>>> Stashed changes
 
 ## 2026-10-06 04:00 UTC
 - 2026-10-06 00:00 · satisfying · 60s · facts_992715.mp4 · نُشر: https://youtu.be/x3C6kBwatZo
