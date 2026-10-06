@@ -1,6 +1,74 @@
 {
   "videos": [
     {
+      "video_id": "6yZ4UqNb7VE",
+      "url": "https://youtu.be/6yZ4UqNb7VE",
+      "title": "3 Facts About Rainforest You Didn't Know #shorts",
+      "published_at": "2026-10-06T07:02:46.301573+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Amazing facts latino",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Facts & Science"
+    },
+    {
+      "video_id": "e3xSNEYilDI",
+      "url": "https://youtu.be/e3xSNEYilDI",
+      "title": "Sahara Dunes at Sunset — a slow look at the universe (45 seconds) #shorts",
+      "published_at": "2026-10-06T08:06:48.141125+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Sahara Dunes at Sunset",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
+    },
+    {
       "video_id": "x3C6kBwatZo",
       "url": "https://youtu.be/x3C6kBwatZo",
       "title": "3 Facts About Rainforest You Didn't Know #shorts",
