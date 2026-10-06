@@ -240,16 +240,30 @@ def _slot(hour: int, at: str, kind: str, gid: str, rng: random.Random) -> dict:
     return {"hour": hour, "at": at, "kind": kind, "idea": idea, "seed": seed}
 
 
-def build_day(date_str: str | None = None, shorts: int = 24, longs: tuple = (3, 8, 10, 12),
+def build_day(date_str: str | None = None, shorts: int = 4, longs: tuple = (3,),
               write: bool = True, state_dir=None) -> dict:
-    """خطة اليوم: شورت كل ساعة (بنوع مناسب للوقت) + الطويلة + حكاية."""
+    """خطة اليوم: **٤ شورتس في مواعيد الذروة** + طويل (كل كام يوم).
+
+    ليه ٤ بس؟ لأن الأرقام على قناتنا: ٣٠+ فيديو في اليوم = مشاهدات أقل من أيام
+    كنا بننشر ٢-٣. يوتيوب بيعامل الحجم العالي جدًا كسبام ومابيوزّعش توصيات.
+        DOLLARS_PUB_HOURS = «16,19,21,23» (افتراضي) — مواعيد الذروة بالـUTC
+    """
     date_str = date_str or date.today().isoformat()
     rng = random.Random(f"studio|{date_str}")
     slots: list[dict] = []
 
-    # ٢٤ شورت — ساعة ورا ساعة، والنوع بيتغيّر حسب وقت الجمهور
-    hours = list(range(24))
-    for h in hours:
+    import os as _os
+    _raw = (_os.environ.get("DOLLARS_PUB_HOURS") or "16,19,21,23")
+    hours = []
+    for _x in _raw.split(","):
+        try:
+            _h = int(_x.strip())
+        except Exception:
+            continue
+        if 0 <= _h <= 23 and _h not in hours:
+            hours.append(_h)
+    hours = sorted(hours)[:max(1, shorts)] or [16, 19, 21, 23]
+    for h in hours:                      # النوع بيتغيّر حسب وقت الجمهور (من غير كميات)
         gid = genres.weighted_pick(h, rng)
         at = f"{date_str}T{h:02d}:00:00Z"
         slots.append(_slot(h, at, "short", gid, rng))

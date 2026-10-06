@@ -15,7 +15,7 @@ on:
       every_min:
         description: "⏱️ كل كام دقيقة ينشر (55 = كل ساعة · 120 = كل ساعتين)"
         required: false
-        default: "55"
+        default: "240"      # ⏱️ كل ٤ ساعات (النشر بقى بنظام المواعيد)
 permissions:
   contents: write
   issues: write
@@ -65,7 +65,9 @@ jobs:
           DOLLARS_EVERY_MIN: ${{ github.event.inputs.every_min || 55 }}
           DOLLARS_SYNC: '1'
           DOLLARS_CATCHUP_MAX: '1'      # 🚦 دفع هادي: ممنوع دفع جماعي (كان بيدفن القناة)
-          DOLLARS_SLOTS_PER_HOUR: '1'   # ⏰ ساعة/ساعة بالظبط (كانت الخطة ٨ في الساعة)
+          DOLLARS_SLOTS_PER_HOUR: '1'
+          DOLLARS_DAILY_CAP: '4'         # 📅 ٤ فيديوهات في اليوم بالكتير
+          DOLLARS_GATE_MIN: '150'        # ⏳ مسافة ساعتين ونص بين النشرات
           DOLLARS_LOCALES: ${{ vars.DOLLARS_LOCALES || 'ar,es,pt,hi,id' }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY || secrets.GROQ_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
@@ -75,7 +77,7 @@ jobs:
           python engine/factory.py --shift \
             --hours "${{ github.event.inputs.hours || 5 }}" \
             --per-hour "${{ github.event.inputs.per_hour || 1 }}" \
-            --every-min "${{ github.event.inputs.every_min || 55 }}"
+            --every-min "${{ github.event.inputs.every_min || 240 }}"
       - name: حفظ الفيديوهات كأرشيف (٣ أيام)
         if: always()
         uses: actions/upload-artifact@v4

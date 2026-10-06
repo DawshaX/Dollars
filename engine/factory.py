@@ -769,6 +769,81 @@ def produce(slot: dict, out_dir=None, seed: int | None = None) -> dict:
 QUOTA_WORDS = ("quota", "exceeded", "rateLimit", "dailyLimit", "uploadLimit", "too many requests")
 
 
+def daily_published(now=None) -> int:
+    """كام فيديو **فريد** اتنشر النهاردة (UTC) — من سجل النشر الحقيقي."""
+    now = now or datetime.now(timezone.utc)
+    try:
+        pub = (_jload(STATE / "published.json", {}) or {}).get("videos", []) or []
+    except Exception:
+        return 0
+    today = now.date().isoformat()
+    ids = set()
+    for v in pub:
+        if str(v.get("published_at") or "")[:10] == today and v.get("video_id"):
+            ids.add(v["video_id"])
+    return len(ids)
+
+
+def daily_cap() -> int:
+    """📅 سقف النشر اليومي (النية: ٤–٥ فيديوهات في اليوم — مش ٣٠).
+
+    الأرقام بتقول الحقيقة: القناة كانت بتنشر ٣٠+ فيديو في اليوم وبتاخد مشاهدات أقل
+    من أيام كانت بتنشر ٢-٣. الإيقاع العالي = سبام عند يوتيوب = صفر توصيات.
+    """
+    try:
+        return max(0, int(os.environ.get("DOLLARS_DAILY_CAP") or 4))
+    except Exception:
+        return 4
+
+
+def schedule_hours() -> list[int]:
+    """⏰ ساعات النشر في اليوم (افتراضي: مواعيد الذروة — ١٦ و ١٩ و ٢١ و ٢٣ بتوقيت UTC)."""
+    raw = (os.environ.get("DOLLARS_PUB_HOURS") or "16,19,21,23").strip()
+    out = []
+    for x in raw.split(","):
+        try:
+            h = int(x.strip())
+        except Exception:
+            continue
+        if 0 <= h <= 23 and h not in out:
+            out.append(h)
+    return sorted(out) or [16, 19, 21, 23]
+
+
+def schedule_gate() -> dict:
+    """🚦 بوابة الجدول اليومي: سقف يومي + مسافة دقايق + الساعات المسموحة.
+
+    القاعدة اللي بنحترمها: **كل المصادر** (النبضة/الوردية/تفريغ الطابور/اليومي) بتعدّي
+    من هنا — فمستحيل القناة تاخد دفع جماعي تاني.
+    """
+    now = datetime.now(timezone.utc)
+    cap = daily_cap()
+    done = daily_published(now)
+    if cap and done >= cap:
+        return {"ok": False, "reason": f"سقف اليوم اتوصّل ({done}/{cap}) — النشر هيكمّل بكرة الصبح",
+                "done": done, "cap": cap}
+    try:
+        gap = float(os.environ.get("DOLLARS_GATE_MIN") or 150)
+    except Exception:
+        gap = 150.0
+    try:
+        pub = (_jload(STATE / "published.json", {}) or {}).get("videos", []) or []
+        times = []
+        for v in pub:
+            try:
+                times.append(datetime.fromisoformat(str(v.get("published_at")).replace("Z", "+00:00")))
+            except Exception:
+                continue
+        if times:
+            mins = (now - max(times)).total_seconds() / 60.0
+            if mins < gap:
+                return {"ok": False, "reason": f"آخر فيديو نزل قبل {mins:.0f} دقيقة (المطلوب {gap:.0f}) "
+                                               f"— بنحافظ على جدول هادي", "minutes": mins, "gap": gap}
+    except Exception:
+        pass
+    return {"ok": True, "reason": f"الجدول تمام (نشرنا {done}/{cap} النهاردة)", "done": done, "cap": cap}
+
+
 def rate_gate() -> dict:
     """⏳ بوابة الإيقاع: «مفيش نشر لو فيه فيديو نزل قريب» — إيقاع ساعة/ساعة بالظبط.
 
@@ -905,7 +980,7 @@ def render_queue(force_stage: bool = False, limit: int | None = None, out_dir=No
         _say(f"♻️ تفريغ الطابور: {len(items)} عنصر · سعة النشر المتبقية النهاردة: {left} رفعة")
     except Exception:
         pass
-    _gate = rate_gate()                      # ⏳ نفس الإيقاع على تفريغ الطابور كذلك
+    _gate = schedule_gate()                  # 📅 نفس الجدول على تفريغ الطابور كذلك
     if not _gate.get("ok"):
         _say(f"⏳ تفريغ الطابور مستني الإيقاع: {_gate['reason']}")
         return {"processed": 0, "remaining": len(q["items"]), "lines": [_gate["reason"]], "stopped": "gate"}
@@ -1009,7 +1084,7 @@ def run(kind: str = "short", count: int = 1, force_stage: bool = False, out_dir=
         if max_catchup is not None:
             _cap = max_catchup
         count = max(count, min(max(1, _cap), miss)) if kind == "short" else max(count, min(1, miss))
-    _gate = rate_gate()                      # ⏳ إيقاع ساعة/ساعة (ولا دفعات)
+    _gate = schedule_gate()                  # 📅 سقف يومي + مسافة + مواعيد الذروة (ولا دفعات)
     if not _gate.get("ok"):
         msg = f"⏳ مستنيين الإيقاع: {_gate['reason']}"
         _say(msg)

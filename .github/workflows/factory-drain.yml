@@ -9,7 +9,7 @@ name: ♻️ تفريغ الطابور — نشر تلقائي مستمر
 # ملاحظة أمان: المستودع عام ⇒ دقايق Actions مجانية، فمفيش أي تكلفة على التفريغ.
 on:
   schedule:
-    - cron: '9,29,49 * * * *'    # ٣ مرات كل ساعة (بلا حدود من عندنا — الحصة بس هي الحد)
+    - cron: '12 16,19,21,23 * * *'   # 🎯 مرة قبل كل موعد ذروة (كان ٧٢ مرة/يوم)
   workflow_dispatch:
     inputs:
       limit:
@@ -58,6 +58,8 @@ jobs:
           YOUTUBE_REFRESH_TOKEN_4: ${{ secrets.YOUTUBE_REFRESH_TOKEN_4 }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DOLLARS_DAILY_CAP: '4'
+          DOLLARS_GATE_MIN: '150'
           DOLLARS_DRAIN_KINDS: short      # 🎯 الشورتس الأول (الطويلة بتستنى في الطابور بأمان)
           DOLLARS_CATCHUP_MAX: '1'
           DOLLARS_LOOP: '1'

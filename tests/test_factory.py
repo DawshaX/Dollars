@@ -15,8 +15,10 @@ def sandbox(tmp_path, monkeypatch):
 
 
 def test_plan_is_generated_and_has_slots(sandbox):
+    """📅 الخطة بقت ٤ شورتس في مواعيد الذروة (مش ٢٤ في اليوم) — وده اللي بيحمي القناة."""
     plan = factory._plan("2026-09-26")
-    assert plan["shorts"] == 24 and plan["slots"]
+    assert plan["shorts"] == 4 and plan["slots"], plan.get("shorts")
+    assert [s["hour"] for s in plan["slots"] if s["kind"] == "short"] == [16, 19, 21, 23]
     assert (sandbox / "plan_2026-09-26.json").exists()
 
 
@@ -325,3 +327,33 @@ def test_next_quota_reset_is_in_the_future():
     # لو إحنا بعد التجدّد بالفعل ⇒ لازم يرجّع بكرة
     late = datetime(2026, 9, 27, 9, 0, tzinfo=timezone.utc)
     assert publish.next_quota_reset(late).day == 28
+
+
+def test_daily_cap_and_schedule(tmp_path, monkeypatch):
+    """📅 سقف النشر اليومي: بعد الوصول للسقف مفيش نشر، وقبل كده لازم يحترم المسافة الزمنية."""
+    import json
+    from datetime import datetime, timedelta, timezone
+    from engine import factory
+    monkeypatch.setattr(factory, "STATE", tmp_path)
+    monkeypatch.setenv("DOLLARS_DAILY_CAP", "4")
+    monkeypatch.setenv("DOLLARS_GATE_MIN", "150")
+    now = datetime.now(timezone.utc)
+    def write(videos):
+        (tmp_path / "published.json").write_text(json.dumps({"videos": videos}), encoding="utf-8")
+    # فاضي ⇒ مسموح
+    write([])
+    assert factory.schedule_gate()["ok"] is True
+    # آخر فيديو قبل ١٠ دقايق ⇒ ممنوع
+    write([{"video_id": "A", "published_at": (now - timedelta(minutes=10)).isoformat()}])
+    assert factory.schedule_gate()["ok"] is False
+    # آخر فيديو قبل ٤ ساعات + عدد ٣ ⇒ مسموح
+    write([{"video_id": f"V{i}", "published_at": (now - timedelta(hours=4)).isoformat()} for i in range(3)])
+    assert factory.schedule_gate()["ok"] is True
+    # ٤ فيديوهات النهاردة ⇒ السقف اتوصّل
+    write([{"video_id": f"V{i}", "published_at": now.isoformat()} for i in range(4)])
+    g = factory.schedule_gate()
+    assert g["ok"] is False and "سقف" in g["reason"]
+    assert factory.daily_published() == 4
+    assert factory.schedule_hours() == [16, 19, 21, 23]
+    monkeypatch.setenv("DOLLARS_PUB_HOURS", "9, 13,23")
+    assert factory.schedule_hours() == [9, 13, 23]
