@@ -709,20 +709,6 @@
 ## 2026-10-06 04:00 UTC
 - 2026-10-06 00:00 · satisfying · 60s · facts_992715.mp4 · نُشر: https://youtu.be/x3C6kBwatZo
 
-<<<<<<< Updated upstream
-## 2026-10-06 06:52 UTC
-- 2026-10-06 03:00 · sleep · 3h · starfield_3h.mp4 · نُشر: https://youtu.be/g5yr47BZlfA
-
-## 2026-10-06 06:52 UTC
-- ⏳ مستنيين الإيقاع: آخر فيديو نزل قبل 0 دقيقة (أقل من 40) — بنحافظ على إيقاع ساعة/ساعة
-=======
-## 2026-10-06 04:56 UTC
-- 2026-10-06 01:00 · sleep · 45s · space_nature_839965.mp4 · نُشر: https://youtu.be/5FQPQV4JG0o
-
-## 2026-10-06 06:00 UTC
-- 2026-10-06 02:00 · focus · 60s · focus_study_68876.mp4 · في الطابور (الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي'])
->>>>>>> Stashed changes
-
 ## 2026-10-06 07:02 UTC
 - 2026-10-06 00:00 · satisfying · 60s · facts_992715.mp4 · نُشر: https://youtu.be/6yZ4UqNb7VE
 
