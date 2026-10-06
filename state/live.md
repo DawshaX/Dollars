@@ -391,3 +391,6 @@
    ✅ يوتيوب استقبل الفيديو: nOZ2cl7MJ2g
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (5.6 ميجا)…
    ✅ يوتيوب استقبل الفيديو: 91vVnJde8lA
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (14.8 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: 4TXEXh8erhM
+   ⚠️ الترجمة ما اترفعتش: HTTP 403 — quotaExceeded — The request cannot be completed because you have exceeded your <a href="/youtube/v3/getting-started#quota">quota</a>.
