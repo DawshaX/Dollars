@@ -63,8 +63,8 @@ def collect(max_videos: int = 600) -> dict:
     rows = []
     for i in range(0, len(ids), 50):                      # تفاصيل كل فيديو
         chunk = ",".join(ids[i:i + 50])
-        d = api("https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails,status/"
-                f"localizations&id={chunk}", token)
+        d = api("https://www.googleapis.com/youtube/v3/videos"
+                f"?part=snippet,statistics,contentDetails,status,localizations&id={chunk}", token)
         for v in (d.get("items") or []):
             s, st, cd, sst = (v.get("snippet") or {}), (v.get("statistics") or {}), \
                              (v.get("contentDetails") or {}), (v.get("status") or {})
