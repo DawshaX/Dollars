@@ -1,0 +1,38 @@
+name: 🔍 تشريح القناة (ليه مفيش مشاهدات)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 23 * * *'      # مرة كل يوم بالليل
+permissions:
+  contents: write
+jobs:
+  deep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: تشريح كامل + تليجرام
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          YOUTUBE_CLIENT_ID_2: ${{ secrets.YOUTUBE_CLIENT_ID_2 }}
+          YOUTUBE_CLIENT_SECRET_2: ${{ secrets.YOUTUBE_CLIENT_SECRET_2 }}
+          YOUTUBE_REFRESH_TOKEN_2: ${{ secrets.YOUTUBE_REFRESH_TOKEN_2 }}
+        run: python tools/channel_deep_audit.py --telegram
+      - name: حفظ التقرير
+        if: always()
+        run: |
+          git config user.name "Dollars Audit"
+          git config user.email "audit@dawshax.local"
+          git add state 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -qm "🔍 تشريح القناة (أرقام حقيقية)"
+          git fetch -q origin main || true
+          git pull --rebase --autostash -q origin main || true
+          git push -q origin main || true

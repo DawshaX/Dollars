@@ -17,6 +17,9 @@
 """
 from __future__ import annotations
 
+import pathlib as _pathlib
+from engine import voice as voice_helper
+
 import json
 import math
 import pathlib
@@ -314,8 +317,12 @@ def plan_shots(pillar: str, seconds: float, seed: int = 7,
 
 def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
               sr: int = 44100, music_style: str | None = None,
-              music_gain: float = 0.55, music_path=None, sfx_files: dict | None = None) -> np.ndarray:
-    """يمزج الأجواء + الموسيقى (بتاعتنا) + المؤثرات في مسار ستيريو واحد في التوقيت الصح."""
+              music_gain: float = 0.55, music_path=None, sfx_files: dict | None = None,
+              voice_tracks: list | None = None, voice_gain: float = 1.35) -> np.ndarray:
+    """يمزج الأجواء + الموسيقى + المؤثرات + **التعليق الصوتي البشري** في مسار ستيريو واحد.
+
+    الكلام أهم من كل حاجة: بنخفض الموسيقى تحت الكلام تلقائيًا (ducking) عشان النُطق يبان واضح.
+    """
     n = int(seconds * sr)
     left = np.zeros(n, np.float32)
     right = np.zeros(n, np.float32)
@@ -382,6 +389,49 @@ def mix_audio(seconds: float, shots: list, ambient_name: str | None = None,
             right[:m] += bed[:m, 1] * music_gain
         except Exception:
             pass
+    # 🗣️ التعليق الصوتي البشري: بيتجمّع الأول، الموسيقى بتتخفض تحته (ducking)، وبعدين يُضاف نضيف
+    if voice_tracks:
+        import wave as _wave
+        voice = np.zeros(n, np.float32)
+        for vt in voice_tracks:
+            try:
+                src_p = _pathlib.Path(str(vt.get("path") or ""))
+                if not src_p.exists():
+                    continue
+                if src_p.suffix.lower() != ".wav":
+                    conv = src_p.with_suffix(".wav")
+                    if (not conv.exists()) or conv.stat().st_mtime < src_p.stat().st_mtime:
+                        if not voice_helper.to_wav(src_p, conv, sr=sr):
+                            continue
+                    src_p = conv
+                with _wave.open(str(src_p), "rb") as w:
+                    raw = np.frombuffer(w.readframes(w.getnframes()), dtype="<i2").astype(np.float32) / 32768.0
+                    if w.getnchannels() == 2:
+                        raw = raw.reshape(-1, 2)
+                        vv = (raw[:, 0] + raw[:, 1]) * 0.5
+                    else:
+                        vv = raw
+                j = int(float(vt.get("at") or 0.0) * sr)
+                if j >= n:
+                    continue
+                m = min(vv.size, n - j)
+                if m <= 0:
+                    continue
+                seg_v = vv[:m] * float(vt.get("gain", voice_gain))
+                voice[j:j + m] += seg_v
+            except Exception:
+                continue
+        if float(np.abs(voice).max()) > 0:
+            k = int(0.20 * sr)
+            env = np.abs(voice)
+            if k > 2:
+                kern = np.ones(k, np.float32) / k
+                env = np.convolve(env, kern, mode="same").astype(np.float32)
+            duck = 1.0 - 0.72 * np.clip(env * 5.0, 0.0, 1.0)     # لحد ‎-11 dB تحت الكلام
+            left = left * duck
+            right = right * duck
+            left = left + voice
+            right = right + voice
     # ── معايرة صوت احترافية: نستهدف إحساس صوت ثابت (RMS) مع سقف يمنع التشويه ──
     peak = max(float(np.abs(left).max()), float(np.abs(right).max()), 1e-6)
     k_peak = min(1.0, 0.97 / peak)
