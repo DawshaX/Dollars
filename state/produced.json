@@ -2862,13 +2862,8 @@
       "published": false,
       "url": null,
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
-<<<<<<< Updated upstream
       "seconds_spent": 416.6,
       "at": "2026-10-06T17:17:43.399444+00:00"
-=======
-      "seconds_spent": 466.6,
-      "at": "2026-10-06T16:09:23.916442+00:00"
->>>>>>> Stashed changes
     },
     {
       "date": "2026-10-06",
@@ -2880,17 +2875,10 @@
       "video": "/home/runner/work/Dollars/Dollars/work/2026-10-06_05/paper_man_help_full.mp4",
       "title": "Paper Man and a lantern that went out — a wordless story #shorts",
       "published": true,
-<<<<<<< Updated upstream
       "url": "https://youtu.be/C1Fhny38PPM",
       "reason": null,
       "seconds_spent": 247.5,
       "at": "2026-10-06T17:29:11.824887+00:00"
-=======
-      "url": "https://youtu.be/T0W_AQ3Wbuo",
-      "reason": null,
-      "seconds_spent": 299.0,
-      "at": "2026-10-06T17:09:23.953251+00:00"
->>>>>>> Stashed changes
     }
   ],
   "stats": {
@@ -2905,10 +2893,5 @@
     }
   },
   "created": null,
-<<<<<<< Updated upstream
   "updated": "2026-10-06T17:29:22.938060+00:00"
 }
-=======
-  "updated": "2026-10-06T17:10:16.784902+00:00"
-}
->>>>>>> Stashed changes

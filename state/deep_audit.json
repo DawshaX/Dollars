@@ -1,767 +1,767 @@
 {
- "channel": {
-  "title": "xDaw NoVa",
-  "subs": 43,
-  "videos": 617,
-  "views": 326861
- },
- "total": 599,
- "by_month": {
-  "2025-07": {
-   "n": 38,
-   "views": 14533,
-   "zero": 2
+  "channel": {
+    "title": "xDaw NoVa",
+    "subs": 43,
+    "videos": 617,
+    "views": 326861
   },
-  "2025-08": {
-   "n": 3,
-   "views": 12,
-   "zero": 0
+  "total": 599,
+  "by_month": {
+    "2025-07": {
+      "n": 38,
+      "views": 14533,
+      "zero": 2
+    },
+    "2025-08": {
+      "n": 3,
+      "views": 12,
+      "zero": 0
+    },
+    "2025-10": {
+      "n": 70,
+      "views": 106661,
+      "zero": 1
+    },
+    "2025-11": {
+      "n": 37,
+      "views": 64385,
+      "zero": 1
+    },
+    "2025-12": {
+      "n": 17,
+      "views": 6232,
+      "zero": 0
+    },
+    "2026-01": {
+      "n": 15,
+      "views": 90859,
+      "zero": 1
+    },
+    "2026-02": {
+      "n": 2,
+      "views": 2399,
+      "zero": 0
+    },
+    "2026-03": {
+      "n": 27,
+      "views": 12234,
+      "zero": 1
+    },
+    "2026-04": {
+      "n": 2,
+      "views": 842,
+      "zero": 0
+    },
+    "2026-08": {
+      "n": 41,
+      "views": 8739,
+      "zero": 3
+    },
+    "2026-09": {
+      "n": 175,
+      "views": 646,
+      "zero": 78
+    },
+    "2026-10": {
+      "n": 172,
+      "views": 138,
+      "zero": 128
+    }
   },
-  "2025-10": {
-   "n": 70,
-   "views": 106661,
-   "zero": 1
+  "by_day": {
+    "2025-07-26": {
+      "n": 6,
+      "views": 1779
+    },
+    "2025-07-27": {
+      "n": 31,
+      "views": 11501
+    },
+    "2025-07-29": {
+      "n": 1,
+      "views": 1253
+    },
+    "2025-08-03": {
+      "n": 3,
+      "views": 12
+    },
+    "2025-10-02": {
+      "n": 3,
+      "views": 52
+    },
+    "2025-10-03": {
+      "n": 6,
+      "views": 8930
+    },
+    "2025-10-04": {
+      "n": 24,
+      "views": 16774
+    },
+    "2025-10-05": {
+      "n": 6,
+      "views": 7925
+    },
+    "2025-10-07": {
+      "n": 3,
+      "views": 27
+    },
+    "2025-10-08": {
+      "n": 3,
+      "views": 848
+    },
+    "2025-10-09": {
+      "n": 9,
+      "views": 21666
+    },
+    "2025-10-10": {
+      "n": 6,
+      "views": 36904
+    },
+    "2025-10-11": {
+      "n": 1,
+      "views": 3057
+    },
+    "2025-10-13": {
+      "n": 4,
+      "views": 5474
+    },
+    "2025-10-15": {
+      "n": 3,
+      "views": 3533
+    },
+    "2025-10-16": {
+      "n": 1,
+      "views": 86
+    },
+    "2025-10-18": {
+      "n": 1,
+      "views": 1385
+    },
+    "2025-11-01": {
+      "n": 2,
+      "views": 2208
+    },
+    "2025-11-02": {
+      "n": 4,
+      "views": 12553
+    },
+    "2025-11-03": {
+      "n": 6,
+      "views": 16977
+    },
+    "2025-11-04": {
+      "n": 2,
+      "views": 4702
+    },
+    "2025-11-07": {
+      "n": 3,
+      "views": 6725
+    },
+    "2025-11-09": {
+      "n": 1,
+      "views": 210
+    },
+    "2025-11-10": {
+      "n": 1,
+      "views": 728
+    },
+    "2025-11-12": {
+      "n": 6,
+      "views": 3148
+    },
+    "2025-11-18": {
+      "n": 1,
+      "views": 138
+    },
+    "2025-11-21": {
+      "n": 2,
+      "views": 9403
+    },
+    "2025-11-22": {
+      "n": 2,
+      "views": 3866
+    },
+    "2025-11-23": {
+      "n": 7,
+      "views": 3727
+    },
+    "2025-12-10": {
+      "n": 1,
+      "views": 20
+    },
+    "2025-12-12": {
+      "n": 1,
+      "views": 10
+    },
+    "2025-12-19": {
+      "n": 1,
+      "views": 1
+    },
+    "2025-12-20": {
+      "n": 5,
+      "views": 25
+    },
+    "2025-12-22": {
+      "n": 2,
+      "views": 21
+    },
+    "2025-12-24": {
+      "n": 1,
+      "views": 1
+    },
+    "2025-12-25": {
+      "n": 3,
+      "views": 35
+    },
+    "2025-12-30": {
+      "n": 1,
+      "views": 1171
+    },
+    "2025-12-31": {
+      "n": 2,
+      "views": 4948
+    },
+    "2026-01-01": {
+      "n": 5,
+      "views": 62872
+    },
+    "2026-01-02": {
+      "n": 4,
+      "views": 6943
+    },
+    "2026-01-03": {
+      "n": 4,
+      "views": 17977
+    },
+    "2026-01-04": {
+      "n": 1,
+      "views": 1877
+    },
+    "2026-01-17": {
+      "n": 1,
+      "views": 1190
+    },
+    "2026-02-18": {
+      "n": 1,
+      "views": 2235
+    },
+    "2026-02-20": {
+      "n": 1,
+      "views": 164
+    },
+    "2026-03-02": {
+      "n": 1,
+      "views": 1255
+    },
+    "2026-03-11": {
+      "n": 6,
+      "views": 1379
+    },
+    "2026-03-12": {
+      "n": 1,
+      "views": 50
+    },
+    "2026-03-13": {
+      "n": 2,
+      "views": 2092
+    },
+    "2026-03-14": {
+      "n": 2,
+      "views": 2023
+    },
+    "2026-03-15": {
+      "n": 6,
+      "views": 1065
+    },
+    "2026-03-18": {
+      "n": 5,
+      "views": 3169
+    },
+    "2026-03-19": {
+      "n": 1,
+      "views": 992
+    },
+    "2026-03-26": {
+      "n": 3,
+      "views": 209
+    },
+    "2026-04-03": {
+      "n": 1,
+      "views": 839
+    },
+    "2026-04-08": {
+      "n": 1,
+      "views": 3
+    },
+    "2026-08-13": {
+      "n": 5,
+      "views": 106
+    },
+    "2026-08-14": {
+      "n": 4,
+      "views": 2007
+    },
+    "2026-08-16": {
+      "n": 4,
+      "views": 569
+    },
+    "2026-08-17": {
+      "n": 3,
+      "views": 143
+    },
+    "2026-08-20": {
+      "n": 10,
+      "views": 2215
+    },
+    "2026-08-21": {
+      "n": 1,
+      "views": 93
+    },
+    "2026-08-22": {
+      "n": 6,
+      "views": 401
+    },
+    "2026-08-23": {
+      "n": 6,
+      "views": 2969
+    },
+    "2026-08-24": {
+      "n": 1,
+      "views": 156
+    },
+    "2026-08-25": {
+      "n": 1,
+      "views": 80
+    },
+    "2026-09-10": {
+      "n": 3,
+      "views": 253
+    },
+    "2026-09-11": {
+      "n": 6,
+      "views": 10
+    },
+    "2026-09-12": {
+      "n": 14,
+      "views": 66
+    },
+    "2026-09-26": {
+      "n": 19,
+      "views": 22
+    },
+    "2026-09-27": {
+      "n": 38,
+      "views": 139
+    },
+    "2026-09-28": {
+      "n": 32,
+      "views": 62
+    },
+    "2026-09-29": {
+      "n": 30,
+      "views": 70
+    },
+    "2026-09-30": {
+      "n": 33,
+      "views": 24
+    },
+    "2026-10-01": {
+      "n": 33,
+      "views": 31
+    },
+    "2026-10-02": {
+      "n": 31,
+      "views": 27
+    },
+    "2026-10-03": {
+      "n": 37,
+      "views": 40
+    },
+    "2026-10-04": {
+      "n": 25,
+      "views": 31
+    },
+    "2026-10-05": {
+      "n": 28,
+      "views": 9
+    },
+    "2026-10-06": {
+      "n": 18,
+      "views": 0
+    }
   },
-  "2025-11": {
-   "n": 37,
-   "views": 64385,
-   "zero": 1
+  "top": [
+    {
+      "id": "MD4GzgBIf5A",
+      "at": "2026-01-01T22:36:27",
+      "views": 29562,
+      "secs": 12,
+      "likes": 22,
+      "comments": 4,
+      "title": "TRISTANA EZ KILL POPPY @_^",
+      "age_days": 277
+    },
+    {
+      "id": "8UGK_1sRYzY",
+      "at": "2025-10-10T23:58:09",
+      "views": 26972,
+      "secs": 12,
+      "likes": 172,
+      "comments": 5,
+      "title": "Best jhin Ultimate xD 🤣🔥❤️ League Of Legends 2025 Gameplay Montage Funny  Moment RiotGame Replays 💫",
+      "age_days": 360
+    },
+    {
+      "id": "eDIOHbbpv4c",
+      "at": "2026-01-01T13:25:07",
+      "views": 19434,
+      "secs": 9,
+      "likes": 17,
+      "comments": 9,
+      "title": "tristana first blood",
+      "age_days": 278
+    },
+    {
+      "id": "aJ0qEwKrBK8",
+      "at": "2026-01-01T16:41:04",
+      "views": 13874,
+      "secs": 9,
+      "likes": 7,
+      "comments": 2,
+      "title": "tristana first blood",
+      "age_days": 278
+    },
+    {
+      "id": "pMwgN8iHcGk",
+      "at": "2026-01-03T02:20:37",
+      "views": 9346,
+      "secs": 19,
+      "likes": 16,
+      "comments": 6,
+      "title": "1HP TOWER DIVE! 😱",
+      "age_days": 276
+    },
+    {
+      "id": "gssetcsAtFg",
+      "at": "2025-11-03T07:48:41",
+      "views": 9260,
+      "secs": 12,
+      "likes": 29,
+      "comments": 2,
+      "title": "Best Jhin Ultimate😹💫❤️#lol #leagueoflegends #viralvideo #shorts #gaming #youtubeshorts #faker #funny",
+      "age_days": 337
+    },
+    {
+      "id": "Gg6rImvF5xs",
+      "at": "2025-10-09T18:57:06",
+      "views": 7783,
+      "secs": 17,
+      "likes": 38,
+      "comments": 2,
+      "title": "League Of Legends Draven Pentiakill #leagueoflegends #Draven #pentakill",
+      "age_days": 361
+    },
+    {
+      "id": "GaeNitMh8vs",
+      "at": "2025-11-21T11:45:36",
+      "views": 7539,
+      "secs": 15,
+      "likes": 23,
+      "comments": 0,
+      "title": "Funny Music Girl Roblox 😹❤️💥 #roblox",
+      "age_days": 319
+    },
+    {
+      "id": "cBUKohrW1Xs",
+      "at": "2025-11-02T10:16:22",
+      "views": 6168,
+      "secs": 16,
+      "likes": 6,
+      "comments": 0,
+      "title": "ez double at drake league of legends lol replays roitgame montage gameplay #lol #leagueoflegends",
+      "age_days": 338
+    },
+    {
+      "id": "LtqXSa4ckXk",
+      "at": "2025-11-03T16:10:54",
+      "views": 5347,
+      "secs": 16,
+      "likes": 12,
+      "comments": 1,
+      "title": "Tristana Ez Double Kill At Drake  ❤️ #leagueoflegends #riotgames #shorts #video #trending #gaming",
+      "age_days": 337
+    },
+    {
+      "id": "vlBbIcaKwCY",
+      "at": "2025-10-09T15:31:44",
+      "views": 5267,
+      "secs": 14,
+      "likes": 10,
+      "comments": 0,
+      "title": "League of Legends chogath PENTAKILLS 🤣😇 Funny moment #leagueoflegends",
+      "age_days": 362
+    },
+    {
+      "id": "2-h3r_LaPf0",
+      "at": "2025-10-10T20:47:25",
+      "views": 5074,
+      "secs": 4,
+      "likes": 36,
+      "comments": 0,
+      "title": "League Of Legends cinematic 2025 Jinx ❤️ #leagueoflegends #jinx #riotgames #cinematic #ai ai#shorts",
+      "age_days": 360
+    },
+    {
+      "id": "53SRZenoAeQ",
+      "at": "2026-01-03T22:06:37",
+      "views": 4785,
+      "secs": 9,
+      "likes": 3,
+      "comments": 0,
+      "title": "TRISTANA KILL KATARINA EZ xD@_^",
+      "age_days": 275
+    },
+    {
+      "id": "ASwQlgyPdtg",
+      "at": "2025-11-07T06:02:45",
+      "views": 3867,
+      "secs": 14,
+      "likes": 6,
+      "comments": 0,
+      "title": "Ez noob TEAM GG JHIN #leagueoflegends #lol LEAGUE OF LEGENDS 2025 REPLAYS MONTAGE ROITGAME",
+      "age_days": 333
+    },
+    {
+      "id": "XWzjIu53jOg",
+      "at": "2026-01-02T23:03:34",
+      "views": 3803,
+      "secs": 17,
+      "likes": 1,
+      "comments": 0,
+      "title": "THE ULTIMATE 1HP BAIT! | Tristana & Swain vs Jhin & Maokai",
+      "age_days": 276
+    },
+    {
+      "id": "XMrtv9maSRo",
+      "at": "2025-11-02T20:07:48",
+      "views": 3734,
+      "secs": 12,
+      "likes": 4,
+      "comments": 0,
+      "title": "Tristana ez Free Kill Viegar xD #leagueoflegends #leagueoflegendswildrift #lol #wildrift #gaming",
+      "age_days": 337
+    },
+    {
+      "id": "CNRfIXTJpiI",
+      "at": "2025-10-04T17:29:40",
+      "views": 3466,
+      "secs": 28,
+      "likes": 20,
+      "comments": 1,
+      "title": "Best Ultimate lol Tristana DodGe 😹💥💯 League Of Legends Gameplay 2025 montage Replays Smurf Kill XD",
+      "age_days": 367
+    },
+    {
+      "id": "sMlP-wlmza4",
+      "at": "2025-11-23T13:18:21",
+      "views": 3465,
+      "secs": 14,
+      "likes": 46,
+      "comments": 2,
+      "title": "Insane Dog Wearing Human Clothes JUMPS Over the Couch! 😂Must Watch Funny Pet Dog videos Funny moment",
+      "age_days": 317
+    },
+    {
+      "id": "o-hh5uL81vI",
+      "at": "2025-11-04T23:18:49",
+      "views": 3432,
+      "secs": 14,
+      "likes": 13,
+      "comments": 1,
+      "title": "#spongebob لعبة سبونج بوب المشهورة الجميلة الممتعة ❤️🔥💥 SpongBob gaming 2025 funny Subway #gaming",
+      "age_days": 335
+    },
+    {
+      "id": "Km8jJbxm3_I",
+      "at": "2025-10-05T23:55:09",
+      "views": 3359,
+      "secs": 13,
+      "likes": 11,
+      "comments": 0,
+      "title": "league of legends Ez Skill xD🤣😂 #leagueoflegends #lol #riotgames #wildrift #esports#gaming #proplays",
+      "age_days": 365
+    },
+    {
+      "id": "GXYeeWJOX5M",
+      "at": "2025-10-10T19:36:40",
+      "views": 3319,
+      "secs": 36,
+      "likes": 35,
+      "comments": 0,
+      "title": "League Of Legends Gameplay Montage Funny Moment jinx 😹 #leagueoflegends #riotgames  #esports#gaming",
+      "age_days": 360
+    },
+    {
+      "id": "NT12KgvqMSI",
+      "at": "2025-10-09T18:36:36",
+      "views": 3300,
+      "secs": 5,
+      "likes": 8,
+      "comments": 0,
+      "title": "#FUNNY_MOMENT 😹🤣❤️League Of Legends lol Amumu kill Nasus  #leagueoflegends #wildrift #lol",
+      "age_days": 361
+    },
+    {
+      "id": "VpwFQNLHmXU",
+      "at": "2025-10-11T05:51:46",
+      "views": 3057,
+      "secs": 18,
+      "likes": 18,
+      "comments": 9,
+      "title": "Best Ashe Vs 4 setts 😹💥💋 League Of Legends 2025 Funny Moment Montage Gameplay Ultimate Replays lol❤️",
+      "age_days": 360
+    },
+    {
+      "id": "iW-PLhkVs4M",
+      "at": "2025-12-31T22:27:27",
+      "views": 2892,
+      "secs": 14,
+      "likes": 3,
+      "comments": 0,
+      "title": "best pyke dance and hook to firstblood at aram game #leagueoflegends #lol #riotgames #replay#montage",
+      "age_days": 278
+    },
+    {
+      "id": "8QQYYAhxigg",
+      "at": "2026-01-03T21:49:58",
+      "views": 2651,
+      "secs": 18,
+      "likes": 1,
+      "comments": 0,
+      "title": "Tristana Kill volibear ez",
+      "age_days": 275
+    }
+  ],
+  "last_24h": {
+    "n": 26,
+    "views": 5,
+    "with_views": 3,
+    "best": 2
   },
-  "2025-12": {
-   "n": 17,
-   "views": 6232,
-   "zero": 0
+  "last_48h": {
+    "n": 54,
+    "views": 19,
+    "with_views": 8,
+    "best": 6
   },
-  "2026-01": {
-   "n": 15,
-   "views": 90859,
-   "zero": 1
+  "last_7d": {
+    "n": 216,
+    "views": 197,
+    "with_views": 59,
+    "best": 22
   },
-  "2026-02": {
-   "n": 2,
-   "views": 2399,
-   "zero": 0
+  "shorts": {
+    "n": 559,
+    "views": 305382,
+    "zero": 186,
+    "median": 3
   },
-  "2026-03": {
-   "n": 27,
-   "views": 12234,
-   "zero": 1
+  "longs": {
+    "n": 40,
+    "views": 2298,
+    "zero": 29,
+    "median": 0
   },
-  "2026-04": {
-   "n": 2,
-   "views": 842,
-   "zero": 0
+  "status": {
+    "privacy": {
+      "public": 596,
+      "private": 3
+    },
+    "upload": {
+      "processed": 597,
+      "uploaded": 2
+    },
+    "rejected": [],
+    "kids": 1,
+    "with_locales": 598
   },
-  "2026-08": {
-   "n": 41,
-   "views": 8739,
-   "zero": 3
-  },
-  "2026-09": {
-   "n": 175,
-   "views": 646,
-   "zero": 78
-  },
-  "2026-10": {
-   "n": 172,
-   "views": 138,
-   "zero": 128
+  "rate_vs_views": [
+    {
+      "day": "2026-09-10",
+      "uploaded": 3,
+      "views": 253
+    },
+    {
+      "day": "2026-09-11",
+      "uploaded": 6,
+      "views": 10
+    },
+    {
+      "day": "2026-09-12",
+      "uploaded": 14,
+      "views": 66
+    },
+    {
+      "day": "2026-09-26",
+      "uploaded": 19,
+      "views": 22
+    },
+    {
+      "day": "2026-09-27",
+      "uploaded": 38,
+      "views": 139
+    },
+    {
+      "day": "2026-09-28",
+      "uploaded": 32,
+      "views": 62
+    },
+    {
+      "day": "2026-09-29",
+      "uploaded": 30,
+      "views": 70
+    },
+    {
+      "day": "2026-09-30",
+      "uploaded": 33,
+      "views": 24
+    },
+    {
+      "day": "2026-10-01",
+      "uploaded": 33,
+      "views": 31
+    },
+    {
+      "day": "2026-10-02",
+      "uploaded": 31,
+      "views": 27
+    },
+    {
+      "day": "2026-10-03",
+      "uploaded": 37,
+      "views": 40
+    },
+    {
+      "day": "2026-10-04",
+      "uploaded": 25,
+      "views": 31
+    },
+    {
+      "day": "2026-10-05",
+      "uploaded": 28,
+      "views": 9
+    },
+    {
+      "day": "2026-10-06",
+      "uploaded": 18,
+      "views": 0
+    }
+  ],
+  "winning_patterns": {
+    "no-hashtag": 22,
+    "duration<=20s": 23,
+    "#shorts": 3,
+    "20-60s": 2,
+    "dog": 1
   }
- },
- "by_day": {
-  "2025-07-26": {
-   "n": 6,
-   "views": 1779
-  },
-  "2025-07-27": {
-   "n": 31,
-   "views": 11501
-  },
-  "2025-07-29": {
-   "n": 1,
-   "views": 1253
-  },
-  "2025-08-03": {
-   "n": 3,
-   "views": 12
-  },
-  "2025-10-02": {
-   "n": 3,
-   "views": 52
-  },
-  "2025-10-03": {
-   "n": 6,
-   "views": 8930
-  },
-  "2025-10-04": {
-   "n": 24,
-   "views": 16774
-  },
-  "2025-10-05": {
-   "n": 6,
-   "views": 7925
-  },
-  "2025-10-07": {
-   "n": 3,
-   "views": 27
-  },
-  "2025-10-08": {
-   "n": 3,
-   "views": 848
-  },
-  "2025-10-09": {
-   "n": 9,
-   "views": 21666
-  },
-  "2025-10-10": {
-   "n": 6,
-   "views": 36904
-  },
-  "2025-10-11": {
-   "n": 1,
-   "views": 3057
-  },
-  "2025-10-13": {
-   "n": 4,
-   "views": 5474
-  },
-  "2025-10-15": {
-   "n": 3,
-   "views": 3533
-  },
-  "2025-10-16": {
-   "n": 1,
-   "views": 86
-  },
-  "2025-10-18": {
-   "n": 1,
-   "views": 1385
-  },
-  "2025-11-01": {
-   "n": 2,
-   "views": 2208
-  },
-  "2025-11-02": {
-   "n": 4,
-   "views": 12553
-  },
-  "2025-11-03": {
-   "n": 6,
-   "views": 16977
-  },
-  "2025-11-04": {
-   "n": 2,
-   "views": 4702
-  },
-  "2025-11-07": {
-   "n": 3,
-   "views": 6725
-  },
-  "2025-11-09": {
-   "n": 1,
-   "views": 210
-  },
-  "2025-11-10": {
-   "n": 1,
-   "views": 728
-  },
-  "2025-11-12": {
-   "n": 6,
-   "views": 3148
-  },
-  "2025-11-18": {
-   "n": 1,
-   "views": 138
-  },
-  "2025-11-21": {
-   "n": 2,
-   "views": 9403
-  },
-  "2025-11-22": {
-   "n": 2,
-   "views": 3866
-  },
-  "2025-11-23": {
-   "n": 7,
-   "views": 3727
-  },
-  "2025-12-10": {
-   "n": 1,
-   "views": 20
-  },
-  "2025-12-12": {
-   "n": 1,
-   "views": 10
-  },
-  "2025-12-19": {
-   "n": 1,
-   "views": 1
-  },
-  "2025-12-20": {
-   "n": 5,
-   "views": 25
-  },
-  "2025-12-22": {
-   "n": 2,
-   "views": 21
-  },
-  "2025-12-24": {
-   "n": 1,
-   "views": 1
-  },
-  "2025-12-25": {
-   "n": 3,
-   "views": 35
-  },
-  "2025-12-30": {
-   "n": 1,
-   "views": 1171
-  },
-  "2025-12-31": {
-   "n": 2,
-   "views": 4948
-  },
-  "2026-01-01": {
-   "n": 5,
-   "views": 62872
-  },
-  "2026-01-02": {
-   "n": 4,
-   "views": 6943
-  },
-  "2026-01-03": {
-   "n": 4,
-   "views": 17977
-  },
-  "2026-01-04": {
-   "n": 1,
-   "views": 1877
-  },
-  "2026-01-17": {
-   "n": 1,
-   "views": 1190
-  },
-  "2026-02-18": {
-   "n": 1,
-   "views": 2235
-  },
-  "2026-02-20": {
-   "n": 1,
-   "views": 164
-  },
-  "2026-03-02": {
-   "n": 1,
-   "views": 1255
-  },
-  "2026-03-11": {
-   "n": 6,
-   "views": 1379
-  },
-  "2026-03-12": {
-   "n": 1,
-   "views": 50
-  },
-  "2026-03-13": {
-   "n": 2,
-   "views": 2092
-  },
-  "2026-03-14": {
-   "n": 2,
-   "views": 2023
-  },
-  "2026-03-15": {
-   "n": 6,
-   "views": 1065
-  },
-  "2026-03-18": {
-   "n": 5,
-   "views": 3169
-  },
-  "2026-03-19": {
-   "n": 1,
-   "views": 992
-  },
-  "2026-03-26": {
-   "n": 3,
-   "views": 209
-  },
-  "2026-04-03": {
-   "n": 1,
-   "views": 839
-  },
-  "2026-04-08": {
-   "n": 1,
-   "views": 3
-  },
-  "2026-08-13": {
-   "n": 5,
-   "views": 106
-  },
-  "2026-08-14": {
-   "n": 4,
-   "views": 2007
-  },
-  "2026-08-16": {
-   "n": 4,
-   "views": 569
-  },
-  "2026-08-17": {
-   "n": 3,
-   "views": 143
-  },
-  "2026-08-20": {
-   "n": 10,
-   "views": 2215
-  },
-  "2026-08-21": {
-   "n": 1,
-   "views": 93
-  },
-  "2026-08-22": {
-   "n": 6,
-   "views": 401
-  },
-  "2026-08-23": {
-   "n": 6,
-   "views": 2969
-  },
-  "2026-08-24": {
-   "n": 1,
-   "views": 156
-  },
-  "2026-08-25": {
-   "n": 1,
-   "views": 80
-  },
-  "2026-09-10": {
-   "n": 3,
-   "views": 253
-  },
-  "2026-09-11": {
-   "n": 6,
-   "views": 10
-  },
-  "2026-09-12": {
-   "n": 14,
-   "views": 66
-  },
-  "2026-09-26": {
-   "n": 19,
-   "views": 22
-  },
-  "2026-09-27": {
-   "n": 38,
-   "views": 139
-  },
-  "2026-09-28": {
-   "n": 32,
-   "views": 62
-  },
-  "2026-09-29": {
-   "n": 30,
-   "views": 70
-  },
-  "2026-09-30": {
-   "n": 33,
-   "views": 24
-  },
-  "2026-10-01": {
-   "n": 33,
-   "views": 31
-  },
-  "2026-10-02": {
-   "n": 31,
-   "views": 27
-  },
-  "2026-10-03": {
-   "n": 37,
-   "views": 40
-  },
-  "2026-10-04": {
-   "n": 25,
-   "views": 31
-  },
-  "2026-10-05": {
-   "n": 28,
-   "views": 9
-  },
-  "2026-10-06": {
-   "n": 18,
-   "views": 0
-  }
- },
- "top": [
-  {
-   "id": "MD4GzgBIf5A",
-   "at": "2026-01-01T22:36:27",
-   "views": 29562,
-   "secs": 12,
-   "likes": 22,
-   "comments": 4,
-   "title": "TRISTANA EZ KILL POPPY @_^",
-   "age_days": 277
-  },
-  {
-   "id": "8UGK_1sRYzY",
-   "at": "2025-10-10T23:58:09",
-   "views": 26972,
-   "secs": 12,
-   "likes": 172,
-   "comments": 5,
-   "title": "Best jhin Ultimate xD 🤣🔥❤️ League Of Legends 2025 Gameplay Montage Funny  Moment RiotGame Replays 💫",
-   "age_days": 360
-  },
-  {
-   "id": "eDIOHbbpv4c",
-   "at": "2026-01-01T13:25:07",
-   "views": 19434,
-   "secs": 9,
-   "likes": 17,
-   "comments": 9,
-   "title": "tristana first blood",
-   "age_days": 278
-  },
-  {
-   "id": "aJ0qEwKrBK8",
-   "at": "2026-01-01T16:41:04",
-   "views": 13874,
-   "secs": 9,
-   "likes": 7,
-   "comments": 2,
-   "title": "tristana first blood",
-   "age_days": 278
-  },
-  {
-   "id": "pMwgN8iHcGk",
-   "at": "2026-01-03T02:20:37",
-   "views": 9346,
-   "secs": 19,
-   "likes": 16,
-   "comments": 6,
-   "title": "1HP TOWER DIVE! 😱",
-   "age_days": 276
-  },
-  {
-   "id": "gssetcsAtFg",
-   "at": "2025-11-03T07:48:41",
-   "views": 9260,
-   "secs": 12,
-   "likes": 29,
-   "comments": 2,
-   "title": "Best Jhin Ultimate😹💫❤️#lol #leagueoflegends #viralvideo #shorts #gaming #youtubeshorts #faker #funny",
-   "age_days": 337
-  },
-  {
-   "id": "Gg6rImvF5xs",
-   "at": "2025-10-09T18:57:06",
-   "views": 7783,
-   "secs": 17,
-   "likes": 38,
-   "comments": 2,
-   "title": "League Of Legends Draven Pentiakill #leagueoflegends #Draven #pentakill",
-   "age_days": 361
-  },
-  {
-   "id": "GaeNitMh8vs",
-   "at": "2025-11-21T11:45:36",
-   "views": 7539,
-   "secs": 15,
-   "likes": 23,
-   "comments": 0,
-   "title": "Funny Music Girl Roblox 😹❤️💥 #roblox",
-   "age_days": 319
-  },
-  {
-   "id": "cBUKohrW1Xs",
-   "at": "2025-11-02T10:16:22",
-   "views": 6168,
-   "secs": 16,
-   "likes": 6,
-   "comments": 0,
-   "title": "ez double at drake league of legends lol replays roitgame montage gameplay #lol #leagueoflegends",
-   "age_days": 338
-  },
-  {
-   "id": "LtqXSa4ckXk",
-   "at": "2025-11-03T16:10:54",
-   "views": 5347,
-   "secs": 16,
-   "likes": 12,
-   "comments": 1,
-   "title": "Tristana Ez Double Kill At Drake  ❤️ #leagueoflegends #riotgames #shorts #video #trending #gaming",
-   "age_days": 337
-  },
-  {
-   "id": "vlBbIcaKwCY",
-   "at": "2025-10-09T15:31:44",
-   "views": 5267,
-   "secs": 14,
-   "likes": 10,
-   "comments": 0,
-   "title": "League of Legends chogath PENTAKILLS 🤣😇 Funny moment #leagueoflegends",
-   "age_days": 362
-  },
-  {
-   "id": "2-h3r_LaPf0",
-   "at": "2025-10-10T20:47:25",
-   "views": 5074,
-   "secs": 4,
-   "likes": 36,
-   "comments": 0,
-   "title": "League Of Legends cinematic 2025 Jinx ❤️ #leagueoflegends #jinx #riotgames #cinematic #ai ai#shorts",
-   "age_days": 360
-  },
-  {
-   "id": "53SRZenoAeQ",
-   "at": "2026-01-03T22:06:37",
-   "views": 4785,
-   "secs": 9,
-   "likes": 3,
-   "comments": 0,
-   "title": "TRISTANA KILL KATARINA EZ xD@_^",
-   "age_days": 275
-  },
-  {
-   "id": "ASwQlgyPdtg",
-   "at": "2025-11-07T06:02:45",
-   "views": 3867,
-   "secs": 14,
-   "likes": 6,
-   "comments": 0,
-   "title": "Ez noob TEAM GG JHIN #leagueoflegends #lol LEAGUE OF LEGENDS 2025 REPLAYS MONTAGE ROITGAME",
-   "age_days": 333
-  },
-  {
-   "id": "XWzjIu53jOg",
-   "at": "2026-01-02T23:03:34",
-   "views": 3803,
-   "secs": 17,
-   "likes": 1,
-   "comments": 0,
-   "title": "THE ULTIMATE 1HP BAIT! | Tristana & Swain vs Jhin & Maokai",
-   "age_days": 276
-  },
-  {
-   "id": "XMrtv9maSRo",
-   "at": "2025-11-02T20:07:48",
-   "views": 3734,
-   "secs": 12,
-   "likes": 4,
-   "comments": 0,
-   "title": "Tristana ez Free Kill Viegar xD #leagueoflegends #leagueoflegendswildrift #lol #wildrift #gaming",
-   "age_days": 337
-  },
-  {
-   "id": "CNRfIXTJpiI",
-   "at": "2025-10-04T17:29:40",
-   "views": 3466,
-   "secs": 28,
-   "likes": 20,
-   "comments": 1,
-   "title": "Best Ultimate lol Tristana DodGe 😹💥💯 League Of Legends Gameplay 2025 montage Replays Smurf Kill XD",
-   "age_days": 367
-  },
-  {
-   "id": "sMlP-wlmza4",
-   "at": "2025-11-23T13:18:21",
-   "views": 3465,
-   "secs": 14,
-   "likes": 46,
-   "comments": 2,
-   "title": "Insane Dog Wearing Human Clothes JUMPS Over the Couch! 😂Must Watch Funny Pet Dog videos Funny moment",
-   "age_days": 317
-  },
-  {
-   "id": "o-hh5uL81vI",
-   "at": "2025-11-04T23:18:49",
-   "views": 3432,
-   "secs": 14,
-   "likes": 13,
-   "comments": 1,
-   "title": "#spongebob لعبة سبونج بوب المشهورة الجميلة الممتعة ❤️🔥💥 SpongBob gaming 2025 funny Subway #gaming",
-   "age_days": 335
-  },
-  {
-   "id": "Km8jJbxm3_I",
-   "at": "2025-10-05T23:55:09",
-   "views": 3359,
-   "secs": 13,
-   "likes": 11,
-   "comments": 0,
-   "title": "league of legends Ez Skill xD🤣😂 #leagueoflegends #lol #riotgames #wildrift #esports#gaming #proplays",
-   "age_days": 365
-  },
-  {
-   "id": "GXYeeWJOX5M",
-   "at": "2025-10-10T19:36:40",
-   "views": 3319,
-   "secs": 36,
-   "likes": 35,
-   "comments": 0,
-   "title": "League Of Legends Gameplay Montage Funny Moment jinx 😹 #leagueoflegends #riotgames  #esports#gaming",
-   "age_days": 360
-  },
-  {
-   "id": "NT12KgvqMSI",
-   "at": "2025-10-09T18:36:36",
-   "views": 3300,
-   "secs": 5,
-   "likes": 8,
-   "comments": 0,
-   "title": "#FUNNY_MOMENT 😹🤣❤️League Of Legends lol Amumu kill Nasus  #leagueoflegends #wildrift #lol",
-   "age_days": 361
-  },
-  {
-   "id": "VpwFQNLHmXU",
-   "at": "2025-10-11T05:51:46",
-   "views": 3057,
-   "secs": 18,
-   "likes": 18,
-   "comments": 9,
-   "title": "Best Ashe Vs 4 setts 😹💥💋 League Of Legends 2025 Funny Moment Montage Gameplay Ultimate Replays lol❤️",
-   "age_days": 360
-  },
-  {
-   "id": "iW-PLhkVs4M",
-   "at": "2025-12-31T22:27:27",
-   "views": 2892,
-   "secs": 14,
-   "likes": 3,
-   "comments": 0,
-   "title": "best pyke dance and hook to firstblood at aram game #leagueoflegends #lol #riotgames #replay#montage",
-   "age_days": 278
-  },
-  {
-   "id": "8QQYYAhxigg",
-   "at": "2026-01-03T21:49:58",
-   "views": 2651,
-   "secs": 18,
-   "likes": 1,
-   "comments": 0,
-   "title": "Tristana Kill volibear ez",
-   "age_days": 275
-  }
- ],
- "last_24h": {
-  "n": 26,
-  "views": 5,
-  "with_views": 3,
-  "best": 2
- },
- "last_48h": {
-  "n": 54,
-  "views": 19,
-  "with_views": 8,
-  "best": 6
- },
- "last_7d": {
-  "n": 216,
-  "views": 197,
-  "with_views": 59,
-  "best": 22
- },
- "shorts": {
-  "n": 559,
-  "views": 305382,
-  "zero": 186,
-  "median": 3
- },
- "longs": {
-  "n": 40,
-  "views": 2298,
-  "zero": 29,
-  "median": 0
- },
- "status": {
-  "privacy": {
-   "public": 596,
-   "private": 3
-  },
-  "upload": {
-   "processed": 597,
-   "uploaded": 2
-  },
-  "rejected": [],
-  "kids": 1,
-  "with_locales": 598
- },
- "rate_vs_views": [
-  {
-   "day": "2026-09-10",
-   "uploaded": 3,
-   "views": 253
-  },
-  {
-   "day": "2026-09-11",
-   "uploaded": 6,
-   "views": 10
-  },
-  {
-   "day": "2026-09-12",
-   "uploaded": 14,
-   "views": 66
-  },
-  {
-   "day": "2026-09-26",
-   "uploaded": 19,
-   "views": 22
-  },
-  {
-   "day": "2026-09-27",
-   "uploaded": 38,
-   "views": 139
-  },
-  {
-   "day": "2026-09-28",
-   "uploaded": 32,
-   "views": 62
-  },
-  {
-   "day": "2026-09-29",
-   "uploaded": 30,
-   "views": 70
-  },
-  {
-   "day": "2026-09-30",
-   "uploaded": 33,
-   "views": 24
-  },
-  {
-   "day": "2026-10-01",
-   "uploaded": 33,
-   "views": 31
-  },
-  {
-   "day": "2026-10-02",
-   "uploaded": 31,
-   "views": 27
-  },
-  {
-   "day": "2026-10-03",
-   "uploaded": 37,
-   "views": 40
-  },
-  {
-   "day": "2026-10-04",
-   "uploaded": 25,
-   "views": 31
-  },
-  {
-   "day": "2026-10-05",
-   "uploaded": 28,
-   "views": 9
-  },
-  {
-   "day": "2026-10-06",
-   "uploaded": 18,
-   "views": 0
-  }
- ],
- "winning_patterns": {
-  "no-hashtag": 22,
-  "duration<=20s": 23,
-  "#shorts": 3,
-  "20-60s": 2,
-  "dog": 1
- }
 }
