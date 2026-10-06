@@ -73555,6 +73555,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "wc2hd506lng",
+      "url": "https://youtu.be/wc2hd506lng",
+      "title": "Aurora Night Sky for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published_at": "2026-10-06T14:06:36.922031+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "long",
+        "kw": "Aurora Night Sky",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Rain"
     }
   ]
 }
