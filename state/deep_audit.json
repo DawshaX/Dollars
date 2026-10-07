@@ -1,767 +1,1242 @@
 {
-  "channel": {
+ "channels": [
+  {
+   "channel": {
     "title": "xDaw NoVa",
     "subs": 43,
-    "videos": 617,
-    "views": 326861
-  },
-  "total": 599,
-  "by_month": {
+    "videos": 620,
+    "views": 326861,
+    "label": "الدولارز — xDaw NoVa"
+   },
+   "total": 599,
+   "by_month": {
     "2025-07": {
-      "n": 38,
-      "views": 14533,
-      "zero": 2
+     "n": 35,
+     "views": 12821,
+     "zero": 2
     },
     "2025-08": {
-      "n": 3,
-      "views": 12,
-      "zero": 0
+     "n": 3,
+     "views": 13,
+     "zero": 0
     },
     "2025-10": {
-      "n": 70,
-      "views": 106661,
-      "zero": 1
+     "n": 70,
+     "views": 106673,
+     "zero": 1
     },
     "2025-11": {
-      "n": 37,
-      "views": 64385,
-      "zero": 1
+     "n": 37,
+     "views": 64393,
+     "zero": 1
     },
     "2025-12": {
-      "n": 17,
-      "views": 6232,
-      "zero": 0
+     "n": 17,
+     "views": 6232,
+     "zero": 0
     },
     "2026-01": {
-      "n": 15,
-      "views": 90859,
-      "zero": 1
+     "n": 15,
+     "views": 90859,
+     "zero": 1
     },
     "2026-02": {
-      "n": 2,
-      "views": 2399,
-      "zero": 0
+     "n": 2,
+     "views": 2399,
+     "zero": 0
     },
     "2026-03": {
-      "n": 27,
-      "views": 12234,
-      "zero": 1
+     "n": 27,
+     "views": 12234,
+     "zero": 1
     },
     "2026-04": {
-      "n": 2,
-      "views": 842,
-      "zero": 0
+     "n": 2,
+     "views": 842,
+     "zero": 0
     },
     "2026-08": {
-      "n": 41,
-      "views": 8739,
-      "zero": 3
+     "n": 41,
+     "views": 8739,
+     "zero": 3
     },
     "2026-09": {
-      "n": 175,
-      "views": 646,
-      "zero": 78
+     "n": 175,
+     "views": 648,
+     "zero": 77
     },
     "2026-10": {
-      "n": 172,
-      "views": 138,
-      "zero": 128
+     "n": 175,
+     "views": 144,
+     "zero": 130
     }
-  },
-  "by_day": {
+   },
+   "by_day": {
     "2025-07-26": {
-      "n": 6,
-      "views": 1779
+     "n": 3,
+     "views": 67
     },
     "2025-07-27": {
-      "n": 31,
-      "views": 11501
+     "n": 31,
+     "views": 11501
     },
     "2025-07-29": {
-      "n": 1,
-      "views": 1253
+     "n": 1,
+     "views": 1253
     },
     "2025-08-03": {
-      "n": 3,
-      "views": 12
+     "n": 3,
+     "views": 13
     },
     "2025-10-02": {
-      "n": 3,
-      "views": 52
+     "n": 3,
+     "views": 52
     },
     "2025-10-03": {
-      "n": 6,
-      "views": 8930
+     "n": 6,
+     "views": 8930
     },
     "2025-10-04": {
-      "n": 24,
-      "views": 16774
+     "n": 24,
+     "views": 16774
     },
     "2025-10-05": {
-      "n": 6,
-      "views": 7925
+     "n": 6,
+     "views": 7925
     },
     "2025-10-07": {
-      "n": 3,
-      "views": 27
+     "n": 3,
+     "views": 27
     },
     "2025-10-08": {
-      "n": 3,
-      "views": 848
+     "n": 3,
+     "views": 848
     },
     "2025-10-09": {
-      "n": 9,
-      "views": 21666
+     "n": 9,
+     "views": 21666
     },
     "2025-10-10": {
-      "n": 6,
-      "views": 36904
+     "n": 6,
+     "views": 36916
     },
     "2025-10-11": {
-      "n": 1,
-      "views": 3057
+     "n": 1,
+     "views": 3057
     },
     "2025-10-13": {
-      "n": 4,
-      "views": 5474
+     "n": 4,
+     "views": 5474
     },
     "2025-10-15": {
-      "n": 3,
-      "views": 3533
+     "n": 3,
+     "views": 3533
     },
     "2025-10-16": {
-      "n": 1,
-      "views": 86
+     "n": 1,
+     "views": 86
     },
     "2025-10-18": {
-      "n": 1,
-      "views": 1385
+     "n": 1,
+     "views": 1385
     },
     "2025-11-01": {
-      "n": 2,
-      "views": 2208
+     "n": 2,
+     "views": 2208
     },
     "2025-11-02": {
-      "n": 4,
-      "views": 12553
+     "n": 4,
+     "views": 12553
     },
     "2025-11-03": {
-      "n": 6,
-      "views": 16977
+     "n": 6,
+     "views": 16977
     },
     "2025-11-04": {
-      "n": 2,
-      "views": 4702
+     "n": 2,
+     "views": 4702
     },
     "2025-11-07": {
-      "n": 3,
-      "views": 6725
+     "n": 3,
+     "views": 6725
     },
     "2025-11-09": {
-      "n": 1,
-      "views": 210
+     "n": 1,
+     "views": 210
     },
     "2025-11-10": {
-      "n": 1,
-      "views": 728
+     "n": 1,
+     "views": 728
     },
     "2025-11-12": {
-      "n": 6,
-      "views": 3148
+     "n": 6,
+     "views": 3148
     },
     "2025-11-18": {
-      "n": 1,
-      "views": 138
+     "n": 1,
+     "views": 138
     },
     "2025-11-21": {
-      "n": 2,
-      "views": 9403
+     "n": 2,
+     "views": 9403
     },
     "2025-11-22": {
-      "n": 2,
-      "views": 3866
+     "n": 2,
+     "views": 3866
     },
     "2025-11-23": {
-      "n": 7,
-      "views": 3727
+     "n": 7,
+     "views": 3735
     },
     "2025-12-10": {
-      "n": 1,
-      "views": 20
+     "n": 1,
+     "views": 20
     },
     "2025-12-12": {
-      "n": 1,
-      "views": 10
+     "n": 1,
+     "views": 10
     },
     "2025-12-19": {
-      "n": 1,
-      "views": 1
+     "n": 1,
+     "views": 1
     },
     "2025-12-20": {
-      "n": 5,
-      "views": 25
+     "n": 5,
+     "views": 25
     },
     "2025-12-22": {
-      "n": 2,
-      "views": 21
+     "n": 2,
+     "views": 21
     },
     "2025-12-24": {
-      "n": 1,
-      "views": 1
+     "n": 1,
+     "views": 1
     },
     "2025-12-25": {
-      "n": 3,
-      "views": 35
+     "n": 3,
+     "views": 35
     },
     "2025-12-30": {
-      "n": 1,
-      "views": 1171
+     "n": 1,
+     "views": 1171
     },
     "2025-12-31": {
-      "n": 2,
-      "views": 4948
+     "n": 2,
+     "views": 4948
     },
     "2026-01-01": {
-      "n": 5,
-      "views": 62872
+     "n": 5,
+     "views": 62872
     },
     "2026-01-02": {
-      "n": 4,
-      "views": 6943
+     "n": 4,
+     "views": 6943
     },
     "2026-01-03": {
-      "n": 4,
-      "views": 17977
+     "n": 4,
+     "views": 17977
     },
     "2026-01-04": {
-      "n": 1,
-      "views": 1877
+     "n": 1,
+     "views": 1877
     },
     "2026-01-17": {
-      "n": 1,
-      "views": 1190
+     "n": 1,
+     "views": 1190
     },
     "2026-02-18": {
-      "n": 1,
-      "views": 2235
+     "n": 1,
+     "views": 2235
     },
     "2026-02-20": {
-      "n": 1,
-      "views": 164
+     "n": 1,
+     "views": 164
     },
     "2026-03-02": {
-      "n": 1,
-      "views": 1255
+     "n": 1,
+     "views": 1255
     },
     "2026-03-11": {
-      "n": 6,
-      "views": 1379
+     "n": 6,
+     "views": 1379
     },
     "2026-03-12": {
-      "n": 1,
-      "views": 50
+     "n": 1,
+     "views": 50
     },
     "2026-03-13": {
-      "n": 2,
-      "views": 2092
+     "n": 2,
+     "views": 2092
     },
     "2026-03-14": {
-      "n": 2,
-      "views": 2023
+     "n": 2,
+     "views": 2023
     },
     "2026-03-15": {
-      "n": 6,
-      "views": 1065
+     "n": 6,
+     "views": 1065
     },
     "2026-03-18": {
-      "n": 5,
-      "views": 3169
+     "n": 5,
+     "views": 3169
     },
     "2026-03-19": {
-      "n": 1,
-      "views": 992
+     "n": 1,
+     "views": 992
     },
     "2026-03-26": {
-      "n": 3,
-      "views": 209
+     "n": 3,
+     "views": 209
     },
     "2026-04-03": {
-      "n": 1,
-      "views": 839
+     "n": 1,
+     "views": 839
     },
     "2026-04-08": {
-      "n": 1,
-      "views": 3
+     "n": 1,
+     "views": 3
     },
     "2026-08-13": {
-      "n": 5,
-      "views": 106
+     "n": 5,
+     "views": 106
     },
     "2026-08-14": {
-      "n": 4,
-      "views": 2007
+     "n": 4,
+     "views": 2007
     },
     "2026-08-16": {
-      "n": 4,
-      "views": 569
+     "n": 4,
+     "views": 569
     },
     "2026-08-17": {
-      "n": 3,
-      "views": 143
+     "n": 3,
+     "views": 143
     },
     "2026-08-20": {
-      "n": 10,
-      "views": 2215
+     "n": 10,
+     "views": 2215
     },
     "2026-08-21": {
-      "n": 1,
-      "views": 93
+     "n": 1,
+     "views": 93
     },
     "2026-08-22": {
-      "n": 6,
-      "views": 401
+     "n": 6,
+     "views": 401
     },
     "2026-08-23": {
-      "n": 6,
-      "views": 2969
+     "n": 6,
+     "views": 2969
     },
     "2026-08-24": {
-      "n": 1,
-      "views": 156
+     "n": 1,
+     "views": 156
     },
     "2026-08-25": {
-      "n": 1,
-      "views": 80
+     "n": 1,
+     "views": 80
     },
     "2026-09-10": {
-      "n": 3,
-      "views": 253
+     "n": 3,
+     "views": 253
     },
     "2026-09-11": {
-      "n": 6,
-      "views": 10
+     "n": 6,
+     "views": 10
     },
     "2026-09-12": {
-      "n": 14,
-      "views": 66
+     "n": 14,
+     "views": 66
     },
     "2026-09-26": {
-      "n": 19,
-      "views": 22
+     "n": 19,
+     "views": 22
     },
     "2026-09-27": {
-      "n": 38,
-      "views": 139
+     "n": 38,
+     "views": 139
     },
     "2026-09-28": {
-      "n": 32,
-      "views": 62
+     "n": 32,
+     "views": 62
     },
     "2026-09-29": {
-      "n": 30,
-      "views": 70
+     "n": 30,
+     "views": 70
     },
     "2026-09-30": {
-      "n": 33,
-      "views": 24
+     "n": 33,
+     "views": 26
     },
     "2026-10-01": {
-      "n": 33,
-      "views": 31
+     "n": 33,
+     "views": 29
     },
     "2026-10-02": {
-      "n": 31,
-      "views": 27
+     "n": 31,
+     "views": 27
     },
     "2026-10-03": {
-      "n": 37,
-      "views": 40
+     "n": 37,
+     "views": 41
     },
     "2026-10-04": {
-      "n": 25,
-      "views": 31
+     "n": 25,
+     "views": 36
     },
     "2026-10-05": {
-      "n": 28,
-      "views": 9
+     "n": 28,
+     "views": 11
     },
     "2026-10-06": {
-      "n": 18,
-      "views": 0
+     "n": 18,
+     "views": 0
+    },
+    "2026-10-07": {
+     "n": 3,
+     "views": 0
     }
-  },
-  "top": [
+   },
+   "top": [
     {
-      "id": "MD4GzgBIf5A",
-      "at": "2026-01-01T22:36:27",
-      "views": 29562,
-      "secs": 12,
-      "likes": 22,
-      "comments": 4,
-      "title": "TRISTANA EZ KILL POPPY @_^",
-      "age_days": 277
+     "id": "MD4GzgBIf5A",
+     "at": "2026-01-01T22:36:27",
+     "views": 29562,
+     "secs": 12,
+     "likes": 22,
+     "comments": 4,
+     "title": "TRISTANA EZ KILL POPPY @_^",
+     "age_days": 278
     },
     {
-      "id": "8UGK_1sRYzY",
-      "at": "2025-10-10T23:58:09",
-      "views": 26972,
-      "secs": 12,
-      "likes": 172,
-      "comments": 5,
-      "title": "Best jhin Ultimate xD 🤣🔥❤️ League Of Legends 2025 Gameplay Montage Funny  Moment RiotGame Replays 💫",
-      "age_days": 360
+     "id": "8UGK_1sRYzY",
+     "at": "2025-10-10T23:58:09",
+     "views": 26972,
+     "secs": 12,
+     "likes": 172,
+     "comments": 5,
+     "title": "Best jhin Ultimate xD 🤣🔥❤️ League Of Legends 2025 Gameplay Montage Funny  Moment RiotGame Replays 💫",
+     "age_days": 361
     },
     {
-      "id": "eDIOHbbpv4c",
-      "at": "2026-01-01T13:25:07",
-      "views": 19434,
-      "secs": 9,
-      "likes": 17,
-      "comments": 9,
-      "title": "tristana first blood",
-      "age_days": 278
+     "id": "eDIOHbbpv4c",
+     "at": "2026-01-01T13:25:07",
+     "views": 19434,
+     "secs": 9,
+     "likes": 17,
+     "comments": 9,
+     "title": "tristana first blood",
+     "age_days": 278
     },
     {
-      "id": "aJ0qEwKrBK8",
-      "at": "2026-01-01T16:41:04",
-      "views": 13874,
-      "secs": 9,
-      "likes": 7,
-      "comments": 2,
-      "title": "tristana first blood",
-      "age_days": 278
+     "id": "aJ0qEwKrBK8",
+     "at": "2026-01-01T16:41:04",
+     "views": 13874,
+     "secs": 9,
+     "likes": 7,
+     "comments": 2,
+     "title": "tristana first blood",
+     "age_days": 278
     },
     {
-      "id": "pMwgN8iHcGk",
-      "at": "2026-01-03T02:20:37",
-      "views": 9346,
-      "secs": 19,
-      "likes": 16,
-      "comments": 6,
-      "title": "1HP TOWER DIVE! 😱",
-      "age_days": 276
+     "id": "pMwgN8iHcGk",
+     "at": "2026-01-03T02:20:37",
+     "views": 9346,
+     "secs": 19,
+     "likes": 16,
+     "comments": 6,
+     "title": "1HP TOWER DIVE! 😱",
+     "age_days": 277
     },
     {
-      "id": "gssetcsAtFg",
-      "at": "2025-11-03T07:48:41",
-      "views": 9260,
-      "secs": 12,
-      "likes": 29,
-      "comments": 2,
-      "title": "Best Jhin Ultimate😹💫❤️#lol #leagueoflegends #viralvideo #shorts #gaming #youtubeshorts #faker #funny",
-      "age_days": 337
+     "id": "gssetcsAtFg",
+     "at": "2025-11-03T07:48:41",
+     "views": 9260,
+     "secs": 12,
+     "likes": 29,
+     "comments": 2,
+     "title": "Best Jhin Ultimate😹💫❤️#lol #leagueoflegends #viralvideo #shorts #gaming #youtubeshorts #faker #funny",
+     "age_days": 337
     },
     {
-      "id": "Gg6rImvF5xs",
-      "at": "2025-10-09T18:57:06",
-      "views": 7783,
-      "secs": 17,
-      "likes": 38,
-      "comments": 2,
-      "title": "League Of Legends Draven Pentiakill #leagueoflegends #Draven #pentakill",
-      "age_days": 361
+     "id": "Gg6rImvF5xs",
+     "at": "2025-10-09T18:57:06",
+     "views": 7783,
+     "secs": 17,
+     "likes": 38,
+     "comments": 2,
+     "title": "League Of Legends Draven Pentiakill #leagueoflegends #Draven #pentakill",
+     "age_days": 362
     },
     {
-      "id": "GaeNitMh8vs",
-      "at": "2025-11-21T11:45:36",
-      "views": 7539,
-      "secs": 15,
-      "likes": 23,
-      "comments": 0,
-      "title": "Funny Music Girl Roblox 😹❤️💥 #roblox",
-      "age_days": 319
+     "id": "GaeNitMh8vs",
+     "at": "2025-11-21T11:45:36",
+     "views": 7539,
+     "secs": 15,
+     "likes": 23,
+     "comments": 0,
+     "title": "Funny Music Girl Roblox 😹❤️💥 #roblox",
+     "age_days": 319
     },
     {
-      "id": "cBUKohrW1Xs",
-      "at": "2025-11-02T10:16:22",
-      "views": 6168,
-      "secs": 16,
-      "likes": 6,
-      "comments": 0,
-      "title": "ez double at drake league of legends lol replays roitgame montage gameplay #lol #leagueoflegends",
-      "age_days": 338
+     "id": "cBUKohrW1Xs",
+     "at": "2025-11-02T10:16:22",
+     "views": 6168,
+     "secs": 16,
+     "likes": 6,
+     "comments": 0,
+     "title": "ez double at drake league of legends lol replays roitgame montage gameplay #lol #leagueoflegends",
+     "age_days": 338
     },
     {
-      "id": "LtqXSa4ckXk",
-      "at": "2025-11-03T16:10:54",
-      "views": 5347,
-      "secs": 16,
-      "likes": 12,
-      "comments": 1,
-      "title": "Tristana Ez Double Kill At Drake  ❤️ #leagueoflegends #riotgames #shorts #video #trending #gaming",
-      "age_days": 337
+     "id": "LtqXSa4ckXk",
+     "at": "2025-11-03T16:10:54",
+     "views": 5347,
+     "secs": 16,
+     "likes": 12,
+     "comments": 1,
+     "title": "Tristana Ez Double Kill At Drake  ❤️ #leagueoflegends #riotgames #shorts #video #trending #gaming",
+     "age_days": 337
     },
     {
-      "id": "vlBbIcaKwCY",
-      "at": "2025-10-09T15:31:44",
-      "views": 5267,
-      "secs": 14,
-      "likes": 10,
-      "comments": 0,
-      "title": "League of Legends chogath PENTAKILLS 🤣😇 Funny moment #leagueoflegends",
-      "age_days": 362
+     "id": "vlBbIcaKwCY",
+     "at": "2025-10-09T15:31:44",
+     "views": 5267,
+     "secs": 14,
+     "likes": 10,
+     "comments": 0,
+     "title": "League of Legends chogath PENTAKILLS 🤣😇 Funny moment #leagueoflegends",
+     "age_days": 362
     },
     {
-      "id": "2-h3r_LaPf0",
-      "at": "2025-10-10T20:47:25",
-      "views": 5074,
-      "secs": 4,
-      "likes": 36,
-      "comments": 0,
-      "title": "League Of Legends cinematic 2025 Jinx ❤️ #leagueoflegends #jinx #riotgames #cinematic #ai ai#shorts",
-      "age_days": 360
+     "id": "2-h3r_LaPf0",
+     "at": "2025-10-10T20:47:25",
+     "views": 5086,
+     "secs": 4,
+     "likes": 36,
+     "comments": 0,
+     "title": "League Of Legends cinematic 2025 Jinx ❤️ #leagueoflegends #jinx #riotgames #cinematic #ai ai#shorts",
+     "age_days": 361
     },
     {
-      "id": "53SRZenoAeQ",
-      "at": "2026-01-03T22:06:37",
-      "views": 4785,
-      "secs": 9,
-      "likes": 3,
-      "comments": 0,
-      "title": "TRISTANA KILL KATARINA EZ xD@_^",
-      "age_days": 275
+     "id": "53SRZenoAeQ",
+     "at": "2026-01-03T22:06:37",
+     "views": 4785,
+     "secs": 9,
+     "likes": 3,
+     "comments": 0,
+     "title": "TRISTANA KILL KATARINA EZ xD@_^",
+     "age_days": 276
     },
     {
-      "id": "ASwQlgyPdtg",
-      "at": "2025-11-07T06:02:45",
-      "views": 3867,
-      "secs": 14,
-      "likes": 6,
-      "comments": 0,
-      "title": "Ez noob TEAM GG JHIN #leagueoflegends #lol LEAGUE OF LEGENDS 2025 REPLAYS MONTAGE ROITGAME",
-      "age_days": 333
+     "id": "ASwQlgyPdtg",
+     "at": "2025-11-07T06:02:45",
+     "views": 3867,
+     "secs": 14,
+     "likes": 6,
+     "comments": 0,
+     "title": "Ez noob TEAM GG JHIN #leagueoflegends #lol LEAGUE OF LEGENDS 2025 REPLAYS MONTAGE ROITGAME",
+     "age_days": 333
     },
     {
-      "id": "XWzjIu53jOg",
-      "at": "2026-01-02T23:03:34",
-      "views": 3803,
-      "secs": 17,
-      "likes": 1,
-      "comments": 0,
-      "title": "THE ULTIMATE 1HP BAIT! | Tristana & Swain vs Jhin & Maokai",
-      "age_days": 276
+     "id": "XWzjIu53jOg",
+     "at": "2026-01-02T23:03:34",
+     "views": 3803,
+     "secs": 17,
+     "likes": 1,
+     "comments": 0,
+     "title": "THE ULTIMATE 1HP BAIT! | Tristana & Swain vs Jhin & Maokai",
+     "age_days": 277
     },
     {
-      "id": "XMrtv9maSRo",
-      "at": "2025-11-02T20:07:48",
-      "views": 3734,
-      "secs": 12,
-      "likes": 4,
-      "comments": 0,
-      "title": "Tristana ez Free Kill Viegar xD #leagueoflegends #leagueoflegendswildrift #lol #wildrift #gaming",
-      "age_days": 337
+     "id": "XMrtv9maSRo",
+     "at": "2025-11-02T20:07:48",
+     "views": 3734,
+     "secs": 12,
+     "likes": 4,
+     "comments": 0,
+     "title": "Tristana ez Free Kill Viegar xD #leagueoflegends #leagueoflegendswildrift #lol #wildrift #gaming",
+     "age_days": 338
     },
     {
-      "id": "CNRfIXTJpiI",
-      "at": "2025-10-04T17:29:40",
-      "views": 3466,
-      "secs": 28,
-      "likes": 20,
-      "comments": 1,
-      "title": "Best Ultimate lol Tristana DodGe 😹💥💯 League Of Legends Gameplay 2025 montage Replays Smurf Kill XD",
-      "age_days": 367
+     "id": "sMlP-wlmza4",
+     "at": "2025-11-23T13:18:21",
+     "views": 3473,
+     "secs": 14,
+     "likes": 46,
+     "comments": 2,
+     "title": "Insane Dog Wearing Human Clothes JUMPS Over the Couch! 😂Must Watch Funny Pet Dog videos Funny moment",
+     "age_days": 317
     },
     {
-      "id": "sMlP-wlmza4",
-      "at": "2025-11-23T13:18:21",
-      "views": 3465,
-      "secs": 14,
-      "likes": 46,
-      "comments": 2,
-      "title": "Insane Dog Wearing Human Clothes JUMPS Over the Couch! 😂Must Watch Funny Pet Dog videos Funny moment",
-      "age_days": 317
+     "id": "CNRfIXTJpiI",
+     "at": "2025-10-04T17:29:40",
+     "views": 3466,
+     "secs": 28,
+     "likes": 20,
+     "comments": 1,
+     "title": "Best Ultimate lol Tristana DodGe 😹💥💯 League Of Legends Gameplay 2025 montage Replays Smurf Kill XD",
+     "age_days": 367
     },
     {
-      "id": "o-hh5uL81vI",
-      "at": "2025-11-04T23:18:49",
-      "views": 3432,
-      "secs": 14,
-      "likes": 13,
-      "comments": 1,
-      "title": "#spongebob لعبة سبونج بوب المشهورة الجميلة الممتعة ❤️🔥💥 SpongBob gaming 2025 funny Subway #gaming",
-      "age_days": 335
+     "id": "o-hh5uL81vI",
+     "at": "2025-11-04T23:18:49",
+     "views": 3432,
+     "secs": 14,
+     "likes": 13,
+     "comments": 1,
+     "title": "#spongebob لعبة سبونج بوب المشهورة الجميلة الممتعة ❤️🔥💥 SpongBob gaming 2025 funny Subway #gaming",
+     "age_days": 336
     },
     {
-      "id": "Km8jJbxm3_I",
-      "at": "2025-10-05T23:55:09",
-      "views": 3359,
-      "secs": 13,
-      "likes": 11,
-      "comments": 0,
-      "title": "league of legends Ez Skill xD🤣😂 #leagueoflegends #lol #riotgames #wildrift #esports#gaming #proplays",
-      "age_days": 365
+     "id": "Km8jJbxm3_I",
+     "at": "2025-10-05T23:55:09",
+     "views": 3359,
+     "secs": 13,
+     "likes": 11,
+     "comments": 0,
+     "title": "league of legends Ez Skill xD🤣😂 #leagueoflegends #lol #riotgames #wildrift #esports#gaming #proplays",
+     "age_days": 366
     },
     {
-      "id": "GXYeeWJOX5M",
-      "at": "2025-10-10T19:36:40",
-      "views": 3319,
-      "secs": 36,
-      "likes": 35,
-      "comments": 0,
-      "title": "League Of Legends Gameplay Montage Funny Moment jinx 😹 #leagueoflegends #riotgames  #esports#gaming",
-      "age_days": 360
+     "id": "GXYeeWJOX5M",
+     "at": "2025-10-10T19:36:40",
+     "views": 3319,
+     "secs": 36,
+     "likes": 35,
+     "comments": 0,
+     "title": "League Of Legends Gameplay Montage Funny Moment jinx 😹 #leagueoflegends #riotgames  #esports#gaming",
+     "age_days": 361
     },
     {
-      "id": "NT12KgvqMSI",
-      "at": "2025-10-09T18:36:36",
-      "views": 3300,
-      "secs": 5,
-      "likes": 8,
-      "comments": 0,
-      "title": "#FUNNY_MOMENT 😹🤣❤️League Of Legends lol Amumu kill Nasus  #leagueoflegends #wildrift #lol",
-      "age_days": 361
+     "id": "NT12KgvqMSI",
+     "at": "2025-10-09T18:36:36",
+     "views": 3300,
+     "secs": 5,
+     "likes": 8,
+     "comments": 0,
+     "title": "#FUNNY_MOMENT 😹🤣❤️League Of Legends lol Amumu kill Nasus  #leagueoflegends #wildrift #lol",
+     "age_days": 362
     },
     {
-      "id": "VpwFQNLHmXU",
-      "at": "2025-10-11T05:51:46",
-      "views": 3057,
-      "secs": 18,
-      "likes": 18,
-      "comments": 9,
-      "title": "Best Ashe Vs 4 setts 😹💥💋 League Of Legends 2025 Funny Moment Montage Gameplay Ultimate Replays lol❤️",
-      "age_days": 360
+     "id": "VpwFQNLHmXU",
+     "at": "2025-10-11T05:51:46",
+     "views": 3057,
+     "secs": 18,
+     "likes": 18,
+     "comments": 9,
+     "title": "Best Ashe Vs 4 setts 😹💥💋 League Of Legends 2025 Funny Moment Montage Gameplay Ultimate Replays lol❤️",
+     "age_days": 360
     },
     {
-      "id": "iW-PLhkVs4M",
-      "at": "2025-12-31T22:27:27",
-      "views": 2892,
-      "secs": 14,
-      "likes": 3,
-      "comments": 0,
-      "title": "best pyke dance and hook to firstblood at aram game #leagueoflegends #lol #riotgames #replay#montage",
-      "age_days": 278
+     "id": "iW-PLhkVs4M",
+     "at": "2025-12-31T22:27:27",
+     "views": 2892,
+     "secs": 14,
+     "likes": 3,
+     "comments": 0,
+     "title": "best pyke dance and hook to firstblood at aram game #leagueoflegends #lol #riotgames #replay#montage",
+     "age_days": 279
     },
     {
-      "id": "8QQYYAhxigg",
-      "at": "2026-01-03T21:49:58",
-      "views": 2651,
-      "secs": 18,
-      "likes": 1,
-      "comments": 0,
-      "title": "Tristana Kill volibear ez",
-      "age_days": 275
+     "id": "8QQYYAhxigg",
+     "at": "2026-01-03T21:49:58",
+     "views": 2651,
+     "secs": 18,
+     "likes": 1,
+     "comments": 0,
+     "title": "Tristana Kill volibear ez",
+     "age_days": 276
     }
-  ],
-  "last_24h": {
-    "n": 26,
-    "views": 5,
-    "with_views": 3,
+   ],
+   "last_24h": {
+    "n": 18,
+    "views": 0,
+    "with_views": 0,
+    "best": 0
+   },
+   "last_48h": {
+    "n": 45,
+    "views": 8,
+    "with_views": 5,
     "best": 2
-  },
-  "last_48h": {
-    "n": 54,
-    "views": 19,
-    "with_views": 8,
-    "best": 6
-  },
-  "last_7d": {
-    "n": 216,
-    "views": 197,
-    "with_views": 59,
-    "best": 22
-  },
-  "shorts": {
-    "n": 559,
-    "views": 305382,
+   },
+   "last_7d": {
+    "n": 203,
+    "views": 158,
+    "with_views": 51,
+    "best": 14
+   },
+   "shorts": {
+    "n": 558,
+    "views": 303699,
     "zero": 186,
-    "median": 3
-  },
-  "longs": {
-    "n": 40,
+    "median": 2
+   },
+   "longs": {
+    "n": 41,
     "views": 2298,
-    "zero": 29,
+    "zero": 30,
     "median": 0
-  },
-  "status": {
+   },
+   "status": {
     "privacy": {
-      "public": 596,
-      "private": 3
+     "public": 596,
+     "private": 3
     },
     "upload": {
-      "processed": 597,
-      "uploaded": 2
+     "processed": 597,
+     "uploaded": 2
     },
     "rejected": [],
     "kids": 1,
     "with_locales": 598
-  },
-  "rate_vs_views": [
+   },
+   "rate_vs_views": [
     {
-      "day": "2026-09-10",
-      "uploaded": 3,
-      "views": 253
+     "day": "2026-09-11",
+     "uploaded": 6,
+     "views": 10
     },
     {
-      "day": "2026-09-11",
-      "uploaded": 6,
-      "views": 10
+     "day": "2026-09-12",
+     "uploaded": 14,
+     "views": 66
     },
     {
-      "day": "2026-09-12",
-      "uploaded": 14,
-      "views": 66
+     "day": "2026-09-26",
+     "uploaded": 19,
+     "views": 22
     },
     {
-      "day": "2026-09-26",
-      "uploaded": 19,
-      "views": 22
+     "day": "2026-09-27",
+     "uploaded": 38,
+     "views": 139
     },
     {
-      "day": "2026-09-27",
-      "uploaded": 38,
-      "views": 139
+     "day": "2026-09-28",
+     "uploaded": 32,
+     "views": 62
     },
     {
-      "day": "2026-09-28",
-      "uploaded": 32,
-      "views": 62
+     "day": "2026-09-29",
+     "uploaded": 30,
+     "views": 70
     },
     {
-      "day": "2026-09-29",
-      "uploaded": 30,
-      "views": 70
+     "day": "2026-09-30",
+     "uploaded": 33,
+     "views": 26
     },
     {
-      "day": "2026-09-30",
-      "uploaded": 33,
-      "views": 24
+     "day": "2026-10-01",
+     "uploaded": 33,
+     "views": 29
     },
     {
-      "day": "2026-10-01",
-      "uploaded": 33,
-      "views": 31
+     "day": "2026-10-02",
+     "uploaded": 31,
+     "views": 27
     },
     {
-      "day": "2026-10-02",
-      "uploaded": 31,
-      "views": 27
+     "day": "2026-10-03",
+     "uploaded": 37,
+     "views": 41
     },
     {
-      "day": "2026-10-03",
-      "uploaded": 37,
-      "views": 40
+     "day": "2026-10-04",
+     "uploaded": 25,
+     "views": 36
     },
     {
-      "day": "2026-10-04",
-      "uploaded": 25,
-      "views": 31
+     "day": "2026-10-05",
+     "uploaded": 28,
+     "views": 11
     },
     {
-      "day": "2026-10-05",
-      "uploaded": 28,
-      "views": 9
+     "day": "2026-10-06",
+     "uploaded": 18,
+     "views": 0
     },
     {
-      "day": "2026-10-06",
-      "uploaded": 18,
-      "views": 0
+     "day": "2026-10-07",
+     "uploaded": 3,
+     "views": 0
     }
-  ],
-  "winning_patterns": {
+   ],
+   "winning_patterns": {
     "no-hashtag": 22,
     "duration<=20s": 23,
     "#shorts": 3,
-    "20-60s": 2,
-    "dog": 1
+    "dog": 1,
+    "20-60s": 2
+   }
+  },
+  {
+   "channel": {
+    "title": "XTreNDAW ShOrts",
+    "subs": 302,
+    "videos": 785,
+    "views": 111401,
+    "label": "نور — XTreNDAW ShOrts"
+   },
+   "total": 600,
+   "by_month": {
+    "2026-09": {
+     "n": 356,
+     "views": 48733,
+     "zero": 100
+    },
+    "2026-10": {
+     "n": 244,
+     "views": 12670,
+     "zero": 89
+    }
+   },
+   "by_day": {
+    "2026-09-20": {
+     "n": 3,
+     "views": 10
+    },
+    "2026-09-21": {
+     "n": 17,
+     "views": 8578
+    },
+    "2026-09-22": {
+     "n": 21,
+     "views": 8769
+    },
+    "2026-09-23": {
+     "n": 24,
+     "views": 7192
+    },
+    "2026-09-24": {
+     "n": 37,
+     "views": 2479
+    },
+    "2026-09-25": {
+     "n": 43,
+     "views": 2191
+    },
+    "2026-09-26": {
+     "n": 42,
+     "views": 4751
+    },
+    "2026-09-27": {
+     "n": 44,
+     "views": 3272
+    },
+    "2026-09-28": {
+     "n": 42,
+     "views": 2920
+    },
+    "2026-09-29": {
+     "n": 41,
+     "views": 4152
+    },
+    "2026-09-30": {
+     "n": 42,
+     "views": 4419
+    },
+    "2026-10-01": {
+     "n": 43,
+     "views": 866
+    },
+    "2026-10-02": {
+     "n": 38,
+     "views": 1721
+    },
+    "2026-10-03": {
+     "n": 39,
+     "views": 2804
+    },
+    "2026-10-04": {
+     "n": 43,
+     "views": 5201
+    },
+    "2026-10-05": {
+     "n": 39,
+     "views": 1327
+    },
+    "2026-10-06": {
+     "n": 39,
+     "views": 699
+    },
+    "2026-10-07": {
+     "n": 3,
+     "views": 52
+    }
+   },
+   "top": [
+    {
+     "id": "tk8lhY_Wp0Y",
+     "at": "2026-09-26T05:04:51",
+     "views": 1100,
+     "secs": 51,
+     "likes": 55,
+     "comments": 2,
+     "title": "أعظم آية في القرآن 🌌 | سورة البقرة آية 255 🤍 تلاوة محمود خليل الحصري",
+     "age_days": 10
+    },
+    {
+     "id": "QDphBvKYNxw",
+     "at": "2026-09-21T05:21:48",
+     "views": 1048,
+     "secs": 56,
+     "likes": 71,
+     "comments": 2,
+     "title": "سلسلة التحصين (4/8): سُورَةُ الإِسۡرَاءِ ﴿45–46﴾ — عبدالرحمن السديس",
+     "age_days": 15
+    },
+    {
+     "id": "l8weIc8EDkE",
+     "at": "2026-10-04T05:09:19",
+     "views": 1044,
+     "secs": 25,
+     "likes": 24,
+     "comments": 0,
+     "title": "سلسلة الأربعين النووية (26/30): كل سلامى من الناس عليه صدقة، كل يو…",
+     "age_days": 2
+    },
+    {
+     "id": "MAPJeUY4M_Y",
+     "at": "2026-09-23T03:24:49",
+     "views": 1016,
+     "secs": 50,
+     "likes": 61,
+     "comments": 1,
+     "title": "سلسلة التحصين (7/8): سُورَةُ النَّاسِ ﴿1–6﴾ — عبدالرحمن السديس",
+     "age_days": 13
+    },
+    {
+     "id": "h1DhsVXA8ms",
+     "at": "2026-09-23T04:27:17",
+     "views": 1010,
+     "secs": 41,
+     "likes": 64,
+     "comments": 2,
+     "title": "قال رسول الله ﷺ: حَدَّثَنَا سُلَيْمَانُ بْنُ دَاوُدَ الْع…",
+     "age_days": 13
+    },
+    {
+     "id": "ymaBy6Brub4",
+     "at": "2026-09-22T00:09:01",
+     "views": 995,
+     "secs": 34,
+     "likes": 87,
+     "comments": 1,
+     "title": "قال رسول الله ﷺ: وَحَدَّثَنِي مَالِكٌ، عَنْ زَيْدِ بْنِ أ…",
+     "age_days": 15
+    },
+    {
+     "id": "TcLIrG80XvI",
+     "at": "2026-09-23T02:21:27",
+     "views": 992,
+     "secs": 82,
+     "likes": 59,
+     "comments": 0,
+     "title": "سلسلة الرقية الشرعية (4/10): سُورَةُ البَقَرَةِ ﴿163–164﴾ — عبدالرحمن السديس",
+     "age_days": 14
+    },
+    {
+     "id": "RXleDB6bjyY",
+     "at": "2026-09-26T03:43:17",
+     "views": 988,
+     "secs": 28,
+     "likes": 14,
+     "comments": 0,
+     "title": "معلومة تُضيء: جُمع القرآن في مصحف واحد أول مرة في خلاف…",
+     "age_days": 10
+    },
+    {
+     "id": "wBiAc0hQF_o",
+     "at": "2026-10-04T04:07:24",
+     "views": 977,
+     "secs": 27,
+     "likes": 39,
+     "comments": 0,
+     "title": "سلسلة الأربعين النووية (25/30): لا تحاسدوا ولا تناجشوا ولا تباغضوا…",
+     "age_days": 2
+    },
+    {
+     "id": "0oToZcKt9ks",
+     "at": "2026-10-03T04:28:05",
+     "views": 975,
+     "secs": 24,
+     "likes": 16,
+     "comments": 1,
+     "title": "سلسلة الأربعين النووية (10/30): المسلم من سلم المسلمون من لسانه وي…",
+     "age_days": 3
+    },
+    {
+     "id": "ig_q4GRAFj0",
+     "at": "2026-09-21T02:15:59",
+     "views": 967,
+     "secs": 52,
+     "likes": 56,
+     "comments": 0,
+     "title": "سلسلة الرقية الشرعية (3/10): سُورَةُ البَقَرَةِ ﴿285–285﴾ — عبدالرحمن السديس",
+     "age_days": 16
+    },
+    {
+     "id": "2udSzkZ9MRU",
+     "at": "2026-09-29T03:07:07",
+     "views": 964,
+     "secs": 24,
+     "likes": 89,
+     "comments": 1,
+     "title": "شهر ويفرجها… رمضان 🕌 📖 حديث صحيح — صحيح البخاري",
+     "age_days": 7
+    },
+    {
+     "id": "x8Ud1Brj3fo",
+     "at": "2026-09-23T00:14:31",
+     "views": 963,
+     "secs": 23,
+     "likes": 76,
+     "comments": 0,
+     "title": "سلسلة الأسماء الحسنى (3/64): الرحيم — الواصل رحمته لعباده المؤم…",
+     "age_days": 14
+    },
+    {
+     "id": "c5vx7mTQsHU",
+     "at": "2026-09-21T09:30:48",
+     "views": 956,
+     "secs": 25,
+     "likes": 76,
+     "comments": 1,
+     "title": "سلسلة السيرة النبوية (5/47): دعا إلى التوحيد سرًا ثلاثًا ثم جهر…",
+     "age_days": 15
+    },
+    {
+     "id": "xR9lLVJQsW8",
+     "at": "2026-09-21T07:26:13",
+     "views": 955,
+     "secs": 26,
+     "likes": 38,
+     "comments": 0,
+     "title": "معلومة تُضيء: للفاتحة أكثر من عشرة أسماء، أشهرها أم ال…",
+     "age_days": 15
+    },
+    {
+     "id": "ioUExW7p6fs",
+     "at": "2026-09-27T02:43:36",
+     "views": 949,
+     "secs": 27,
+     "likes": 72,
+     "comments": 1,
+     "title": "سلسلة الأحاديث القدسية (21/30): اللهُ تَعَالَى : بَادَرَنِي عَبْدِ…",
+     "age_days": 9
+    },
+    {
+     "id": "pmyma4mkxrE",
+     "at": "2026-09-22T09:30:37",
+     "views": 944,
+     "secs": 23,
+     "likes": 94,
+     "comments": 0,
+     "title": "دعاء: رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ …",
+     "age_days": 14
+    },
+    {
+     "id": "hIuHx2btzFI",
+     "at": "2026-09-22T06:22:48",
+     "views": 943,
+     "secs": 29,
+     "likes": 42,
+     "comments": 0,
+     "title": "معلومة تُضيء: «في الجمعة ساعة لا يوافقها عبد مسلم يسأل…",
+     "age_days": 14
+    },
+    {
+     "id": "8U-zb9k6ZzE",
+     "at": "2026-09-21T03:17:54",
+     "views": 939,
+     "secs": 44,
+     "likes": 46,
+     "comments": 1,
+     "title": "قال رسول الله ﷺ: وَحَدَّثَنَا عُثْمَانُ بْنُ أَبِي شَيْبَ…",
+     "age_days": 15
+    },
+    {
+     "id": "Nl0N9W670kc",
+     "at": "2026-09-30T04:41:11",
+     "views": 932,
+     "secs": 23,
+     "likes": 61,
+     "comments": 0,
+     "title": "سلسلة السيرة النبوية (20/47): كان أجود الناس وأجود ما يكون في رم…",
+     "age_days": 6
+    },
+    {
+     "id": "ITaDljSgiuY",
+     "at": "2026-09-23T01:17:14",
+     "views": 928,
+     "secs": 47,
+     "likes": 60,
+     "comments": 0,
+     "title": "سلسلة جزء عمّ (6/142): سُورَةُ النَّبَإِ ﴿21–24﴾ — عبدالرحمن السديس",
+     "age_days": 14
+    },
+    {
+     "id": "IgcGR984rNE",
+     "at": "2026-09-22T07:25:47",
+     "views": 926,
+     "secs": 42,
+     "likes": 78,
+     "comments": 0,
+     "title": "سلسلة التحصين (6/8): سُورَةُ الفَلَقِ ﴿1–5﴾ — عبدالرحمن السديس",
+     "age_days": 14
+    },
+    {
+     "id": "Eiy4bT6fZNI",
+     "at": "2026-09-22T05:20:17",
+     "views": 917,
+     "secs": 23,
+     "likes": 75,
+     "comments": 0,
+     "title": "سلسلة آيات في الكون (6/22): النحل يبني بيوته سداسية: أكفأ هندس…",
+     "age_days": 14
+    },
+    {
+     "id": "TC4iw0hkfAA",
+     "at": "2026-09-21T04:19:24",
+     "views": 911,
+     "secs": 25,
+     "likes": 37,
+     "comments": 0,
+     "title": "سلسلة آيات في الكون (4/22): ﴿مرج البحرين بينهما برزخ﴾ — مياه ا…",
+     "age_days": 15
+    },
+    {
+     "id": "TXbC06M735U",
+     "at": "2026-09-22T04:18:26",
+     "views": 911,
+     "secs": 26,
+     "likes": 113,
+     "comments": 0,
+     "title": "دعاء: ربنا لا تُزغ قلوبنا بعد إذ هديتنا وهب لن…",
+     "age_days": 14
+    }
+   ],
+   "last_24h": {
+    "n": 37,
+    "views": 180,
+    "with_views": 15,
+    "best": 68
+   },
+   "last_48h": {
+    "n": 77,
+    "views": 1640,
+    "with_views": 39,
+    "best": 372
+   },
+   "last_7d": {
+    "n": 281,
+    "views": 14491,
+    "with_views": 176,
+    "best": 1044
+   },
+   "shorts": {
+    "n": 580,
+    "views": 60347,
+    "zero": 186,
+    "median": 1
+   },
+   "longs": {
+    "n": 20,
+    "views": 1056,
+    "zero": 3,
+    "median": 2
+   },
+   "status": {
+    "privacy": {
+     "public": 600
+    },
+    "upload": {
+     "processed": 600
+    },
+    "rejected": [],
+    "kids": 0,
+    "with_locales": 600
+   },
+   "rate_vs_views": [
+    {
+     "day": "2026-09-24",
+     "uploaded": 37,
+     "views": 2479
+    },
+    {
+     "day": "2026-09-25",
+     "uploaded": 43,
+     "views": 2191
+    },
+    {
+     "day": "2026-09-26",
+     "uploaded": 42,
+     "views": 4751
+    },
+    {
+     "day": "2026-09-27",
+     "uploaded": 44,
+     "views": 3272
+    },
+    {
+     "day": "2026-09-28",
+     "uploaded": 42,
+     "views": 2920
+    },
+    {
+     "day": "2026-09-29",
+     "uploaded": 41,
+     "views": 4152
+    },
+    {
+     "day": "2026-09-30",
+     "uploaded": 42,
+     "views": 4419
+    },
+    {
+     "day": "2026-10-01",
+     "uploaded": 43,
+     "views": 866
+    },
+    {
+     "day": "2026-10-02",
+     "uploaded": 38,
+     "views": 1721
+    },
+    {
+     "day": "2026-10-03",
+     "uploaded": 39,
+     "views": 2804
+    },
+    {
+     "day": "2026-10-04",
+     "uploaded": 43,
+     "views": 5201
+    },
+    {
+     "day": "2026-10-05",
+     "uploaded": 39,
+     "views": 1327
+    },
+    {
+     "day": "2026-10-06",
+     "uploaded": 39,
+     "views": 699
+    },
+    {
+     "day": "2026-10-07",
+     "uploaded": 3,
+     "views": 52
+    }
+   ],
+   "winning_patterns": {
+    "no-hashtag": 25,
+    "20-60s": 24,
+    "long": 1
+   }
   }
+ ]
 }
