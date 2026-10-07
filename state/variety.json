@@ -1,7 +1,7 @@
 {
+  "seen": [],
   "sig": [
     {
-<<<<<<< Updated upstream
       "genre": "calm_wellness",
       "scene": "breath_circle",
       "palette": "aurora",
@@ -1311,8 +1311,6 @@
       "hour": 2
     },
     {
-=======
->>>>>>> Stashed changes
       "genre": "sleep_ambience",
       "scene": "ocean_night",
       "palette": "deep_blue",
@@ -1322,7 +1320,6 @@
       "title_shape": "W W W W W W — W W W W W | W W #W",
       "mark": "Gentle Rain on a Tent",
       "hour": 0
-<<<<<<< Updated upstream
     },
     {
       "genre": "facts",
@@ -3930,8 +3927,6 @@
       "title_shape": "W W W W'W W — W W W",
       "mark": "the moon's reflection",
       "hour": 21
-=======
->>>>>>> Stashed changes
     }
   ]
 }
