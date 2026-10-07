@@ -78461,6 +78461,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Nature"
+    },
+    {
+      "video_id": "yYlQyW_44lA",
+      "url": "https://youtu.be/yYlQyW_44lA",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published_at": "2026-10-07T02:26:17.063105+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Wordless Stories"
     }
   ]
 }
