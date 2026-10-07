@@ -679,6 +679,18 @@
       "name": "Dumi",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "shubi_auto",
+      "name": "Shubi",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "duta_auto",
+      "name": "Duta",
+      "type": "نبتة فضائية",
+      "origin": "auto"
     }
   ],
   "stories": [
