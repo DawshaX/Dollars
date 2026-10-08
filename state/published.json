@@ -86429,6 +86429,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "qfTx-mZ7XHM",
+      "url": "https://youtu.be/qfTx-mZ7XHM",
+      "title": "Antarctic Ice Shelves: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
+      "published_at": "2026-10-08T02:43:27.548935+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Antarctic Ice Shelves",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
     }
   ]
 }
