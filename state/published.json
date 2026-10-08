@@ -5579,12 +5579,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 10,
       "likes": 0,
       "comments": 1,
       "thumbnail": true,
       "playlist": "Sleep & Nature",
-      "last_checked": "2026-10-05T01:18:56.668868+00:00"
+      "last_checked": "2026-10-07T09:23:20.183985+00:00"
     },
     {
       "video_id": "tY5yEPzKSL4",
@@ -6043,6 +6043,265 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "C1Fhny38PPM",
+      "url": "https://youtu.be/C1Fhny38PPM",
+      "title": "Paper Man and a lantern that went out — a wordless story #shorts",
+      "published_at": "2026-10-06T17:29:22.471922+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "The Paper Man and the Lantern — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "thumbnail": true,
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-06T21:54:49.551444+00:00"
+    },
+    {
+      "video_id": "JygagNoBu_Q",
+      "url": "https://youtu.be/JygagNoBu_Q",
+      "title": "Gentle Rain on a Tent Sounds — 45 seconds of Pure Calm | Insomnia Relief #shorts",
+      "published_at": "2026-10-07T02:33:33.060638+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Gentle Rain on a Tent Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature",
+      "last_checked": "2026-10-07T09:23:20.184029+00:00"
+    },
+    {
+      "video_id": "yYlQyW_44lA",
+      "url": "https://youtu.be/yYlQyW_44lA",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published_at": "2026-10-07T02:26:17.063105+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "thumbnail": true,
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-07T09:23:20.184032+00:00"
+    },
+    {
+      "video_id": "Vne7UYMqGIQ",
+      "url": "https://youtu.be/Vne7UYMqGIQ",
+      "title": "3 Facts About Black hole You Didn't Know #shorts",
+      "published_at": "2026-10-07T06:42:13.886722+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Black hole",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "thumbnail": true,
+      "playlist": "Facts & Science",
+      "last_checked": "2026-10-07T11:15:52.775527+00:00"
+    },
+    {
+      "video_id": "JmATNAp4_aU",
+      "url": "https://youtu.be/JmATNAp4_aU",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published_at": "2026-10-08T02:49:36.961825+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "wmd8VNLHo_c",
+      "url": "https://youtu.be/wmd8VNLHo_c",
+      "title": "Antarctic Ice Shelves: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
+      "published_at": "2026-10-08T00:14:55.234458+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Antarctic Ice Shelves",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "iL4twFA9VIc",
+      "url": "https://youtu.be/iL4twFA9VIc",
+      "title": "Breathe with me — 60s of calm #shorts",
+      "published_at": "2026-10-08T02:52:09.679000+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Reset Your Day",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "pE5w0CqaaJA",
+      "url": "https://youtu.be/pE5w0CqaaJA",
+      "title": "Rock band • 60s • Fall Asleep Fast (No Music) #shorts",
+      "published_at": "2026-10-04T22:44:05.816914+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Rock band",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature",
+      "last_checked": "2026-10-05T01:18:56.668868+00:00"
     },
     {
       "video_id": "GAtX7ceF5RI",
@@ -75354,35 +75613,6 @@
       "last_checked": "2026-10-06T21:54:49.551441+00:00"
     },
     {
-      "video_id": "C1Fhny38PPM",
-      "url": "https://youtu.be/C1Fhny38PPM",
-      "title": "Paper Man and a lantern that went out — a wordless story #shorts",
-      "published_at": "2026-10-06T17:29:22.471922+00:00",
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "The Paper Man and the Lantern — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "thumbnail": true,
-      "playlist": "Wordless Stories",
-      "last_checked": "2026-10-06T21:54:49.551444+00:00"
-    },
-    {
       "video_id": "EQFDqHydYAg",
       "url": "https://youtu.be/EQFDqHydYAg",
       "title": "Kinetic sand for kids — oddly satisfying (30s) #shorts",
@@ -78017,41 +78247,6 @@
       "last_checked": "2026-10-07T09:23:20.183982+00:00"
     },
     {
-      "video_id": "pE5w0CqaaJA",
-      "url": "https://youtu.be/pE5w0CqaaJA",
-      "title": "Rock band • 60s • Fall Asleep Fast (No Music) #shorts",
-      "published_at": "2026-10-04T22:44:05.816914+00:00",
-      "features": {
-        "pillar": "sleep",
-        "kind": "short",
-        "kw": "Rock band",
-        "genre": "sleep_ambience",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "views": 10,
-      "likes": 0,
-      "comments": 1,
-      "thumbnail": true,
-      "playlist": "Sleep & Nature",
-      "last_checked": "2026-10-07T09:23:20.183985+00:00"
-    },
-    {
       "video_id": "tY5yEPzKSL4",
       "url": "https://youtu.be/tY5yEPzKSL4",
       "title": "Bomi and a spark that got lost — a wordless story #shorts",
@@ -78509,70 +78704,6 @@
       "thumbnail": true,
       "playlist": "Wordless Stories",
       "last_checked": "2026-10-07T09:23:20.184026+00:00"
-    },
-    {
-      "video_id": "JygagNoBu_Q",
-      "url": "https://youtu.be/JygagNoBu_Q",
-      "title": "Gentle Rain on a Tent Sounds — 45 seconds of Pure Calm | Insomnia Relief #shorts",
-      "published_at": "2026-10-07T02:33:33.060638+00:00",
-      "features": {
-        "pillar": "sleep",
-        "kind": "short",
-        "kw": "Gentle Rain on a Tent Sounds",
-        "genre": "sleep_ambience",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "thumbnail": true,
-      "playlist": "Sleep & Nature",
-      "last_checked": "2026-10-07T09:23:20.184029+00:00"
-    },
-    {
-      "video_id": "yYlQyW_44lA",
-      "url": "https://youtu.be/yYlQyW_44lA",
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "published_at": "2026-10-07T02:26:17.063105+00:00",
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "thumbnail": true,
-      "playlist": "Wordless Stories",
-      "last_checked": "2026-10-07T09:23:20.184032+00:00"
     },
     {
       "video_id": "cJFOB1-mHCk",
@@ -80136,41 +80267,6 @@
       "thumbnail": true,
       "playlist": "Wordless Stories",
       "last_checked": "2026-10-07T11:15:52.775524+00:00"
-    },
-    {
-      "video_id": "Vne7UYMqGIQ",
-      "url": "https://youtu.be/Vne7UYMqGIQ",
-      "title": "3 Facts About Black hole You Didn't Know #shorts",
-      "published_at": "2026-10-07T06:42:13.886722+00:00",
-      "features": {
-        "pillar": "satisfying",
-        "kind": "short",
-        "kw": "Black hole",
-        "genre": "facts",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "thumbnail": true,
-      "playlist": "Facts & Science",
-      "last_checked": "2026-10-07T11:15:52.775527+00:00"
     },
     {
       "video_id": "zE8REQj4KBs",
@@ -86403,45 +86499,10 @@
       "playlist": "Facts & Science"
     },
     {
-<<<<<<< Updated upstream
-      "video_id": "JmATNAp4_aU",
-      "url": "https://youtu.be/JmATNAp4_aU",
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "published_at": "2026-10-08T02:49:36.961825+00:00",
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "thumbnail": true,
-      "playlist": "Wordless Stories"
-    },
-    {
       "video_id": "qfTx-mZ7XHM",
       "url": "https://youtu.be/qfTx-mZ7XHM",
       "title": "Antarctic Ice Shelves: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
       "published_at": "2026-10-08T02:43:27.548935+00:00",
-=======
-      "video_id": "wmd8VNLHo_c",
-      "url": "https://youtu.be/wmd8VNLHo_c",
-      "title": "Antarctic Ice Shelves: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
-      "published_at": "2026-10-08T00:14:55.234458+00:00",
->>>>>>> Stashed changes
       "features": {
         "pillar": "sleep",
         "kind": "short",
@@ -86470,43 +86531,6 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Space & Earth"
-<<<<<<< Updated upstream
-=======
-    },
-    {
-      "video_id": "iL4twFA9VIc",
-      "url": "https://youtu.be/iL4twFA9VIc",
-      "title": "Breathe with me — 60s of calm #shorts",
-      "published_at": "2026-10-08T02:52:09.679000+00:00",
-      "features": {
-        "pillar": "focus",
-        "kind": "short",
-        "kw": "Reset Your Day",
-        "genre": "calm_wellness",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "thumbnail": true,
-      "playlist": "Calm & Breathe"
->>>>>>> Stashed changes
     }
   ]
 }
