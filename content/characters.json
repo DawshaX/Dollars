@@ -820,6 +820,46 @@
       "origin": "auto",
       "created": "2026-10-07T11:15:43.287021+00:00",
       "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, kitchen background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "grima_auto",
+      "name": "Grima",
+      "type": "قطة صحراوية",
+      "look": "فرو رملي + عيون ذهبية — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "kitchen",
+        "city_night"
+      ],
+      "formats": [
+        "minute_story",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-08T11:32:15.800646+00:00",
+      "image_prompt": "cute original 2D animation character, a desert kitten, فرو رملي + عيون ذهبية, kitchen background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "grila_auto",
+      "name": "Grila",
+      "type": "قطة سحابية",
+      "look": "سحابة ناعمة + ذيل نجوم — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "متسرّع ويقع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "space"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-08T11:32:15.832605+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny cloud cat, سحابة ناعمة + ذيل نجوم, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -829,5 +869,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 38
+  "_auto_count": 40
 }

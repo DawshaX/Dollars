@@ -691,6 +691,18 @@
       "name": "Duta",
       "type": "نبتة فضائية",
       "origin": "auto"
+    },
+    {
+      "id": "grima_auto",
+      "name": "Grima",
+      "type": "قطة صحراوية",
+      "origin": "auto"
+    },
+    {
+      "id": "grila_auto",
+      "name": "Grila",
+      "type": "قطة سحابية",
+      "origin": "auto"
     }
   ],
   "stories": [
