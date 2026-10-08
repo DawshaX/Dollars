@@ -86403,6 +86403,7 @@
       "playlist": "Facts & Science"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "JmATNAp4_aU",
       "url": "https://youtu.be/JmATNAp4_aU",
       "title": "Bomi and a spark that got lost — a wordless story #shorts",
@@ -86435,6 +86436,12 @@
       "url": "https://youtu.be/qfTx-mZ7XHM",
       "title": "Antarctic Ice Shelves: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
       "published_at": "2026-10-08T02:43:27.548935+00:00",
+=======
+      "video_id": "wmd8VNLHo_c",
+      "url": "https://youtu.be/wmd8VNLHo_c",
+      "title": "Antarctic Ice Shelves: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
+      "published_at": "2026-10-08T00:14:55.234458+00:00",
+>>>>>>> Stashed changes
       "features": {
         "pillar": "sleep",
         "kind": "short",
@@ -86463,6 +86470,43 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Space & Earth"
+<<<<<<< Updated upstream
+=======
+    },
+    {
+      "video_id": "iL4twFA9VIc",
+      "url": "https://youtu.be/iL4twFA9VIc",
+      "title": "Breathe with me — 60s of calm #shorts",
+      "published_at": "2026-10-08T02:52:09.679000+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Reset Your Day",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
+>>>>>>> Stashed changes
     }
   ]
 }

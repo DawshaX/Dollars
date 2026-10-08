@@ -663,6 +663,7 @@
     },
     {
       "genre": "facts",
+<<<<<<< Updated upstream
       "scene": "micro_world",
       "palette": "earth_tone",
       "transition": "xfade_soft",
@@ -1748,11 +1749,43 @@
       "montage": "مشهد ثابت + ساعة",
       "title_shape": "W W W • W W • W & W",
       "mark": "Coffee Shop Murmur",
+=======
+      "scene": "planet_surface",
+      "palette": "deep_blue",
+      "transition": "xfade_soft",
+      "audio": "space_calm",
+      "montage": "سؤال ← جواب",
+      "title_shape": "W W W W W W'W W #W",
+      "mark": "Rainforest",
+      "hour": 0
+    },
+    {
+      "genre": "focus_study",
+      "scene": "desk_window",
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "library",
+      "montage": "بومودورو",
+      "title_shape": "الضوضاء الوردية للمذاكرة والتركيز | W ثا",
+      "mark": "Pink Noise",
+      "hour": 2
+    },
+    {
+      "genre": "satisfying",
+      "scene": "domino",
+      "palette": "clean_bright",
+      "transition": "slide",
+      "audio": "asmr_soft",
+      "montage": "٤ مقاطع متساوية",
+      "title_shape": "الرمال الحركية - مرضية بشكل غريب (W ثاني",
+      "mark": "Kinetic Sand",
+>>>>>>> Stashed changes
       "hour": 3
     },
     {
       "genre": "focus_study",
       "scene": "brown_noise",
+<<<<<<< Updated upstream
       "palette": "cool_slate",
       "transition": "slide",
       "audio": "focus",
@@ -1870,10 +1903,20 @@
       "title_shape": "W W W: W W W W W W W W W",
       "mark": "Crackling Campfire and Crickets",
       "hour": 3
+=======
+      "palette": "deep_blue",
+      "transition": "crossfade",
+      "audio": "cafe",
+      "montage": "خط زمني وفصول",
+      "title_shape": "W W W — W W W (W W W) | W W",
+      "mark": "Coffee Shop Murmur",
+      "hour": 10
+>>>>>>> Stashed changes
     },
     {
       "genre": "space_nature",
       "scene": "starfield",
+<<<<<<< Updated upstream
       "palette": "aurora",
       "transition": "crossfade",
       "audio": "space_calm",
@@ -1936,6 +1979,15 @@
       "title_shape": "W W — W W (W W)",
       "mark": "Magnetic Beads",
       "hour": 16
+=======
+      "palette": "deep_blue",
+      "transition": "xfade_soft",
+      "audio": "space_calm",
+      "montage": "رحلة مستمرة",
+      "title_shape": "W W W W W W W | W W W",
+      "mark": "Tornado Alley Skies",
+      "hour": 12
+>>>>>>> Stashed changes
     },
     {
       "genre": "fun_memes",
@@ -1944,6 +1996,7 @@
       "transition": "fade",
       "audio": "fun_beat",
       "montage": "مقطع ٣ ثواني ← ضربة",
+<<<<<<< Updated upstream
       "title_shape": "W W W-W W… #W",
       "mark": "the Wi-Fi dies",
       "hour": 19
@@ -2024,30 +2077,119 @@
       "title_shape": "W W W • W W W • W W W (W W)",
       "mark": "Mountain Stream",
       "hour": 3
+=======
+      "title_shape": "W: W W W #W #W",
+      "mark": "the printer jams",
+      "hour": 4
+    },
+    {
+      "genre": "focus_study",
+      "scene": "cafe_soft",
+      "palette": "deep_blue",
+      "transition": "crossfade",
+      "audio": "cafe",
+      "montage": "بومودورو",
+      "title_shape": "الضوضاء البنية للدراسة والتركيز | W ثاني",
+      "mark": "Brown Noise",
+      "hour": 3
+    },
+    {
+      "genre": "satisfying",
+      "scene": "soap_cut",
+      "palette": "clean_bright",
+      "transition": "crossfade",
+      "audio": "water_soft",
+      "montage": "لقطة واحدة متصلة",
+      "title_shape": "W W W… W W #W #W",
+      "mark": "Slime Stretch",
+      "hour": 0
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_park",
+      "palette": "pastel_soft",
+      "transition": "xfade_soft",
+      "audio": "fun_beat",
+      "montage": "مفارقة",
+      "title_shape": "W W W W W W W — W'W W W W #W",
+      "mark": "the queue that picks the wrong line",
+      "hour": 1
+>>>>>>> Stashed changes
     },
     {
       "genre": "sleep_ambience",
       "scene": "fireplace",
+<<<<<<< Updated upstream
       "palette": "warm_ember",
       "transition": "slide",
       "audio": "storm",
       "montage": "طويل هادي",
       "title_shape": "W W W W W W W W • W W W • W W W (W W)",
       "mark": "Rain on a Balcony in the City",
+=======
+      "palette": "midnight",
+      "transition": "fade",
+      "audio": "train",
+      "montage": "طويل هادي",
+      "title_shape": "W W W W | W W W W | W W, W W",
+      "mark": "Mountain Stream",
+      "hour": 3
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_office",
+      "palette": "vivid_pop",
+      "transition": "xfade_soft",
+      "audio": "fun_beat",
+      "montage": "مقطع ٣ ثواني ← ضربة",
+      "title_shape": "W W W W W W W — W'W W W W #W",
+      "mark": "the queue that picks the wrong line",
+      "hour": 1
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "fireplace",
+      "palette": "midnight",
+      "transition": "fade",
+      "audio": "train",
+      "montage": "طويل هادي",
+      "title_shape": "W W W: W W W W W W W",
+      "mark": "Mountain Stream",
+      "hour": 3
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "storm_window",
+      "palette": "warm_ember",
+      "transition": "slide",
+      "audio": "ocean",
+      "montage": "تنفّس بطيء",
+      "title_shape": "W W W W W W | W W W W W | W W",
+      "mark": "Night Train Ride",
+>>>>>>> Stashed changes
       "hour": 8
     },
     {
       "genre": "focus_study",
+<<<<<<< Updated upstream
       "scene": "snow_window",
       "palette": "paper_warm",
       "transition": "fade",
       "audio": "focus",
       "montage": "بومودورو",
+=======
+      "scene": "forest_night",
+      "palette": "paper_warm",
+      "transition": "crossfade",
+      "audio": "library",
+      "montage": "خط زمني وفصول",
+>>>>>>> Stashed changes
       "title_shape": "W W W W W W & W | W W W | W W, W W",
       "mark": "Silent Library at Dawn",
       "hour": 10
     },
     {
+<<<<<<< Updated upstream
       "genre": "space_nature",
       "scene": "starfield",
       "palette": "cosmic",
@@ -2508,10 +2650,22 @@
       "title_shape": "W W W W W | W W (W W)",
       "mark": "4-7-8 Breathing",
       "hour": 21
+=======
+      "genre": "calm_wellness",
+      "scene": "breath_circle",
+      "palette": "pastel_soft",
+      "transition": "fade",
+      "audio": "ocean",
+      "montage": "إيقاع ٤-٧-٨",
+      "title_shape": "W W W W W | W W (W W) #W",
+      "mark": "4-7-8 Breathing",
+      "hour": 2
+>>>>>>> Stashed changes
     },
     {
       "genre": "space_nature",
       "scene": "nebula_flow",
+<<<<<<< Updated upstream
       "palette": "aurora",
       "transition": "slide",
       "audio": "wind_deep",
@@ -3330,11 +3484,18 @@
       "transition": "fade",
       "audio": "wind_deep",
       "montage": "تحوّل تدريجي",
+=======
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "ocean",
+      "montage": "رحلة مستمرة",
+>>>>>>> Stashed changes
       "title_shape": "W'W W W W — W W W W W W (W W) #W",
       "mark": "Jupiter's Great Red Spot",
       "hour": 1
     },
     {
+<<<<<<< Updated upstream
       "genre": "facts",
       "scene": "planet_surface",
       "palette": "earth_tone",
@@ -3442,10 +3603,21 @@
       "montage": "خط زمني وفصول",
       "title_shape": "W W W — W W (W W) | W W",
       "mark": "White Noise",
+=======
+      "genre": "space_nature",
+      "scene": "aurora",
+      "palette": "cosmic",
+      "transition": "fade",
+      "audio": "cosmic",
+      "montage": "تحوّل تدريجي",
+      "title_shape": "W W W W — W W W W W W (W W W)",
+      "mark": "Coral Reef at Night",
+>>>>>>> Stashed changes
       "hour": 12
     },
     {
       "genre": "calm_wellness",
+<<<<<<< Updated upstream
       "scene": "breath_circle",
       "palette": "aurora",
       "transition": "fade",
@@ -3545,16 +3717,23 @@
     },
     {
       "genre": "calm_wellness",
+=======
+>>>>>>> Stashed changes
       "scene": "aurora",
       "palette": "deep_blue",
       "transition": "slide",
       "audio": "breath_soft",
       "montage": "إيقاع ٤-٧-٨",
+<<<<<<< Updated upstream
       "title_shape": "W W W W W | W W (W W) #W",
+=======
+      "title_shape": "W W W W W | W W (W W)",
+>>>>>>> Stashed changes
       "mark": "Slow Down",
       "hour": 0
     },
     {
+<<<<<<< Updated upstream
       "genre": "satisfying",
       "scene": "bubbles",
       "palette": "pastel_soft",
@@ -3566,13 +3745,19 @@
       "hour": 0
     },
     {
+=======
+>>>>>>> Stashed changes
       "genre": "space_nature",
       "scene": "aurora",
       "palette": "cosmic",
       "transition": "crossfade",
       "audio": "space_calm",
       "montage": "تحوّل تدريجي",
+<<<<<<< Updated upstream
       "title_shape": "الأرض من المدار - نظرة بطيئة على الكون (",
+=======
+      "title_shape": "W W W — W W W W W W (W W)",
+>>>>>>> Stashed changes
       "mark": "Earth From Orbit",
       "hour": 1
     },
@@ -3583,11 +3768,16 @@
       "transition": "crossfade",
       "audio": "curious",
       "montage": "سؤال ← جواب",
+<<<<<<< Updated upstream
       "title_shape": "W: W W W (W W) #W",
+=======
+      "title_shape": "W: W W W (W W)",
+>>>>>>> Stashed changes
       "mark": "Desert",
       "hour": 2
     },
     {
+<<<<<<< Updated upstream
       "genre": "sleep_ambience",
       "scene": "valley_lake",
       "palette": "midnight",
@@ -3742,10 +3932,233 @@
       "hour": 8
     },
     {
+=======
+      "genre": "focus_study",
+      "scene": "cafe_soft",
+      "palette": "deep_blue",
+      "transition": "crossfade",
+      "audio": "cafe",
+      "montage": "بومودورو",
+      "title_shape": "W W W W & W | W W | W W, W W",
+      "mark": "Brown Noise",
+      "hour": 3
+    },
+    {
+      "genre": "focus_study",
+      "scene": "library_rain",
+      "palette": "paper_warm",
+      "transition": "xfade_soft",
+      "audio": "rain_soft",
+      "montage": "خط زمني وفصول",
+      "title_shape": "الضوضاء البنية • W ثانية • شورت التركيز ",
+      "mark": "Brown Noise",
+      "hour": 3
+    },
+    {
+      "genre": "focus_study",
+      "scene": "forest_night",
+      "palette": "cool_slate",
+      "transition": "xfade_soft",
+      "audio": "focus",
+      "montage": "خط زمني وفصول",
+      "title_shape": "W W W • W W • W & W #W",
+      "mark": "Wind and Pages",
+      "hour": 4
+    },
+    {
+      "genre": "satisfying",
+      "scene": "soap_cut",
+      "palette": "clean_bright",
+      "transition": "fade",
+      "audio": "water_soft",
+      "montage": "لقطة واحدة متصلة",
+      "title_shape": "W W W — W W, W W #W",
+      "mark": "Sand Raking",
+      "hour": 5
+    },
+    {
+      "genre": "satisfying",
+      "scene": "glass_sand",
+      "palette": "pastel_soft",
+      "transition": "fade",
+      "audio": "asmr_soft",
+      "montage": "قطع سريع على الإيقاع",
+      "title_shape": "W W W… W W #W #W",
+      "mark": "Slime Stretch",
+      "hour": 0
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_office",
+      "palette": "pastel_soft",
+      "transition": "fade",
+      "audio": "fun_beat",
+      "montage": "مقطع ٣ ثواني ← ضربة",
+      "title_shape": "W: W W W #W",
+      "mark": "the printer jams",
+      "hour": 4
+    },
+    {
+      "genre": "satisfying",
+      "scene": "bubbles",
+      "palette": "pastel_soft",
+      "transition": "xfade_soft",
+      "audio": "water_soft",
+      "montage": "٤ مقاطع متساوية",
+      "title_shape": "W W W… W W #W #W",
+      "mark": "Ice Crushing",
+      "hour": 0
+    },
+    {
+      "genre": "facts",
+      "scene": "planet_surface",
+      "palette": "deep_blue",
+      "transition": "slide",
+      "audio": "discovery",
+      "montage": "سؤال ← جواب",
+      "title_shape": "W W W W W W'W W",
+      "mark": "Glacier",
+      "hour": 5
+    },
+    {
+      "genre": "calm_wellness",
+      "scene": "ocean_calm",
+      "palette": "pastel_soft",
+      "transition": "slide",
+      "audio": "calm_night",
+      "montage": "دائرة تنفّس",
+      "title_shape": "W W W W W | W W W",
+      "mark": "Before Sleep",
+      "hour": 6
+    },
+    {
+      "genre": "space_nature",
+      "scene": "aurora",
+      "palette": "aurora",
+      "transition": "fade",
+      "audio": "space_calm",
+      "montage": "كشف بطيء",
+      "title_shape": "W W W W W W W | W W #W",
+      "mark": "Tornado Alley Skies",
+      "hour": 1
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "beach_night",
+      "palette": "deep_blue",
+      "transition": "crossfade",
+      "audio": "beach",
+      "montage": "مشهد واحد مستمر",
+      "title_shape": "W W W W W W — W W W W W W | W W",
+      "mark": "Gentle Rain on a Tent",
+      "hour": 3
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "train_window",
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "calm_night",
+      "montage": "مشهد واحد مستمر",
+      "title_shape": "W W W W W W W W — W W W W W W | W W",
+      "mark": "Rain on a Balcony in the City",
+      "hour": 8
+    },
+    {
+      "genre": "focus_study",
+      "scene": "cafe_soft",
+      "palette": "cool_slate",
+      "transition": "slide",
+      "audio": "rain_soft",
+      "montage": "بومودورو",
+      "title_shape": "W W W W & W | W W W | W W, W W",
+      "mark": "Brown Noise",
+      "hour": 10
+    },
+    {
+      "genre": "space_nature",
+      "scene": "glacier",
+      "palette": "aurora",
+      "transition": "xfade_soft",
+      "audio": "wind_deep",
+      "montage": "رحلة مستمرة",
+      "title_shape": "W W W W W — W W W W W W (W W W)",
+      "mark": "The Grand Canyon at Dawn",
+      "hour": 12
+    },
+    {
+      "genre": "facts",
+      "scene": "starfield",
+      "palette": "cosmic",
+      "transition": "slide",
+      "audio": "discovery",
+      "montage": "٣ حقائق ← ٣ مشاهد",
+      "title_shape": "W W W W W W'W W",
+      "mark": "Desert",
+      "hour": 0
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "bubbles",
+      "palette": "high_contrast",
+      "transition": "fade",
+      "audio": "pop_bright",
+      "montage": "مفارقة",
+      "title_shape": "W: W W W #W",
+      "mark": "the printer jams",
+      "hour": 1
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_gym",
+      "palette": "high_contrast",
+      "transition": "slide",
+      "audio": "fun_beat",
+      "montage": "مفارقة",
+      "title_shape": "W W W W W W… #W",
+      "mark": "the shopping list you forget",
+      "hour": 2
+    },
+    {
+      "genre": "facts",
+      "scene": "earth_from_space",
+      "palette": "deep_blue",
+      "transition": "fade",
+      "audio": "space_calm",
+      "montage": "٣ حقائق ← ٣ مشاهد",
+      "title_shape": "W W W W W — W W W",
+      "mark": "Glacier",
+      "hour": 3
+    },
+    {
+      "genre": "facts",
+      "scene": "ocean_deep",
+      "palette": "earth_tone",
+      "transition": "crossfade",
+      "audio": "curious",
+      "montage": "سؤال ← جواب",
+      "title_shape": "W W W W W W'W W",
+      "mark": "Lightning",
+      "hour": 4
+    },
+    {
+      "genre": "space_nature",
+      "scene": "nebula_flow",
+      "palette": "aurora",
+      "transition": "xfade_soft",
+      "audio": "wind_deep",
+      "montage": "رحلة مستمرة",
+      "title_shape": "W'W W: W W W (W W W W)",
+      "mark": "Saturn's Rings",
+      "hour": 5
+    },
+    {
+>>>>>>> Stashed changes
       "genre": "satisfying",
       "scene": "ice_crush",
       "palette": "clean_bright",
       "transition": "fade",
+<<<<<<< Updated upstream
       "audio": "asmr_soft",
       "montage": "لقطة واحدة متصلة",
       "title_shape": "W W W — W W, W W",
@@ -3773,20 +4186,92 @@
       "title_shape": "W W W W W | W W (W W)",
       "mark": "Two Minutes of Calm",
       "hour": 11
+=======
+      "audio": "asmr_crisp",
+      "montage": "٤ مقاطع متساوية",
+      "title_shape": "W W W — W W, W W",
+      "mark": "Sand Raking",
+      "hour": 6
+    },
+    {
+      "genre": "story",
+      "scene": "story_mountain",
+      "palette": "story_warm",
+      "transition": "slide",
+      "audio": "story_mystery",
+      "montage": "نهاية لطيفة",
+      "title_shape": "W'W W W W W W W — W W W W",
+      "mark": "the turtle who carried rain",
+      "hour": 7
+    },
+    {
+      "genre": "facts",
+      "scene": "starfield",
+      "palette": "deep_blue",
+      "transition": "slide",
+      "audio": "curious",
+      "montage": "٣ حقائق ← ٣ مشاهد",
+      "title_shape": "W: W W W (W W)",
+      "mark": "Nebula",
+      "hour": 8
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_kitchen",
+      "palette": "vivid_pop",
+      "transition": "crossfade",
+      "audio": "fun_beat",
+      "montage": "مقطع ٣ ثواني ← ضربة",
+      "title_shape": "W: W W W #W",
+      "mark": "the alarm clock",
+      "hour": 9
+    },
+    {
+      "genre": "focus_study",
+      "scene": "desk_window",
+      "palette": "cool_slate",
+      "transition": "crossfade",
+      "audio": "library",
+      "montage": "بومودورو",
+      "title_shape": "W W W — W W (W W) | W W",
+      "mark": "Pink Noise",
+      "hour": 10
+>>>>>>> Stashed changes
     },
     {
       "genre": "story",
       "scene": "story_cloud",
+<<<<<<< Updated upstream
       "palette": "story_warm",
       "transition": "fade",
       "audio": "story_gentle",
       "montage": "مشهد ← مشهد بإيقاع",
       "title_shape": "W W W W | W W W W",
       "mark": "the tiny gardener",
+=======
+      "palette": "story_dream",
+      "transition": "crossfade",
+      "audio": "story_mystery",
+      "montage": "مشهد ← مشهد بإيقاع",
+      "title_shape": "W'W W W W W W — W W W W",
+      "mark": "the mountain that smiled",
+      "hour": 11
+    },
+    {
+      "genre": "space_nature",
+      "scene": "nebula_flow",
+      "palette": "aurora",
+      "transition": "crossfade",
+      "audio": "ocean",
+      "montage": "رحلة مستمرة",
+      "title_shape": "W W W W — W W W W W W (W W)",
+      "mark": "The Milky Way Core",
+>>>>>>> Stashed changes
       "hour": 12
     },
     {
       "genre": "space_nature",
+<<<<<<< Updated upstream
       "scene": "ocean_deep",
       "palette": "deep_blue",
       "transition": "crossfade",
@@ -3949,6 +4434,148 @@
       "title_shape": "W W W W W W W — W W W W W W | W W",
       "mark": "Snow Falling in a Quiet Village",
       "hour": 8
+=======
+      "scene": "glacier",
+      "palette": "cosmic",
+      "transition": "xfade_soft",
+      "audio": "wind_deep",
+      "montage": "كشف بطيء",
+      "title_shape": "W W W W W W W W | W W",
+      "mark": "Sahara Dunes at Sunset",
+      "hour": 13
+    },
+    {
+      "genre": "focus_study",
+      "scene": "brown_noise",
+      "palette": "cool_slate",
+      "transition": "xfade_soft",
+      "audio": "focus",
+      "montage": "خط زمني وفصول",
+      "title_shape": "W W W — W W W (W W) | W W",
+      "mark": "Clock and Rain",
+      "hour": 14
+    },
+    {
+      "genre": "sleep_ambience",
+      "scene": "fireplace",
+      "palette": "midnight",
+      "transition": "fade",
+      "audio": "snow",
+      "montage": "مشهد واحد مستمر",
+      "title_shape": "W W W W • W W • W W W (W W)",
+      "mark": "Rain on Leaves",
+      "hour": 15
+    },
+    {
+      "genre": "space_nature",
+      "scene": "starfield",
+      "palette": "deep_blue",
+      "transition": "crossfade",
+      "audio": "cosmic",
+      "montage": "كشف بطيء",
+      "title_shape": "W W W W — W W W W W W (W W)",
+      "mark": "Coral Reef at Night",
+      "hour": 16
+    },
+    {
+      "genre": "focus_study",
+      "scene": "rain_glass",
+      "palette": "paper_warm",
+      "transition": "crossfade",
+      "audio": "focus",
+      "montage": "خط زمني وفصول",
+      "title_shape": "W W W — W W W (W W) | W W",
+      "mark": "Keyboard and Rain",
+      "hour": 17
+    },
+    {
+      "genre": "space_nature",
+      "scene": "earth_from_space",
+      "palette": "deep_blue",
+      "transition": "crossfade",
+      "audio": "ocean",
+      "montage": "رحلة مستمرة",
+      "title_shape": "W W — W W W W W W (W W)",
+      "mark": "Bioluminescent Bay",
+      "hour": 18
+    },
+    {
+      "genre": "facts",
+      "scene": "desert_dunes",
+      "palette": "cosmic",
+      "transition": "slide",
+      "audio": "discovery",
+      "montage": "عدّاد تصاعدي",
+      "title_shape": "W W W W W — W W W",
+      "mark": "Octopus",
+      "hour": 19
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "meme_gym",
+      "palette": "high_contrast",
+      "transition": "slide",
+      "audio": "fun_beat",
+      "montage": "مفارقة",
+      "title_shape": "W W W W W W… #W #W",
+      "mark": "the shopping list you forget",
+      "hour": 2
+    },
+    {
+      "genre": "facts",
+      "scene": "starfield",
+      "palette": "cosmic",
+      "transition": "slide",
+      "audio": "discovery",
+      "montage": "٣ حقائق ← ٣ مشاهد",
+      "title_shape": "W W W W W W'W W #W",
+      "mark": "Desert",
+      "hour": 0
+    },
+    {
+      "genre": "fun_memes",
+      "scene": "bubbles",
+      "palette": "high_contrast",
+      "transition": "fade",
+      "audio": "pop_bright",
+      "montage": "مفارقة",
+      "title_shape": "W: W W W #W #W",
+      "mark": "the printer jams",
+      "hour": 1
+    },
+    {
+      "genre": "calm_wellness",
+      "scene": "breath_circle",
+      "palette": "aurora",
+      "transition": "slide",
+      "audio": "ocean",
+      "montage": "موجات هادئة",
+      "title_shape": "W W W W W | W W (W W)",
+      "mark": "Before Sleep",
+      "hour": 20
+    },
+    {
+      "genre": "space_nature",
+      "scene": "starfield",
+      "palette": "aurora",
+      "transition": "crossfade",
+      "audio": "space_calm",
+      "montage": "كشف بطيء",
+      "title_shape": "W W W: W W W (W W W W) #W",
+      "mark": "Antarctic Ice Shelves",
+      "hour": 0
+    },
+    {
+      "genre": "calm_wellness",
+      "scene": "water_rings",
+      "palette": "deep_blue",
+      "transition": "crossfade",
+      "audio": "ocean",
+      "montage": "موجات هادئة",
+      "title_shape": "W W W — W W W #W",
+      "mark": "Reset Your Day",
+      "hour": 1
+>>>>>>> Stashed changes
     }
   ]
 }

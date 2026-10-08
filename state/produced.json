@@ -2941,6 +2941,7 @@
       "at": "2026-10-07T06:41:33.417159+00:00"
     },
     {
+<<<<<<< Updated upstream
       "date": "2026-09-26",
       "hour": 10,
       "kind": "short",
@@ -2956,6 +2957,8 @@
       "at": "2026-10-08T02:48:47.413353+00:00"
     },
     {
+=======
+>>>>>>> Stashed changes
       "date": "2026-10-08",
       "hour": 0,
       "kind": "short",
@@ -2965,6 +2968,7 @@
       "video": "/home/runner/work/Dollars/Dollars/work/2026-10-08_00/space_nature_451079.mp4",
       "title": "Antarctic Ice Shelves: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
       "published": true,
+<<<<<<< Updated upstream
       "url": "https://youtu.be/qfTx-mZ7XHM",
       "reason": null,
       "seconds_spent": 176.0,
@@ -2974,10 +2978,37 @@
   "stats": {
     "total": 3,
     "published": 3,
+=======
+      "url": "https://youtu.be/wmd8VNLHo_c",
+      "reason": null,
+      "seconds_spent": 192.5,
+      "at": "2026-10-08T00:14:06.051749+00:00"
+    },
+    {
+      "date": "2026-10-08",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Reset Your Day",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-08_01/calm_wellness_749699.mp4",
+      "title": "Breathe with me — 60s of calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/iL4twFA9VIc",
+      "reason": null,
+      "seconds_spent": 314.8,
+      "at": "2026-10-08T02:51:18.361377+00:00"
+    }
+  ],
+  "stats": {
+    "total": 4,
+    "published": 4,
+>>>>>>> Stashed changes
     "staged": 0,
     "by_pillar": {
       "sleep": 2,
       "satisfying": 3,
+<<<<<<< Updated upstream
       "story": 5,
       "focus": 3
     }
@@ -2985,3 +3016,12 @@
   "created": null,
   "updated": "2026-10-08T02:49:38.013223+00:00"
 }
+=======
+      "story": 4,
+      "focus": 4
+    }
+  },
+  "created": null,
+  "updated": "2026-10-08T02:52:10.070777+00:00"
+}
+>>>>>>> Stashed changes
