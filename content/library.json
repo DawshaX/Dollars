@@ -703,6 +703,18 @@
       "name": "Grila",
       "type": "قطة سحابية",
       "origin": "auto"
+    },
+    {
+      "id": "wano_auto",
+      "name": "Wano",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "naka_auto",
+      "name": "Naka",
+      "type": "روبوت ورق",
+      "origin": "auto"
     }
   ],
   "stories": [
