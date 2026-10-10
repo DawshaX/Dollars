@@ -715,6 +715,18 @@
       "name": "Naka",
       "type": "روبوت ورق",
       "origin": "auto"
+    },
+    {
+      "id": "luno_auto",
+      "name": "Luno",
+      "type": "حجر ودود",
+      "origin": "auto"
+    },
+    {
+      "id": "luma_auto",
+      "name": "Luma",
+      "type": "نبتة فضائية",
+      "origin": "auto"
     }
   ],
   "stories": [
