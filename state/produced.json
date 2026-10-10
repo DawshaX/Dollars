@@ -3059,19 +3059,34 @@
       "reason": null,
       "seconds_spent": 779.6,
       "at": "2026-10-09T06:31:30.570440+00:00"
+    },
+    {
+      "date": "2026-10-10",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Rain on Leaves",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-10_00/sleep_ambience_237169.mp4",
+      "title": "Rain on Leaves Sounds — 60 seconds of Pure Calm | Insomnia Relief #shorts",
+      "published": true,
+      "url": "https://youtu.be/NMGg-VRv3rQ",
+      "reason": null,
+      "seconds_spent": 865.0,
+      "at": "2026-10-10T00:58:09.547060+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "satisfying": 2,
-      "sleep": 3,
+      "sleep": 4,
       "story": 6,
       "focus": 3
     }
   },
   "created": null,
-  "updated": "2026-10-09T06:33:14.420415+00:00"
+  "updated": "2026-10-10T00:59:00.825638+00:00"
 }
