@@ -112131,6 +112131,7 @@
       "playlist": "Wordless Stories"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "H0PzQNI3MaU",
       "url": "https://youtu.be/H0PzQNI3MaU",
       "title": "Sleep in Minutes: Heavy Rain on a Window Sounds for 60 seconds #shorts",
@@ -112140,6 +112141,17 @@
         "kind": "short",
         "kw": "Heavy Rain on a Window Sounds",
         "genre": "sleep_ambience",
+=======
+      "video_id": "96gMbpEQ89U",
+      "url": "https://youtu.be/96gMbpEQ89U",
+      "title": "Calm Down in 60s | Guided Breathing (No Talk) #shorts",
+      "published_at": "2026-10-11T00:10:06.983698+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Breathe With the Rain",
+        "genre": "calm_wellness",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
@@ -112156,6 +112168,7 @@
       "likes": 0,
       "comments": 0,
       "thumbnail": true,
+<<<<<<< Updated upstream
       "playlist": "Sleep & Nature"
     },
     {
@@ -112168,14 +112181,33 @@
         "kind": "short",
         "kw": "Bomi and the Little Fire — a wordless story",
         "genre": null,
+=======
+      "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "FpRGZED5Dx4",
+      "url": "https://youtu.be/FpRGZED5Dx4",
+      "title": "Night Study Desk for Studying & Focus | 30 seconds | Deep Work, No Music #shorts",
+      "published_at": "2026-10-11T02:48:50.566540+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Night Study Desk",
+        "genre": "focus_study",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
         "sfx": false,
         "overlays": false,
         "clips": false,
+<<<<<<< Updated upstream
         "loop": false,
         "hook": false,
+=======
+        "loop": true,
+        "hook": true,
+>>>>>>> Stashed changes
         "pinned": true,
         "lang": "en",
         "locales": []
@@ -112184,7 +112216,11 @@
       "likes": 0,
       "comments": 0,
       "thumbnail": true,
+<<<<<<< Updated upstream
       "playlist": "Wordless Stories"
+=======
+      "playlist": "Focus & Study"
+>>>>>>> Stashed changes
     }
   ]
 }
