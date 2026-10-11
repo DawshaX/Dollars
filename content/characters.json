@@ -940,6 +940,46 @@
       "origin": "auto",
       "created": "2026-10-10T10:44:42.387813+00:00",
       "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, bedroom background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "grishi_auto",
+      "name": "Grishi",
+      "type": "قطة سحابية",
+      "look": "سحابة ناعمة + ذيل نجوم — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيحب يساعد",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "bedroom",
+        "forest"
+      ],
+      "formats": [
+        "silent_gag",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-11T10:57:42.103762+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny cloud cat, سحابة ناعمة + ذيل نجوم, bedroom background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "lano_auto",
+      "name": "Lano",
+      "type": "كائن ضبابي",
+      "look": "جسم بخار + عيون ناعمة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "كسول ومضحك",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "forest",
+        "snow"
+      ],
+      "formats": [
+        "minute_story",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-11T10:57:42.129029+00:00",
+      "image_prompt": "cute original 2D animation character, a misty creature, جسم بخار + عيون ناعمة, forest background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -949,5 +989,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 44
+  "_auto_count": 46
 }

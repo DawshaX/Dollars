@@ -727,6 +727,18 @@
       "name": "Luma",
       "type": "نبتة فضائية",
       "origin": "auto"
+    },
+    {
+      "id": "grishi_auto",
+      "name": "Grishi",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "lano_auto",
+      "name": "Lano",
+      "type": "كائن ضبابي",
+      "origin": "auto"
     }
   ],
   "stories": [
