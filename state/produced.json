@@ -3134,19 +3134,34 @@
       "reason": null,
       "seconds_spent": 255.0,
       "at": "2026-10-10T00:51:14.473022+00:00"
+    },
+    {
+      "date": "2026-10-11",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Heavy Rain on a Window",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-11_00/sleep_ambience_226041.mp4",
+      "title": "Sleep in Minutes: Heavy Rain on a Window Sounds for 60 seconds #shorts",
+      "published": true,
+      "url": "https://youtu.be/H0PzQNI3MaU",
+      "reason": null,
+      "seconds_spent": 458.3,
+      "at": "2026-10-11T00:20:56.526838+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
-      "sleep": 1,
+      "sleep": 2,
       "focus": 2,
       "satisfying": 2,
       "story": 6
     }
   },
   "created": null,
-  "updated": "2026-10-10T05:01:34.435824+00:00"
+  "updated": "2026-10-11T00:21:16.444762+00:00"
 }
