@@ -2,7 +2,6 @@
   "seen": [],
   "sig": [
     {
-<<<<<<< Updated upstream
       "genre": "story",
       "scene": "story_city_rain",
       "palette": "story_dream",
@@ -14,8 +13,6 @@
       "hour": 15
     },
     {
-=======
->>>>>>> Stashed changes
       "genre": "satisfying",
       "scene": "hydraulic",
       "palette": "high_contrast",
@@ -654,7 +651,6 @@
       "hour": 10
     },
     {
-<<<<<<< Updated upstream
       "genre": "sleep_ambience",
       "scene": "train_window",
       "palette": "midnight",
@@ -927,21 +923,10 @@
       "montage": "سؤال ← جواب",
       "title_shape": "W W W W W W'W W #W",
       "mark": "Rainforest",
-=======
-      "genre": "calm_wellness",
-      "scene": "breath_circle",
-      "palette": "deep_blue",
-      "transition": "slide",
-      "audio": "ocean",
-      "montage": "دائرة تنفّس",
-      "title_shape": "W W W W | W W (W W) #W",
-      "mark": "Breathe With the Rain",
->>>>>>> Stashed changes
       "hour": 0
     },
     {
       "genre": "focus_study",
-<<<<<<< Updated upstream
       "scene": "desk_window",
       "palette": "deep_blue",
       "transition": "fade",
@@ -4195,16 +4180,6 @@
       "title_shape": "W W W — W W, W W",
       "mark": "Perfect Cuts",
       "hour": 14
-=======
-      "scene": "library_rain",
-      "palette": "paper_warm",
-      "transition": "fade",
-      "audio": "focus",
-      "montage": "خط زمني وفصول",
-      "title_shape": "W W W W W & W | W W | W W, W W #W",
-      "mark": "Night Study Desk",
-      "hour": 2
->>>>>>> Stashed changes
     }
   ]
 }

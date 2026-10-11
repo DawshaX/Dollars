@@ -3139,7 +3139,6 @@
       "date": "2026-10-11",
       "hour": 0,
       "kind": "short",
-<<<<<<< Updated upstream
       "pillar": "sleep",
       "duration": "60s",
       "scene": "photo:Heavy Rain on a Window",
@@ -3174,51 +3173,10 @@
     "by_pillar": {
       "sleep": 2,
       "focus": 2,
-=======
-      "pillar": "focus",
-      "duration": "60s",
-      "scene": "photo:Breathe With the Rain",
-      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-11_00/calm_wellness_226041.mp4",
-      "title": "Calm Down in 60s | Guided Breathing (No Talk) #shorts",
-      "published": true,
-      "url": "https://youtu.be/96gMbpEQ89U",
-      "reason": null,
-      "seconds_spent": 306.5,
-      "at": "2026-10-11T00:09:48.979963+00:00"
-    },
-    {
-      "date": "2026-10-11",
-      "hour": 2,
-      "kind": "short",
-      "pillar": "focus",
-      "duration": "30s",
-      "scene": "photo:Night Study Desk",
-      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-11_02/focus_study_961887.mp4",
-      "title": "Night Study Desk for Studying & Focus | 30 seconds | Deep Work, No Music #shorts",
-      "published": true,
-      "url": "https://youtu.be/FpRGZED5Dx4",
-      "reason": null,
-      "seconds_spent": 427.6,
-      "at": "2026-10-11T02:48:24.285632+00:00"
-    }
-  ],
-  "stats": {
-    "total": 5,
-    "published": 5,
-    "staged": 0,
-    "by_pillar": {
-      "sleep": 1,
-      "focus": 4,
->>>>>>> Stashed changes
       "satisfying": 2,
       "story": 7
     }
   },
   "created": null,
-<<<<<<< Updated upstream
   "updated": "2026-10-11T00:21:16.444762+00:00"
 }
-=======
-  "updated": "2026-10-11T02:48:51.098016+00:00"
-}
->>>>>>> Stashed changes
