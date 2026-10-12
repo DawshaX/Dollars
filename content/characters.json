@@ -980,6 +980,46 @@
       "origin": "auto",
       "created": "2026-10-11T10:57:42.129029+00:00",
       "image_prompt": "cute original 2D animation character, a misty creature, جسم بخار + عيون ناعمة, forest background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "dupo_auto",
+      "name": "Dupo",
+      "type": "روبوت ورق",
+      "look": "ورق مطبّق + مفصلات — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "دائمًا جعان",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "garden",
+        "space"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-12T12:18:22.422223+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny paper robot, ورق مطبّق + مفصلات, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "moro_auto",
+      "name": "Moro",
+      "type": "فراشة زجاجية",
+      "look": "أجنحة شفافة + خطوط ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "دائمًا جعان",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "desert",
+        "desert"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-12T12:18:22.454503+00:00",
+      "image_prompt": "cute original 2D animation character, a glass butterfly, أجنحة شفافة + خطوط ضوء, desert background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -989,5 +1029,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 46
+  "_auto_count": 48
 }

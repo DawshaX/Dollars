@@ -739,6 +739,18 @@
       "name": "Lano",
       "type": "كائن ضبابي",
       "origin": "auto"
+    },
+    {
+      "id": "dupo_auto",
+      "name": "Dupo",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "moro_auto",
+      "name": "Moro",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
     }
   ],
   "stories": [
