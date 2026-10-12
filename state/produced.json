@@ -3194,19 +3194,34 @@
       "reason": null,
       "seconds_spent": 961.4,
       "at": "2026-10-11T06:11:47.017494+00:00"
+    },
+    {
+      "date": "2026-10-12",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "45s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-12_00/nono_balloon_full.mp4",
+      "title": "Pip and the paper plane journey — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/pUM0m6Fr69g",
+      "reason": null,
+      "seconds_spent": 567.8,
+      "at": "2026-10-12T00:37:17.100692+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 5,
+    "total": 6,
+    "published": 6,
     "staged": 0,
     "by_pillar": {
       "sleep": 3,
       "focus": 2,
       "satisfying": 2,
-      "story": 7
+      "story": 8
     }
   },
   "created": null,
-  "updated": "2026-10-11T03:20:24.640162+00:00"
+  "updated": "2026-10-12T00:37:52.110061+00:00"
 }
