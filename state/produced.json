@@ -3329,19 +3329,49 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 532.0,
       "at": "2026-10-13T03:40:14.945541+00:00"
+    },
+    {
+      "date": "2026-10-13",
+      "hour": 7,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "scene": "photo:Lightning",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-13_07/facts_992565.mp4",
+      "title": "3 Facts About Lightning You Didn't Know #shorts",
+      "published": true,
+      "url": "https://youtu.be/Mw2mqD6TcYQ",
+      "reason": null,
+      "seconds_spent": 280.4,
+      "at": "2026-10-13T07:39:53.429445+00:00"
+    },
+    {
+      "date": "2026-10-13",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "20s",
+      "scene": "photo:Slow Foam Rising",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-13_10/satisfying_790951.mp4",
+      "title": "Slow Foam Rising that hits different (20 seconds) #shorts",
+      "published": true,
+      "url": "https://youtu.be/sEQ0xLjjjtU",
+      "reason": null,
+      "seconds_spent": 224.6,
+      "at": "2026-10-13T10:15:34.527142+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 1,
+    "total": 4,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 2,
+      "satisfying": 4,
       "sleep": 4,
       "focus": 4,
       "story": 9
     }
   },
   "created": null,
-  "updated": "2026-10-13T04:56:51.568195+00:00"
+  "updated": "2026-10-13T10:16:14.652877+00:00"
 }

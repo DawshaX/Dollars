@@ -128217,6 +128217,74 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "Mw2mqD6TcYQ",
+      "url": "https://youtu.be/Mw2mqD6TcYQ",
+      "title": "3 Facts About Lightning You Didn't Know #shorts",
+      "published_at": "2026-10-13T07:40:38.537828+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Lightning",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Facts & Science"
+    },
+    {
+      "video_id": "sEQ0xLjjjtU",
+      "url": "https://youtu.be/sEQ0xLjjjtU",
+      "title": "Slow Foam Rising that hits different (20 seconds) #shorts",
+      "published_at": "2026-10-13T10:16:14.174293+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Slow Foam Rising",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Satisfying & ASMR"
     }
   ]
 }
