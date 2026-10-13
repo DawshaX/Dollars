@@ -751,6 +751,18 @@
       "name": "Moro",
       "type": "فراشة زجاجية",
       "origin": "auto"
+    },
+    {
+      "id": "mita_auto",
+      "name": "Mita",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "griro_auto",
+      "name": "Griro",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
