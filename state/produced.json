@@ -3284,6 +3284,21 @@
       "reason": null,
       "seconds_spent": 474.7,
       "at": "2026-10-13T03:40:14.912663+00:00"
+    },
+    {
+      "date": "2026-10-13",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Deep Focus Noise",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-13_03/focus_study_353565.mp4",
+      "title": "ضوضاء التركيز العميق للدراسة والتركيز | 60 ثانية | عمل عميق، بدون موسيقى #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 532.0,
+      "at": "2026-10-13T03:40:14.945541+00:00"
     }
   ],
   "stats": {
