@@ -1,82 +1,14 @@
 {
   "videos": [
     {
-      "video_id": "G-TfLUbs04A",
-      "url": "https://youtu.be/G-TfLUbs04A",
-      "title": "45 seconds to Slow Down | Soft Visual Breathing #shorts",
-      "published_at": "2026-10-10T02:24:50.308959+00:00",
-      "features": {
-        "pillar": "focus",
-        "kind": "short",
-        "kw": "Anxiety relief music frequency",
-        "genre": "calm_wellness",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "thumbnail": true,
-      "playlist": "Calm & Breathe"
-    },
-    {
-      "video_id": "bIFevEqnFIk",
-      "url": "https://youtu.be/bIFevEqnFIk",
-      "title": "Study With Me — Pink Noise (45 seconds) | Pomodoro Chapters #shorts",
-      "published_at": "2026-10-10T05:01:33.943897+00:00",
-      "features": {
-        "pillar": "focus",
-        "kind": "short",
-        "kw": "Pink Noise",
-        "genre": "focus_study",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "thumbnail": true,
-      "playlist": "Focus & Study"
-    },
-    {
-      "video_id": "ZPZmILyE4RA",
-      "url": "https://youtu.be/ZPZmILyE4RA",
-      "title": "What Desert Actually Looks Like — 3 Real Facts #shorts",
-      "published_at": "2026-10-09T03:56:12.145956+00:00",
+      "video_id": "4mYAjYg_73c",
+      "url": "https://youtu.be/4mYAjYg_73c",
+      "title": "Glacier: 3 Verified Facts (Sources Included) #shorts",
+      "published_at": "2026-10-13T04:56:51.180295+00:00",
       "features": {
         "pillar": "satisfying",
         "kind": "short",
-        "kw": "Amazing facts live",
+        "kw": "Amazing facts doug batchelor",
         "genre": "facts",
         "hour": null,
         "duration_bucket": null,
@@ -101,6 +33,7 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Facts & Science"
+<<<<<<< Updated upstream
     },
     {
       "video_id": "_-r6d7NadRE",
@@ -128183,6 +128116,8 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+=======
+>>>>>>> Stashed changes
     }
   ]
 }
