@@ -763,6 +763,18 @@
       "name": "Griro",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "ripo_auto",
+      "name": "Ripo",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
+    },
+    {
+      "id": "kipo_auto",
+      "name": "Kipo",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
