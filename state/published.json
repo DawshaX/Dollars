@@ -136221,6 +136221,7 @@
       "playlist": "Satisfying & ASMR"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "tapYr5MD24I",
       "url": "https://youtu.be/tapYr5MD24I",
       "title": "Bomi and a spark that got lost — a wordless story #shorts",
@@ -136230,6 +136231,51 @@
         "kind": "short",
         "kw": "Bomi and the Little Fire — a wordless story",
         "genre": null,
+=======
+      "video_id": "6255m-53J7s",
+      "url": "https://youtu.be/6255m-53J7s",
+      "title": "The Real Nile River from Space in Motion | 30 seconds #shorts",
+      "published_at": "2026-10-14T00:17:43.479510+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Nile River from Space",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "QJSyv48z6pA",
+      "url": "https://youtu.be/QJSyv48z6pA",
+      "title": "Koko's Little the whale who sang alone — a story without words #shorts",
+      "published_at": "2026-10-14T02:54:02.405734+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "The Paper Man and the Lantern — a wordless story",
+        "genre": "story",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
