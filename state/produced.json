@@ -3361,7 +3361,6 @@
       "at": "2026-10-13T10:15:34.527142+00:00"
     },
     {
-<<<<<<< Updated upstream
       "date": "2026-09-26",
       "hour": 10,
       "kind": "short",
@@ -3399,54 +3398,10 @@
     "by_pillar": {
       "satisfying": 5,
       "sleep": 4,
-=======
-      "date": "2026-10-14",
-      "hour": 0,
-      "kind": "short",
-      "pillar": "sleep",
-      "duration": "30s",
-      "scene": "photo:Nile River from Space",
-      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-14_00/space_nature_236250.mp4",
-      "title": "The Real Nile River from Space in Motion | 30 seconds #shorts",
-      "published": true,
-      "url": "https://youtu.be/6255m-53J7s",
-      "reason": null,
-      "seconds_spent": 404.3,
-      "at": "2026-10-14T00:17:04.065381+00:00"
-    },
-    {
-      "date": "2026-10-14",
-      "hour": 2,
-      "kind": "short",
-      "pillar": "story",
-      "duration": "45s",
-      "scene": null,
-      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-14_02/paper_man_help_full.mp4",
-      "title": "Koko's Little the whale who sang alone — a story without words #shorts",
-      "published": true,
-      "url": "https://youtu.be/QJSyv48z6pA",
-      "reason": null,
-      "seconds_spent": 284.8,
-      "at": "2026-10-14T02:53:33.636865+00:00"
-    }
-  ],
-  "stats": {
-    "total": 6,
-    "published": 5,
-    "staged": 0,
-    "by_pillar": {
-      "satisfying": 4,
-      "sleep": 5,
->>>>>>> Stashed changes
       "focus": 4,
       "story": 10
     }
   },
   "created": null,
-<<<<<<< Updated upstream
   "updated": "2026-10-14T01:59:14.219108+00:00"
 }
-=======
-  "updated": "2026-10-14T02:54:02.934640+00:00"
-}
->>>>>>> Stashed changes
