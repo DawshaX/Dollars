@@ -3389,19 +3389,49 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 334.8,
       "at": "2026-10-14T01:55:37.451204+00:00"
+    },
+    {
+      "date": "2026-10-14",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "30s",
+      "scene": "photo:Wind in the Pines",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-14_05/sleep_ambience_870622.mp4",
+      "title": "النوم في دقائق: أصوات الرياح في أشجار الصنوبر لمدة 30 ثانية #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 366.2,
+      "at": "2026-10-14T05:35:32.904918+00:00"
+    },
+    {
+      "date": "2026-10-14",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "scene": "photo:Hydraulic Press",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-14_06/satisfying_588545.mp4",
+      "title": "Hydraulic Press — oddly satisfying (45 seconds) #shorts",
+      "published": true,
+      "url": "https://youtu.be/e-eP43viXx8",
+      "reason": null,
+      "seconds_spent": 264.4,
+      "at": "2026-10-14T06:34:57.739397+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 4,
+    "total": 7,
+    "published": 5,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 5,
-      "sleep": 4,
+      "satisfying": 6,
+      "sleep": 5,
       "focus": 4,
       "story": 10
     }
   },
   "created": null,
-  "updated": "2026-10-14T01:59:14.219108+00:00"
+  "updated": "2026-10-14T06:35:13.327929+00:00"
 }
