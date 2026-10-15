@@ -3464,19 +3464,34 @@
       "reason": null,
       "seconds_spent": 1197.9,
       "at": "2026-10-15T05:09:23.664195+00:00"
+    },
+    {
+      "date": "2026-10-15",
+      "hour": 9,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "45s",
+      "scene": "photo:Snow Falling in a Quiet Village",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-15_09/sleep_ambience_733345.mp4",
+      "title": "Snow Falling in a Quiet Village Sounds for Sleeping | 45 seconds Black Screen |  #shorts",
+      "published": true,
+      "url": "https://youtu.be/mN-YNo2bQ_E",
+      "reason": null,
+      "seconds_spent": 801.8,
+      "at": "2026-10-15T09:21:06.269023+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "satisfying": 6,
-      "sleep": 6,
+      "sleep": 7,
       "story": 10
     }
   },
   "created": null,
-  "updated": "2026-10-15T06:31:37.480519+00:00"
+  "updated": "2026-10-15T09:21:20.780151+00:00"
 }
