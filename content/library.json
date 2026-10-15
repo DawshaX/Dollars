@@ -775,6 +775,18 @@
       "name": "Kipo",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "boshi_auto",
+      "name": "Boshi",
+      "type": "قطة صحراوية",
+      "origin": "auto"
+    },
+    {
+      "id": "mila_auto",
+      "name": "Mila",
+      "type": "قطة سحابية",
+      "origin": "auto"
     }
   ],
   "stories": [
