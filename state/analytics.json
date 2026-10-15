@@ -1,62 +1,6 @@
 {
   "videos": [
     {
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "vQKhAXhxG9w",
-      "published_at": "2026-10-01T09:19:23.850342+00:00"
-    },
-    {
-      "title": "Oddly satisfying video that makes you sleepy — oddly satisfying (60s) #shorts",
-      "views": 5,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "satisfying",
-        "kind": "short",
-        "kw": "Oddly satisfying video that makes you sleepy",
-        "genre": "satisfying",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "video_id": "9ICLD20Ur3Q",
-      "published_at": "2026-10-01T13:10:48.915771+00:00"
-    },
-    {
       "title": "Oddly satisfying video — oddly satisfying (60s) #shorts",
       "views": 0,
       "likes": 0,
@@ -313,7 +257,7 @@
     },
     {
       "title": "Rock band • 60s • Fall Asleep Fast (No Music) #shorts",
-      "views": 20,
+      "views": 21,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1375,6 +1319,149 @@
       },
       "video_id": "e-eP43viXx8",
       "published_at": "2026-10-14T06:35:12.923650+00:00"
+    },
+    {
+      "title": "60s to Slow Down | Soft Visual Breathing #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Two Minutes of Calm",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "OQA0zDM9kGA",
+      "published_at": "2026-10-15T00:09:05.082236+00:00"
+    },
+    {
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "KgC2TjY_t2o",
+      "published_at": "2026-10-15T05:12:03.840647+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "vQKhAXhxG9w",
+      "published_at": "2026-10-01T09:19:23.850342+00:00"
+    },
+    {
+      "title": "Oddly satisfying video that makes you sleepy — oddly satisfying (60s) #shorts",
+      "views": 5,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Oddly satisfying video that makes you sleepy",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "9ICLD20Ur3Q",
+      "published_at": "2026-10-01T13:10:48.915771+00:00"
+    },
+    {
+      "title": "Rock band • 60s • Fall Asleep Fast (No Music) #shorts",
+      "views": 20,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Rock band",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "pE5w0CqaaJA",
+      "published_at": "2026-10-04T22:44:05.816914+00:00"
     },
     {
       "title": "Rain on Leaves Sounds — 60 seconds of Pure Calm | Insomnia Relief #shorts",
@@ -9070,9 +9157,9 @@
   "channel": {
     "title": "xDaw NoVa",
     "subs": 43,
-    "views": 327443,
-    "videos": 662
+    "views": 327507,
+    "videos": 666
   },
-  "synced_at": "2026-10-15T00:58:32.192110+00:00",
-  "views_gained": 153
+  "synced_at": "2026-10-15T06:33:00.558706+00:00",
+  "views_gained": 149
 }
