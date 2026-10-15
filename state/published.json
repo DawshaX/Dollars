@@ -144227,6 +144227,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "OQA0zDM9kGA",
+      "url": "https://youtu.be/OQA0zDM9kGA",
+      "title": "60s to Slow Down | Soft Visual Breathing #shorts",
+      "published_at": "2026-10-15T00:09:05.082236+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Two Minutes of Calm",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
