@@ -3479,6 +3479,21 @@
       "reason": null,
       "seconds_spent": 801.8,
       "at": "2026-10-15T09:21:06.269023+00:00"
+    },
+    {
+      "date": "2026-10-15",
+      "hour": 2,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "10h",
+      "scene": "aurora",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-15_02/aurora_10h.mp4",
+      "title": "Aurora Night Sky for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": true,
+      "url": "https://youtu.be/TjxwgD5NR1A",
+      "reason": null,
+      "seconds_spent": 1342.7,
+      "at": "2026-10-15T12:07:14.268370+00:00"
     }
   ],
   "stats": {
