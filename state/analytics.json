@@ -1335,6 +1335,31 @@
     },
     {
       "title": "Breathe with me — 45s of calm #shorts",
+      "views": 1,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "One Minute at a Time",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "hiKlATMwzJE",
+      "published_at": "2026-10-16T02:48:31.018913+00:00"
+    },
+    {
+      "title": "Breathe with me — 45s of calm #shorts",
       "views": 0,
       "likes": 0,
       "comments": 1,
@@ -9470,8 +9495,8 @@
     "title": "xDaw NoVa",
     "subs": 43,
     "views": 327517,
-    "videos": 671
+    "videos": 672
   },
-  "synced_at": "2026-10-16T06:27:15.841290+00:00",
-  "views_gained": 157
+  "synced_at": "2026-10-16T09:11:38.452026+00:00",
+  "views_gained": 0
 }

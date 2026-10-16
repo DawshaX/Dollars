@@ -1,20 +1,20 @@
 {
   "ok": true,
-  "at": "2026-10-15T09:17:59.205921+00:00",
+  "at": "2026-10-16T09:11:37.136540+00:00",
   "channel": {
     "title": "xDaw NoVa",
     "id": "UCG9g_26H65D3FahqyiYPHAw",
     "subs": 43,
-    "views_lifetime": 327507,
-    "videos": 666,
+    "views_lifetime": 327517,
+    "videos": 672,
     "country": "US",
     "keywords": "\"oddly satisfying\" \"satisfying video\" asmr \"asmr no talking\" animals \"funny pets\" \"nature relax\" space \"science facts\" \"food closeup\" macro \"slow motion\" shorts \"daily shorts\" \"relaxing video\" \"nature sounds\" \"water sounds\" \"background video\" ambience \"vertical video\" \"4k shorts\"",
     "desc": "Daily short videos from around the world — oddly satisfying moments, ASMR, animals, nature,\nspace, food, city life and quick facts. Original edits, real licensed footage, sound you can feel.\n\n🌍 New videos every day · playlists for every mood\n\nFootage and music are used under free licenses (CC0 / CC-BY / public domain) — credited in every description.\nSubtitles in many languages. Business: dawshax@",
     "default_language": "en"
   },
-  "scanned": 671,
+  "scanned": 677,
   "views_scanned": 0,
-  "zero_views": 671,
+  "zero_views": 677,
   "zero_pct": 100.0,
   "top": [
     {
@@ -670,17 +670,21 @@
       "views": 0
     },
     "2026-10-15": {
-      "n": 5,
+      "n": 7,
+      "views": 0
+    },
+    "2026-10-16": {
+      "n": 4,
       "views": 0
     }
   },
   "by_duration": {
     "short(<60)": {
-      "n": 509,
+      "n": 512,
       "views": 0
     },
     "1-10د": {
-      "n": 122,
+      "n": 123,
       "views": 0
     },
     "10-60د": {
@@ -688,7 +692,7 @@
       "views": 0
     },
     "1س+": {
-      "n": 38,
+      "n": 40,
       "views": 0
     }
   },
@@ -699,11 +703,11 @@
     ],
     [
       "24",
-      141
+      142
     ],
     [
       "10",
-      135
+      140
     ],
     [
       "1",
@@ -716,6 +720,14 @@
     [
       "28",
       14
+    ],
+    [
+      "24",
+      141
+    ],
+    [
+      "10",
+      135
     ],
     [
       "24",
@@ -910,8 +922,8 @@
       4
     ]
   ],
-  "with_tags": 506,
-  "with_hashtags": 583,
+  "with_tags": 512,
+  "with_hashtags": 589,
   "all": [
     {
       "id": "fGBdIOBtpFg",
@@ -11642,6 +11654,102 @@
       "hashtags": 10,
       "desc_len": 1680,
       "seconds": 61,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "mN-YNo2bQ_E",
+      "title": "Snow Falling in a Quiet Village Sounds for Sleeping | 45 seconds Black Screen |  #shorts",
+      "published": "2026-10-15T09:21:38Z",
+      "category": "10",
+      "tags": 11,
+      "hashtags": 11,
+      "desc_len": 1816,
+      "seconds": 46,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "TjxwgD5NR1A",
+      "title": "Aurora Night Sky for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": "2026-10-15T14:32:39Z",
+      "category": "10",
+      "tags": 16,
+      "hashtags": 8,
+      "desc_len": 1634,
+      "seconds": 36023,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "MDc_P_SKfzk",
+      "title": "Perfect Paint Swirl Pour — no talking, just calm #shorts",
+      "published": "2026-10-16T00:13:55Z",
+      "category": "24",
+      "tags": 9,
+      "hashtags": 10,
+      "desc_len": 1499,
+      "seconds": 61,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "hiKlATMwzJE",
+      "title": "Breathe with me — 45s of calm #shorts",
+      "published": "2026-10-16T02:48:51Z",
+      "category": "10",
+      "tags": 8,
+      "hashtags": 10,
+      "desc_len": 1695,
+      "seconds": 46,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "YRIpvGlq340",
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "published": "2026-10-16T05:39:20Z",
+      "category": "10",
+      "tags": 11,
+      "hashtags": 7,
+      "desc_len": 1419,
+      "seconds": 10823,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "Gq-Bnp5S7sg",
+      "title": "The Real Aurora Over Iceland in Motion | 45 seconds #shorts",
+      "published": "2026-10-16T07:35:19Z",
+      "category": "10",
+      "tags": 9,
+      "hashtags": 11,
+      "desc_len": 1885,
+      "seconds": 46,
       "views": 0,
       "likes": 0,
       "comments": 0,

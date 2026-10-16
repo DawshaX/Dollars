@@ -787,6 +787,18 @@
       "name": "Mila",
       "type": "قطة سحابية",
       "origin": "auto"
+    },
+    {
+      "id": "lushi_auto",
+      "name": "Lushi",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "penu_auto",
+      "name": "Penu",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
