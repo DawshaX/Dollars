@@ -155387,6 +155387,62 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Rain"
+    },
+    {
+      "video_id": "MDc_P_SKfzk",
+      "url": "https://youtu.be/MDc_P_SKfzk",
+      "title": "Perfect Paint Swirl Pour — no talking, just calm #shorts",
+      "published_at": "2026-10-16T00:13:55.896579+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Paint Swirl Pour",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "hiKlATMwzJE",
+      "url": "https://youtu.be/hiKlATMwzJE",
+      "title": "Breathe with me — 45s of calm #shorts",
+      "published_at": "2026-10-16T02:48:31.018913+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "One Minute at a Time",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
