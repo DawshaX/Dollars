@@ -3509,6 +3509,36 @@
       "reason": null,
       "seconds_spent": 966.2,
       "at": "2026-10-16T04:56:22.713732+00:00"
+    },
+    {
+      "date": "2026-10-16",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "60s",
+      "scene": "photo:Paint Swirl Pour",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-16_00/satisfying_444914.mp4",
+      "title": "Perfect Paint Swirl Pour — no talking, just calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/MDc_P_SKfzk",
+      "reason": null,
+      "seconds_spent": 337.1,
+      "at": "2026-10-16T00:13:38.191147+00:00"
+    },
+    {
+      "date": "2026-10-16",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:One Minute at a Time",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-16_02/calm_wellness_193555.mp4",
+      "title": "Breathe with me — 45s of calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/hiKlATMwzJE",
+      "reason": null,
+      "seconds_spent": 194.5,
+      "at": "2026-10-16T02:48:16.979979+00:00"
     }
   ],
   "stats": {
