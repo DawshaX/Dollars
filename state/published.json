@@ -157029,6 +157029,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "Gq-Bnp5S7sg",
+      "url": "https://youtu.be/Gq-Bnp5S7sg",
+      "title": "The Real Aurora Over Iceland in Motion | 45 seconds #shorts",
+      "published_at": "2026-10-16T07:35:08.051118+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Aurora Over Iceland",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
     }
   ]
 }
