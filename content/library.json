@@ -799,6 +799,18 @@
       "name": "Penu",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "mota_auto",
+      "name": "Mota",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "rimi_auto",
+      "name": "Rimi",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
