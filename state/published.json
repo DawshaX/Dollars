@@ -166439,6 +166439,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "2nhL3z87cjA",
+      "url": "https://youtu.be/2nhL3z87cjA",
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "published_at": "2026-10-17T04:58:25.954710+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
