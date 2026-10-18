@@ -1,8 +1,8 @@
 {
+  "seen": [],
   "sig": [
     {
       "genre": "focus_study",
-<<<<<<< Updated upstream
       "scene": "snow_window",
       "palette": "deep_blue",
       "transition": "xfade_soft",
@@ -509,8 +509,6 @@
     },
     {
       "genre": "focus_study",
-=======
->>>>>>> Stashed changes
       "scene": "desk_window",
       "palette": "paper_warm",
       "transition": "fade",
@@ -653,7 +651,6 @@
       "hour": 22
     },
     {
-<<<<<<< Updated upstream
       "genre": "sleep_ambience",
       "scene": "storm_window",
       "palette": "midnight",
@@ -665,8 +662,6 @@
       "hour": 3
     },
     {
-=======
->>>>>>> Stashed changes
       "genre": "calm_wellness",
       "scene": "aurora",
       "palette": "aurora",
@@ -1164,7 +1159,6 @@
     {
       "genre": "focus_study",
       "scene": "forest_night",
-<<<<<<< Updated upstream
       "palette": "paper_warm",
       "transition": "xfade_soft",
       "audio": "cafe",
@@ -4890,27 +4884,6 @@
       "title_shape": "W W W W W%… #W",
       "mark": "the phone at 1%",
       "hour": 21
-=======
-      "palette": "deep_blue",
-      "transition": "fade",
-      "audio": "focus",
-      "montage": "مشهد ثابت + ساعة",
-      "title_shape": "W W W • W W • W & W #W",
-      "mark": "Night Study Desk",
-      "hour": 2
-    },
-    {
-      "genre": "space_nature",
-      "scene": "canyon",
-      "palette": "cosmic",
-      "transition": "crossfade",
-      "audio": "cosmic",
-      "montage": "تحوّل تدريجي",
-      "title_shape": "W W W W — W W W W W W (W W) #W",
-      "mark": "Desert Bloom After Rain",
-      "hour": 5
->>>>>>> Stashed changes
     }
-  ],
-  "seen": []
+  ]
 }
