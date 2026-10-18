@@ -811,6 +811,18 @@
       "name": "Rimi",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "bonu_auto",
+      "name": "Bonu",
+      "type": "سمكة نجمية",
+      "origin": "auto"
+    },
+    {
+      "id": "kika_auto",
+      "name": "Kika",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
