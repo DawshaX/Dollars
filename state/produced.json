@@ -3689,6 +3689,21 @@
       "reason": null,
       "seconds_spent": 961.6,
       "at": "2026-10-18T11:41:16.956462+00:00"
+    },
+    {
+      "date": "2026-10-18",
+      "hour": 8,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "20s",
+      "scene": "clip:the umbrella you left",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-18_08/fun_memes_376007.mp4",
+      "title": "When the umbrella you left… #funny #shorts",
+      "published": true,
+      "url": "https://youtu.be/F08LewUbE7s",
+      "reason": null,
+      "seconds_spent": 112.0,
+      "at": "2026-10-18T08:23:29.112424+00:00"
     }
   ],
   "stats": {
