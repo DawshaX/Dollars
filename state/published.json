@@ -183737,6 +183737,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "xWU0_KMrkGE",
+      "url": "https://youtu.be/xWU0_KMrkGE",
+      "title": "Rain on Window for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published_at": "2026-10-18T11:44:25.622452+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "long",
+        "kw": "Rain on Window",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Rain"
     }
   ]
 }
