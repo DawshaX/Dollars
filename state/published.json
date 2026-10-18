@@ -180573,6 +180573,7 @@
       "playlist": "Space & Earth"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "xTrs7mTLMtw",
       "url": "https://youtu.be/xTrs7mTLMtw",
       "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
@@ -180582,23 +180583,85 @@
         "kind": "long",
         "kw": "Sleep Sounds",
         "genre": null,
+=======
+      "video_id": "5I0bB-fTyvw",
+      "url": "https://youtu.be/5I0bB-fTyvw",
+      "title": "Night Study Desk • 45 seconds • Concentration & Calm #shorts",
+      "published_at": "2026-10-18T02:57:00.634315+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Night Study Desk",
+        "genre": "focus_study",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
         "sfx": false,
         "overlays": false,
         "clips": false,
+<<<<<<< Updated upstream
         "loop": false,
         "hook": false,
         "pinned": true,
         "lang": "en",
         "locales": []
+=======
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+>>>>>>> Stashed changes
       },
       "views": 0,
       "likes": 0,
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+<<<<<<< Updated upstream
+=======
+    },
+    {
+      "video_id": "KCUM4PPydYk",
+      "url": "https://youtu.be/KCUM4PPydYk",
+      "title": "Desert Bloom After Rain — a slow look at the universe (60 seconds) #shorts",
+      "published_at": "2026-10-18T05:41:14.184262+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Desert Bloom After Rain",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
+>>>>>>> Stashed changes
     }
   ]
 }

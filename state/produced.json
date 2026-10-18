@@ -3662,6 +3662,7 @@
     },
     {
       "date": "2026-10-18",
+<<<<<<< Updated upstream
       "hour": 3,
       "kind": "long",
       "pillar": "sleep",
@@ -3679,14 +3680,53 @@
   "stats": {
     "total": 3,
     "published": 3,
+=======
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Night Study Desk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-18_02/focus_study_26360.mp4",
+      "title": "Night Study Desk • 45 seconds • Concentration & Calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/5I0bB-fTyvw",
+      "reason": null,
+      "seconds_spent": 426.6,
+      "at": "2026-10-18T02:56:09.760837+00:00"
+    },
+    {
+      "date": "2026-10-18",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Desert Bloom After Rain",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-18_05/space_nature_957052.mp4",
+      "title": "Desert Bloom After Rain — a slow look at the universe (60 seconds) #shorts",
+      "published": true,
+      "url": "https://youtu.be/KCUM4PPydYk",
+      "reason": null,
+      "seconds_spent": 736.1,
+      "at": "2026-10-18T05:40:23.750301+00:00"
+    }
+  ],
+  "stats": {
+    "total": 4,
+    "published": 4,
+>>>>>>> Stashed changes
     "staged": 0,
     "by_pillar": {
       "story": 1,
       "sleep": 4,
       "satisfying": 1,
-      "focus": 2
+      "focus": 3
     }
   },
   "created": null,
+<<<<<<< Updated upstream
   "updated": "2026-10-18T04:58:57.218539+00:00"
 }
+=======
+  "updated": "2026-10-18T05:41:14.898525+00:00"
+}
+>>>>>>> Stashed changes
