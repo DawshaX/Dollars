@@ -3719,6 +3719,21 @@
       "reason": null,
       "seconds_spent": 366.6,
       "at": "2026-10-19T01:18:48.944207+00:00"
+    },
+    {
+      "date": "2026-10-19",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Bioluminescent Bay",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-19_01/space_nature_920829.mp4",
+      "title": "The Real Bioluminescent Bay in Motion | 60 seconds #shorts",
+      "published": true,
+      "url": "https://youtu.be/YTPF-D5HJXc",
+      "reason": null,
+      "seconds_spent": 483.7,
+      "at": "2026-10-19T01:15:08.889930+00:00"
     }
   ],
   "stats": {
