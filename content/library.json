@@ -823,6 +823,18 @@
       "name": "Kika",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "wami_auto",
+      "name": "Wami",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "tami_auto",
+      "name": "Tami",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [
