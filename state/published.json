@@ -194747,6 +194747,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "THMVBIcMxAA",
+      "url": "https://youtu.be/THMVBIcMxAA",
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · 4K detail",
+      "published_at": "2026-10-19T06:10:00.195467+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Box Breathing",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
