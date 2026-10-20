@@ -1,37 +1,6 @@
 {
   "videos": [
     {
-      "title": "3 Facts About Rainforest You Didn't Know #shorts",
-      "views": 4,
-      "likes": 0,
-      "comments": 0,
-      "features": {
-        "pillar": "satisfying",
-        "kind": "short",
-        "kw": "Rainforest",
-        "genre": "facts",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": [
-          "ar",
-          "es",
-          "hi",
-          "id",
-          "pt"
-        ]
-      },
-      "video_id": "4TXEXh8erhM",
-      "published_at": "2026-10-06T03:02:33.850982+00:00"
-    },
-    {
       "title": "Deep Space Sleep for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
       "views": 0,
       "likes": 0,
@@ -500,7 +469,7 @@
     },
     {
       "title": "Thunderstorm at Night Sounds • 45 seconds • Fall Asleep Fast (No Music) #shorts",
-      "views": 20,
+      "views": 21,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -824,7 +793,7 @@
     },
     {
       "title": "60s to Slow Down | Soft Visual Breathing #shorts",
-      "views": 1,
+      "views": 2,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1297,8 +1266,39 @@
       "published_at": "2026-10-19T06:10:00.195467+00:00"
     },
     {
+      "title": "Pink Noise • 45 seconds • Concentration & Calm #shorts",
+      "views": 1,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Pink Noise",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "seyDpuldiQE",
+      "published_at": "2026-10-20T00:16:23.539049+00:00"
+    },
+    {
       "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 0,
+      "views": 1,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1351,6 +1351,118 @@
       },
       "video_id": "EaCbxEMG3qI",
       "published_at": "2026-10-20T00:23:17.707414+00:00"
+    },
+    {
+      "title": "3 Facts About Rainforest You Didn't Know #shorts",
+      "views": 4,
+      "likes": 0,
+      "comments": 0,
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Rainforest",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "4TXEXh8erhM",
+      "published_at": "2026-10-06T03:02:33.850982+00:00"
+    },
+    {
+      "title": "Thunderstorm at Night Sounds • 45 seconds • Fall Asleep Fast (No Music) #shorts",
+      "views": 20,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Thunderstorm at Night Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "KSeeP9fE2hU",
+      "published_at": "2026-10-11T03:20:24.256932+00:00"
+    },
+    {
+      "title": "60s to Slow Down | Soft Visual Breathing #shorts",
+      "views": 1,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Two Minutes of Calm",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "OQA0zDM9kGA",
+      "published_at": "2026-10-15T00:09:05.082236+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "Mwhw39P_Y0s",
+      "published_at": "2026-10-20T00:24:57.839272+00:00"
     },
     {
       "title": "Bomi and a spark that got lost — a wordless story #shorts",
@@ -10649,8 +10761,8 @@
     "title": "xDaw NoVa",
     "subs": 43,
     "views": 327823,
-    "videos": 697
+    "videos": 698
   },
-  "synced_at": "2026-10-20T00:44:04.712740+00:00",
+  "synced_at": "2026-10-20T05:25:14.957704+00:00",
   "views_gained": 167
 }
