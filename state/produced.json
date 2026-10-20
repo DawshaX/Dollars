@@ -3794,6 +3794,21 @@
       "reason": null,
       "seconds_spent": 305.7,
       "at": "2026-10-20T00:24:05.572776+00:00"
+    },
+    {
+      "date": "2026-10-20",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "clip:Steady Breath at the Ocean",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-20_00/calm_wellness_938719.mp4",
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · 4K detail",
+      "published": true,
+      "url": "https://youtu.be/EaCbxEMG3qI",
+      "reason": null,
+      "seconds_spent": 318.3,
+      "at": "2026-10-20T00:22:33.949497+00:00"
     }
   ],
   "stats": {
