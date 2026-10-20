@@ -3779,19 +3779,34 @@
       "reason": null,
       "seconds_spent": 339.9,
       "at": "2026-10-19T06:09:46.616257+00:00"
+    },
+    {
+      "date": "2026-10-20",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Pink Noise",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-20_00/focus_study_938719.mp4",
+      "title": "Pink Noise • 45 seconds • Concentration & Calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/seyDpuldiQE",
+      "reason": null,
+      "seconds_spent": 657.3,
+      "at": "2026-10-20T00:15:33.481634+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
-      "focus": 2,
+      "focus": 3,
       "satisfying": 1,
       "story": 2,
       "sleep": 5
     }
   },
   "created": null,
-  "updated": "2026-10-19T06:10:00.822903+00:00"
+  "updated": "2026-10-20T00:16:24.126430+00:00"
 }

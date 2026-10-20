@@ -199413,6 +199413,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "seyDpuldiQE",
+      "url": "https://youtu.be/seyDpuldiQE",
+      "title": "Pink Noise • 45 seconds • Concentration & Calm #shorts",
+      "published_at": "2026-10-20T00:16:23.539049+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Pink Noise",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
