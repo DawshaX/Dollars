@@ -3824,19 +3824,34 @@
       "reason": null,
       "seconds_spent": 318.3,
       "at": "2026-10-20T00:22:33.949497+00:00"
+    },
+    {
+      "date": "2026-10-20",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "20s",
+      "scene": "photo:Glass and Sand",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-20_03/satisfying_941508.mp4",
+      "title": "Glass and Sand — oddly satisfying (20s) #shorts",
+      "published": true,
+      "url": "https://youtu.be/8m0QwH8da2U",
+      "reason": null,
+      "seconds_spent": 364.2,
+      "at": "2026-10-20T03:06:17.964501+00:00"
     }
   ],
   "stats": {
-    "total": 4,
-    "published": 4,
+    "total": 5,
+    "published": 5,
     "staged": 0,
     "by_pillar": {
       "focus": 3,
-      "satisfying": 1,
+      "satisfying": 2,
       "story": 3,
       "sleep": 5
     }
   },
   "created": null,
-  "updated": "2026-10-20T00:16:24.126430+00:00"
+  "updated": "2026-10-20T03:06:59.694131+00:00"
 }
