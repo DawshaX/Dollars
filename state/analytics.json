@@ -1,56 +1,6 @@
 {
   "videos": [
     {
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "lj28hDqMrPs",
-      "published_at": "2026-10-05T18:26:25.077263+00:00"
-    },
-    {
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "91vVnJde8lA",
-      "published_at": "2026-10-06T00:18:05.632672+00:00"
-    },
-    {
       "title": "3 Facts About Rainforest You Didn't Know #shorts",
       "views": 4,
       "likes": 0,
@@ -874,7 +824,7 @@
     },
     {
       "title": "60s to Slow Down | Soft Visual Breathing #shorts",
-      "views": 0,
+      "views": 1,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1295,6 +1245,193 @@
       },
       "video_id": "r30gYNHu3DE",
       "published_at": "2026-10-19T01:19:00.331906+00:00"
+    },
+    {
+      "title": "The Real Bioluminescent Bay in Motion | 60 seconds #shorts",
+      "views": 4,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Bioluminescent Bay",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "YTPF-D5HJXc",
+      "published_at": "2026-10-19T01:15:23.507163+00:00"
+    },
+    {
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · 4K detail",
+      "views": 2,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Box Breathing",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "THMVBIcMxAA",
+      "published_at": "2026-10-19T06:10:00.195467+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "Mwhw39P_Y0s",
+      "published_at": "2026-10-20T00:24:57.839272+00:00"
+    },
+    {
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · 4K detail",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Steady Breath at the Ocean",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "EaCbxEMG3qI",
+      "published_at": "2026-10-20T00:23:17.707414+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "lj28hDqMrPs",
+      "published_at": "2026-10-05T18:26:25.077263+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "91vVnJde8lA",
+      "published_at": "2026-10-06T00:18:05.632672+00:00"
+    },
+    {
+      "title": "60s to Slow Down | Soft Visual Breathing #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Two Minutes of Calm",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "OQA0zDM9kGA",
+      "published_at": "2026-10-15T00:09:05.082236+00:00"
     },
     {
       "title": "The Real Bioluminescent Bay in Motion | 60 seconds #shorts",
@@ -10511,9 +10648,9 @@
   "channel": {
     "title": "xDaw NoVa",
     "subs": 43,
-    "views": 327796,
-    "videos": 694
+    "views": 327823,
+    "videos": 697
   },
-  "synced_at": "2026-10-19T21:16:34.230051+00:00",
-  "views_gained": 162
+  "synced_at": "2026-10-20T00:44:04.712740+00:00",
+  "views_gained": 167
 }
