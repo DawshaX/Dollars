@@ -835,6 +835,18 @@
       "name": "Tami",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "rimi_auto",
+      "name": "Rimi",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "peta_auto",
+      "name": "Peta",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [

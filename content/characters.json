@@ -1300,6 +1300,46 @@
       "origin": "auto",
       "created": "2026-10-19T10:08:21.072284+00:00",
       "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, city_night background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "rimi_auto",
+      "name": "Rimi",
+      "type": "تمساح صغير جدًا",
+      "look": "حراشف باهتة + عيون كبيرة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "خجول بس شجاع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "clouds",
+        "moon"
+      ],
+      "formats": [
+        "minute_story",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-20T09:33:50.265998+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, clouds background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "peta_auto",
+      "name": "Peta",
+      "type": "كائن طيني صغير",
+      "look": "طين ناعم + عينين كبيرتين — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "خجول بس شجاع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "clouds",
+        "clouds"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-20T09:33:50.298908+00:00",
+      "image_prompt": "cute original 2D animation character, a small clay creature, طين ناعم + عينين كبيرتين, clouds background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -1309,5 +1349,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 62
+  "_auto_count": 64
 }
