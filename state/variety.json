@@ -2,7 +2,6 @@
   "seen": [],
   "sig": [
     {
-<<<<<<< Updated upstream
       "genre": "sleep_ambience",
       "scene": "storm_window",
       "palette": "warm_ember",
@@ -520,8 +519,6 @@
       "hour": 19
     },
     {
-=======
->>>>>>> Stashed changes
       "genre": "fun_memes",
       "scene": "sand_table",
       "palette": "high_contrast",
@@ -655,7 +652,6 @@
     },
     {
       "genre": "sleep_ambience",
-<<<<<<< Updated upstream
       "scene": "train_window",
       "palette": "deep_blue",
       "transition": "fade",
@@ -667,8 +663,6 @@
     },
     {
       "genre": "sleep_ambience",
-=======
->>>>>>> Stashed changes
       "scene": "rain_glass",
       "palette": "midnight",
       "transition": "crossfade",
@@ -1163,7 +1157,6 @@
       "hour": 8
     },
     {
-<<<<<<< Updated upstream
       "genre": "story",
       "scene": "story_city_rain",
       "palette": "story_dusk",
@@ -5176,38 +5169,6 @@
       "montage": "إيقاع ٤-٧-٨",
       "title_shape": "W W W W W | W W (W W)",
       "mark": "Slow Down",
-=======
-      "genre": "sleep_ambience",
-      "scene": "forest_night",
-      "palette": "cool_slate",
-      "transition": "slide",
-      "audio": "calm_night",
-      "montage": "مشهد واحد مستمر",
-      "title_shape": "W W W: W W W W W W W #W",
-      "mark": "Thunderstorm at Night",
-      "hour": 0
-    },
-    {
-      "genre": "focus_study",
-      "scene": "rain_glass",
-      "palette": "deep_blue",
-      "transition": "fade",
-      "audio": "focus",
-      "montage": "مشهد ثابت + ساعة",
-      "title_shape": "W W • W W • W & W #W",
-      "mark": "Quiet Library",
-      "hour": 3
-    },
-    {
-      "genre": "story",
-      "scene": "story_city_rain",
-      "palette": "story_dusk",
-      "transition": "xfade_soft",
-      "audio": "story_gentle",
-      "montage": "مشهد ← مشهد بإيقاع",
-      "title_shape": "W W W W W — W W W #W",
-      "mark": "the tiny gardener",
->>>>>>> Stashed changes
       "hour": 5
     }
   ]
