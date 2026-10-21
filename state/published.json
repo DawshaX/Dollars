@@ -212023,6 +212023,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Rain"
+    },
+    {
+      "video_id": "dTBo2v1bR0s",
+      "url": "https://youtu.be/dTBo2v1bR0s",
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "published_at": "2026-10-21T05:20:18.133621+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }

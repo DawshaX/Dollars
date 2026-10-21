@@ -3869,19 +3869,34 @@
       "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
       "seconds_spent": 881.1,
       "at": "2026-10-21T00:26:22.343643+00:00"
+    },
+    {
+      "date": "2026-10-21",
+      "hour": 3,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "3h",
+      "scene": "train_window",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-21_03/train_window_3h.mp4",
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "published": true,
+      "url": "https://youtu.be/dTBo2v1bR0s",
+      "reason": null,
+      "seconds_spent": 1204.9,
+      "at": "2026-10-21T05:17:30.508630+00:00"
     }
   ],
   "stats": {
-    "total": 6,
-    "published": 5,
+    "total": 7,
+    "published": 6,
     "staged": 0,
     "by_pillar": {
       "focus": 3,
       "satisfying": 2,
       "story": 3,
-      "sleep": 7
+      "sleep": 8
     }
   },
   "created": null,
-  "updated": "2026-10-21T00:26:22.345146+00:00"
+  "updated": "2026-10-21T05:20:18.743594+00:00"
 }
