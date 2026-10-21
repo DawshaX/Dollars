@@ -3872,6 +3872,7 @@
     },
     {
       "date": "2026-10-21",
+<<<<<<< Updated upstream
       "hour": 3,
       "kind": "long",
       "pillar": "sleep",
@@ -3889,14 +3890,72 @@
   "stats": {
     "total": 7,
     "published": 6,
+=======
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "90s",
+      "scene": "photo:Thunderstorm at Night",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-21_00/sleep_ambience_730284.mp4",
+      "title": "Sleep in Minutes: Thunderstorm at Night Sounds for 90 seconds #shorts",
+      "published": true,
+      "url": "https://youtu.be/Hu5lTyBx63w",
+      "reason": null,
+      "seconds_spent": 908.7,
+      "at": "2026-10-21T00:46:40.119904+00:00"
+    },
+    {
+      "date": "2026-10-21",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Quiet Library",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-21_03/focus_study_7656.mp4",
+      "title": "Quiet Library • 60 seconds • Concentration & Calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/Gqr8H_biumM",
+      "reason": null,
+      "seconds_spent": 472.0,
+      "at": "2026-10-21T03:25:52.702388+00:00"
+    },
+    {
+      "date": "2026-10-21",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "45s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-21_05/lazo_space_full.mp4",
+      "title": "Kiki and the tiny gardener — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/LziiqUpLfzs",
+      "reason": null,
+      "seconds_spent": 169.8,
+      "at": "2026-10-21T06:00:05.444758+00:00"
+    }
+  ],
+  "stats": {
+    "total": 9,
+    "published": 8,
+>>>>>>> Stashed changes
     "staged": 0,
     "by_pillar": {
-      "focus": 3,
+      "focus": 4,
       "satisfying": 2,
+<<<<<<< Updated upstream
       "story": 3,
+=======
+      "story": 4,
+>>>>>>> Stashed changes
       "sleep": 8
     }
   },
   "created": null,
+<<<<<<< Updated upstream
   "updated": "2026-10-21T05:20:18.743594+00:00"
 }
+=======
+  "updated": "2026-10-21T06:00:18.013143+00:00"
+}
+>>>>>>> Stashed changes

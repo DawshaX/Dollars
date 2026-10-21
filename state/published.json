@@ -212025,6 +212025,7 @@
       "playlist": "Sleep & Rain"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "dTBo2v1bR0s",
       "url": "https://youtu.be/dTBo2v1bR0s",
       "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
@@ -212034,6 +212035,73 @@
         "kind": "long",
         "kw": "Sleep Sounds",
         "genre": null,
+=======
+      "video_id": "Hu5lTyBx63w",
+      "url": "https://youtu.be/Hu5lTyBx63w",
+      "title": "Sleep in Minutes: Thunderstorm at Night Sounds for 90 seconds #shorts",
+      "published_at": "2026-10-21T00:46:54.705062+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Thunderstorm at Night Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
+    },
+    {
+      "video_id": "Gqr8H_biumM",
+      "url": "https://youtu.be/Gqr8H_biumM",
+      "title": "Quiet Library • 60 seconds • Concentration & Calm #shorts",
+      "published_at": "2026-10-21T03:26:10.143957+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Quiet Library",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "LziiqUpLfzs",
+      "url": "https://youtu.be/LziiqUpLfzs",
+      "title": "Kiki and the tiny gardener — a wordless story #shorts",
+      "published_at": "2026-10-21T06:00:17.497478+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Lazo and the Star Field — a wordless story",
+        "genre": "story",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
@@ -212050,7 +212118,11 @@
       "likes": 0,
       "comments": 0,
       "thumbnail": true,
+<<<<<<< Updated upstream
       "playlist": "Focus & Study"
+=======
+      "playlist": "Wordless Stories"
+>>>>>>> Stashed changes
     }
   ]
 }
