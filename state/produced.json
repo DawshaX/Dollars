@@ -3854,19 +3854,34 @@
       "reason": null,
       "seconds_spent": 1510.0,
       "at": "2026-10-20T05:24:04.358866+00:00"
+    },
+    {
+      "date": "2026-10-21",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "30s",
+      "scene": "photo:Meadow at Dusk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-21_00/sleep_ambience_730284.mp4",
+      "title": "أصوات المرج عند الغسق • 30 ثانية • النوم بسرعة (بدون موسيقى) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 881.1,
+      "at": "2026-10-21T00:26:22.343643+00:00"
     }
   ],
   "stats": {
-    "total": 5,
+    "total": 6,
     "published": 5,
     "staged": 0,
     "by_pillar": {
       "focus": 3,
       "satisfying": 2,
       "story": 3,
-      "sleep": 6
+      "sleep": 7
     }
   },
   "created": null,
-  "updated": "2026-10-20T03:06:59.694131+00:00"
+  "updated": "2026-10-21T00:26:22.345146+00:00"
 }
