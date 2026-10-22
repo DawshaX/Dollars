@@ -859,6 +859,18 @@
       "name": "Nala",
       "type": "قطة صحراوية",
       "origin": "auto"
+    },
+    {
+      "id": "duro_auto",
+      "name": "Duro",
+      "type": "حجر ودود",
+      "origin": "auto"
+    },
+    {
+      "id": "taka_auto",
+      "name": "Taka",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [
