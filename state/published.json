@@ -229404,9 +229404,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Nature"
+      "playlist": "Sleep & Nature",
+      "last_checked": "2026-10-23T01:02:43.963175+00:00"
     },
     {
       "video_id": "yYlQyW_44lA",
@@ -229432,9 +229433,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963197+00:00"
     },
     {
       "video_id": "Vne7UYMqGIQ",
@@ -229466,9 +229468,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Facts & Science"
+      "playlist": "Facts & Science",
+      "last_checked": "2026-10-23T01:02:43.963203+00:00"
     },
     {
       "video_id": "qfTx-mZ7XHM",
@@ -229498,11 +229501,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 4,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Space & Earth"
+      "playlist": "Space & Earth",
+      "last_checked": "2026-10-23T01:02:43.963207+00:00"
     },
     {
       "video_id": "5NNYzUvW5a4",
@@ -229532,11 +229536,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 4,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Satisfying & ASMR"
+      "playlist": "Satisfying & ASMR",
+      "last_checked": "2026-10-23T01:02:43.963210+00:00"
     },
     {
       "video_id": "YUhTQR6UFjA",
@@ -229560,11 +229565,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 4,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963214+00:00"
     },
     {
       "video_id": "W_ysot3zzzQ",
@@ -229596,9 +229602,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Facts & Science"
+      "playlist": "Facts & Science",
+      "last_checked": "2026-10-23T01:02:43.963217+00:00"
     },
     {
       "video_id": "NMGg-VRv3rQ",
@@ -229628,11 +229635,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 20,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Nature"
+      "playlist": "Sleep & Nature",
+      "last_checked": "2026-10-23T01:02:43.963220+00:00"
     },
     {
       "video_id": "4S_x1qbsM5U",
@@ -229658,9 +229666,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963223+00:00"
     },
     {
       "video_id": "H0PzQNI3MaU",
@@ -229684,11 +229693,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 38,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Nature"
+      "playlist": "Sleep & Nature",
+      "last_checked": "2026-10-23T01:02:43.963226+00:00"
     },
     {
       "video_id": "vt5SC3TZM9w",
@@ -229712,11 +229722,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 5,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963229+00:00"
     },
     {
       "video_id": "KSeeP9fE2hU",
@@ -229740,11 +229751,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 21,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Nature"
+      "playlist": "Sleep & Nature",
+      "last_checked": "2026-10-23T01:02:43.963232+00:00"
     },
     {
       "video_id": "VL3sy4cbj0w",
@@ -229768,11 +229780,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 1,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Rain"
+      "playlist": "Sleep & Rain",
+      "last_checked": "2026-10-23T01:02:43.963235+00:00"
     },
     {
       "video_id": "znjTqnSyQIk",
@@ -229802,11 +229815,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 7,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Calm & Breathe"
+      "playlist": "Calm & Breathe",
+      "last_checked": "2026-10-23T01:02:43.963238+00:00"
     },
     {
       "video_id": "NY2OvrOh1-o",
@@ -229830,11 +229844,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 1,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963241+00:00"
     },
     {
       "video_id": "pUM0m6Fr69g",
@@ -229860,9 +229875,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963244+00:00"
     },
     {
       "video_id": "B3zqvQqI9Pg",
@@ -229892,11 +229908,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 5,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Satisfying & ASMR"
+      "playlist": "Satisfying & ASMR",
+      "last_checked": "2026-10-23T01:02:43.963246+00:00"
     },
     {
       "video_id": "CZHfRwWiAzU",
@@ -229922,9 +229939,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963249+00:00"
     },
     {
       "video_id": "JSin28Kuli8",
@@ -229950,9 +229968,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963252+00:00"
     },
     {
       "video_id": "Mw2mqD6TcYQ",
@@ -229982,11 +230001,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 2,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Facts & Science"
+      "playlist": "Facts & Science",
+      "last_checked": "2026-10-23T01:02:43.963255+00:00"
     },
     {
       "video_id": "sEQ0xLjjjtU",
@@ -230018,9 +230038,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Satisfying & ASMR"
+      "playlist": "Satisfying & ASMR",
+      "last_checked": "2026-10-23T01:02:43.963258+00:00"
     },
     {
       "video_id": "tapYr5MD24I",
@@ -230046,9 +230067,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963261+00:00"
     },
     {
       "video_id": "e-eP43viXx8",
@@ -230072,11 +230094,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
+      "views": 9,
+      "likes": 1,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Satisfying & ASMR"
+      "playlist": "Satisfying & ASMR",
+      "last_checked": "2026-10-23T01:02:43.963263+00:00"
     },
     {
       "video_id": "OQA0zDM9kGA",
@@ -230106,11 +230129,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 2,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Calm & Breathe"
+      "playlist": "Calm & Breathe",
+      "last_checked": "2026-10-23T01:02:43.963266+00:00"
     },
     {
       "video_id": "KgC2TjY_t2o",
@@ -230136,9 +230160,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963270+00:00"
     },
     {
       "video_id": "mN-YNo2bQ_E",
@@ -230162,11 +230187,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 15,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Nature"
+      "playlist": "Sleep & Nature",
+      "last_checked": "2026-10-23T01:02:43.963272+00:00"
     },
     {
       "video_id": "TjxwgD5NR1A",
@@ -230192,9 +230218,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Rain"
+      "playlist": "Sleep & Rain",
+      "last_checked": "2026-10-23T01:02:43.963275+00:00"
     },
     {
       "video_id": "YRIpvGlq340",
@@ -230220,9 +230247,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963278+00:00"
     },
     {
       "video_id": "MDc_P_SKfzk",
@@ -230246,11 +230274,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 6,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Satisfying & ASMR"
+      "playlist": "Satisfying & ASMR",
+      "last_checked": "2026-10-23T01:02:43.963281+00:00"
     },
     {
       "video_id": "hiKlATMwzJE",
@@ -230274,11 +230303,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 2,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Calm & Breathe"
+      "playlist": "Calm & Breathe",
+      "last_checked": "2026-10-23T01:02:43.963284+00:00"
     },
     {
       "video_id": "Gq-Bnp5S7sg",
@@ -230302,11 +230332,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 11,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Space & Earth"
+      "playlist": "Space & Earth",
+      "last_checked": "2026-10-23T01:02:43.963287+00:00"
     },
     {
       "video_id": "FoQP5c39tzo",
@@ -230338,9 +230369,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Calm & Breathe"
+      "playlist": "Calm & Breathe",
+      "last_checked": "2026-10-23T01:02:43.963290+00:00"
     },
     {
       "video_id": "2nhL3z87cjA",
@@ -230366,9 +230398,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963293+00:00"
     },
     {
       "video_id": "NP52VV-IdL0",
@@ -230394,9 +230427,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963296+00:00"
     },
     {
       "video_id": "IT0r7KXMBaI",
@@ -230428,9 +230462,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Space & Earth"
+      "playlist": "Space & Earth",
+      "last_checked": "2026-10-23T01:02:43.963299+00:00"
     },
     {
       "video_id": "xTrs7mTLMtw",
@@ -230456,9 +230491,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963302+00:00"
     },
     {
       "video_id": "xWU0_KMrkGE",
@@ -230484,9 +230520,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Rain"
+      "playlist": "Sleep & Rain",
+      "last_checked": "2026-10-23T01:02:43.963306+00:00"
     },
     {
       "video_id": "F08LewUbE7s",
@@ -230518,9 +230555,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Fun & Memes"
+      "playlist": "Fun & Memes",
+      "last_checked": "2026-10-23T01:02:43.963309+00:00"
     },
     {
       "video_id": "r30gYNHu3DE",
@@ -230546,9 +230584,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963312+00:00"
     },
     {
       "video_id": "YTPF-D5HJXc",
@@ -230572,11 +230611,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 5,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Space & Earth"
+      "playlist": "Space & Earth",
+      "last_checked": "2026-10-23T01:02:43.963315+00:00"
     },
     {
       "video_id": "THMVBIcMxAA",
@@ -230600,11 +230640,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 1,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Calm & Breathe"
+      "playlist": "Calm & Breathe",
+      "last_checked": "2026-10-23T01:02:43.963318+00:00"
     },
     {
       "video_id": "seyDpuldiQE",
@@ -230634,11 +230675,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 16,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963321+00:00"
     },
     {
       "video_id": "Mwhw39P_Y0s",
@@ -230662,11 +230704,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 3,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963324+00:00"
     },
     {
       "video_id": "EaCbxEMG3qI",
@@ -230698,9 +230741,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Calm & Breathe"
+      "playlist": "Calm & Breathe",
+      "last_checked": "2026-10-23T01:02:43.963327+00:00"
     },
     {
       "video_id": "8m0QwH8da2U",
@@ -230730,11 +230774,12 @@
           "pt"
         ]
       },
-      "views": 0,
+      "views": 4,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Satisfying & ASMR"
+      "playlist": "Satisfying & ASMR",
+      "last_checked": "2026-10-23T01:02:43.963330+00:00"
     },
     {
       "video_id": "WidUM3kKJRc",
@@ -230760,9 +230805,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Sleep & Rain"
+      "playlist": "Sleep & Rain",
+      "last_checked": "2026-10-23T01:02:43.963332+00:00"
     },
     {
       "video_id": "dTBo2v1bR0s",
@@ -230788,9 +230834,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Focus & Study"
+      "playlist": "Focus & Study",
+      "last_checked": "2026-10-23T01:02:43.963335+00:00"
     },
     {
       "video_id": "DWJEaXWrL4A",
@@ -230816,9 +230863,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963338+00:00"
     },
     {
       "video_id": "ZkIMnnJ_vBY",
@@ -230842,11 +230890,12 @@
         "lang": "en",
         "locales": []
       },
-      "views": 0,
+      "views": 9,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Satisfying & ASMR"
+      "playlist": "Satisfying & ASMR",
+      "last_checked": "2026-10-23T01:02:43.963341+00:00"
     },
     {
       "video_id": "rhXMnTneT1E",
@@ -230872,9 +230921,10 @@
       },
       "views": 0,
       "likes": 0,
-      "comments": 0,
+      "comments": 1,
       "thumbnail": true,
-      "playlist": "Wordless Stories"
+      "playlist": "Wordless Stories",
+      "last_checked": "2026-10-23T01:02:43.963344+00:00"
     }
   ]
 }
