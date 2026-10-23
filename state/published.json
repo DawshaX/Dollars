@@ -230875,6 +230875,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "UwA_1Gu4WIM",
+      "url": "https://youtu.be/UwA_1Gu4WIM",
+      "title": "Calm Down in 45 seconds | Guided Breathing (No Talk) #shorts",
+      "published_at": "2026-10-23T00:13:47.749853+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Slow Down",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }

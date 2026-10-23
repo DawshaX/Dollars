@@ -3959,19 +3959,34 @@
       "reason": null,
       "seconds_spent": 390.6,
       "at": "2026-10-22T00:06:50.389902+00:00"
+    },
+    {
+      "date": "2026-10-23",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Slow Down",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-23_00/calm_wellness_295339.mp4",
+      "title": "Calm Down in 45 seconds | Guided Breathing (No Talk) #shorts",
+      "published": true,
+      "url": "https://youtu.be/UwA_1Gu4WIM",
+      "reason": null,
+      "seconds_spent": 260.4,
+      "at": "2026-10-23T00:13:21.769274+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "sleep": 1,
       "satisfying": 1,
-      "focus": 3,
+      "focus": 4,
       "story": 4
     }
   },
   "created": null,
-  "updated": "2026-10-22T04:00:25.763244+00:00"
+  "updated": "2026-10-23T00:13:48.308595+00:00"
 }
