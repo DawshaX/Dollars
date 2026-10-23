@@ -1420,6 +1420,46 @@
       "origin": "auto",
       "created": "2026-10-22T09:32:46.714517+00:00",
       "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "shuro_auto",
+      "name": "Shuro",
+      "type": "تمساح صغير جدًا",
+      "look": "حراشف باهتة + عيون كبيرة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيرتّب كل حاجة",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "paper_world"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-23T09:28:49.600102+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "zimi_auto",
+      "name": "Zimi",
+      "type": "نبتة فضائية",
+      "look": "ساق ضوئية + أوراق شفافة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيخاف من الظل",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "bedroom",
+        "moon"
+      ],
+      "formats": [
+        "minute_story",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-23T09:28:49.632252+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, bedroom background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -1429,5 +1469,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 68
+  "_auto_count": 70
 }
