@@ -4049,19 +4049,34 @@
       "reason": null,
       "seconds_spent": 1257.6,
       "at": "2026-10-23T12:12:54.158033+00:00"
+    },
+    {
+      "date": "2026-10-24",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Tardigrade",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-24_00/facts_839206.mp4",
+      "title": "What Tardigrade Actually Looks Like — 3 Real Facts #shorts",
+      "published": true,
+      "url": "https://youtu.be/Q5fyTKAyIfc",
+      "reason": null,
+      "seconds_spent": 464.3,
+      "at": "2026-10-24T00:12:35.308804+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 1,
+      "satisfying": 2,
       "story": 2,
       "sleep": 3,
       "focus": 4
     }
   },
   "created": null,
-  "updated": "2026-10-23T12:21:44.034871+00:00"
+  "updated": "2026-10-24T00:12:48.589802+00:00"
 }
