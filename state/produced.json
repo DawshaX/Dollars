@@ -4079,19 +4079,34 @@
       "reason": null,
       "seconds_spent": 896.5,
       "at": "2026-10-24T04:59:00.786136+00:00"
+    },
+    {
+      "date": "2026-10-24",
+      "hour": 7,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Lightning",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-24_07/facts_901400.mp4",
+      "title": "What Lightning Actually Looks Like — 3 Real Facts #shorts",
+      "published": true,
+      "url": "https://youtu.be/ySskd7j-yXQ",
+      "reason": null,
+      "seconds_spent": 286.4,
+      "at": "2026-10-24T08:01:32.575871+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 2,
+      "satisfying": 3,
       "story": 2,
       "sleep": 4,
       "focus": 4
     }
   },
   "created": null,
-  "updated": "2026-10-24T05:00:33.583495+00:00"
+  "updated": "2026-10-24T08:02:08.132254+00:00"
 }
