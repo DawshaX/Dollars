@@ -883,6 +883,18 @@
       "name": "Zimi",
       "type": "نبتة فضائية",
       "origin": "auto"
+    },
+    {
+      "id": "wano_auto",
+      "name": "Wano",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "moma_auto",
+      "name": "Moma",
+      "type": "قطة صحراوية",
+      "origin": "auto"
     }
   ],
   "stories": [

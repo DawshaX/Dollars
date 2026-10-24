@@ -1460,6 +1460,46 @@
       "origin": "auto",
       "created": "2026-10-23T09:28:49.632252+00:00",
       "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, bedroom background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "wano_auto",
+      "name": "Wano",
+      "type": "كائن طيني صغير",
+      "look": "طين ناعم + عينين كبيرتين — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "هادي وبيفكّر",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "bedroom"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-24T09:00:34.585022+00:00",
+      "image_prompt": "cute original 2D animation character, a small clay creature, طين ناعم + عينين كبيرتين, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "moma_auto",
+      "name": "Moma",
+      "type": "قطة صحراوية",
+      "look": "فرو رملي + عيون ذهبية — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيخاف من الظل",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "garden",
+        "space"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-24T09:00:34.617211+00:00",
+      "image_prompt": "cute original 2D animation character, a desert kitten, فرو رملي + عيون ذهبية, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -1469,5 +1509,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 70
+  "_auto_count": 72
 }
