@@ -4067,6 +4067,7 @@
     },
     {
       "date": "2026-10-24",
+<<<<<<< Updated upstream
       "hour": 3,
       "kind": "long",
       "pillar": "sleep",
@@ -4084,10 +4085,45 @@
   "stats": {
     "total": 3,
     "published": 3,
+=======
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:Breathe With the Rain",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-24_02/calm_wellness_908212.mp4",
+      "title": "Calm Down in 45s | Guided Breathing (No Talk) #shorts",
+      "published": true,
+      "url": "https://youtu.be/UQYpp7adva0",
+      "reason": null,
+      "seconds_spent": 250.4,
+      "at": "2026-10-24T02:52:54.706419+00:00"
+    },
+    {
+      "date": "2026-10-24",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:One Minute at a Time",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-24_05/calm_wellness_420501.mp4",
+      "title": "Calm Down in 45s | Guided Breathing (No Talk) #shorts",
+      "published": true,
+      "url": "https://youtu.be/_uw6BWuSt1U",
+      "reason": null,
+      "seconds_spent": 117.1,
+      "at": "2026-10-24T05:26:11.157266+00:00"
+    }
+  ],
+  "stats": {
+    "total": 4,
+    "published": 4,
+>>>>>>> Stashed changes
     "staged": 0,
     "by_pillar": {
       "satisfying": 2,
       "story": 2,
+<<<<<<< Updated upstream
       "sleep": 4,
       "focus": 4
     }
@@ -4095,3 +4131,12 @@
   "created": null,
   "updated": "2026-10-24T05:00:33.583495+00:00"
 }
+=======
+      "sleep": 3,
+      "focus": 6
+    }
+  },
+  "created": null,
+  "updated": "2026-10-24T05:26:24.986305+00:00"
+}
+>>>>>>> Stashed changes

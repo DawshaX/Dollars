@@ -243389,6 +243389,7 @@
       "playlist": "Facts & Science"
     },
     {
+<<<<<<< Updated upstream
       "video_id": "Vm1pgAl2LdI",
       "url": "https://youtu.be/Vm1pgAl2LdI",
       "title": "Deep Space Sleep for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
@@ -243398,14 +243399,30 @@
         "kind": "long",
         "kw": "Deep Space Sleep",
         "genre": null,
+=======
+      "video_id": "UQYpp7adva0",
+      "url": "https://youtu.be/UQYpp7adva0",
+      "title": "Calm Down in 45s | Guided Breathing (No Talk) #shorts",
+      "published_at": "2026-10-24T02:53:07.946719+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Breathe With the Rain",
+        "genre": "calm_wellness",
+>>>>>>> Stashed changes
         "hour": null,
         "duration_bucket": null,
         "music": false,
         "sfx": false,
         "overlays": false,
         "clips": false,
+<<<<<<< Updated upstream
         "loop": false,
         "hook": false,
+=======
+        "loop": true,
+        "hook": true,
+>>>>>>> Stashed changes
         "pinned": true,
         "lang": "en",
         "locales": []
@@ -243414,7 +243431,39 @@
       "likes": 0,
       "comments": 0,
       "thumbnail": true,
+<<<<<<< Updated upstream
       "playlist": "Sleep & Rain"
+=======
+      "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "_uw6BWuSt1U",
+      "url": "https://youtu.be/_uw6BWuSt1U",
+      "title": "Calm Down in 45s | Guided Breathing (No Talk) #shorts",
+      "published_at": "2026-10-24T05:26:24.421367+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "One Minute at a Time",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
+>>>>>>> Stashed changes
     }
   ]
 }
