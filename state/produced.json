@@ -4064,19 +4064,34 @@
       "reason": null,
       "seconds_spent": 464.3,
       "at": "2026-10-24T00:12:35.308804+00:00"
+    },
+    {
+      "date": "2026-10-24",
+      "hour": 3,
+      "kind": "long",
+      "pillar": "sleep",
+      "duration": "3h",
+      "scene": "starfield",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-24_03/starfield_3h.mp4",
+      "title": "Deep Space Sleep for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published": true,
+      "url": "https://youtu.be/Vm1pgAl2LdI",
+      "reason": null,
+      "seconds_spent": 896.5,
+      "at": "2026-10-24T04:59:00.786136+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "satisfying": 2,
       "story": 2,
-      "sleep": 3,
+      "sleep": 4,
       "focus": 4
     }
   },
   "created": null,
-  "updated": "2026-10-24T00:12:48.589802+00:00"
+  "updated": "2026-10-24T05:00:33.583495+00:00"
 }
