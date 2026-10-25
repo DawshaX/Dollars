@@ -895,6 +895,18 @@
       "name": "Moma",
       "type": "قطة صحراوية",
       "origin": "auto"
+    },
+    {
+      "id": "duta_auto",
+      "name": "Duta",
+      "type": "كائن ضبابي",
+      "origin": "auto"
+    },
+    {
+      "id": "bori_auto",
+      "name": "Bori",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [

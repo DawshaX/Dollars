@@ -1500,6 +1500,46 @@
       "origin": "auto",
       "created": "2026-10-24T09:00:34.617211+00:00",
       "image_prompt": "cute original 2D animation character, a desert kitten, فرو رملي + عيون ذهبية, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "duta_auto",
+      "name": "Duta",
+      "type": "كائن ضبابي",
+      "look": "جسم بخار + عيون ناعمة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "clouds",
+        "bedroom"
+      ],
+      "formats": [
+        "minute_story",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-25T09:17:29.828535+00:00",
+      "image_prompt": "cute original 2D animation character, a misty creature, جسم بخار + عيون ناعمة, clouds background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "bori_auto",
+      "name": "Bori",
+      "type": "تمساح صغير جدًا",
+      "look": "حراشف باهتة + عيون كبيرة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "خجول بس شجاع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "snow",
+        "bedroom"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-25T09:17:29.863163+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, snow background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -1509,5 +1549,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 72
+  "_auto_count": 74
 }
