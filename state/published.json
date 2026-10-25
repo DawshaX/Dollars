@@ -254229,6 +254229,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "mrEo7UYW3Mk",
+      "url": "https://youtu.be/mrEo7UYW3Mk",
+      "title": "Study With Me — Hearth and Homework (45 seconds) | Pomodoro Chapters #shorts",
+      "published_at": "2026-10-25T01:11:28.364621+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Hearth and Homework",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }

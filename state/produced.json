@@ -4124,6 +4124,21 @@
       "reason": null,
       "seconds_spent": 348.0,
       "at": "2026-10-25T01:12:31.208155+00:00"
+    },
+    {
+      "date": "2026-10-25",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Hearth and Homework",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-25_01/focus_study_562986.mp4",
+      "title": "Study With Me — Hearth and Homework (45 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/mrEo7UYW3Mk",
+      "reason": null,
+      "seconds_spent": 471.5,
+      "at": "2026-10-25T01:11:14.718869+00:00"
     }
   ],
   "stats": {
