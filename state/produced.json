@@ -4154,19 +4154,49 @@
       "reason": null,
       "seconds_spent": 471.5,
       "at": "2026-10-25T01:11:14.718869+00:00"
+    },
+    {
+      "date": "2026-10-25",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:After Work Wind Down",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-25_06/calm_wellness_313661.mp4",
+      "title": "اهدأ في 45 ثانية | التنفس الموجه (بدون كلام) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 307.7,
+      "at": "2026-10-25T06:34:01.142829+00:00"
+    },
+    {
+      "date": "2026-10-25",
+      "hour": 7,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "45s",
+      "scene": "clip:Jupiter's Great Red Spot",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-25_07/space_nature_315905.mp4",
+      "title": "Jupiter's Great Red Spot — a slow look at the universe (45 seconds) #shorts",
+      "published": true,
+      "url": "https://youtu.be/95VHUpxpMrc",
+      "reason": null,
+      "seconds_spent": 284.7,
+      "at": "2026-10-25T07:33:46.530192+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 3,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
       "story": 1,
       "satisfying": 3,
-      "sleep": 5,
-      "focus": 5
+      "sleep": 6,
+      "focus": 6
     }
   },
   "created": null,
-  "updated": "2026-10-25T03:47:01.968166+00:00"
+  "updated": "2026-10-25T07:34:04.225439+00:00"
 }

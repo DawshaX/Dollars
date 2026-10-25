@@ -257329,6 +257329,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "95VHUpxpMrc",
+      "url": "https://youtu.be/95VHUpxpMrc",
+      "title": "Jupiter's Great Red Spot — a slow look at the universe (45 seconds) #shorts",
+      "published_at": "2026-10-25T07:34:03.406662+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Jupiter's Great Red Spot",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
     }
   ]
 }
