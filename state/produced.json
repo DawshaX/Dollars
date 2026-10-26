@@ -4199,6 +4199,36 @@
       "reason": null,
       "seconds_spent": 532.7,
       "at": "2026-10-26T00:14:32.547581+00:00"
+    },
+    {
+      "date": "2026-10-26",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "30s",
+      "scene": "photo:The Northern Lights Over a Lake",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-26_01/space_nature_743692.mp4",
+      "title": "The Northern Lights Over a Lake: Beautiful and Relaxing (30 seconds Black Screen #shorts",
+      "published": true,
+      "url": "https://youtu.be/O6cNFyQZAc8",
+      "reason": null,
+      "seconds_spent": 712.0,
+      "at": "2026-10-26T01:19:24.751469+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/vAsyJn2aCDM",
+      "reason": null,
+      "seconds_spent": 379.0,
+      "at": "2026-10-26T01:14:25.237777+00:00"
     }
   ],
   "stats": {

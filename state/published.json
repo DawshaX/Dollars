@@ -266517,6 +266517,62 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Nature"
+    },
+    {
+      "video_id": "O6cNFyQZAc8",
+      "url": "https://youtu.be/O6cNFyQZAc8",
+      "title": "The Northern Lights Over a Lake: Beautiful and Relaxing (30 seconds Black Screen #shorts",
+      "published_at": "2026-10-26T01:19:38.221003+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "The Northern Lights Over a Lake",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "vAsyJn2aCDM",
+      "url": "https://youtu.be/vAsyJn2aCDM",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published_at": "2026-10-26T01:15:11.857546+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Wordless Stories"
     }
   ]
 }
