@@ -538,5 +538,16 @@
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (19.6 ميجا)…
    ✅ يوتيوب استقبل الفيديو: OBtI7263Nek
    ✅ الترجمة (SRT) اترفعت على الفيديو — يوتيوب هيترجمها لكل اللغات
+<<<<<<< Updated upstream
    ⬆️ بنبدأ جلسة الرفع على يوتيوب (1110.3 ميجا)…
    ✅ يوتيوب استقبل الفيديو: u1iKB227HVc
+=======
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (6.8 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: nRuJiNaLQqY
+>>>>>>> Stashed changes
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (8.9 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: bD0e6seWmrs
+   ⚠️ الترجمة ما اترفعتش: HTTP 403 — forbidden — The permissions associated with the request are not sufficient to upload the caption track. The request might not be properly authorized.
+   ⬆️ بنبدأ جلسة الرفع على يوتيوب (8.6 ميجا)…
+   ✅ يوتيوب استقبل الفيديو: 1z_aLpzvRDM
+   ✅ الترجمة (SRT) اترفعت على الفيديو — يوتيوب هيترجمها لكل اللغات
