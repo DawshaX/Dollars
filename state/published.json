@@ -264967,6 +264967,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "OBtI7263Nek",
+      "url": "https://youtu.be/OBtI7263Nek",
+      "title": "Lake at Dusk Sounds • 60 seconds • Fall Asleep Fast (No Music) #shorts",
+      "published_at": "2026-10-26T00:14:46.626260+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Lake at Dusk Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
     }
   ]
 }
