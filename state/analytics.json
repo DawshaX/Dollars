@@ -1,56 +1,6 @@
 {
   "videos": [
     {
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 5,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "vt5SC3TZM9w",
-      "published_at": "2026-10-11T00:20:58.664469+00:00"
-    },
-    {
-      "title": "Thunderstorm at Night Sounds • 45 seconds • Fall Asleep Fast (No Music) #shorts",
-      "views": 21,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "sleep",
-        "kind": "short",
-        "kw": "Thunderstorm at Night Sounds",
-        "genre": "sleep_ambience",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "KSeeP9fE2hU",
-      "published_at": "2026-10-11T03:20:24.256932+00:00"
-    },
-    {
       "title": "Night Lake Ambience for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
       "views": 1,
       "likes": 0,
@@ -1321,6 +1271,106 @@
       },
       "video_id": "95VHUpxpMrc",
       "published_at": "2026-10-25T07:34:03.406662+00:00"
+    },
+    {
+      "title": "The Northern Lights Over a Lake: Beautiful and Relaxing (30 seconds Black Screen #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "The Northern Lights Over a Lake",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "O6cNFyQZAc8",
+      "published_at": "2026-10-26T01:19:38.221003+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "vAsyJn2aCDM",
+      "published_at": "2026-10-26T01:15:11.857546+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 5,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "vt5SC3TZM9w",
+      "published_at": "2026-10-11T00:20:58.664469+00:00"
+    },
+    {
+      "title": "Thunderstorm at Night Sounds • 45 seconds • Fall Asleep Fast (No Music) #shorts",
+      "views": 21,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Thunderstorm at Night Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "KSeeP9fE2hU",
+      "published_at": "2026-10-11T03:20:24.256932+00:00"
     },
     {
       "title": "Study With Me — Hearth and Homework (45 seconds) | Pomodoro Chapters #shorts",
@@ -12039,8 +12089,8 @@
     "title": "xDaw NoVa",
     "subs": 44,
     "views": 328258,
-    "videos": 730
+    "videos": 733
   },
-  "synced_at": "2026-10-25T23:36:53.355125+00:00",
-  "views_gained": 151
+  "synced_at": "2026-10-26T01:49:38.851952+00:00",
+  "views_gained": 125
 }
