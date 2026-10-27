@@ -274209,6 +274209,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "7MlEzQv45d0",
+      "url": "https://youtu.be/7MlEzQv45d0",
+      "title": "Quiet Library for Studying & Focus | 60 seconds | Deep Work, No Music #shorts",
+      "published_at": "2026-10-27T00:12:59.363861+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Quiet Library",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
