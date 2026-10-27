@@ -919,6 +919,18 @@
       "name": "Waro",
       "type": "كائن ضبابي",
       "origin": "auto"
+    },
+    {
+      "id": "mishi_auto",
+      "name": "Mishi",
+      "type": "كائن ضبابي",
+      "origin": "auto"
+    },
+    {
+      "id": "kizo_auto",
+      "name": "Kizo",
+      "type": "روبوت ورق",
+      "origin": "auto"
     }
   ],
   "stories": [
