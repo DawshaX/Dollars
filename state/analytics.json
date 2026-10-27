@@ -1,56 +1,6 @@
 {
   "videos": [
     {
-      "title": "Bomi and a spark that got lost — a wordless story #shorts",
-      "views": 1,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Bomi and the Little Fire — a wordless story",
-        "genre": null,
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "NY2OvrOh1-o",
-      "published_at": "2026-10-12T00:38:57.386399+00:00"
-    },
-    {
-      "title": "Pip and the paper plane journey — a wordless story #shorts",
-      "views": 0,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "story",
-        "kind": "short",
-        "kw": "Nono and the Lost Balloon — a wordless story",
-        "genre": "story",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": false,
-        "hook": false,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "pUM0m6Fr69g",
-      "published_at": "2026-10-12T00:37:51.568643+00:00"
-    },
-    {
       "title": "Perfect Magnetic Beads — no talking, just calm #shorts",
       "views": 5,
       "likes": 0,
@@ -1168,7 +1118,7 @@
     },
     {
       "title": "Study With Me — Hearth and Homework (45 seconds) | Pomodoro Chapters #shorts",
-      "views": 37,
+      "views": 42,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1243,7 +1193,7 @@
     },
     {
       "title": "The Northern Lights Over a Lake: Beautiful and Relaxing (30 seconds Black Screen #shorts",
-      "views": 4,
+      "views": 5,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1315,6 +1265,162 @@
       },
       "video_id": "u1iKB227HVc",
       "published_at": "2026-10-26T05:12:51.725116+00:00"
+    },
+    {
+      "title": "Quiet Library for Studying & Focus | 60 seconds | Deep Work, No Music #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Quiet Library",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "video_id": "7MlEzQv45d0",
+      "published_at": "2026-10-27T00:12:59.363861+00:00"
+    },
+    {
+      "title": "Sleep Sounds for Studying & Focus | 3 Hours | Deep Work, No Interruptions",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "long",
+        "kw": "Sleep Sounds",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "k-uQaTWXxiA",
+      "published_at": "2026-10-27T05:32:09.473429+00:00"
+    },
+    {
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "views": 1,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "NY2OvrOh1-o",
+      "published_at": "2026-10-12T00:38:57.386399+00:00"
+    },
+    {
+      "title": "Pip and the paper plane journey — a wordless story #shorts",
+      "views": 0,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Nono and the Lost Balloon — a wordless story",
+        "genre": "story",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "pUM0m6Fr69g",
+      "published_at": "2026-10-12T00:37:51.568643+00:00"
+    },
+    {
+      "title": "Study With Me — Hearth and Homework (45 seconds) | Pomodoro Chapters #shorts",
+      "views": 37,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Hearth and Homework",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "mrEo7UYW3Mk",
+      "published_at": "2026-10-25T01:11:28.364621+00:00"
+    },
+    {
+      "title": "The Northern Lights Over a Lake: Beautiful and Relaxing (30 seconds Black Screen #shorts",
+      "views": 4,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "The Northern Lights Over a Lake",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "O6cNFyQZAc8",
+      "published_at": "2026-10-26T01:19:38.221003+00:00"
     },
     {
       "title": "Snow Falling in a Quiet Village Sounds for Sleeping | 45 seconds Black Screen |  #shorts",
@@ -12463,9 +12569,9 @@
   "channel": {
     "title": "xDaw NoVa",
     "subs": 44,
-    "views": 328346,
-    "videos": 737
+    "views": 328399,
+    "videos": 740
   },
-  "synced_at": "2026-10-27T00:06:51.783580+00:00",
-  "views_gained": 153
+  "synced_at": "2026-10-27T05:42:57.220795+00:00",
+  "views_gained": 158
 }
