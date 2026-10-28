@@ -931,6 +931,18 @@
       "name": "Kizo",
       "type": "روبوت ورق",
       "origin": "auto"
+    },
+    {
+      "id": "mibi_auto",
+      "name": "Mibi",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
+    },
+    {
+      "id": "luno_auto",
+      "name": "Luno",
+      "type": "قطة سحابية",
+      "origin": "auto"
     }
   ],
   "stories": [
