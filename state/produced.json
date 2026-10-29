@@ -4409,6 +4409,36 @@
       "reason": null,
       "seconds_spent": 598.7,
       "at": "2026-10-29T00:15:05.153935+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/hZbpoE5zoVU",
+      "reason": null,
+      "seconds_spent": 391.1,
+      "at": "2026-10-29T00:59:59.664695+00:00"
+    },
+    {
+      "date": "2026-10-29",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "90s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-29_00/nono_balloon_full.mp4",
+      "title": "Pip and the door in the tree — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/f9TkfHm34OQ",
+      "reason": null,
+      "seconds_spent": 452.0,
+      "at": "2026-10-29T00:57:20.812515+00:00"
     }
   ],
   "stats": {
