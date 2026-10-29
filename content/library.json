@@ -943,6 +943,18 @@
       "name": "Luno",
       "type": "قطة سحابية",
       "origin": "auto"
+    },
+    {
+      "id": "nava_auto",
+      "name": "Nava",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "tava_auto",
+      "name": "Tava",
+      "type": "نبتة فضائية",
+      "origin": "auto"
     }
   ],
   "stories": [
