@@ -291151,6 +291151,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "UqTf5RPRQTc",
+      "url": "https://youtu.be/UqTf5RPRQTc",
+      "title": "Lightning: 3 Verified Facts (Sources Included) #shorts",
+      "published_at": "2026-10-29T00:15:20.565262+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Lightning",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Facts & Science"
     }
   ]
 }
