@@ -4469,19 +4469,34 @@
       "reason": null,
       "seconds_spent": 1418.8,
       "at": "2026-10-29T06:20:01.189954+00:00"
+    },
+    {
+      "date": "2026-10-30",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "45s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-30_00/koko_snow_full.mp4",
+      "title": "Momo and the tiny fox — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/jTj7wtx9NFE",
+      "reason": null,
+      "seconds_spent": 413.1,
+      "at": "2026-10-30T00:10:26.760633+00:00"
     }
   ],
   "stats": {
-    "total": 4,
-    "published": 4,
+    "total": 5,
+    "published": 5,
     "staged": 0,
     "by_pillar": {
       "sleep": 2,
       "satisfying": 2,
       "focus": 3,
-      "story": 5
+      "story": 6
     }
   },
   "created": null,
-  "updated": "2026-10-29T03:45:32.032747+00:00"
+  "updated": "2026-10-30T00:10:38.305210+00:00"
 }
