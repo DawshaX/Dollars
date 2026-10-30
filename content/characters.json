@@ -1700,6 +1700,46 @@
       "origin": "auto",
       "created": "2026-10-29T11:01:26.261746+00:00",
       "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, city_night background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "wabi_auto",
+      "name": "Wabi",
+      "type": "تمساح صغير جدًا",
+      "look": "حراشف باهتة + عيون كبيرة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيحب يساعد",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "ocean",
+        "desert"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-30T10:58:20.381312+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, ocean background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "wazo_auto",
+      "name": "Wazo",
+      "type": "سمكة نجمية",
+      "look": "جسم لامع + زعانف ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "forest",
+        "space"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-30T10:58:20.413422+00:00",
+      "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, forest background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -1709,5 +1749,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 82
+  "_auto_count": 84
 }

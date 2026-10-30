@@ -1,20 +1,20 @@
 {
   "ok": true,
-  "at": "2026-10-29T11:01:37.605342+00:00",
+  "at": "2026-10-30T10:58:29.642808+00:00",
   "channel": {
     "title": "xDaw NoVa",
     "id": "UCG9g_26H65D3FahqyiYPHAw",
     "subs": 44,
-    "views_lifetime": 328530,
-    "videos": 750,
+    "views_lifetime": 328592,
+    "videos": 755,
     "country": "US",
     "keywords": "\"oddly satisfying\" \"satisfying video\" asmr \"asmr no talking\" animals \"funny pets\" \"nature relax\" space \"science facts\" \"food closeup\" macro \"slow motion\" shorts \"daily shorts\" \"relaxing video\" \"nature sounds\" \"water sounds\" \"background video\" ambience \"vertical video\" \"4k shorts\"",
     "desc": "Daily short videos from around the world — oddly satisfying moments, ASMR, animals, nature,\nspace, food, city life and quick facts. Original edits, real licensed footage, sound you can feel.\n\n🌍 New videos every day · playlists for every mood\n\nFootage and music are used under free licenses (CC0 / CC-BY / public domain) — credited in every description.\nSubtitles in many languages. Business: dawshax@",
     "default_language": "en"
   },
-  "scanned": 756,
+  "scanned": 760,
   "views_scanned": 0,
-  "zero_views": 756,
+  "zero_views": 760,
   "zero_pct": 100.0,
   "top": [
     {
@@ -728,15 +728,19 @@
     "2026-10-29": {
       "n": 5,
       "views": 0
+    },
+    "2026-10-30": {
+      "n": 4,
+      "views": 0
     }
   },
   "by_duration": {
     "short(<60)": {
-      "n": 558,
+      "n": 561,
       "views": 0
     },
     "1-10د": {
-      "n": 142,
+      "n": 143,
       "views": 0
     },
     "10-60د": {
@@ -755,11 +759,11 @@
     ],
     [
       "10",
-      187
+      188
     ],
     [
       "24",
-      155
+      158
     ],
     [
       "1",
@@ -772,6 +776,14 @@
     [
       "28",
       14
+    ],
+    [
+      "10",
+      187
+    ],
+    [
+      "24",
+      155
     ],
     [
       "10",
@@ -1094,8 +1106,8 @@
       4
     ]
   ],
-  "with_tags": 591,
-  "with_hashtags": 668,
+  "with_tags": 595,
+  "with_hashtags": 672,
   "all": [
     {
       "id": "fGBdIOBtpFg",
@@ -6794,6 +6806,22 @@
       "kids": null
     },
     {
+      "id": "vcp3Wmv3kUo",
+      "title": "Wait for it… Slime Stretch #oddlysatisfying #shorts",
+      "published": "2026-09-28T00:40:55Z",
+      "category": "24",
+      "tags": 9,
+      "hashtags": 10,
+      "desc_len": 1585,
+      "seconds": 61,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
       "id": "I91WjkEvOpU",
       "title": "Sleep Sounds for Studying & Focus | 10 Hours | Deep Work, No Interruptions",
       "published": "2026-09-28T00:49:29Z",
@@ -7634,22 +7662,6 @@
       "hashtags": 11,
       "desc_len": 1746,
       "seconds": 61,
-      "views": 0,
-      "likes": 0,
-      "comments": 0,
-      "privacy": null,
-      "upload": null,
-      "kids": null
-    },
-    {
-      "id": "OJlO7Hc7RlE",
-      "title": "Paper Man and a lantern that went out — a wordless story #shorts",
-      "published": "2026-09-29T19:53:19Z",
-      "category": "1",
-      "tags": 11,
-      "hashtags": 10,
-      "desc_len": 1639,
-      "seconds": 14,
       "views": 0,
       "likes": 0,
       "comments": 0,
@@ -13178,14 +13190,78 @@
       "kids": null
     },
     {
-      "id": "vcp3Wmv3kUo",
-      "title": "Wait for it… Slime Stretch #oddlysatisfying #shorts",
-      "published": "2026-09-28T00:40:55Z",
+      "id": "jTj7wtx9NFE",
+      "title": "Momo and the tiny fox — a wordless story #shorts",
+      "published": "2026-10-30T00:10:48Z",
+      "category": "1",
+      "tags": 8,
+      "hashtags": 10,
+      "desc_len": 1026,
+      "seconds": 14,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "ufzu_uoB4DQ",
+      "title": "Powder Pressing that hits different (20 seconds) #shorts",
+      "published": "2026-10-30T02:55:47Z",
       "category": "24",
       "tags": 9,
       "hashtags": 10,
-      "desc_len": 1585,
-      "seconds": 61,
+      "desc_len": 1597,
+      "seconds": 21,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "iCybX4Vii_A",
+      "title": "Study With Me — Hearth and Homework (45 seconds) | Pomodoro Chapters #shorts",
+      "published": "2026-10-30T05:37:25Z",
+      "category": "10",
+      "tags": 9,
+      "hashtags": 10,
+      "desc_len": 1515,
+      "seconds": 46,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "67ysM5AEvMI",
+      "title": "Precision Slicing that hits different (30 seconds) #shorts",
+      "published": "2026-10-30T08:15:08Z",
+      "category": "24",
+      "tags": 9,
+      "hashtags": 10,
+      "desc_len": 1607,
+      "seconds": 31,
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "privacy": null,
+      "upload": null,
+      "kids": null
+    },
+    {
+      "id": "OJlO7Hc7RlE",
+      "title": "Paper Man and a lantern that went out — a wordless story #shorts",
+      "published": "2026-09-29T19:53:19Z",
+      "category": "1",
+      "tags": 11,
+      "hashtags": 10,
+      "desc_len": 1639,
+      "seconds": 14,
       "views": 0,
       "likes": 0,
       "comments": 0,

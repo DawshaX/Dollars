@@ -955,6 +955,18 @@
       "name": "Tava",
       "type": "نبتة فضائية",
       "origin": "auto"
+    },
+    {
+      "id": "wabi_auto",
+      "name": "Wabi",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "wazo_auto",
+      "name": "Wazo",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [

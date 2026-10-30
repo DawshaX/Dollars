@@ -320,7 +320,7 @@
     },
     {
       "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · 4K detail",
-      "views": 1,
+      "views": 2,
       "likes": 0,
       "comments": 1,
       "features": {
@@ -1303,6 +1303,31 @@
       },
       "video_id": "iCybX4Vii_A",
       "published_at": "2026-10-30T05:37:19.843312+00:00"
+    },
+    {
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · 4K detail",
+      "views": 1,
+      "likes": 0,
+      "comments": 1,
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Box Breathing",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "video_id": "THMVBIcMxAA",
+      "published_at": "2026-10-19T06:10:00.195467+00:00"
     },
     {
       "title": "Aurora Night Sky for Sleeping | 10 Hours Black Screen | Deep Sleep, Insomnia Relief",
@@ -3590,31 +3615,6 @@
       },
       "video_id": "seyDpuldiQE",
       "published_at": "2026-10-20T00:16:23.539049+00:00"
-    },
-    {
-      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · 4K detail",
-      "views": 2,
-      "likes": 0,
-      "comments": 1,
-      "features": {
-        "pillar": "focus",
-        "kind": "short",
-        "kw": "Box Breathing",
-        "genre": "calm_wellness",
-        "hour": null,
-        "duration_bucket": null,
-        "music": false,
-        "sfx": false,
-        "overlays": false,
-        "clips": false,
-        "loop": true,
-        "hook": true,
-        "pinned": true,
-        "lang": "en",
-        "locales": []
-      },
-      "video_id": "THMVBIcMxAA",
-      "published_at": "2026-10-19T06:10:00.195467+00:00"
     },
     {
       "title": "Pink Noise • 45 seconds • Concentration & Calm #shorts",
@@ -13273,9 +13273,9 @@
   "channel": {
     "title": "xDaw NoVa",
     "subs": 44,
-    "views": 328562,
+    "views": 328592,
     "videos": 755
   },
-  "synced_at": "2026-10-30T09:05:06.931464+00:00",
-  "views_gained": 147
+  "synced_at": "2026-10-30T10:58:30.818792+00:00",
+  "views_gained": 0
 }
