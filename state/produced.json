@@ -4484,19 +4484,49 @@
       "reason": null,
       "seconds_spent": 413.1,
       "at": "2026-10-30T00:10:26.760633+00:00"
+    },
+    {
+      "date": "2026-10-30",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "20s",
+      "scene": "photo:Powder Pressing",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-30_02/satisfying_407244.mp4",
+      "title": "Powder Pressing that hits different (20 seconds) #shorts",
+      "published": true,
+      "url": "https://youtu.be/ufzu_uoB4DQ",
+      "reason": null,
+      "seconds_spent": 487.8,
+      "at": "2026-10-30T02:55:31.091150+00:00"
+    },
+    {
+      "date": "2026-10-30",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Hearth and Homework",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-30_05/focus_study_343882.mp4",
+      "title": "Study With Me — Hearth and Homework (45 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/iCybX4Vii_A",
+      "reason": null,
+      "seconds_spent": 611.6,
+      "at": "2026-10-30T05:37:05.160633+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 5,
+    "total": 7,
+    "published": 7,
     "staged": 0,
     "by_pillar": {
       "sleep": 2,
-      "satisfying": 2,
-      "focus": 3,
+      "satisfying": 3,
+      "focus": 4,
       "story": 6
     }
   },
   "created": null,
-  "updated": "2026-10-30T00:10:38.305210+00:00"
+  "updated": "2026-10-30T05:37:20.532867+00:00"
 }
