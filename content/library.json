@@ -967,6 +967,18 @@
       "name": "Wazo",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "kimi_auto",
+      "name": "Kimi",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "kika_auto",
+      "name": "Kika",
+      "type": "كائن ضبابي",
+      "origin": "auto"
     }
   ],
   "stories": [

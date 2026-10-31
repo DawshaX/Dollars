@@ -1740,6 +1740,46 @@
       "origin": "auto",
       "created": "2026-10-30T10:58:20.413422+00:00",
       "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, forest background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "kimi_auto",
+      "name": "Kimi",
+      "type": "قطة سحابية",
+      "look": "سحابة ناعمة + ذيل نجوم — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "دائمًا جعان",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "forest"
+      ],
+      "formats": [
+        "minute_story",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-31T10:31:09.633565+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny cloud cat, سحابة ناعمة + ذيل نجوم, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "kika_auto",
+      "name": "Kika",
+      "type": "كائن ضبابي",
+      "look": "جسم بخار + عيون ناعمة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيحب يساعد",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "night_sky"
+      ],
+      "formats": [
+        "calm_loop",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-10-31T10:31:09.666848+00:00",
+      "image_prompt": "cute original 2D animation character, a misty creature, جسم بخار + عيون ناعمة, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -1749,5 +1789,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 84
+  "_auto_count": 86
 }
