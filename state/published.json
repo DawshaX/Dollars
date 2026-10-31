@@ -307981,6 +307981,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "d7wOfybRMdg",
+      "url": "https://youtu.be/d7wOfybRMdg",
+      "title": "White Noise for Studying & Focus | 30 seconds | Deep Work, No Music #shorts",
+      "published_at": "2026-10-31T03:39:33.592009+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "White Noise",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
