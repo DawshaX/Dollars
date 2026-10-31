@@ -4574,19 +4574,49 @@
       "reason": null,
       "seconds_spent": 268.2,
       "at": "2026-10-31T00:48:58.006748+00:00"
+    },
+    {
+      "date": "2026-10-31",
+      "hour": 6,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "30s",
+      "scene": "photo:Sahara Dunes at Sunset",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-31_06/space_nature_715890.mp4",
+      "title": "Sahara Dunes at Sunset: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
+      "published": true,
+      "url": "https://youtu.be/UsUUXKbqWUw",
+      "reason": null,
+      "seconds_spent": 666.3,
+      "at": "2026-10-31T06:27:04.868331+00:00"
+    },
+    {
+      "date": "2026-10-31",
+      "hour": 8,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "photo:Bubble Wrap",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-10-31_08/satisfying_419066.mp4",
+      "title": "Wait for it… Bubble Wrap #oddlysatisfying #shorts",
+      "published": true,
+      "url": "https://youtu.be/C-IdQroU71U",
+      "reason": null,
+      "seconds_spent": 427.6,
+      "at": "2026-10-31T09:05:34.726338+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
-      "sleep": 3,
-      "satisfying": 4,
+      "sleep": 4,
+      "satisfying": 5,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-10-31T03:39:34.148743+00:00"
+  "updated": "2026-10-31T09:06:20.802778+00:00"
 }

@@ -309525,6 +309525,68 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "UsUUXKbqWUw",
+      "url": "https://youtu.be/UsUUXKbqWUw",
+      "title": "Sahara Dunes at Sunset: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
+      "published_at": "2026-10-31T06:27:20.510402+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Sahara Dunes at Sunset",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "C-IdQroU71U",
+      "url": "https://youtu.be/C-IdQroU71U",
+      "title": "Wait for it… Bubble Wrap #oddlysatisfying #shorts",
+      "published_at": "2026-10-31T09:06:20.190696+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Bubble Wrap",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Satisfying & ASMR"
     }
   ]
 }
