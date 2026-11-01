@@ -979,6 +979,18 @@
       "name": "Kika",
       "type": "كائن ضبابي",
       "origin": "auto"
+    },
+    {
+      "id": "mopo_auto",
+      "name": "Mopo",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "wano_auto",
+      "name": "Wano",
+      "type": "روبوت ورق",
+      "origin": "auto"
     }
   ],
   "stories": [
