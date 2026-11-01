@@ -317215,6 +317215,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Fun & Memes"
+    },
+    {
+      "video_id": "yizcSl2CZIw",
+      "url": "https://youtu.be/yizcSl2CZIw",
+      "title": "60 seconds to Slow Down | Soft Visual Breathing #shorts · a closer look",
+      "published_at": "2026-11-01T02:55:59.742636+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Before Sleep",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
