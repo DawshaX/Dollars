@@ -991,6 +991,18 @@
       "name": "Wano",
       "type": "روبوت ورق",
       "origin": "auto"
+    },
+    {
+      "id": "duka_auto",
+      "name": "Duka",
+      "type": "قطة صحراوية",
+      "origin": "auto"
+    },
+    {
+      "id": "rita_auto",
+      "name": "Rita",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
