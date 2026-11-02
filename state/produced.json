@@ -4694,19 +4694,49 @@
       "reason": null,
       "seconds_spent": 1032.4,
       "at": "2026-11-02T00:27:26.839649+00:00"
+    },
+    {
+      "date": "2026-11-02",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "30s",
+      "scene": "photo:Night Study Desk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-02_03/focus_study_999743.mp4",
+      "title": "مكتب الدراسة الليلية • 30 ثانية • شورت التركيز والهدوء #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 481.2,
+      "at": "2026-11-02T03:13:41.772679+00:00"
+    },
+    {
+      "date": "2026-11-02",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Wind and Pages",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-02_04/focus_study_646607.mp4",
+      "title": "Wind and Pages for Studying & Focus | 60s | Deep Work, No Music #shorts",
+      "published": true,
+      "url": "https://youtu.be/0GmkXRADBkM",
+      "reason": null,
+      "seconds_spent": 591.0,
+      "at": "2026-11-02T04:18:33.379329+00:00"
     }
   ],
   "stats": {
-    "total": 6,
-    "published": 6,
+    "total": 8,
+    "published": 7,
     "staged": 0,
     "by_pillar": {
-      "focus": 2,
+      "focus": 4,
       "sleep": 5,
       "satisfying": 6,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-11-02T00:27:41.877708+00:00"
+  "updated": "2026-11-02T04:18:47.468561+00:00"
 }

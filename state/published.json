@@ -324789,6 +324789,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Nature"
+    },
+    {
+      "video_id": "0GmkXRADBkM",
+      "url": "https://youtu.be/0GmkXRADBkM",
+      "title": "Wind and Pages for Studying & Focus | 60s | Deep Work, No Music #shorts",
+      "published_at": "2026-11-02T04:18:46.704884+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Wind and Pages",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
