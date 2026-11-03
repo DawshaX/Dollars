@@ -330871,6 +330871,68 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Fun & Memes"
+    },
+    {
+      "video_id": "JoWXKpi-EtI",
+      "url": "https://youtu.be/JoWXKpi-EtI",
+      "title": "Breathe with me — 60 seconds of calm #shorts · a closer look",
+      "published_at": "2026-11-03T00:07:36.610628+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Quiet the Mind",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "_GhxUcK1H2s",
+      "url": "https://youtu.be/_GhxUcK1H2s",
+      "title": "Coral Reef at Night — a slow look at the universe (45 seconds) #shorts",
+      "published_at": "2026-11-03T02:48:23.584833+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Coral Reef at Night",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
     }
   ]
 }

@@ -4754,19 +4754,49 @@
       "reason": null,
       "seconds_spent": 302.7,
       "at": "2026-11-02T09:30:50.144529+00:00"
+    },
+    {
+      "date": "2026-11-03",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "clip:Quiet the Mind",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-03_00/calm_wellness_553714.mp4",
+      "title": "Breathe with me — 60 seconds of calm #shorts · a closer look",
+      "published": true,
+      "url": "https://youtu.be/JoWXKpi-EtI",
+      "reason": null,
+      "seconds_spent": 396.0,
+      "at": "2026-11-03T00:07:03.513844+00:00"
+    },
+    {
+      "date": "2026-11-03",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "45s",
+      "scene": "photo:Coral Reef at Night",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-03_02/space_nature_317220.mp4",
+      "title": "Coral Reef at Night — a slow look at the universe (45 seconds) #shorts",
+      "published": true,
+      "url": "https://youtu.be/_GhxUcK1H2s",
+      "reason": null,
+      "seconds_spent": 569.0,
+      "at": "2026-11-03T02:48:11.444923+00:00"
     }
   ],
   "stats": {
-    "total": 10,
-    "published": 9,
+    "total": 12,
+    "published": 11,
     "staged": 0,
     "by_pillar": {
-      "focus": 4,
-      "sleep": 5,
+      "focus": 5,
+      "sleep": 6,
       "satisfying": 8,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-11-02T09:31:03.894404+00:00"
+  "updated": "2026-11-03T02:48:24.112205+00:00"
 }
