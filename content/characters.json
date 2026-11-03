@@ -1860,6 +1860,46 @@
       "origin": "auto",
       "created": "2026-11-02T12:45:46.519181+00:00",
       "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, city_night background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "nata_auto",
+      "name": "Nata",
+      "type": "قطة سحابية",
+      "look": "سحابة ناعمة + ذيل نجوم — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "متسرّع ويقع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "forest",
+        "kitchen"
+      ],
+      "formats": [
+        "silent_gag",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-03T12:11:39.085524+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny cloud cat, سحابة ناعمة + ذيل نجوم, forest background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "dumi_auto",
+      "name": "Dumi",
+      "type": "كائن طيني صغير",
+      "look": "طين ناعم + عينين كبيرتين — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "kitchen",
+        "space"
+      ],
+      "formats": [
+        "calm_loop",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-03T12:11:39.118346+00:00",
+      "image_prompt": "cute original 2D animation character, a small clay creature, طين ناعم + عينين كبيرتين, kitchen background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -1869,5 +1909,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 90
+  "_auto_count": 92
 }

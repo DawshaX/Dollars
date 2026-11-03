@@ -1003,6 +1003,18 @@
       "name": "Rita",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "nata_auto",
+      "name": "Nata",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "dumi_auto",
+      "name": "Dumi",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
