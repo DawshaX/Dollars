@@ -336957,6 +336957,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "iTs1-1rxgAU",
+      "url": "https://youtu.be/iTs1-1rxgAU",
+      "title": "The Real Nile River from Space in Motion | 45 seconds #shorts",
+      "published_at": "2026-11-04T00:22:58.824063+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Nile River from Space",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
     }
   ]
 }
