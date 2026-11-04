@@ -1015,6 +1015,18 @@
       "name": "Dumi",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "moka_auto",
+      "name": "Moka",
+      "type": "كائن ضبابي",
+      "origin": "auto"
+    },
+    {
+      "id": "shula_auto",
+      "name": "Shula",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
