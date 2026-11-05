@@ -4904,19 +4904,34 @@
       "reason": null,
       "seconds_spent": 290.6,
       "at": "2026-11-05T00:12:33.556737+00:00"
+    },
+    {
+      "date": "2026-11-05",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Slow Down",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-05_03/calm_wellness_435315.mp4",
+      "title": "Breathe with me — 60 seconds of calm #shorts · 4K detail",
+      "published": true,
+      "url": "https://youtu.be/a_LXRLxfKow",
+      "reason": null,
+      "seconds_spent": 334.7,
+      "at": "2026-11-05T03:33:27.207433+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
-      "focus": 1,
+      "focus": 2,
       "satisfying": 2,
       "sleep": 10,
       "story": 7
     }
   },
   "created": null,
-  "updated": "2026-11-05T00:12:47.667930+00:00"
+  "updated": "2026-11-05T03:34:09.930830+00:00"
 }

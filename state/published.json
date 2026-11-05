@@ -344621,6 +344621,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "a_LXRLxfKow",
+      "url": "https://youtu.be/a_LXRLxfKow",
+      "title": "Breathe with me — 60 seconds of calm #shorts · 4K detail",
+      "published_at": "2026-11-05T03:34:09.145169+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Slow Down",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
