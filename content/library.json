@@ -1027,6 +1027,18 @@
       "name": "Shula",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "mita_auto",
+      "name": "Mita",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "lunu_auto",
+      "name": "Lunu",
+      "type": "نبتة فضائية",
+      "origin": "auto"
     }
   ],
   "stories": [
