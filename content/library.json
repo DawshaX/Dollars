@@ -1039,6 +1039,18 @@
       "name": "Lunu",
       "type": "نبتة فضائية",
       "origin": "auto"
+    },
+    {
+      "id": "wata_auto",
+      "name": "Wata",
+      "type": "روبوت ورق",
+      "origin": "auto"
+    },
+    {
+      "id": "nari_auto",
+      "name": "Nari",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
