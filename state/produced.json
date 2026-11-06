@@ -4979,6 +4979,36 @@
       "reason": null,
       "seconds_spent": 592.1,
       "at": "2026-11-06T02:56:48.502573+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/VNTGyjzTp74",
+      "reason": null,
+      "seconds_spent": 384.8,
+      "at": "2026-11-06T03:30:37.765335+00:00"
+    },
+    {
+      "date": "2026-11-06",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "clip:After Work Wind Down",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-06_03/calm_wellness_907859.mp4",
+      "title": "Calm Down in 60 seconds | Guided Breathing (No Talk) #shorts · softer version",
+      "published": true,
+      "url": "https://youtu.be/kv1YqW4W9lM",
+      "reason": null,
+      "seconds_spent": 279.4,
+      "at": "2026-11-06T03:27:17.547478+00:00"
     }
   ],
   "stats": {
