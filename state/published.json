@@ -352237,6 +352237,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "kv1YqW4W9lM",
+      "url": "https://youtu.be/kv1YqW4W9lM",
+      "title": "Calm Down in 60 seconds | Guided Breathing (No Talk) #shorts · softer version",
+      "published_at": "2026-11-06T03:27:58.850565+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "After Work Wind Down",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
