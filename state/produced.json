@@ -4949,19 +4949,49 @@
       "reason": null,
       "seconds_spent": 334.7,
       "at": "2026-11-05T03:33:27.207433+00:00"
+    },
+    {
+      "date": "2026-11-06",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "45s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-06_00/lazo_space_full.mp4",
+      "title": "The the seed that waited | a tiny wordless tale #shorts",
+      "published": true,
+      "url": "https://youtu.be/6geT43UFX9g",
+      "reason": null,
+      "seconds_spent": 281.6,
+      "at": "2026-11-06T00:15:16.322359+00:00"
+    },
+    {
+      "date": "2026-11-06",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Night Study Desk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-06_02/focus_study_376944.mp4",
+      "title": "Study With Me — Night Study Desk (45 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/LvXCo5fA4JQ",
+      "reason": null,
+      "seconds_spent": 592.1,
+      "at": "2026-11-06T02:56:48.502573+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
-      "focus": 1,
+      "focus": 2,
       "satisfying": 2,
       "sleep": 10,
-      "story": 8
+      "story": 9
     }
   },
   "created": null,
-  "updated": "2026-11-05T04:00:13.277452+00:00"
+  "updated": "2026-11-06T02:57:36.110020+00:00"
 }
