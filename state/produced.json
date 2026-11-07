@@ -5009,19 +5009,34 @@
       "reason": null,
       "seconds_spent": 279.4,
       "at": "2026-11-06T03:27:17.547478+00:00"
+    },
+    {
+      "date": "2026-11-07",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Deep Focus Noise",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-07_00/focus_study_212984.mp4",
+      "title": "Study With Me — Deep Focus Noise (45 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/jpb8xChustU",
+      "reason": null,
+      "seconds_spent": 441.6,
+      "at": "2026-11-07T00:15:39.301157+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
-      "focus": 2,
+      "focus": 3,
       "satisfying": 2,
       "sleep": 10,
       "story": 9
     }
   },
   "created": null,
-  "updated": "2026-11-06T02:57:36.110020+00:00"
+  "updated": "2026-11-07T00:15:56.600225+00:00"
 }

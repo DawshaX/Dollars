@@ -358425,6 +358425,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Calm & Breathe"
+    },
+    {
+      "video_id": "jpb8xChustU",
+      "url": "https://youtu.be/jpb8xChustU",
+      "title": "Study With Me — Deep Focus Noise (45 seconds) | Pomodoro Chapters #shorts",
+      "published_at": "2026-11-07T00:15:56.051129+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Deep Focus Noise",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
