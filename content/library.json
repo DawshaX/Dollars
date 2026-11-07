@@ -1051,6 +1051,18 @@
       "name": "Nari",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "shuri_auto",
+      "name": "Shuri",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
+    },
+    {
+      "id": "mova_auto",
+      "name": "Mova",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [

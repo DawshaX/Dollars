@@ -2020,6 +2020,46 @@
       "origin": "auto",
       "created": "2026-11-06T12:21:20.507041+00:00",
       "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, ocean background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "shuri_auto",
+      "name": "Shuri",
+      "type": "فراشة زجاجية",
+      "look": "أجنحة شفافة + خطوط ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيخاف من الظل",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "space",
+        "bedroom"
+      ],
+      "formats": [
+        "minute_story",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-07T11:14:56.160510+00:00",
+      "image_prompt": "cute original 2D animation character, a glass butterfly, أجنحة شفافة + خطوط ضوء, space background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "mova_auto",
+      "name": "Mova",
+      "type": "سمكة نجمية",
+      "look": "جسم لامع + زعانف ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "forest",
+        "city_night"
+      ],
+      "formats": [
+        "whisper_bedtime",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-07T11:14:56.192002+00:00",
+      "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, forest background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -2029,5 +2069,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 98
+  "_auto_count": 100
 }
