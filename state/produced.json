@@ -5024,19 +5024,49 @@
       "reason": null,
       "seconds_spent": 441.6,
       "at": "2026-11-07T00:15:39.301157+00:00"
+    },
+    {
+      "date": "2026-11-07",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "30s",
+      "scene": "photo:Wax Seals",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-07_02/satisfying_271092.mp4",
+      "title": "Perfect Wax Seals — no talking, just calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/i39k6u3hjss",
+      "reason": null,
+      "seconds_spent": 370.4,
+      "at": "2026-11-07T02:59:06.623193+00:00"
+    },
+    {
+      "date": "2026-11-07",
+      "hour": 5,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "45s",
+      "scene": "photo:Night Wind Through Bamboo",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-07_05/sleep_ambience_174699.mp4",
+      "title": "Night Wind Through Bamboo Sounds for Sleeping | 45 seconds Black Screen | Deep S #shorts",
+      "published": true,
+      "url": "https://youtu.be/z0AHbCJsaAk",
+      "reason": null,
+      "seconds_spent": 1004.0,
+      "at": "2026-11-07T05:47:14.203268+00:00"
     }
   ],
   "stats": {
-    "total": 4,
-    "published": 4,
+    "total": 6,
+    "published": 6,
     "staged": 0,
     "by_pillar": {
       "focus": 3,
-      "satisfying": 2,
-      "sleep": 10,
+      "satisfying": 3,
+      "sleep": 11,
       "story": 9
     }
   },
   "created": null,
-  "updated": "2026-11-07T00:15:56.600225+00:00"
+  "updated": "2026-11-07T05:47:59.247528+00:00"
 }

@@ -359963,6 +359963,68 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "i39k6u3hjss",
+      "url": "https://youtu.be/i39k6u3hjss",
+      "title": "Perfect Wax Seals — no talking, just calm #shorts",
+      "published_at": "2026-11-07T02:59:23.221219+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Wax Seals",
+        "genre": "satisfying",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Satisfying & ASMR"
+    },
+    {
+      "video_id": "z0AHbCJsaAk",
+      "url": "https://youtu.be/z0AHbCJsaAk",
+      "title": "Night Wind Through Bamboo Sounds for Sleeping | 45 seconds Black Screen | Deep S #shorts",
+      "published_at": "2026-11-07T05:47:58.356878+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Night Wind Through Bamboo Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
     }
   ]
 }
