@@ -1,252 +1,686 @@
 {
   "date": "2026-11-08",
-  "studio": true,
-  "generated_at": "2026-11-08T04:53:52.557443+00:00",
-  "shorts": 4,
-  "longs": [
-    3
-  ],
+  "shorts": 24,
+  "longs": 4,
   "mix": {
-    "نوم وأمبيانس": 3,
-    "علم وحقائق موثّقة": 1,
-    "تركيز ودراسة": 1
+    "satisfying": 14,
+    "story": 6,
+    "sleep": 6,
+    "focus": 2
   },
   "best_long_hours_seen": [
-    3,
-    8,
-    10,
-    12
+    21,
+    22,
+    23
   ],
   "slots": [
     {
+      "hour": 0,
+      "at": "2026-11-08T00:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=قبل/بعد|hour=7|kind=short|pillar=satisfying|scene=sand_table|structure=حركة واحدة كاملة|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "sand_table",
+        "structure": "حركة واحدة كاملة",
+        "hook": "قبل/بعد",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 7,
+        "character": null,
+        "predicted": 2.576,
+        "why": "لأن satisfying و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 1,
+      "at": "2026-11-08T01:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=حركة عكسية|hour=22|kind=short|pillar=satisfying|scene=sand_table|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "sand_table",
+        "structure": "مقارنة سرعات",
+        "hook": "حركة عكسية",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 22,
+        "character": null,
+        "predicted": 2.562,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 2,
+      "at": "2026-11-08T02:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=1m|hook=مقارنة|hour=12|kind=short|pillar=story|scene=harmonograph|structure=صداقة ← عقبة ← لقاء|thumb=شاشة سوداء + نص واضح",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "1m",
+        "scene": "harmonograph",
+        "structure": "صداقة ← عقبة ← لقاء",
+        "hook": "مقارنة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 12,
+        "character": "mita_auto",
+        "predicted": 2.548,
+        "why": "لأن story و1m وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
       "hour": 3,
       "at": "2026-11-08T03:00:00Z",
-      "kind": "long",
+      "kind": "short",
       "idea": {
-        "genre": "sleep_ambience",
-        "genre_ar": "نوم وأمبيانس",
-        "pillar": "sleep",
-        "kind": "long",
-        "duration": "3h",
-        "scene": "fireplace",
-        "audio": "calm_night",
-        "palette": "deep_blue",
-        "transition": "crossfade",
-        "montage": "طويل هادي",
-        "mood": "calm",
-        "hook": "Sleep in 3 minutes",
-        "thumb": "مشهد طبيعي + رقم المدة",
-        "structure": "لقطة واحدة مستمرة",
-        "kw": "Thunderstorm at Night",
-        "topic": "Thunderstorm at Night",
+        "signature": "duration=30s|hook=مقارنة|hour=8|kind=short|pillar=satisfying|scene=stinger_glitch|structure=تراكم ← ذروة ← تنظيف|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "stinger_glitch",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "مقارنة",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 8,
         "character": null,
-        "thing": null,
-        "image_query": "Desert Wind at Night",
-        "lines": [],
-        "source": null,
-        "playlist": "Sleep & Nature",
-        "title_style": "Desert Wind at Night Sounds for Sleeping | 8 hour seconds Black Screen | Deep Sleep",
-        "signature": "{\"audio\": \"calm_night\", \"genre\": \"sleep_ambience\", \"hour\": 3, \"mark\": \"Desert Wind at Night\", \"montage\": \"طويل هادي\", \"palette\": \"deep_blue\", \"scene\": \"fireplace\", \"title_shape\": \"W W W W W W W | W W W W W | W W\", \"transition\": \"crossfade\"}",
-        "sig": {
-          "genre": "sleep_ambience",
-          "scene": "fireplace",
-          "palette": "deep_blue",
-          "transition": "crossfade",
-          "audio": "calm_night",
-          "montage": "طويل هادي",
-          "title_shape": "W W W W W W W | W W W W W | W W",
-          "mark": "Desert Wind at Night",
-          "hour": 3
-        },
-        "predicted": 1.684,
-        "why": "نوع نوم وأمبيانس · وقت morning · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 222659
+        "predicted": 2.533,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 4,
+      "at": "2026-11-08T04:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=حركة كاميرا سريعة|hour=23|kind=short|pillar=satisfying|scene=harmonograph|structure=تراكم ← ذروة ← تنظيف|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "harmonograph",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
+        "character": null,
+        "predicted": 2.562,
+        "why": "لأن satisfying و30s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 5,
+      "at": "2026-11-08T05:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=صوت مفاجئ|hour=19|kind=short|pillar=satisfying|scene=harmonograph|structure=نمو نمط هندسي|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "harmonograph",
+        "structure": "نمو نمط هندسي",
+        "hook": "صوت مفاجئ",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 19,
+        "character": "mopo_auto",
+        "predicted": 2.548,
+        "why": "لأن satisfying و15s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 6,
+      "at": "2026-11-08T06:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=2m|hook=سؤال في أول ثانية|hour=1|kind=short|pillar=story|scene=starfield|structure=صداقة ← عقبة ← لقاء|thumb=شاشة سوداء + نص واضح",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "2m",
+        "scene": "starfield",
+        "structure": "صداقة ← عقبة ← لقاء",
+        "hook": "سؤال في أول ثانية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 1,
+        "character": "tava_auto",
+        "predicted": 2.555,
+        "why": "لأن story و2m وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 7,
+      "at": "2026-11-08T07:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=مقارنة|hour=8|kind=short|pillar=sleep|scene=rain_glass|structure=مطر ← رعد ← هدوء|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "rain_glass",
+        "structure": "مطر ← رعد ← هدوء",
+        "hook": "مقارنة",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 8,
+        "character": null,
+        "predicted": 2.883,
+        "why": "لأن sleep و60s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 8,
+      "at": "2026-11-08T08:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=مقارنة|hour=18|kind=short|pillar=satisfying|scene=harmonograph|structure=حركة واحدة كاملة|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "harmonograph",
+        "structure": "حركة واحدة كاملة",
+        "hook": "مقارنة",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 18,
+        "character": "kiro_auto",
+        "predicted": 2.548,
+        "why": "لأن satisfying و30s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 9,
+      "at": "2026-11-08T09:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=صوت مفاجئ|hour=2|kind=short|pillar=satisfying|scene=stinger_zoom|structure=دورات متكرّرة مريحة|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "45s",
+        "scene": "stinger_zoom",
+        "structure": "دورات متكرّرة مريحة",
+        "hook": "صوت مفاجئ",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 2,
+        "character": null,
+        "predicted": 2.519,
+        "why": "لأن satisfying و45s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 10,
+      "at": "2026-11-08T10:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=حركة كاميرا سريعة|hour=1|kind=short|pillar=sleep|scene=rain_glass|structure=مطر ← رعد ← هدوء|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "45s",
+        "scene": "rain_glass",
+        "structure": "مطر ← رعد ← هدوء",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 1,
+        "character": null,
+        "predicted": 2.869,
+        "why": "لأن sleep و45s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 11,
+      "at": "2026-11-08T11:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=حركة كاميرا سريعة|hour=2|kind=short|pillar=focus|scene=black|structure=بداية هادية ← ثبات|thumb=قبل/بعد مقسوم",
+        "pillar": "focus",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "black",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "قبل/بعد مقسوم",
+        "hour": 2,
+        "character": null,
+        "predicted": 2.588,
+        "why": "لأن focus و60s وقبل/بعد مقسوم أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 12,
+      "at": "2026-11-08T12:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=لقطة قريبة جدًا|hour=22|kind=short|pillar=satisfying|scene=harmonograph|structure=دورات متكرّرة مريحة|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "45s",
+        "scene": "harmonograph",
+        "structure": "دورات متكرّرة مريحة",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 22,
+        "character": null,
+        "predicted": 2.526,
+        "why": "لأن satisfying و45s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 13,
+      "at": "2026-11-08T13:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=لون غريب|hour=8|kind=short|pillar=satisfying|scene=stinger_zoom|structure=تراكم ← ذروة ← تنظيف|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "stinger_zoom",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "لون غريب",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 8,
+        "character": null,
+        "predicted": 2.541,
+        "why": "لأن satisfying و15s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 14,
+      "at": "2026-11-08T14:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=1m|hook=لقطة قريبة جدًا|hour=8|kind=short|pillar=story|scene=sand_table|structure=خوف ← شجاعة ← مكافأة|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "1m",
+        "scene": "sand_table",
+        "structure": "خوف ← شجاعة ← مكافأة",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 8,
+        "character": "nari_auto",
+        "predicted": 2.555,
+        "why": "لأن story و1m وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 15,
+      "at": "2026-11-08T15:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=لقطة قريبة جدًا|hour=2|kind=short|pillar=satisfying|scene=stinger_ink|structure=تراكم ← ذروة ← تنظيف|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "45s",
+        "scene": "stinger_ink",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 2,
+        "character": null,
+        "predicted": 2.533,
+        "why": "لأن satisfying و45s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
     },
     {
       "hour": 16,
       "at": "2026-11-08T16:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "sleep_ambience",
-        "genre_ar": "نوم وأمبيانس",
-        "pillar": "sleep",
+        "signature": "duration=60s|hook=حركة كاميرا سريعة|hour=23|kind=short|pillar=satisfying|scene=sand_table|structure=حركة واحدة كاملة|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "sand_table",
+        "structure": "حركة واحدة كاملة",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
+        "character": "mita_auto",
+        "predicted": 2.576,
+        "why": "لأن satisfying و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 17,
+      "at": "2026-11-08T17:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=4m|hook=لون غريب|hour=7|kind=short|pillar=story|scene=sand_table|structure=صداقة ← عقبة ← لقاء|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "4m",
+        "scene": "sand_table",
+        "structure": "صداقة ← عقبة ← لقاء",
+        "hook": "لون غريب",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 7,
+        "character": "mota_auto",
+        "predicted": 2.533,
+        "why": "لأن story و4m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 18,
+      "at": "2026-11-08T18:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=مقارنة|hour=7|kind=short|pillar=satisfying|scene=pendulum_wave|structure=دورات متكرّرة مريحة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
         "kind": "short",
         "duration": "30s",
-        "scene": "storm_window",
-        "audio": "calm_night",
-        "palette": "deep_blue",
-        "transition": "xfade_soft",
-        "montage": "طويل هادي",
-        "mood": "cozy",
-        "hook": "For tonight",
-        "thumb": "مشهد طبيعي + رقم المدة",
-        "structure": "٣ مقاطع متساوية",
-        "kw": "Boat Rocking on Calm Water Sounds",
-        "topic": "Boat Rocking on Calm Water",
-        "character": null,
-        "thing": null,
-        "image_query": "Boat Rocking on Calm Water",
-        "lines": [],
-        "source": null,
-        "playlist": "Sleep & Nature",
-        "title_style": "Boat Rocking on Calm Water Sounds • 30 seconds • Fall Asleep Fast (No Music)",
-        "signature": "{\"audio\": \"calm_night\", \"genre\": \"sleep_ambience\", \"hour\": 16, \"mark\": \"Boat Rocking on Calm Water\", \"montage\": \"طويل هادي\", \"palette\": \"deep_blue\", \"scene\": \"storm_window\", \"title_shape\": \"W W W W W W • W W • W W W (W W)\", \"transition\": \"xfade_soft\"}",
-        "sig": {
-          "genre": "sleep_ambience",
-          "scene": "storm_window",
-          "palette": "deep_blue",
-          "transition": "xfade_soft",
-          "audio": "calm_night",
-          "montage": "طويل هادي",
-          "title_shape": "W W W W W W • W W • W W W (W W)",
-          "mark": "Boat Rocking on Calm Water",
-          "hour": 16
-        },
-        "predicted": 2.245,
-        "why": "نوع نوم وأمبيانس · وقت evening · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 245229
+        "scene": "pendulum_wave",
+        "structure": "دورات متكرّرة مريحة",
+        "hook": "مقارنة",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 7,
+        "character": "grila_auto",
+        "predicted": 2.548,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
     },
     {
       "hour": 19,
       "at": "2026-11-08T19:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "facts",
-        "genre_ar": "علم وحقائق موثّقة",
-        "pillar": "satisfying",
+        "signature": "duration=60s|hook=حركة كاميرا سريعة|hour=2|kind=short|pillar=focus|scene=black|structure=بداية هادية ← ثبات|thumb=قبل/بعد مقسوم",
+        "pillar": "focus",
         "kind": "short",
         "duration": "60s",
-        "scene": "ocean_deep",
-        "audio": "space_calm",
-        "palette": "deep_blue",
-        "transition": "fade",
-        "montage": "سؤال ← جواب",
-        "mood": "curious",
-        "hook": "Look closer",
-        "thumb": "مقارنة حجم",
-        "structure": "تصاعد ← ذروة ← تنفّس",
-        "kw": "Mariana Trench",
-        "topic": "Mariana Trench",
+        "scene": "black",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "قبل/بعد مقسوم",
+        "hour": 2,
         "character": null,
-        "thing": null,
-        "image_query": "Mariana Trench",
-        "lines": [
-          "The Mariana Trench is the deepest oceanic trench on Earth, located in the western Pacific Ocean, about 200 kil",
-          "It is crescent-shaped and measures about 2,550 km (1,580 mi) in length and 69 km (43 mi) in width.",
-          "The maximum known depth is 10,935 ± 6 meters at the southern end of a small slot-shaped valley in its floor kn"
-        ],
-        "source": "https://en.wikipedia.org/wiki/Mariana_Trench",
-        "playlist": "Facts & Science",
-        "title_style": "3 Facts About Mariana Trench You Didn't Know",
-        "signature": "{\"audio\": \"space_calm\", \"genre\": \"facts\", \"hour\": 19, \"mark\": \"Mariana Trench\", \"montage\": \"سؤال ← جواب\", \"palette\": \"deep_blue\", \"scene\": \"ocean_deep\", \"title_shape\": \"W W W W W W W'W W\", \"transition\": \"fade\"}",
-        "sig": {
-          "genre": "facts",
-          "scene": "ocean_deep",
-          "palette": "deep_blue",
-          "transition": "fade",
-          "audio": "space_calm",
-          "montage": "سؤال ← جواب",
-          "title_shape": "W W W W W W W'W W",
-          "mark": "Mariana Trench",
-          "hour": 19
-        },
-        "predicted": 1.689,
-        "why": "نوع علم وحقائق موثّقة · وقت evening · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 441495
+        "predicted": 2.588,
+        "why": "لأن focus و60s وقبل/بعد مقسوم أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 20,
+      "at": "2026-11-08T20:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=سؤال في أول ثانية|hour=23|kind=short|pillar=sleep|scene=starfield|structure=مشهد ليلي ← نجوم|thumb=شاشة سوداء + نص واضح",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "starfield",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "سؤال في أول ثانية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
+        "character": null,
+        "predicted": 2.869,
+        "why": "لأن sleep و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
     },
     {
       "hour": 21,
       "at": "2026-11-08T21:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "focus_study",
-        "genre_ar": "تركيز ودراسة",
-        "pillar": "focus",
+        "signature": "duration=3m|hook=لون غريب|hour=12|kind=short|pillar=story|scene=sand_table|structure=صداقة ← عقبة ← لقاء|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "story",
         "kind": "short",
-        "duration": "30s",
-        "scene": "desk_window",
-        "audio": "focus",
-        "palette": "deep_blue",
-        "transition": "fade",
-        "montage": "مشهد ثابت + ساعة",
-        "mood": "steady",
-        "hook": "One task only",
-        "thumb": "نافذة مطر + لابتوب",
-        "structure": "بداية هادية ← حركة ← استقرار",
-        "kw": "Silent Library at Dawn",
-        "topic": "Silent Library at Dawn",
+        "duration": "3m",
+        "scene": "sand_table",
+        "structure": "صداقة ← عقبة ← لقاء",
+        "hook": "لون غريب",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 12,
+        "character": "moro_auto",
+        "predicted": 2.541,
+        "why": "لأن story و3m وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 22,
+      "at": "2026-11-08T22:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=همسة|hour=12|kind=short|pillar=satisfying|scene=stinger_glitch|structure=مقارنة سرعات|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "45s",
+        "scene": "stinger_glitch",
+        "structure": "مقارنة سرعات",
+        "hook": "همسة",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 12,
         "character": null,
-        "thing": null,
-        "image_query": "Silent Library at Dawn",
-        "lines": [],
-        "source": null,
-        "playlist": "Focus & Study",
-        "title_style": "Silent Library at Dawn for Studying & Focus | 30 seconds | Deep Work, No Music",
-        "signature": "{\"audio\": \"focus\", \"genre\": \"focus_study\", \"hour\": 21, \"mark\": \"Silent Library at Dawn\", \"montage\": \"مشهد ثابت + ساعة\", \"palette\": \"deep_blue\", \"scene\": \"desk_window\", \"title_shape\": \"W W W W W W & W | W W | W W, W W\", \"transition\": \"fade\"}",
-        "sig": {
-          "genre": "focus_study",
-          "scene": "desk_window",
-          "palette": "deep_blue",
-          "transition": "fade",
-          "audio": "focus",
-          "montage": "مشهد ثابت + ساعة",
-          "title_shape": "W W W W W W & W | W W | W W, W W",
-          "mark": "Silent Library at Dawn",
-          "hour": 21
-        },
-        "predicted": 1.589,
-        "why": "نوع تركيز ودراسة · وقت night · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 311509
+        "predicted": 2.519,
+        "why": "لأن satisfying و45s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
     },
     {
       "hour": 23,
       "at": "2026-11-08T23:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "sleep_ambience",
-        "genre_ar": "نوم وأمبيانس",
-        "pillar": "sleep",
+        "signature": "duration=15s|hook=لون غريب|hour=23|kind=short|pillar=satisfying|scene=harmonograph|structure=نمو نمط هندسي|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
         "kind": "short",
-        "duration": "45s",
-        "scene": "snow_night",
-        "audio": "night_forest",
-        "palette": "warm_ember",
-        "transition": "xfade_soft",
-        "montage": "طويل هادي",
-        "mood": "calm",
-        "hook": "For tonight",
-        "thumb": "نافذة مطر + ساعة",
-        "structure": "بداية هادية ← حركة ← استقرار",
-        "kw": "Night Train Ride Sounds",
-        "topic": "Night Train Ride",
+        "duration": "15s",
+        "scene": "harmonograph",
+        "structure": "نمو نمط هندسي",
+        "hook": "لون غريب",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 23,
         "character": null,
-        "thing": null,
-        "image_query": "Night Train Ride",
-        "lines": [],
-        "source": null,
-        "playlist": "Sleep & Nature",
-        "title_style": "Night Train Ride Sounds — 45 seconds of Pure Calm | Insomnia Relief",
-        "signature": "{\"audio\": \"night_forest\", \"genre\": \"sleep_ambience\", \"hour\": 23, \"mark\": \"Night Train Ride\", \"montage\": \"طويل هادي\", \"palette\": \"warm_ember\", \"scene\": \"snow_night\", \"title_shape\": \"W W W W — W W W W W | W W\", \"transition\": \"xfade_soft\"}",
-        "sig": {
-          "genre": "sleep_ambience",
-          "scene": "snow_night",
-          "palette": "warm_ember",
-          "transition": "xfade_soft",
-          "audio": "night_forest",
-          "montage": "طويل هادي",
-          "title_shape": "W W W W — W W W W W | W W",
-          "mark": "Night Train Ride",
-          "hour": 23
-        },
-        "predicted": 1.259,
-        "why": "نوع نوم وأمبيانس · وقت night · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 690296
+        "predicted": 2.526,
+        "why": "لأن satisfying و15s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 2,
+      "at": "2026-11-08T02:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=8h|hook=صمت مفاجئ|hour=22|kind=long|pillar=sleep|scene=black|structure=مشهد ليلي ← نجوم|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "8h",
+        "scene": "black",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "صمت مفاجئ",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 22,
+        "character": null,
+        "predicted": 2.929,
+        "why": "لأن sleep و8h وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 8,
+      "at": "2026-11-08T08:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=10h|hook=ظهور شخصية|hour=1|kind=long|pillar=sleep|scene=starfield|structure=مشهد ليلي ← نجوم|thumb=شاشة سوداء + نص واضح",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "10h",
+        "scene": "starfield",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "ظهور شخصية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 1,
+        "character": null,
+        "predicted": 2.914,
+        "why": "لأن sleep و10h وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 14,
+      "at": "2026-11-08T14:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=3h|hook=حركة عكسية|hour=12|kind=long|pillar=sleep|scene=black|structure=بداية هادية ← ثبات|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "3h",
+        "scene": "black",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "حركة عكسية",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 12,
+        "character": null,
+        "predicted": 2.907,
+        "why": "لأن sleep و3h وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 20,
+      "at": "2026-11-08T20:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=3m|hook=صوت مفاجئ|hour=12|kind=long|pillar=story|scene=harmonograph|structure=صداقة ← عقبة ← لقاء|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "story",
+        "kind": "long",
+        "duration": "3m",
+        "scene": "harmonograph",
+        "structure": "صداقة ← عقبة ← لقاء",
+        "hook": "صوت مفاجئ",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 12,
+        "character": "lunu_auto",
+        "predicted": 2.514,
+        "why": "لأن story و3m وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
     }
-  ],
-  "videos": []
+  ]
 }

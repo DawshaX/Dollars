@@ -1063,6 +1063,18 @@
       "name": "Mova",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "luma_auto",
+      "name": "Luma",
+      "type": "قطة سحابية",
+      "origin": "auto"
+    },
+    {
+      "id": "lubi_auto",
+      "name": "Lubi",
+      "type": "سمكة نجمية",
+      "origin": "auto"
     }
   ],
   "stories": [
