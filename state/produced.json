@@ -5114,19 +5114,49 @@
       "reason": null,
       "seconds_spent": 162.6,
       "at": "2026-11-08T05:28:49.347226+00:00"
+    },
+    {
+      "date": "2026-11-08",
+      "hour": 8,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "45s",
+      "scene": "photo:Coral reef",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-08_08/facts_112753.mp4",
+      "title": "الشعاب المرجانية: 3 حقائق تم التحقق منها (المصادر متضمنة) #shorts",
+      "published": false,
+      "url": null,
+      "reason": "الفحص رفض النشر: ['مفيش إفصاح واضح عن المحتوى المولّد بالذكاء الاصطناعي']",
+      "seconds_spent": 416.9,
+      "at": "2026-11-08T08:14:30.750640+00:00"
+    },
+    {
+      "date": "2026-11-08",
+      "hour": 9,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "30s",
+      "scene": "photo:Quiet Library",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-08_09/focus_study_274005.mp4",
+      "title": "Quiet Library for Studying & Focus | 30 seconds | Deep Work, No Music #shorts",
+      "published": true,
+      "url": "https://youtu.be/S8sj41pnF4g",
+      "reason": null,
+      "seconds_spent": 443.5,
+      "at": "2026-11-08T09:16:54.988047+00:00"
     }
   ],
   "stats": {
-    "total": 9,
-    "published": 9,
+    "total": 11,
+    "published": 10,
     "staged": 0,
     "by_pillar": {
-      "focus": 3,
-      "satisfying": 5,
+      "focus": 4,
+      "satisfying": 6,
       "sleep": 12,
       "story": 9
     }
   },
   "created": null,
-  "updated": "2026-11-08T05:29:05.003384+00:00"
+  "updated": "2026-11-08T09:18:00.668129+00:00"
 }
