@@ -367633,6 +367633,40 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Rain"
+    },
+    {
+      "video_id": "aS1LdYQ3-I0",
+      "url": "https://youtu.be/aS1LdYQ3-I0",
+      "title": "The Himalayas at Dawn: Beautiful and Relaxing (30 seconds Black Screen) #shorts",
+      "published_at": "2026-11-08T00:11:55.123792+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "The Himalayas at Dawn",
+        "genre": "space_nature",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": [
+          "ar",
+          "es",
+          "hi",
+          "id",
+          "pt"
+        ]
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Space & Earth"
     }
   ]
 }
