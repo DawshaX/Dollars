@@ -367667,6 +367667,62 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Space & Earth"
+    },
+    {
+      "video_id": "Eo45yAjT-4k",
+      "url": "https://youtu.be/Eo45yAjT-4k",
+      "title": "3 Facts About Whale shark You Didn't Know #shorts",
+      "published_at": "2026-11-08T02:54:58.926712+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Whale shark",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Facts & Science"
+    },
+    {
+      "video_id": "VncNsfwKQl4",
+      "url": "https://youtu.be/VncNsfwKQl4",
+      "title": "When the phone at 1%… #funny #shorts",
+      "published_at": "2026-11-08T05:29:04.278253+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "the phone at 1%",
+        "genre": "fun_memes",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Fun & Memes"
     }
   ]
 }
