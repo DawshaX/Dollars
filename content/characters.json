@@ -2100,6 +2100,46 @@
       "origin": "auto",
       "created": "2026-11-08T11:26:51.991468+00:00",
       "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, garden background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "gripo_auto",
+      "name": "Gripo",
+      "type": "حجر ودود",
+      "look": "حجر أملس + وجه بسيط — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيحب يساعد",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "space",
+        "ocean"
+      ],
+      "formats": [
+        "tiny_adventure",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-09T13:13:05.654782+00:00",
+      "image_prompt": "cute original 2D animation character, a friendly stone, حجر أملس + وجه بسيط, space background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "dushi_auto",
+      "name": "Dushi",
+      "type": "تمساح صغير جدًا",
+      "look": "حراشف باهتة + عيون كبيرة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "خجول بس شجاع",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "space",
+        "clouds"
+      ],
+      "formats": [
+        "calm_loop",
+        "silent_gag"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-09T13:13:05.686000+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, space background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -2109,5 +2149,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 102
+  "_auto_count": 104
 }

@@ -1075,6 +1075,18 @@
       "name": "Lubi",
       "type": "سمكة نجمية",
       "origin": "auto"
+    },
+    {
+      "id": "gripo_auto",
+      "name": "Gripo",
+      "type": "حجر ودود",
+      "origin": "auto"
+    },
+    {
+      "id": "dushi_auto",
+      "name": "Dushi",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
