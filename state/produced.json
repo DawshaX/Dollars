@@ -5144,19 +5144,34 @@
       "reason": null,
       "seconds_spent": 443.5,
       "at": "2026-11-08T09:16:54.988047+00:00"
+    },
+    {
+      "date": "2026-11-09",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Keyboard and Rain",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-09_00/focus_study_209115.mp4",
+      "title": "Study With Me — Keyboard and Rain (60 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/umBo77aCUTE",
+      "reason": null,
+      "seconds_spent": 467.9,
+      "at": "2026-11-09T00:54:15.382582+00:00"
     }
   ],
   "stats": {
-    "total": 11,
-    "published": 10,
+    "total": 12,
+    "published": 11,
     "staged": 0,
     "by_pillar": {
-      "focus": 4,
+      "focus": 5,
       "satisfying": 6,
       "sleep": 12,
       "story": 9
     }
   },
   "created": null,
-  "updated": "2026-11-08T09:18:00.668129+00:00"
+  "updated": "2026-11-09T00:54:34.679493+00:00"
 }

@@ -375391,6 +375391,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "umBo77aCUTE",
+      "url": "https://youtu.be/umBo77aCUTE",
+      "title": "Study With Me — Keyboard and Rain (60 seconds) | Pomodoro Chapters #shorts",
+      "published_at": "2026-11-09T00:54:33.940409+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Keyboard and Rain",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
