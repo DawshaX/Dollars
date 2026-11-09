@@ -377003,6 +377003,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "0tebT7tXQRs",
+      "url": "https://youtu.be/0tebT7tXQRs",
+      "title": "Night Lake Ambience for Sleeping | 3 Hours Black Screen | Deep Sleep, Insomnia Relief",
+      "published_at": "2026-11-09T07:07:07.979273+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "long",
+        "kw": "Night Lake Ambience",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Rain"
     }
   ]
 }
