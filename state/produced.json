@@ -5279,19 +5279,34 @@
       "reason": null,
       "seconds_spent": 372.2,
       "at": "2026-11-10T00:20:00.142429+00:00"
+    },
+    {
+      "date": "2026-11-10",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Hearth and Homework",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-10_02/focus_study_568696.mp4",
+      "title": "Hearth and Homework for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
+      "published": true,
+      "url": "https://youtu.be/1gIZzRoltVY",
+      "reason": null,
+      "seconds_spent": 533.2,
+      "at": "2026-11-10T03:06:19.313034+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "story": 1,
       "satisfying": 3,
-      "focus": 5,
+      "focus": 6,
       "sleep": 14
     }
   },
   "created": null,
-  "updated": "2026-11-10T00:09:57.381407+00:00"
+  "updated": "2026-11-10T03:06:36.181582+00:00"
 }
