@@ -5249,6 +5249,36 @@
       "reason": null,
       "seconds_spent": 443.5,
       "at": "2026-11-10T00:09:41.424415+00:00"
+    },
+    {
+      "date": "2026-11-10",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "45s",
+      "scene": "photo:Night Train Ride",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-10_00/sleep_ambience_382479.mp4",
+      "title": "Sleep in Minutes: Night Train Ride Sounds for 45 seconds #shorts",
+      "published": true,
+      "url": "https://youtu.be/lIq0aNJtPhs",
+      "reason": null,
+      "seconds_spent": 755.3,
+      "at": "2026-11-10T00:23:38.628769+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/RSNRDyNQwg8",
+      "reason": null,
+      "seconds_spent": 372.2,
+      "at": "2026-11-10T00:20:00.142429+00:00"
     }
   ],
   "stats": {
