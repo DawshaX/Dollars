@@ -1087,6 +1087,18 @@
       "name": "Dushi",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "duma_auto",
+      "name": "Duma",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "waro_auto",
+      "name": "Waro",
+      "type": "نبتة فضائية",
+      "origin": "auto"
     }
   ],
   "stories": [

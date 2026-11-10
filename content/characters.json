@@ -2140,6 +2140,46 @@
       "origin": "auto",
       "created": "2026-11-09T13:13:05.686000+00:00",
       "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, space background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "duma_auto",
+      "name": "Duma",
+      "type": "تمساح صغير جدًا",
+      "look": "حراشف باهتة + عيون كبيرة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "rain",
+        "night_sky"
+      ],
+      "formats": [
+        "calm_loop",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-10T12:52:51.396260+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny friendly crocodile, حراشف باهتة + عيون كبيرة, rain background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "waro_auto",
+      "name": "Waro",
+      "type": "نبتة فضائية",
+      "look": "ساق ضوئية + أوراق شفافة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "فضولي جدًا",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "paper_world",
+        "clouds"
+      ],
+      "formats": [
+        "calm_loop",
+        "calm_loop"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-10T12:52:51.428271+00:00",
+      "image_prompt": "cute original 2D animation character, a tiny space plant, ساق ضوئية + أوراق شفافة, paper_world background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -2149,5 +2189,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 104
+  "_auto_count": 106
 }
