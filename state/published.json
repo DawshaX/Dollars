@@ -383235,6 +383235,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "1gIZzRoltVY",
+      "url": "https://youtu.be/1gIZzRoltVY",
+      "title": "Hearth and Homework for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
+      "published_at": "2026-11-10T03:06:35.417939+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Hearth and Homework",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
