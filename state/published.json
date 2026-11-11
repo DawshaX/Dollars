@@ -387811,6 +387811,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "sCvQvMZk3Mw",
+      "url": "https://youtu.be/sCvQvMZk3Mw",
+      "title": "POV: the Wi-Fi dies #memes #shorts",
+      "published_at": "2026-11-11T00:11:30.139881+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "the Wi-Fi dies",
+        "genre": "fun_memes",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Fun & Memes"
     }
   ]
 }
