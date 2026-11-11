@@ -389355,6 +389355,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Fun & Memes"
+    },
+    {
+      "video_id": "cKxEmBAPo2U",
+      "url": "https://youtu.be/cKxEmBAPo2U",
+      "title": "Sleep in Minutes: Cabin Fireplace and Rain Sounds for 30 seconds #shorts",
+      "published_at": "2026-11-11T03:00:08.947772+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Cabin Fireplace and Rain Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
     }
   ]
 }
