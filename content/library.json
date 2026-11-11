@@ -1099,6 +1099,18 @@
       "name": "Waro",
       "type": "نبتة فضائية",
       "origin": "auto"
+    },
+    {
+      "id": "grishi_auto",
+      "name": "Grishi",
+      "type": "سمكة نجمية",
+      "origin": "auto"
+    },
+    {
+      "id": "mimi_auto",
+      "name": "Mimi",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
     }
   ],
   "stories": [
