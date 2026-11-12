@@ -5369,19 +5369,49 @@
       "reason": null,
       "seconds_spent": 428.5,
       "at": "2026-11-11T02:52:26.055234+00:00"
+    },
+    {
+      "date": "2026-11-12",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "90s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-12_00/lazo_space_full.mp4",
+      "title": "Bomi and the whale and the star — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/sOcme0PIpgY",
+      "reason": null,
+      "seconds_spent": 285.5,
+      "at": "2026-11-12T00:07:24.014562+00:00"
+    },
+    {
+      "date": "2026-11-12",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "45s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-12_02/lazo_space_full.mp4",
+      "title": "Bubu and the lighthouse and the storm — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/L_2OXzpsOm0",
+      "reason": null,
+      "seconds_spent": 276.8,
+      "at": "2026-11-12T02:43:36.740614+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 3,
+    "published": 3,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
-      "story": 2,
+      "story": 4,
       "satisfying": 4,
       "sleep": 16
     }
   },
   "created": null,
-  "updated": "2026-11-11T04:59:38.377501+00:00"
+  "updated": "2026-11-12T02:43:49.623646+00:00"
 }
