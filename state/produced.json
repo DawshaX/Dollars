@@ -5399,6 +5399,36 @@
       "reason": null,
       "seconds_spent": 276.8,
       "at": "2026-11-12T02:43:36.740614+00:00"
+    },
+    {
+      "date": "2026-09-26",
+      "hour": 10,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "4m",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-09-26_10/bomi_fire_full.mp4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published": true,
+      "url": "https://youtu.be/2dOpz6lpZDo",
+      "reason": null,
+      "seconds_spent": 379.2,
+      "at": "2026-11-12T03:55:00.491996+00:00"
+    },
+    {
+      "date": "2026-11-12",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:Quiet the Mind",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-12_03/calm_wellness_667652.mp4",
+      "title": "45s to Slow Down | Soft Visual Breathing #shorts",
+      "published": true,
+      "url": "https://youtu.be/ncXa3roCNIo",
+      "reason": null,
+      "seconds_spent": 225.3,
+      "at": "2026-11-12T03:50:17.782984+00:00"
     }
   ],
   "stats": {
