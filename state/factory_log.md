@@ -8005,3 +8005,6 @@
 
 ## 2026-11-12 00:51 UTC
 - مفيش أدوار story فاضلة في خطة النهاردة — العقل هيعمل خطة بكرة
+
+## 2026-11-12 03:55 UTC
+- ↻ Bomi and a spark that got lost — a wordless story #shorts → نُشر https://youtu.be/2dOpz6lpZDo
