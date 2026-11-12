@@ -2220,6 +2220,46 @@
       "origin": "auto",
       "created": "2026-11-11T12:01:44.936174+00:00",
       "image_prompt": "cute original 2D animation character, a small clay creature, طين ناعم + عينين كبيرتين, city_night background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "pezo_auto",
+      "name": "Pezo",
+      "type": "سمكة نجمية",
+      "look": "جسم لامع + زعانف ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "دائمًا جعان",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "snow",
+        "snow"
+      ],
+      "formats": [
+        "calm_loop",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-12T13:04:42.916584+00:00",
+      "image_prompt": "cute original 2D animation character, a little star fish, جسم لامع + زعانف ضوء, snow background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "zishi_auto",
+      "name": "Zishi",
+      "type": "فراشة زجاجية",
+      "look": "أجنحة شفافة + خطوط ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "بيرتّب كل حاجة",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "desert",
+        "kitchen"
+      ],
+      "formats": [
+        "silent_gag",
+        "minute_story"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-12T13:04:42.948025+00:00",
+      "image_prompt": "cute original 2D animation character, a glass butterfly, أجنحة شفافة + خطوط ضوء, desert background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -2229,5 +2269,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 108
+  "_auto_count": 110
 }

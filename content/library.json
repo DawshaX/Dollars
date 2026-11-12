@@ -1111,6 +1111,18 @@
       "name": "Mimi",
       "type": "كائن طيني صغير",
       "origin": "auto"
+    },
+    {
+      "id": "pezo_auto",
+      "name": "Pezo",
+      "type": "سمكة نجمية",
+      "origin": "auto"
+    },
+    {
+      "id": "zishi_auto",
+      "name": "Zishi",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
     }
   ],
   "stories": [
