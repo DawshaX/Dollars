@@ -5369,19 +5369,34 @@
       "reason": null,
       "seconds_spent": 428.5,
       "at": "2026-11-11T02:52:26.055234+00:00"
+    },
+    {
+      "date": "2026-11-12",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "clip:Quiet the Mind",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-12_03/calm_wellness_667652.mp4",
+      "title": "45s to Slow Down | Soft Visual Breathing #shorts",
+      "published": true,
+      "url": "https://youtu.be/ncXa3roCNIo",
+      "reason": null,
+      "seconds_spent": 225.3,
+      "at": "2026-11-12T03:50:17.782984+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
-      "focus": 1,
+      "focus": 2,
       "story": 2,
       "satisfying": 4,
       "sleep": 16
     }
   },
   "created": null,
-  "updated": "2026-11-11T04:59:38.377501+00:00"
+  "updated": "2026-11-12T03:50:35.896799+00:00"
 }

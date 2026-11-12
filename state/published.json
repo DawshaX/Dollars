@@ -395503,6 +395503,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "ncXa3roCNIo",
+      "url": "https://youtu.be/ncXa3roCNIo",
+      "title": "45s to Slow Down | Soft Visual Breathing #shorts",
+      "published_at": "2026-11-12T03:50:35.331090+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Quiet the Mind",
+        "genre": "calm_wellness",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Calm & Breathe"
     }
   ]
 }
