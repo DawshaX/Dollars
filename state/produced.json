@@ -5429,19 +5429,34 @@
       "reason": null,
       "seconds_spent": 225.3,
       "at": "2026-11-12T03:50:17.782984+00:00"
+    },
+    {
+      "date": "2026-11-13",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "20s",
+      "scene": "clip:the Monday morning",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-13_00/fun_memes_961088.mp4",
+      "title": "When the Monday morning… #funny #shorts",
+      "published": true,
+      "url": "https://youtu.be/zNJYWkro5Yc",
+      "reason": null,
+      "seconds_spent": 168.9,
+      "at": "2026-11-13T00:12:37.460411+00:00"
     }
   ],
   "stats": {
-    "total": 3,
-    "published": 3,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
       "focus": 1,
       "story": 4,
-      "satisfying": 4,
+      "satisfying": 5,
       "sleep": 16
     }
   },
   "created": null,
-  "updated": "2026-11-12T02:43:49.623646+00:00"
+  "updated": "2026-11-13T00:13:08.293425+00:00"
 }
