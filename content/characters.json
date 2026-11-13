@@ -2260,6 +2260,46 @@
       "origin": "auto",
       "created": "2026-11-12T13:04:42.948025+00:00",
       "image_prompt": "cute original 2D animation character, a glass butterfly, أجنحة شفافة + خطوط ضوء, desert background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "mozo_auto",
+      "name": "Mozo",
+      "type": "فراشة زجاجية",
+      "look": "أجنحة شفافة + خطوط ضوء — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "دائمًا جعان",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "bedroom",
+        "garden"
+      ],
+      "formats": [
+        "calm_loop",
+        "tiny_adventure"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-13T12:29:11.074176+00:00",
+      "image_prompt": "cute original 2D animation character, a glass butterfly, أجنحة شفافة + خطوط ضوء, bedroom background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
+    },
+    {
+      "id": "laka_auto",
+      "name": "Laka",
+      "type": "كائن ضبابي",
+      "look": "جسم بخار + عيون ناعمة — عيون كبيرة، بلا أي شبه بأي شخص حقيقي أو شخصية محمية",
+      "personality": "هادي وبيفكّر",
+      "voice": "همهمات وبلا كلمات (يتفهم من غير لغة)",
+      "worlds": [
+        "rain",
+        "kitchen"
+      ],
+      "formats": [
+        "silent_gag",
+        "whisper_bedtime"
+      ],
+      "audience": "كل الأعمار — بصري 100%",
+      "origin": "auto",
+      "created": "2026-11-13T12:29:11.099853+00:00",
+      "image_prompt": "cute original 2D animation character, a misty creature, جسم بخار + عيون ناعمة, rain background, soft warm lighting, flat vector style, clean silhouette, no text, original design, not resembling any existing brand character"
     }
   ],
   "planned": [
@@ -2269,5 +2309,5 @@
     "شخصية الأم الكونية (حماية/طمأنينة)",
     "شخصية الطائر ضياء (رحلات ودهشة)"
   ],
-  "_auto_count": 110
+  "_auto_count": 112
 }

@@ -1123,6 +1123,18 @@
       "name": "Zishi",
       "type": "فراشة زجاجية",
       "origin": "auto"
+    },
+    {
+      "id": "mozo_auto",
+      "name": "Mozo",
+      "type": "فراشة زجاجية",
+      "origin": "auto"
+    },
+    {
+      "id": "laka_auto",
+      "name": "Laka",
+      "type": "كائن ضبابي",
+      "origin": "auto"
     }
   ],
   "stories": [
