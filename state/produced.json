@@ -5549,6 +5549,21 @@
       "reason": null,
       "seconds_spent": 449.0,
       "at": "2026-11-14T03:16:56.447014+00:00"
+    },
+    {
+      "date": "2026-11-14",
+      "hour": 3,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "clip:One Minute at a Time",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-14_03/calm_wellness_240571.mp4",
+      "title": "Breathe with me — 60 seconds of calm #shorts · take three",
+      "published": true,
+      "url": "https://youtu.be/i4n_aoowCy8",
+      "reason": null,
+      "seconds_spent": 299.8,
+      "at": "2026-11-14T03:11:01.849467+00:00"
     }
   ],
   "stats": {
