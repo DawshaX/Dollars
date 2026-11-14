@@ -5519,19 +5519,34 @@
       "reason": null,
       "seconds_spent": 1395.8,
       "at": "2026-11-13T07:16:41.033003+00:00"
+    },
+    {
+      "date": "2026-11-14",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "story",
+      "duration": "90s",
+      "scene": null,
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-14_00/lazo_space_full.mp4",
+      "title": "The the paper plane journey | a tiny wordless tale #shorts",
+      "published": true,
+      "url": "https://youtu.be/NBBlmZA7ULI",
+      "reason": null,
+      "seconds_spent": 165.2,
+      "at": "2026-11-14T00:07:27.760337+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 1,
+    "total": 3,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
       "focus": 2,
-      "story": 5,
+      "story": 6,
       "satisfying": 5,
       "sleep": 17
     }
   },
   "created": null,
-  "updated": "2026-11-13T05:07:23.722378+00:00"
+  "updated": "2026-11-14T00:07:59.256840+00:00"
 }
