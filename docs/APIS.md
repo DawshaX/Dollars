@@ -1,15 +1,15 @@
-# 🧰 مساعدو المصنع (فحص حقيقي 2026-11-13 13:15 UTC)
+# 🧰 مساعدو المصنع (فحص حقيقي 2026-11-14 12:19 UTC)
 
 ```
 🔑 المفاتيح الموجودة: {"pixabay": true, "pexels": true, "openverse": true, "nasa": true, "gnews": false, "currents": true, "groq": true, "gemini": false, "freesound_id": true, "llm_base": true, "openverse_no_key": true, "wikimedia": true, "youtube_suggest": true, "restcountries_no_key": true}
 
 🧪 نداءات حقيقية:
 ------------------------------------------------------------------------------
-✅ Pixabay صور                  | 3 نتيجة · windshield, rain, glass, surface, raindrops, raining, glas (297ms)
+✅ Pixabay صور                  | 3 نتيجة · windshield, rain, glass, surface, raindrops, raining, glas (269ms)
 ⚪ Pixabay فيديو                | مفيش نتايج (مفتاح ناقص أو مفيش تطابق)
-✅ Pexels صور                   | 3 نتيجة · https://images.pexels.com/photos/4996846/pexels-photo-4996 (422ms)
-✅ Pexels فيديو                 | 2 نتيجة · https://videos.pexels.com/video-files/28690508/12454043_10 (366ms)
+✅ Pexels صور                   | 3 نتيجة · https://images.pexels.com/photos/4996846/pexels-photo-4996 (343ms)
+✅ Pexels فيديو                 | 2 نتيجة · https://videos.pexels.com/video-files/28690508/12454043_10 (374ms)
 ⚪ Openverse (بلا مفتاح)        | مفيش نتايج (مفتاح ناقص أو مفيش تطابق)
-✅ Wikimedia (بلا مفتاح)        | 3 نتيجة · File:Cumulus cloud above Lechtaler Alps at tannheim, Austr (421ms)
-✅ NASA (بلا مفتاح)             | 3 نتيجة · Weighing in on the Dumbbell Nebula (968ms)
+✅ Wikimedia (بلا مفتاح)        | 3 نتيجة · File:Cumulus cloud above Lechtaler Alps at tannheim, Austr (598ms)
+✅ NASA (بلا مفتاح)             | 3 نتيجة · Weighing in on the Dumbbell Nebula (864ms)
 ```
