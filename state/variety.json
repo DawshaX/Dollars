@@ -1,7 +1,7 @@
 {
-  "seen": [],
   "sig": [
     {
+<<<<<<< Updated upstream
       "genre": "space_nature",
       "scene": "earth_from_space",
       "palette": "aurora",
@@ -1971,191 +1971,18 @@
       "hour": 19
     },
     {
+=======
+>>>>>>> Stashed changes
       "genre": "story",
       "scene": "story_forest",
       "palette": "story_dusk",
-      "transition": "slide",
-      "audio": "story_gentle",
-      "montage": "لحظة توقف ← حركة",
-      "title_shape": "W W W W W | W W W W #W",
-      "mark": "the paper plane journey",
-      "hour": 0
-    },
-    {
-      "genre": "space_nature",
-      "scene": "aurora",
-      "palette": "cosmic",
-      "transition": "crossfade",
-      "audio": "wind_deep",
-      "montage": "كشف بطيء",
-      "title_shape": "W W W: W W W (W W W W)",
-      "mark": "Tornado Alley Skies",
-      "hour": 21
-    },
-    {
-      "genre": "story",
-      "scene": "story_cloud",
-      "palette": "story_warm",
       "transition": "xfade_soft",
-      "audio": "story_mystery",
-      "montage": "مشهد ← مشهد بإيقاع",
-      "title_shape": "W'W W W W W W — W W W W",
-      "mark": "the mountain that smiled",
-      "hour": 23
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "snow_night",
-      "palette": "midnight",
-      "transition": "fade",
-      "audio": "fireplace",
-      "montage": "تنفّس بطيء",
-      "title_shape": "W W W: W W W W W W W",
-      "mark": "Mountain Stream",
-      "hour": 3
-    },
-    {
-      "genre": "story",
-      "scene": "story_forest",
-      "palette": "story_dream",
-      "transition": "fade",
       "audio": "story_hopeful",
-      "montage": "لحظة توقف ← حركة",
-      "title_shape": "W W W W W W W — W W W",
+      "montage": "نهاية لطيفة",
+      "title_shape": "W'W W W W W W W — W W W W #W",
       "mark": "the door in the tree",
-      "hour": 13
-    },
-    {
-      "genre": "satisfying",
-      "scene": "bubbles",
-      "palette": "pastel_soft",
-      "transition": "slide",
-      "audio": "asmr_crisp",
-      "montage": "٤ مقاطع متساوية",
-      "title_shape": "W W — W W (W W)",
-      "mark": "Water Rings",
-      "hour": 14
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "forest_night",
-      "palette": "cool_slate",
-      "transition": "fade",
-      "audio": "sleep_rain",
-      "montage": "طويل هادي",
-      "title_shape": "W W W W W W W | W W W W | W W",
-      "mark": "Fog over the Lake",
-      "hour": 15
-    },
-    {
-      "genre": "facts",
-      "scene": "volcano",
-      "palette": "earth_tone",
-      "transition": "xfade_soft",
-      "audio": "space_calm",
-      "montage": "عدّاد تصاعدي",
-      "title_shape": "W W: W W W (W W)",
-      "mark": "Coral reef",
-      "hour": 16
-    },
-    {
-      "genre": "space_nature",
-      "scene": "glacier",
-      "palette": "aurora",
-      "transition": "crossfade",
-      "audio": "ocean",
-      "montage": "رحلة مستمرة",
-      "title_shape": "W W W W W W: W W W (W W W W)",
-      "mark": "The Northern Lights Over a Lake",
-      "hour": 17
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "fireplace",
-      "palette": "deep_blue",
-      "transition": "xfade_soft",
-      "audio": "night_forest",
-      "montage": "طويل هادي",
-      "title_shape": "W W W W W — W W W W W | W W",
-      "mark": "Wind in the Pines",
-      "hour": 18
-    },
-    {
-      "genre": "story",
-      "scene": "story_mountain",
-      "palette": "story_dusk",
-      "transition": "fade",
-      "audio": "story_gentle",
-      "montage": "لحظة توقف ← حركة",
-      "title_shape": "W'W W W W W W — W W W W",
-      "mark": "the garden that listened",
-      "hour": 19
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "starfield",
-      "palette": "cool_slate",
-      "transition": "xfade_soft",
-      "audio": "train",
-      "montage": "طويل هادي",
-      "title_shape": "W W W W W W W | W W W W | W W",
-      "mark": "Night Wind Through Bamboo",
-      "hour": 20
-    },
-    {
-      "genre": "calm_wellness",
-      "scene": "forest_night",
-      "palette": "deep_blue",
-      "transition": "slide",
-      "audio": "breath_soft",
-      "montage": "إيقاع ٤-٧-٨",
-      "title_shape": "W W W W | W W W #W",
-      "mark": "Morning Reset",
-      "hour": 0
-    },
-    {
-      "genre": "facts",
-      "scene": "volcano",
-      "palette": "earth_tone",
-      "transition": "crossfade",
-      "audio": "curious",
-      "montage": "سؤال ← جواب",
-      "title_shape": "W W W W W W'W W",
-      "mark": "Rain",
-      "hour": 21
-    },
-    {
-      "genre": "calm_wellness",
-      "scene": "forest_night",
-      "palette": "deep_blue",
-      "transition": "crossfade",
-      "audio": "ocean",
-      "montage": "دائرة تنفّس",
-      "title_shape": "W W W — W W W W",
-      "mark": "One Minute at a Time",
-      "hour": 22
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "train_window",
-      "palette": "cool_slate",
-      "transition": "xfade_soft",
-      "audio": "snow",
-      "montage": "تنفّس بطيء",
-      "title_shape": "W W W W W • W W • W W W (W W)",
-      "mark": "Old Ship at Anchor",
-      "hour": 23
-    },
-    {
-      "genre": "sleep_ambience",
-      "scene": "forest_night",
-      "palette": "warm_ember",
-      "transition": "crossfade",
-      "audio": "calm_night",
-      "montage": "مشهد واحد مستمر",
-      "title_shape": "W W W: W W W W W W W W",
-      "mark": "Beach at Midnight",
       "hour": 3
+<<<<<<< Updated upstream
     },
     {
       "genre": "sleep_ambience",
@@ -7359,6 +7186,8 @@
       "title_shape": "W W W… W W #W #W",
       "mark": "Bubble Wrap",
       "hour": 8
+=======
+>>>>>>> Stashed changes
     }
   ]
 }
