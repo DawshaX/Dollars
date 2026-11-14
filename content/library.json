@@ -1135,6 +1135,18 @@
       "name": "Laka",
       "type": "كائن ضبابي",
       "origin": "auto"
+    },
+    {
+      "id": "lubi_auto",
+      "name": "Lubi",
+      "type": "كائن طيني صغير",
+      "origin": "auto"
+    },
+    {
+      "id": "pezo_auto",
+      "name": "Pezo",
+      "type": "كائن ضبابي",
+      "origin": "auto"
     }
   ],
   "stories": [
