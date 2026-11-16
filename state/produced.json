@@ -5654,19 +5654,34 @@
       "reason": null,
       "seconds_spent": 1476.8,
       "at": "2026-11-15T07:08:37.826738+00:00"
+    },
+    {
+      "date": "2026-11-16",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "60s",
+      "scene": "photo:Night Study Desk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-16_00/focus_study_281255.mp4",
+      "title": "Study With Me — Night Study Desk (60 seconds) | Pomodoro Chapters #shorts",
+      "published": true,
+      "url": "https://youtu.be/ws6nyWCsrJI",
+      "reason": null,
+      "seconds_spent": 446.7,
+      "at": "2026-11-16T01:04:46.878897+00:00"
     }
   ],
   "stats": {
-    "total": 1,
-    "published": 1,
+    "total": 2,
+    "published": 2,
     "staged": 0,
     "by_pillar": {
       "sleep": 1,
       "story": 2,
-      "focus": 2,
+      "focus": 3,
       "satisfying": 5
     }
   },
   "created": null,
-  "updated": "2026-11-15T07:43:20.553095+00:00"
+  "updated": "2026-11-16T01:05:00.153270+00:00"
 }

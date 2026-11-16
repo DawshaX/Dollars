@@ -424805,6 +424805,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Rain"
+    },
+    {
+      "video_id": "ws6nyWCsrJI",
+      "url": "https://youtu.be/ws6nyWCsrJI",
+      "title": "Study With Me — Night Study Desk (60 seconds) | Pomodoro Chapters #shorts",
+      "published_at": "2026-11-16T01:04:59.551591+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Night Study Desk",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
