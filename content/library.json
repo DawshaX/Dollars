@@ -1159,6 +1159,18 @@
       "name": "Shula",
       "type": "روبوت ورق",
       "origin": "auto"
+    },
+    {
+      "id": "tano_auto",
+      "name": "Tano",
+      "type": "سمكة نجمية",
+      "origin": "auto"
+    },
+    {
+      "id": "wapo_auto",
+      "name": "Wapo",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
     }
   ],
   "stories": [
