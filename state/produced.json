@@ -5729,19 +5729,49 @@
       "reason": null,
       "seconds_spent": 1452.5,
       "at": "2026-11-16T07:36:37.016472+00:00"
+    },
+    {
+      "date": "2026-11-17",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "satisfying",
+      "duration": "15s",
+      "scene": "photo:Liquid Marble Pour",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-17_00/satisfying_359715.mp4",
+      "title": "Perfect Liquid Marble Pour — no talking, just calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/ydu8pQErp78",
+      "reason": null,
+      "seconds_spent": 341.6,
+      "at": "2026-11-17T00:12:04.756367+00:00"
+    },
+    {
+      "date": "2026-11-17",
+      "hour": 2,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Clock and Rain",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-17_02/focus_study_897294.mp4",
+      "title": "Clock and Rain • 45 seconds • Concentration & Calm #shorts",
+      "published": true,
+      "url": "https://youtu.be/MjdHHQl_rDU",
+      "reason": null,
+      "seconds_spent": 552.6,
+      "at": "2026-11-17T02:52:39.950386+00:00"
     }
   ],
   "stats": {
-    "total": 2,
-    "published": 2,
+    "total": 4,
+    "published": 4,
     "staged": 0,
     "by_pillar": {
-      "satisfying": 2,
+      "satisfying": 3,
       "sleep": 1,
       "story": 2,
-      "focus": 3
+      "focus": 4
     }
   },
   "created": null,
-  "updated": "2026-11-16T03:59:19.315746+00:00"
+  "updated": "2026-11-17T02:52:58.251430+00:00"
 }
