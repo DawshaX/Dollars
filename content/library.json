@@ -1171,6 +1171,18 @@
       "name": "Wapo",
       "type": "تمساح صغير جدًا",
       "origin": "auto"
+    },
+    {
+      "id": "boka_auto",
+      "name": "Boka",
+      "type": "تمساح صغير جدًا",
+      "origin": "auto"
+    },
+    {
+      "id": "moro_auto",
+      "name": "Moro",
+      "type": "حجر ودود",
+      "origin": "auto"
     }
   ],
   "stories": [

@@ -1,256 +1,693 @@
 {
   "date": "2026-11-17",
-  "studio": true,
-  "generated_at": "2026-11-17T07:08:32.726405+00:00",
-  "shorts": 4,
-  "longs": [
-    3
-  ],
+  "shorts": 24,
+  "longs": 4,
   "mix": {
-    "نوم وأمبيانس": 2,
-    "علم وحقائق موثّقة": 2,
-    "طرائف وميمز": 1
+    "sleep": 6,
+    "satisfying": 16,
+    "story": 6
   },
   "best_long_hours_seen": [
-    3,
-    8,
-    10,
-    12
+    21,
+    22,
+    23
   ],
   "slots": [
     {
+      "hour": 0,
+      "at": "2026-11-17T00:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=حركة كاميرا سريعة|hour=20|kind=short|pillar=satisfying|scene=harmonograph|structure=حركة واحدة كاملة|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "harmonograph",
+        "structure": "حركة واحدة كاملة",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 20,
+        "character": null,
+        "predicted": 2.567,
+        "why": "لأن satisfying و15s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 1,
+      "at": "2026-11-17T01:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=سؤال في أول ثانية|hour=1|kind=short|pillar=satisfying|scene=planet_rings|structure=نمو نمط هندسي|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "planet_rings",
+        "structure": "نمو نمط هندسي",
+        "hook": "سؤال في أول ثانية",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 1,
+        "character": null,
+        "predicted": 2.559,
+        "why": "لأن satisfying و30s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 2,
+      "at": "2026-11-17T02:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=2m|hook=عدّاد|hour=0|kind=short|pillar=story|scene=starfield|structure=خوف ← شجاعة ← مكافأة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "2m",
+        "scene": "starfield",
+        "structure": "خوف ← شجاعة ← مكافأة",
+        "hook": "عدّاد",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 0,
+        "character": "moro_auto",
+        "predicted": 2.552,
+        "why": "لأن story و2m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
       "hour": 3,
       "at": "2026-11-17T03:00:00Z",
-      "kind": "long",
+      "kind": "short",
       "idea": {
-        "genre": "sleep_ambience",
-        "genre_ar": "نوم وأمبيانس",
+        "signature": "duration=30s|hook=صمت مفاجئ|hour=8|kind=short|pillar=satisfying|scene=planet_rings|structure=حركة واحدة كاملة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "planet_rings",
+        "structure": "حركة واحدة كاملة",
+        "hook": "صمت مفاجئ",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 8,
+        "character": "wapo_auto",
+        "predicted": 2.552,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 4,
+      "at": "2026-11-17T04:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=حركة عكسية|hour=23|kind=short|pillar=sleep|scene=dunes_moon|structure=مشهد ليلي ← نجوم|thumb=شاشة سوداء + نص واضح",
         "pillar": "sleep",
-        "kind": "long",
-        "duration": "3h",
-        "scene": "storm_window",
-        "audio": "ocean",
-        "palette": "midnight",
-        "transition": "xfade_soft",
-        "montage": "طويل هادي",
-        "mood": "cozy",
-        "hook": "Sleep in 3 minutes",
-        "thumb": "مشهد طبيعي + رقم المدة",
-        "structure": "لقطة واحدة مستمرة",
-        "kw": "Rain Sounds",
-        "topic": "Rain Sounds",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "dunes_moon",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "حركة عكسية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
         "character": null,
-        "thing": null,
-        "image_query": "Waterfall in the Forest",
-        "lines": [],
-        "source": null,
-        "playlist": "Sleep & Nature",
-        "title_style": "Waterfall in the Forest Sounds for Sleeping | 12 hour seconds Black Screen | Deep Sleep",
-        "signature": "{\"audio\": \"ocean\", \"genre\": \"sleep_ambience\", \"hour\": 3, \"mark\": \"Waterfall in the Forest\", \"montage\": \"طويل هادي\", \"palette\": \"midnight\", \"scene\": \"storm_window\", \"title_shape\": \"W W W W W W W | W W W W W | W W\", \"transition\": \"xfade_soft\"}",
-        "sig": {
-          "genre": "sleep_ambience",
-          "scene": "storm_window",
-          "palette": "midnight",
-          "transition": "xfade_soft",
-          "audio": "ocean",
-          "montage": "طويل هادي",
-          "title_shape": "W W W W W W W | W W W W W | W W",
-          "mark": "Waterfall in the Forest",
-          "hour": 3
-        },
-        "predicted": 1.491,
-        "why": "نوع نوم وأمبيانس · وقت morning · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 39310
+        "predicted": 2.867,
+        "why": "لأن sleep و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 5,
+      "at": "2026-11-17T05:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=1m|hook=مقارنة|hour=22|kind=short|pillar=story|scene=starfield|structure=خوف ← شجاعة ← مكافأة|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "1m",
+        "scene": "starfield",
+        "structure": "خوف ← شجاعة ← مكافأة",
+        "hook": "مقارنة",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 22,
+        "character": "mimi_auto",
+        "predicted": 2.559,
+        "why": "لأن story و1m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 6,
+      "at": "2026-11-17T06:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=4m|hook=حركة كاميرا سريعة|hour=0|kind=short|pillar=story|scene=sand_table|structure=مشكلة ← محاولة ← حل|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "4m",
+        "scene": "sand_table",
+        "structure": "مشكلة ← محاولة ← حل",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 0,
+        "character": "tami_auto",
+        "predicted": 2.552,
+        "why": "لأن story و4m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 7,
+      "at": "2026-11-17T07:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=قبل/بعد|hour=21|kind=short|pillar=satisfying|scene=sand_table|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "sand_table",
+        "structure": "مقارنة سرعات",
+        "hook": "قبل/بعد",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 21,
+        "character": "shula_auto",
+        "predicted": 2.574,
+        "why": "لأن satisfying و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 8,
+      "at": "2026-11-17T08:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=قبل/بعد|hour=1|kind=short|pillar=satisfying|scene=stinger_glitch|structure=نمو نمط هندسي|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "stinger_glitch",
+        "structure": "نمو نمط هندسي",
+        "hook": "قبل/بعد",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 1,
+        "character": null,
+        "predicted": 2.559,
+        "why": "لأن satisfying و30s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 9,
+      "at": "2026-11-17T09:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=حركة عكسية|hour=18|kind=short|pillar=satisfying|scene=stinger_zoom|structure=نمو نمط هندسي|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "stinger_zoom",
+        "structure": "نمو نمط هندسي",
+        "hook": "حركة عكسية",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 18,
+        "character": null,
+        "predicted": 2.552,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 10,
+      "at": "2026-11-17T10:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=لون غريب|hour=7|kind=short|pillar=satisfying|scene=planet_rings|structure=نمو نمط هندسي|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "planet_rings",
+        "structure": "نمو نمط هندسي",
+        "hook": "لون غريب",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 7,
+        "character": null,
+        "predicted": 2.552,
+        "why": "لأن satisfying و30s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 11,
+      "at": "2026-11-17T11:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=ظهور شخصية|hour=22|kind=short|pillar=satisfying|scene=stinger_glitch|structure=مقارنة سرعات|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "stinger_glitch",
+        "structure": "مقارنة سرعات",
+        "hook": "ظهور شخصية",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 22,
+        "character": "minu_auto",
+        "predicted": 2.567,
+        "why": "لأن satisfying و60s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 12,
+      "at": "2026-11-17T12:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=صمت مفاجئ|hour=20|kind=short|pillar=satisfying|scene=harmonograph|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "45s",
+        "scene": "harmonograph",
+        "structure": "مقارنة سرعات",
+        "hook": "صمت مفاجئ",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 20,
+        "character": null,
+        "predicted": 2.538,
+        "why": "لأن satisfying و45s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 13,
+      "at": "2026-11-17T13:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=3m|hook=حركة كاميرا سريعة|hour=23|kind=short|pillar=story|scene=sand_table|structure=لقى كنز ← خسره ← لقى أحسن|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "3m",
+        "scene": "sand_table",
+        "structure": "لقى كنز ← خسره ← لقى أحسن",
+        "hook": "حركة كاميرا سريعة",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 23,
+        "character": "duta_auto",
+        "predicted": 2.559,
+        "why": "لأن story و3m وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 14,
+      "at": "2026-11-17T14:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=همسة|hour=7|kind=short|pillar=satisfying|scene=pendulum_wave|structure=حركة واحدة كاملة|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "pendulum_wave",
+        "structure": "حركة واحدة كاملة",
+        "hook": "همسة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 7,
+        "character": "zimi_auto",
+        "predicted": 2.588,
+        "why": "لأن satisfying و30s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 15,
+      "at": "2026-11-17T15:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=60s|hook=ظهور شخصية|hour=2|kind=short|pillar=sleep|scene=fireplace|structure=مشهد ليلي ← نجوم|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "60s",
+        "scene": "fireplace",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "ظهور شخصية",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 2,
+        "character": null,
+        "predicted": 2.874,
+        "why": "لأن sleep و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
     },
     {
       "hour": 16,
       "at": "2026-11-17T16:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "facts",
-        "genre_ar": "علم وحقائق موثّقة",
+        "signature": "duration=1m|hook=ظهور شخصية|hour=0|kind=short|pillar=story|scene=starfield|structure=صداقة ← عقبة ← لقاء|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "story",
+        "kind": "short",
+        "duration": "1m",
+        "scene": "starfield",
+        "structure": "صداقة ← عقبة ← لقاء",
+        "hook": "ظهور شخصية",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 0,
+        "character": "wazo_auto",
+        "predicted": 2.559,
+        "why": "لأن story و1m ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 17,
+      "at": "2026-11-17T17:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=لون غريب|hour=23|kind=short|pillar=satisfying|scene=stinger_ink|structure=مقارنة سرعات|thumb=شاشة سوداء + نص واضح",
         "pillar": "satisfying",
         "kind": "short",
-        "duration": "60s",
-        "scene": "volcano",
-        "audio": "curious",
-        "palette": "deep_blue",
-        "transition": "crossfade",
-        "montage": "٣ حقائق ← ٣ مشاهد",
-        "mood": "bright",
-        "hook": "You've had this wrong",
-        "thumb": "سهم على تفصيلة",
-        "structure": "تصاعد ← ذروة ← تنفّس",
-        "kw": "Coral reef",
-        "topic": "Coral reef",
+        "duration": "45s",
+        "scene": "stinger_ink",
+        "structure": "مقارنة سرعات",
+        "hook": "لون غريب",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 23,
         "character": null,
-        "thing": null,
-        "image_query": "Coral reef",
-        "lines": [
-          "A coral reef is an underwater ecosystem characterized by reef-building corals.",
-          "Reefs are formed of colonies of coral polyps held together by calcium carbonate.",
-          "Most coral reefs are built from stony corals, whose polyps cluster in groups."
+        "predicted": 2.552,
+        "why": "لأن satisfying و45s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
         ],
-        "source": "https://en.wikipedia.org/wiki/Coral_reef",
-        "playlist": "Facts & Science",
-        "title_style": "Coral reef: 3 Verified Facts (Sources Included)",
-        "signature": "{\"audio\": \"curious\", \"genre\": \"facts\", \"hour\": 16, \"mark\": \"Coral reef\", \"montage\": \"٣ حقائق ← ٣ مشاهد\", \"palette\": \"deep_blue\", \"scene\": \"volcano\", \"title_shape\": \"W W: W W W (W W)\", \"transition\": \"crossfade\"}",
-        "sig": {
-          "genre": "facts",
-          "scene": "volcano",
-          "palette": "deep_blue",
-          "transition": "crossfade",
-          "audio": "curious",
-          "montage": "٣ حقائق ← ٣ مشاهد",
-          "title_shape": "W W: W W W (W W)",
-          "mark": "Coral reef",
-          "hour": 16
-        },
-        "predicted": 1.286,
-        "why": "نوع علم وحقائق موثّقة · وقت evening · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 925350
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 18,
+      "at": "2026-11-17T18:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=30s|hook=همسة|hour=7|kind=short|pillar=satisfying|scene=pendulum_wave|structure=حركة واحدة كاملة|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "30s",
+        "scene": "pendulum_wave",
+        "structure": "حركة واحدة كاملة",
+        "hook": "همسة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 7,
+        "character": "zimi_auto",
+        "predicted": 2.588,
+        "why": "لأن satisfying و30s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
     },
     {
       "hour": 19,
       "at": "2026-11-17T19:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "facts",
-        "genre_ar": "علم وحقائق موثّقة",
+        "signature": "duration=45s|hook=لقطة قريبة جدًا|hour=1|kind=short|pillar=satisfying|scene=planet_rings|structure=تراكم ← ذروة ← تنظيف|thumb=شخصية كبيرة + سطر قصير",
         "pillar": "satisfying",
         "kind": "short",
-        "duration": "30s",
-        "scene": "planet_surface",
-        "audio": "space_calm",
-        "palette": "earth_tone",
-        "transition": "fade",
-        "montage": "سؤال ← جواب",
-        "mood": "bright",
-        "hook": "Look closer",
-        "thumb": "سهم على تفصيلة",
-        "structure": "لقطة واحدة مستمرة",
-        "kw": "Meteorite",
-        "topic": "Meteorite",
+        "duration": "45s",
+        "scene": "planet_rings",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 1,
         "character": null,
-        "thing": null,
-        "image_query": "Meteorite",
-        "lines": [
-          "A meteorite is a rock that originated in outer space and has fallen to the surface of a planet or moon.",
-          "When the original object enters the atmosphere, various factors such as friction, pressure, and chemical inter",
-          "It then becomes a meteor and forms a fireball, also known as a shooting star; astronomers call the brightest e"
+        "predicted": 2.538,
+        "why": "لأن satisfying و45s وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
         ],
-        "source": "https://en.wikipedia.org/wiki/Meteorite",
-        "playlist": "Facts & Science",
-        "title_style": "What Meteorite Actually Looks Like — 3 Real Facts",
-        "signature": "{\"audio\": \"space_calm\", \"genre\": \"facts\", \"hour\": 19, \"mark\": \"Meteorite\", \"montage\": \"سؤال ← جواب\", \"palette\": \"earth_tone\", \"scene\": \"planet_surface\", \"title_shape\": \"W W W W W — W W W\", \"transition\": \"fade\"}",
-        "sig": {
-          "genre": "facts",
-          "scene": "planet_surface",
-          "palette": "earth_tone",
-          "transition": "fade",
-          "audio": "space_calm",
-          "montage": "سؤال ← جواب",
-          "title_shape": "W W W W W — W W W",
-          "mark": "Meteorite",
-          "hour": 19
-        },
-        "predicted": 1.31,
-        "why": "نوع علم وحقائق موثّقة · وقت evening · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 339870
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 20,
+      "at": "2026-11-17T20:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=15s|hook=سؤال في أول ثانية|hour=1|kind=short|pillar=satisfying|scene=sand_table|structure=تراكم ← ذروة ← تنظيف|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "satisfying",
+        "kind": "short",
+        "duration": "15s",
+        "scene": "sand_table",
+        "structure": "تراكم ← ذروة ← تنظيف",
+        "hook": "سؤال في أول ثانية",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 1,
+        "character": null,
+        "predicted": 2.567,
+        "why": "لأن satisfying و15s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
     },
     {
       "hour": 21,
       "at": "2026-11-17T21:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "fun_memes",
-        "genre_ar": "طرائف وميمز",
+        "signature": "duration=60s|hook=قبل/بعد|hour=21|kind=short|pillar=satisfying|scene=sand_table|structure=مقارنة سرعات|thumb=مشهد طبيعي + رقم مدة",
         "pillar": "satisfying",
         "kind": "short",
-        "duration": "30s",
-        "scene": "meme_traffic",
-        "audio": "pop_bright",
-        "palette": "vivid_pop",
-        "transition": "fade",
-        "montage": "بناء ← نتيجة",
-        "mood": "funny",
-        "hook": "Every single time",
-        "thumb": "وش الشخصية في ذروة الموقف",
-        "structure": "لقطة واحدة مستمرة",
-        "kw": "the gym in January",
-        "topic": "the gym in January",
+        "duration": "60s",
+        "scene": "sand_table",
+        "structure": "مقارنة سرعات",
+        "hook": "قبل/بعد",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 21,
+        "character": "shula_auto",
+        "predicted": 2.574,
+        "why": "لأن satisfying و60s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 22,
+      "at": "2026-11-17T22:00:00Z",
+      "kind": "short",
+      "idea": {
+        "signature": "duration=45s|hook=ظهور شخصية|hour=8|kind=short|pillar=sleep|scene=aurora|structure=بداية هادية ← ثبات|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "sleep",
+        "kind": "short",
+        "duration": "45s",
+        "scene": "aurora",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "ظهور شخصية",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 8,
         "character": null,
-        "thing": null,
-        "image_query": "the gym in January",
-        "lines": [],
-        "source": null,
-        "playlist": "Fun & Memes",
-        "title_style": "the gym in January — we've all been there",
-        "signature": "{\"audio\": \"pop_bright\", \"genre\": \"fun_memes\", \"hour\": 21, \"mark\": \"the gym in January\", \"montage\": \"بناء ← نتيجة\", \"palette\": \"vivid_pop\", \"scene\": \"meme_traffic\", \"title_shape\": \"W W W W — W'W W W W\", \"transition\": \"fade\"}",
-        "sig": {
-          "genre": "fun_memes",
-          "scene": "meme_traffic",
-          "palette": "vivid_pop",
-          "transition": "fade",
-          "audio": "pop_bright",
-          "montage": "بناء ← نتيجة",
-          "title_shape": "W W W W — W'W W W W",
-          "mark": "the gym in January",
-          "hour": 21
-        },
-        "predicted": 1.38,
-        "why": "نوع طرائف وميمز · وقت night · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 577064
+        "predicted": 2.845,
+        "why": "لأن sleep و45s ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
     },
     {
       "hour": 23,
       "at": "2026-11-17T23:00:00Z",
       "kind": "short",
       "idea": {
-        "genre": "sleep_ambience",
-        "genre_ar": "نوم وأمبيانس",
-        "pillar": "sleep",
+        "signature": "duration=45s|hook=مقارنة|hour=12|kind=short|pillar=satisfying|scene=stinger_ink|structure=مقارنة سرعات|thumb=شاشة سوداء + نص واضح",
+        "pillar": "satisfying",
         "kind": "short",
-        "duration": "30s",
-        "scene": "ocean_night",
-        "audio": "storm",
-        "palette": "cool_slate",
-        "transition": "slide",
-        "montage": "طويل هادي",
-        "mood": "cozy",
-        "hook": "For tonight",
-        "thumb": "مشهد طبيعي + رقم المدة",
-        "structure": "سؤال ← كشف ← راحة",
-        "kw": "Thunderstorm at Night Sounds",
-        "topic": "Thunderstorm at Night",
+        "duration": "45s",
+        "scene": "stinger_ink",
+        "structure": "مقارنة سرعات",
+        "hook": "مقارنة",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 12,
         "character": null,
-        "thing": null,
-        "image_query": "Thunderstorm at Night",
-        "lines": [],
-        "source": null,
-        "playlist": "Sleep & Nature",
-        "title_style": "Sleep in Minutes: Thunderstorm at Night Sounds for 30 seconds",
-        "signature": "{\"audio\": \"storm\", \"genre\": \"sleep_ambience\", \"hour\": 23, \"mark\": \"Thunderstorm at Night\", \"montage\": \"طويل هادي\", \"palette\": \"cool_slate\", \"scene\": \"ocean_night\", \"title_shape\": \"W W W: W W W W W W W\", \"transition\": \"slide\"}",
-        "sig": {
-          "genre": "sleep_ambience",
-          "scene": "ocean_night",
-          "palette": "cool_slate",
-          "transition": "slide",
-          "audio": "storm",
-          "montage": "طويل هادي",
-          "title_shape": "W W W: W W W W W W W",
-          "mark": "Thunderstorm at Night",
-          "hour": 23
-        },
-        "predicted": 2.287,
-        "why": "نوع نوم وأمبيانس · وقت night · تركيبة جديدة (تنوّع مؤكد)"
-      },
-      "seed": 579212
+        "predicted": 2.552,
+        "why": "لأن satisfying و45s وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 2,
+      "at": "2026-11-17T02:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=8h|hook=صوت مفاجئ|hour=21|kind=long|pillar=sleep|scene=black|structure=مشهد ليلي ← نجوم|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "8h",
+        "scene": "black",
+        "structure": "مشهد ليلي ← نجوم",
+        "hook": "صوت مفاجئ",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 21,
+        "character": null,
+        "predicted": 2.94,
+        "why": "لأن sleep و8h ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 8,
+      "at": "2026-11-17T08:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=8h|hook=ظهور شخصية|hour=2|kind=long|pillar=sleep|scene=black|structure=بداية هادية ← ثبات|thumb=مشهد طبيعي + رقم مدة",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "8h",
+        "scene": "black",
+        "structure": "بداية هادية ← ثبات",
+        "hook": "ظهور شخصية",
+        "thumb": "مشهد طبيعي + رقم مدة",
+        "hour": 2,
+        "character": null,
+        "predicted": 2.94,
+        "why": "لأن sleep و8h ومشهد طبيعي + رقم مدة أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 14,
+      "at": "2026-11-17T14:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=3h|hook=لقطة قريبة جدًا|hour=22|kind=long|pillar=sleep|scene=black|structure=مطر ← رعد ← هدوء|thumb=شخصية كبيرة + سطر قصير",
+        "pillar": "sleep",
+        "kind": "long",
+        "duration": "3h",
+        "scene": "black",
+        "structure": "مطر ← رعد ← هدوء",
+        "hook": "لقطة قريبة جدًا",
+        "thumb": "شخصية كبيرة + سطر قصير",
+        "hour": 22,
+        "character": null,
+        "predicted": 2.926,
+        "why": "لأن sleep و3h وشخصية كبيرة + سطر قصير أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [],
+        "status": "idea"
+      }
+    },
+    {
+      "hour": 20,
+      "at": "2026-11-17T20:00:00Z",
+      "kind": "long",
+      "idea": {
+        "signature": "duration=2m|hook=لون غريب|hour=8|kind=long|pillar=story|scene=sand_table|structure=مشكلة ← محاولة ← حل|thumb=شاشة سوداء + نص واضح",
+        "pillar": "story",
+        "kind": "long",
+        "duration": "2m",
+        "scene": "sand_table",
+        "structure": "مشكلة ← محاولة ← حل",
+        "hook": "لون غريب",
+        "thumb": "شاشة سوداء + نص واضح",
+        "hour": 8,
+        "character": "mita_auto",
+        "predicted": 2.576,
+        "why": "لأن story و2m وشاشة سوداء + نص واضح أوزانهم أعلى عندنا دلوقتي",
+        "sfx": [
+          "whoosh",
+          "sparkle",
+          "boing"
+        ],
+        "status": "idea"
+      }
     }
-  ],
-  "videos": []
+  ]
 }
