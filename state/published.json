@@ -429513,6 +429513,62 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Focus & Study"
+    },
+    {
+      "video_id": "yzEZWdJ2e1w",
+      "url": "https://youtu.be/yzEZWdJ2e1w",
+      "title": "3 Facts About Antarctica You Didn't Know #shorts",
+      "published_at": "2026-11-17T03:03:35.701424+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Antarctica",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Facts & Science"
+    },
+    {
+      "video_id": "-VRApQc-4R4",
+      "url": "https://youtu.be/-VRApQc-4R4",
+      "title": "Bomi and a spark that got lost — a wordless story #shorts",
+      "published_at": "2026-11-17T03:02:54.719541+00:00",
+      "features": {
+        "pillar": "story",
+        "kind": "short",
+        "kw": "Bomi and the Little Fire — a wordless story",
+        "genre": null,
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": false,
+        "hook": false,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Wordless Stories"
     }
   ]
 }
