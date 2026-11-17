@@ -429457,6 +429457,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Rain"
+    },
+    {
+      "video_id": "yzEZWdJ2e1w",
+      "url": "https://youtu.be/yzEZWdJ2e1w",
+      "title": "3 Facts About Antarctica You Didn't Know #shorts",
+      "published_at": "2026-11-17T03:03:35.701424+00:00",
+      "features": {
+        "pillar": "satisfying",
+        "kind": "short",
+        "kw": "Antarctica",
+        "genre": "facts",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Facts & Science"
     }
   ]
 }
