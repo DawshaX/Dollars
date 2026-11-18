@@ -434063,6 +434063,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "wLw_n3v_sE0",
+      "url": "https://youtu.be/wLw_n3v_sE0",
+      "title": "Lake at Dusk Sounds — 30 seconds of Pure Calm | Insomnia Relief #shorts",
+      "published_at": "2026-11-18T00:20:53.224441+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Lake at Dusk Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
     }
   ]
 }

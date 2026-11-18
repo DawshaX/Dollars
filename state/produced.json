@@ -5789,19 +5789,34 @@
       "reason": null,
       "seconds_spent": 254.2,
       "at": "2026-11-17T03:02:40.204880+00:00"
+    },
+    {
+      "date": "2026-11-18",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "30s",
+      "scene": "photo:Lake at Dusk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-18_00/sleep_ambience_65177.mp4",
+      "title": "Lake at Dusk Sounds — 30 seconds of Pure Calm | Insomnia Relief #shorts",
+      "published": true,
+      "url": "https://youtu.be/wLw_n3v_sE0",
+      "reason": null,
+      "seconds_spent": 758.1,
+      "at": "2026-11-18T00:20:35.037250+00:00"
     }
   ],
   "stats": {
-    "total": 4,
-    "published": 4,
+    "total": 5,
+    "published": 5,
     "staged": 0,
     "by_pillar": {
       "satisfying": 3,
-      "sleep": 1,
+      "sleep": 2,
       "story": 2,
       "focus": 4
     }
   },
   "created": null,
-  "updated": "2026-11-17T02:52:58.251430+00:00"
+  "updated": "2026-11-18T00:20:53.970336+00:00"
 }
