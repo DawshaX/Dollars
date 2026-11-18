@@ -5804,6 +5804,36 @@
       "reason": null,
       "seconds_spent": 337.9,
       "at": "2026-11-18T01:56:30.974016+00:00"
+    },
+    {
+      "date": "2026-11-18",
+      "hour": 1,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "60s",
+      "scene": "photo:Warm Fire and Rain",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-18_01/sleep_ambience_363507.mp4",
+      "title": "Sleep in Minutes: Warm Fire and Rain Sounds for 60 seconds #shorts",
+      "published": true,
+      "url": "https://youtu.be/2cy4B4N2rqo",
+      "reason": null,
+      "seconds_spent": 478.2,
+      "at": "2026-11-18T01:40:05.925821+00:00"
+    },
+    {
+      "date": "2026-11-18",
+      "hour": 0,
+      "kind": "short",
+      "pillar": "sleep",
+      "duration": "30s",
+      "scene": "photo:Lake at Dusk",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-18_00/sleep_ambience_65177.mp4",
+      "title": "Lake at Dusk Sounds — 30 seconds of Pure Calm | Insomnia Relief #shorts",
+      "published": true,
+      "url": "https://youtu.be/wLw_n3v_sE0",
+      "reason": null,
+      "seconds_spent": 758.1,
+      "at": "2026-11-18T00:20:35.037250+00:00"
     }
   ],
   "stats": {
