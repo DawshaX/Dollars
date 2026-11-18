@@ -3,7 +3,7 @@ import subprocess,shutil,pathlib,sys,wave,math,struct,json
 root=pathlib.Path(__file__).resolve().parents[1]
 for tool in ['blender','ffmpeg','ffprobe']:
  if not shutil.which(tool):raise SystemExit('Missing required tool: '+tool)
-subprocess.run(['blender','-b','-t','4','-P','scenes/render_preview.py'],cwd=root,check=True,timeout=1200)
+subprocess.run(['blender','-b','--python-exit-code','1','-t','4','-P','scenes/render_preview.py'],cwd=root,check=True,timeout=1200)
 audio=root/'renders/preview.wav';sr=44100
 with wave.open(str(audio),'wb') as w:
  w.setnchannels(1);w.setsampwidth(2);w.setframerate(sr)

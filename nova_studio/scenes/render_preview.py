@@ -22,9 +22,6 @@ for loc,energy,size,color in [((2,-3,6),1000,4,(1,.8,.55)),((-3,1,4),1100,3,(.3,
 bpy.ops.object.camera_add();cam=bpy.context.object;s.camera=cam;cam.data.lens=48
 for frame,loc in [(1,(4.5,-7,4.6)),(48,(2.7,-6.3,3.7))]:
  cam.location=loc;cam.rotation_euler=(Vector((0,0,.9))-cam.location).to_track_quat('-Z','Y').to_euler();cam.keyframe_insert(data_path='location',frame=frame);cam.keyframe_insert(data_path='rotation_euler',frame=frame)
-for obj in [cam,o]:
- if obj.animation_data:
-  for fc in obj.animation_data.action.fcurves:
-   for k in fc.keyframe_points:k.interpolation='BEZIER'
+# Default keyframe interpolation is retained for compatibility across Blender versions.
 bpy.ops.wm.save_as_mainfile(filepath=str(pathlib.Path('renders/nova_preview.blend').resolve()))
 bpy.ops.render.render(animation=True)
