@@ -1,19 +1,35 @@
 {
- "channel_id":"UCG9g_26H65D3FahqyiYPHAw",
- "repository":"DawshaX/Dollars",
- "timezone":"Africa/Cairo",
- "user_authorized_publishing":true,
- "runtime_publishing_enabled":false,
- "anchor_utc":null,
- "formats":{
-  "short":{"interval_hours":4,"min_seconds":1,"max_seconds":180,"layout":"vertical"},
-  "long":{"interval_hours":5,"min_seconds":300,"max_seconds":1200,"layout":"landscape"}
- },
- "missed_slots":"skip_no_catchup_flood",
- "unready_video":"skip_and_alert",
- "collision":"serialize_uploads",
- "paid_services_allowed":false,
- "publish_engine_test":false,
- "pad_by_repeating_short":false,
- "blockers":["No completed production pilot","No live OAuth channel verification","No upload adapter","No durable production deployment","Legacy pending jobs need isolation"]
+  "channel_id": "UCG9g_26H65D3FahqyiYPHAw",
+  "repository": "DawshaX/Dollars",
+  "timezone": "Africa/Cairo",
+  "user_authorized_publishing": true,
+  "runtime_publishing_enabled": false,
+  "anchor_utc": null,
+  "formats": {
+    "short": {
+      "interval_hours": 3,
+      "min_seconds": 1,
+      "max_seconds": 180,
+      "layout": "vertical"
+    },
+    "long": {
+      "interval_hours": 5,
+      "min_seconds": 300,
+      "max_seconds": 1200,
+      "layout": "landscape"
+    }
+  },
+  "missed_slots": "skip_no_catchup_flood",
+  "unready_video": "skip_and_alert",
+  "collision": "serialize_uploads",
+  "paid_services_allowed": false,
+  "publish_engine_test": false,
+  "pad_by_repeating_short": false,
+  "blockers": [
+    "No completed production pilot",
+    "No live OAuth channel verification",
+    "YouTube upload adapter not integrated or live-tested",
+    "No durable production deployment",
+    "Legacy pending jobs need isolation"
+  ]
 }

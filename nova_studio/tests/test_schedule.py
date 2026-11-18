@@ -5,7 +5,7 @@ class ScheduleTests(unittest.TestCase):
  def setUp(self):self.t=datetime.datetime(2026,1,1,tzinfo=datetime.timezone.utc)
  def test_intervals(self):
   rows=slots(self.t,self.t,self.t+datetime.timedelta(hours=24))
-  self.assertEqual(sum(r['kind']=='short' for r in rows),6)
+  self.assertEqual(sum(r['kind']=='short' for r in rows),8)
   self.assertEqual(sum(r['kind']=='long' for r in rows),5)
  def test_no_duplicates(self):
   s=Studio(':memory:');rows=slots(self.t,self.t,self.t+datetime.timedelta(hours=1));self.assertEqual(enqueue(s,rows),2);self.assertEqual(enqueue(s,rows),0)
