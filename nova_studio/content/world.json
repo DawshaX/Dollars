@@ -1,0 +1,20 @@
+{
+ "world_id":"nova_dewdrop_city",
+ "title_ar":"مدينة الندى",
+ "fiction":true,
+ "premise":"A miniature glass-and-ceramic city inside a dew drop; a small caretaker restores its light through cooperation and discovery.",
+ "character":{
+  "id":"caretaker_01",
+  "working_name":"Lumi",
+  "name_clearance":"not_verified_do_not_claim_exclusive",
+  "shape":"small rounded ceramic body, two articulated feet, glass lantern chest, expressive tilting head",
+  "palette":["jade","warm ivory","amber"],
+  "traits":["curious","patient","helps others"],
+  "speech":"none",
+  "sound_identity":"soft ceramic foot taps and brief nonverbal tonal responses"
+ },
+ "continuity_initial":{"sun_repaired":false,"canal_open":false,"garden_awake":false},
+ "visual_rules":["Show contact and weight","Use consistent character proportions","Every camera move must reveal action or information","Fantasy physics must remain internally consistent"],
+ "audio_rules":["No sudden loud peaks","Foley follows visible action","Spatial placement follows shot perspective","Intentional silence before resolution"],
+ "rights":{"models":"to_be_authored","music":"to_be_authored","external_assets":"require_asset_level_license"}
+}
