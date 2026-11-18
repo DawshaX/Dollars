@@ -435645,6 +435645,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Sleep & Nature"
+    },
+    {
+      "video_id": "ebX0Ea3oWCw",
+      "url": "https://youtu.be/ebX0Ea3oWCw",
+      "title": "Deep Focus Noise for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
+      "published_at": "2026-11-18T04:35:35.430366+00:00",
+      "features": {
+        "pillar": "focus",
+        "kind": "short",
+        "kw": "Deep Focus Noise",
+        "genre": "focus_study",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Focus & Study"
     }
   ]
 }
