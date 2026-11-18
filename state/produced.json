@@ -5834,19 +5834,34 @@
       "reason": null,
       "seconds_spent": 758.1,
       "at": "2026-11-18T00:20:35.037250+00:00"
+    },
+    {
+      "date": "2026-11-18",
+      "hour": 4,
+      "kind": "short",
+      "pillar": "focus",
+      "duration": "45s",
+      "scene": "photo:Deep Focus Noise",
+      "video": "/home/runner/work/Dollars/Dollars/work/2026-11-18_04/focus_study_446220.mp4",
+      "title": "Deep Focus Noise for Studying & Focus | 45 seconds | Deep Work, No Music #shorts",
+      "published": true,
+      "url": "https://youtu.be/ebX0Ea3oWCw",
+      "reason": null,
+      "seconds_spent": 509.9,
+      "at": "2026-11-18T04:35:19.312152+00:00"
     }
   ],
   "stats": {
-    "total": 5,
-    "published": 5,
+    "total": 6,
+    "published": 6,
     "staged": 0,
     "by_pillar": {
       "satisfying": 3,
       "sleep": 1,
       "story": 3,
-      "focus": 4
+      "focus": 5
     }
   },
   "created": null,
-  "updated": "2026-11-18T01:56:41.544223+00:00"
+  "updated": "2026-11-18T04:35:36.136533+00:00"
 }
