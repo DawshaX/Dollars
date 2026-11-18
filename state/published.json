@@ -434063,6 +434063,34 @@
       "comments": 0,
       "thumbnail": true,
       "playlist": "Wordless Stories"
+    },
+    {
+      "video_id": "2cy4B4N2rqo",
+      "url": "https://youtu.be/2cy4B4N2rqo",
+      "title": "Sleep in Minutes: Warm Fire and Rain Sounds for 60 seconds #shorts",
+      "published_at": "2026-11-18T01:40:21.704520+00:00",
+      "features": {
+        "pillar": "sleep",
+        "kind": "short",
+        "kw": "Warm Fire and Rain Sounds",
+        "genre": "sleep_ambience",
+        "hour": null,
+        "duration_bucket": null,
+        "music": false,
+        "sfx": false,
+        "overlays": false,
+        "clips": false,
+        "loop": true,
+        "hook": true,
+        "pinned": true,
+        "lang": "en",
+        "locales": []
+      },
+      "views": 0,
+      "likes": 0,
+      "comments": 0,
+      "thumbnail": true,
+      "playlist": "Sleep & Nature"
     }
   ]
 }
