@@ -1,0 +1,44 @@
+name: NOVA Studio - isolated render validation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nova-studio-validation
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    defaults:
+      run:
+        working-directory: nova_studio
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Install free render tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y blender ffmpeg
+      - name: Queue, render, audio and technical validation (no publishing)
+        run: |
+          python -m studio.render_worker --seed-test --max-jobs 1
+          python - <<'PY'
+          import sqlite3
+          c=sqlite3.connect('render_jobs.sqlite')
+          rows=c.execute('SELECT state FROM jobs').fetchall()
+          assert rows and all(r[0]=='review' for r in rows), rows
+          PY
+      - name: Preserve validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nova-studio-validation
+          path: |
+            nova_studio/render_jobs/
+            nova_studio/render_jobs.sqlite
+          retention-days: 7
